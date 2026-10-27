@@ -4,1085 +4,417 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Resultados | Taller de Diseño de Servicios 2026</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.20.0/matter.min.js"></script>
-
+<title>Percepción | Visualización de datos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root {
-  --azul: #0875ff;
-  --verde: #00c878;
-  --amarillo: #ffd000;
-  --rojo: #ed382b;
-  --negro: #171717;
-  --linea: rgba(23,23,23,.3);
-}
-* { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body {
-  margin: 0;
-  background: white;
-  color: var(--negro);
-  font-family: Helvetica, Arial, sans-serif;
-}
-button, input, select { font: inherit; }
-
-/* PORTADA Y LLUVIA */
-.hero {
-  position: relative;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  min-height: 100vh;
-  overflow: hidden;
-  background: white;
-}
-.hero-copy {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-  padding: 25px 30px 22px 34px;
-  pointer-events: none;
-}
-.hero-header {
-  display: flex;
-  justify-content: space-between;
-  gap: 15px;
-  padding-bottom: 14px;
-  border-bottom: 1px solid var(--linea);
-  font-size: 11px;
-  line-height: 1.5;
-}
-.hero-meta { text-align: right; }
-.hero-content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-}
-.kicker {
-  margin-bottom: 22px;
-  padding: 7px 10px;
-  border: 1px solid var(--azul);
-  color: var(--azul);
-  font-size: 10px;
-  letter-spacing: .09em;
-  text-transform: uppercase;
-}
-.hero h1 {
-  margin: 0;
-  font-size: clamp(43px, 7vw, 100px);
-  letter-spacing: -.085em;
-  line-height: .9;
-}
-.hero h1 span { color: var(--azul); }
-.hero-description {
-  max-width: 350px;
-  margin-top: 28px;
-  font-size: 13px;
-  line-height: 1.65;
-}
-.hero-note {
-  margin-top: 24px;
-  color: #555;
-  font-size: 10px;
-  line-height: 1.7;
-}
-.hero-footer {
-  padding-top: 13px;
-  border-top: 1px solid var(--linea);
-  font-size: 9px;
-  text-transform: uppercase;
-  letter-spacing: .04em;
-}
-.hero-divider {
-  position: absolute;
-  z-index: 3;
-  top: 0;
-  bottom: 0;
-  left: 50%;
-  width: 1px;
-  background: rgba(23,23,23,.45);
-}
-#rain {
-  position: absolute;
-  inset: 0 0 0 50%;
-  overflow: hidden;
-  pointer-events: none;
-}
-#rain canvas {
-  display: block;
-  mix-blend-mode: multiply;
-}
-
-/* RESULTADOS */
-.results {
-  padding: 36px 30px 30px;
-}
-.section-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  gap: 25px;
-  padding-bottom: 22px;
-  border-bottom: 1px solid var(--linea);
-}
-.section-label {
-  color: var(--azul);
-  font-size: 10px;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-}
-.section-top h2 {
-  margin: 10px 0 0;
-  font-size: clamp(32px, 5vw, 62px);
-  line-height: .94;
-  letter-spacing: -.065em;
-}
-.section-top p {
-  max-width: 410px;
-  color: #555;
-  font-size: 12px;
-  line-height: 1.7;
-}
-.summary {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 15px 0;
-  border-bottom: 1px solid var(--linea);
-  font-size: 11px;
-}
-.summary strong { font-weight: 700; }
-.day-navigation {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 12px;
-  padding: 18px 0;
-}
-.day-navigation label {
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: .07em;
-}
-.day-navigation select {
-  min-width: 180px;
-  padding: 10px;
-  border: 1px solid var(--linea);
-  background: white;
-  color: var(--negro);
-  font-size: 11px;
-}
-.day-navigation p {
-  flex: 1;
-  margin: 0;
-  font-size: 10px;
-  color: #666;
-  line-height: 1.5;
-}
-.upload {
-  margin: 0 0 20px;
-  padding: 15px;
-  border: 1px solid var(--linea);
-  background: #fafafa;
-}
-.upload label {
-  display: block;
-  margin-bottom: 9px;
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: .07em;
-}
-.upload input {
-  max-width: 100%;
-  font-size: 11px;
-}
-.upload p {
-  margin: 9px 0 0;
-  color: #666;
-  font-size: 10px;
-  line-height: 1.6;
-}
-.status {
-  color: #555;
-  font-size: 10px;
-  margin-top: 8px;
-}
-
-/* PIZARRA CONTINUA */
-.board-wrap {
-  position: relative;
-  margin-top: 12px;
-  padding: 12px 12px 0;
-  border: 1px solid #777;
-  background: #ededed;
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,.8);
-}
-.board-wrap::before {
-  content: "";
-  position: absolute;
-  top: -12px;
-  left: 0;
-  right: 0;
-  height: 12px;
-  background: linear-gradient(
-    135deg,
-    #aaa 0 5%, #f5f5f5 5% 20%,
-    #d0d0d0 20% 25%, #f5f5f5 25% 40%,
-    #aaa 40% 45%, #f5f5f5 45% 60%,
-    #d0d0d0 60% 65%, #f5f5f5 65% 80%,
-    #aaa 80% 85%, #f5f5f5 85%
-  );
-  border: 1px solid #aaa;
-  border-bottom: 0;
-}
-.board {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0,1fr));
-  border: 1px solid #aaa;
-  border-bottom: 0;
-  background: #f4f4f4;
-}
-.street {
-  min-width: 0;
-  border-right: 1px solid #222;
-}
-.street:last-child { border-right: 0; }
-.street-heading {
-  padding: 12px 8px 9px;
-  text-align: center;
-  background: rgba(255,255,255,.6);
-  border-bottom: 1px solid #aaa;
-}
-.street-number {
-  display: block;
-  margin-bottom: 4px;
-  color: #777;
-  font-size: 8px;
-  letter-spacing: .1em;
-}
-.street-name {
-  font-size: clamp(13px, 1.5vw, 18px);
-  font-weight: 700;
-}
-.lane {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  min-height: 345px;
-}
-.side {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-  background: #ededed;
-}
-.side + .side { border-left: 1px solid #aaa; }
-.side-label {
-  padding: 8px 2px;
-  text-align: center;
-  font-size: 10px;
-  font-weight: 700;
-  background: rgba(255,255,255,.55);
-  border-bottom: 1px solid rgba(0,0,0,.12);
-}
-.side-count {
-  padding: 5px 2px;
-  text-align: center;
-  font-size: 9px;
-  color: #666;
-}
-.spheres {
-  flex: 1;
-  min-height: 250px;
-  display: flex;
-  flex-wrap: wrap-reverse;
-  align-content: flex-start;
-  align-items: flex-end;
-  justify-content: center;
-  gap: 0;
-  padding: 5px 3px 8px;
-  overflow: hidden;
-}
-.token {
-  flex: 0 0 39px;
-  width: 39px;
-  height: 39px;
-  margin: 0 -3px -3px;
-  clip-path: polygon(50% 0%,98% 35%,80% 94%,20% 94%,2% 35%);
-  opacity: .82;
-  mix-blend-mode: multiply;
-  border: none;
-  animation: caer .65s cubic-bezier(.2,.7,.3,1) both;
-}
-.token.blue { background: rgba(8,117,255,.84); }
-.token.green { background: rgba(0,145,82,.84); }
-.token.yellow { background: rgba(255,208,0,.88); }
-.token.red { background: rgba(196,48,26,.84); }
-@keyframes caer {
-  from { transform: translateY(-90px) rotate(-12deg); opacity: 0; }
-  70% { opacity: .9; }
-  to { transform: translateY(0) rotate(0); opacity: .82; }
-}
-.street-total {
-  padding: 7px;
-  text-align: center;
-  background: #f7f7f7;
-  border-top: 1px solid #aaa;
-  font-size: 9px;
-  color: #555;
-}
-.board-bottom {
-  display: grid;
-  grid-template-columns: 1.15fr 1fr;
-  gap: 22px;
-  padding: 18px 12px 16px;
-  background: #d9d9d9;
-  border: 1px solid #aaa;
-  border-top: 0;
-}
-.board-legend {
-  display: grid;
-  grid-template-columns: repeat(4,minmax(0,1fr));
-  gap: 8px;
-}
-.legend-tile { min-width: 0; text-align: center; }
-.legend-shapes {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-content: center;
-  min-height: 53px;
-  padding: 4px;
-  background: #999;
-  border: 1px solid #777;
-}
-.legend-shapes .token {
-  flex: 0 0 23px;
-  width: 23px;
-  height: 23px;
-  margin: -1px;
-  animation: none;
-}
-.legend-tile p {
-  margin: 7px 0 0;
-  font-size: 9px;
-  line-height: 1.35;
-}
-.board-question { align-self: center; }
-.board-question h3 {
-  margin: 0 0 10px;
-  font-size: clamp(17px, 2vw, 26px);
-  letter-spacing: -.04em;
-}
-.board-question ol {
-  margin: 0;
-  padding-left: 17px;
-  font-size: 9px;
-  line-height: 1.7;
-}
-.board-foot {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 10px;
-  padding: 10px 0 0;
-  color: #555;
-  font-size: 9px;
-}
-.variables {
-  display: grid;
-  grid-template-columns: repeat(4,minmax(0,1fr));
-  gap: 15px;
-  margin-top: 24px;
-}
-.variable {
-  display: flex;
-  gap: 9px;
-  align-items: flex-start;
-}
-.variable .swatch {
-  width: 19px;
-  height: 19px;
-  flex: 0 0 19px;
-  clip-path: polygon(50% 0%,98% 35%,80% 94%,20% 94%,2% 35%);
-}
-.variable strong {
-  display: block;
-  font-size: 10px;
-  margin-bottom: 4px;
-}
-.variable small {
-  color: #666;
-  font-size: 9px;
-  line-height: 1.45;
-}
-.buenos-aires {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
-  margin-top: 35px;
-  padding: 20px 0;
-  border-top: 1px solid var(--linea);
-  border-bottom: 1px solid var(--linea);
-}
-.buenos-aires h3 {
-  margin: 0 0 10px;
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: .08em;
-}
-.buenos-aires p {
-  max-width: 550px;
-  color: #555;
-  font-size: 12px;
-  line-height: 1.7;
-}
-footer {
-  display: flex;
-  justify-content: space-between;
-  gap: 15px;
-  padding: 14px 0 0;
-  font-size: 9px;
-  text-transform: uppercase;
-  letter-spacing: .04em;
-}
-@media (max-width: 800px) {
-  .hero-copy { padding: 20px 15px 17px 18px; }
-  .hero-header { flex-direction: column; font-size: 9px; }
-  .hero-meta { text-align: left; }
-  .hero h1 { font-size: clamp(37px,8vw,60px); }
-  .hero-description { font-size: 11px; }
-  .results { padding: 28px 16px; }
-  .section-top { align-items: flex-start; flex-direction: column; }
-  .lane { min-height: 270px; }
-  .spheres { min-height: 190px; }
-  .token { flex-basis: 29px; width: 29px; height: 29px; }
-  .board-bottom { grid-template-columns: 1fr; }
-}
-@media (max-width: 520px) {
-  .hero { min-height: 90vh; }
-  .hero-copy { padding: 15px 10px 14px 14px; }
-  .hero-header { font-size: 8px; gap: 8px; }
-  .hero h1 { font-size: clamp(32px,8vw,44px); }
-  .kicker { font-size: 8px; padding: 5px; }
-  .hero-description { font-size: 10px; margin-top: 17px; }
-  .hero-note { font-size: 9px; }
-  .hero-footer { font-size: 7px; }
-  .board-wrap { padding: 8px 5px 0; }
-  .street-heading { padding: 9px 2px; }
-  .street-name { font-size: 12px; }
-  .lane { min-height: 210px; }
-  .spheres { min-height: 150px; padding: 4px 0; }
-  .token { flex-basis: 21px; width: 21px; height: 21px; margin: 0 -2px -2px; }
-  .side-label,.side-count { font-size: 8px; }
-  .board-bottom { padding: 12px 5px; gap: 15px; }
-  .board-legend { grid-template-columns: repeat(2,minmax(0,1fr)); }
-  .variables { grid-template-columns: repeat(2,minmax(0,1fr)); }
-  .buenos-aires { grid-template-columns: 1fr; }
-  footer { flex-direction: column; }
-}
+:root{--red:#e7193f;--green:#159b62;--yellow:#f0d51a;--blue:#078cbd;--ink:#171717;--paper:#f8f8f5;--muted:#777;--line:#deded8}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:"DM Sans",sans-serif}
+button,input,select{font:inherit}
+button{cursor:pointer}
+.hero{height:100svh;min-height:580px;position:relative;display:grid;place-items:center;overflow:hidden;background:#f8f8f5}
+.hero-title{position:absolute;top:40px;left:5vw;z-index:3}
+.hero-title p,.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.16em;font-weight:700}
+.hero-title h1{font:600 clamp(38px,6vw,80px)/.95 "Space Grotesk",sans-serif;letter-spacing:-.065em;margin:15px 0;max-width:700px}
+.hero-title .subtitle{font-size:13px;letter-spacing:0;text-transform:none;font-weight:400;color:#686868;max-width:350px;line-height:1.7}
+.hero-ball{position:absolute;width:min(95vw,95vh);height:min(95vw,95vh);border-radius:50%;background:var(--red);top:50%;left:50%;transform:translate(-50%,-50%);will-change:width,height}
+.hero-orbit{position:absolute;width:calc(var(--size)*1px);height:calc(var(--size)*1px);border-radius:50%;background:var(--color);left:var(--x);top:var(--y);opacity:0;transform:translate(-50%,-50%) scale(.15);animation:appear 1.5s ease-out var(--delay) forwards;pointer-events:none}
+@keyframes appear{0%{opacity:0;transform:translate(-50%,-50%) scale(.15)}25%{opacity:1;transform:translate(-50%,-50%) scale(1)}70%{opacity:1}100%{opacity:0;transform:translate(calc(-50% + var(--dx)),calc(-50% + var(--dy))) scale(.05)}}
+.scroll-hint{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);font-size:10px;letter-spacing:.15em;text-transform:uppercase;display:flex;gap:12px;align-items:center}
+.scroll-hint span{font-size:18px;animation:down 1.2s infinite}
+@keyframes down{50%{transform:translateY(5px)}}
+main{padding:100px 5vw 80px}
+.intro{max-width:700px;margin-bottom:60px}
+.intro h2{font:600 clamp(32px,5vw,62px)/1 "Space Grotesk",sans-serif;letter-spacing:-.06em;margin:14px 0 20px}
+.intro p{max-width:580px;line-height:1.8;color:#666;font-size:14px}
+.layout{display:grid;grid-template-columns:220px minmax(0,1fr);gap:35px;align-items:start}
+.sidebar{position:sticky;top:24px;border-top:1px solid var(--line);padding-top:20px}
+.sidebar h3{font:600 19px "Space Grotesk";margin:0 0 22px}
+.control-label{font-size:10px;text-transform:uppercase;letter-spacing:.13em;color:#777;font-weight:700;display:block;margin:22px 0 10px}
+input[type=date],input[type=email],input[type=password],input[type=text],select{width:100%;border:1px solid #d7d7d0;background:transparent;padding:12px;border-radius:0;color:var(--ink);min-width:0}
+.layer-option{display:flex;gap:11px;align-items:center;padding:13px 0;border-bottom:1px solid var(--line);font-size:13px;cursor:pointer}
+.layer-option input{accent-color:var(--ink);width:16px;height:16px}
+.layer-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.btn{border:1px solid var(--ink);padding:12px 15px;background:var(--ink);color:white;font-size:12px;font-weight:600;transition:.2s}
+.btn:hover{background:var(--red);border-color:var(--red)}
+.btn-light{background:transparent;color:var(--ink)}
+.btn-light:hover{color:white}
+.btn-full{width:100%;margin-top:12px}
+.note{font-size:11px;line-height:1.7;color:#777;margin-top:15px}
+.canvas-head{display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap;margin-bottom:15px}
+.canvas-head h3{font:600 21px "Space Grotesk";margin:0}
+.canvas-head p{font-size:11px;color:#777}
+.board-stage{position:relative;width:100%;aspect-ratio:2/1;min-height:250px;perspective:1100px;margin:30px 0 40px}
+.acrylic{position:absolute;inset:0;border:1px solid rgba(50,60,60,.4);background:rgba(255,255,255,.12);box-shadow:0 8px 25px #00000009;transform-origin:center center;transition:transform .7s ease,opacity .5s ease;overflow:hidden}
+.acrylic::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,#ffffff36,transparent 45%,#ffffff12);pointer-events:none}
+.acrylic[data-layer="morning"]{transform:translateY(-17px) rotateX(2deg);z-index:3;border-color:#78aa91;background:rgba(180,226,203,.09)}
+.acrylic[data-layer="afternoon"]{transform:translateY(0) rotateX(2deg);z-index:2;border-color:#cfbd67;background:rgba(246,229,143,.08)}
+.acrylic[data-layer="night"]{transform:translateY(17px) rotateX(2deg);z-index:1;border-color:#8096c7;background:rgba(165,190,244,.08)}
+.acrylic.hidden{opacity:0;pointer-events:none}
+.acrylic.single{transform:translateY(0) rotateX(0);z-index:4}
+.board-title{position:absolute;top:15px;left:17px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;z-index:2}
+.board-count{position:absolute;top:15px;right:17px;font-size:10px;color:#666;z-index:2}
+.circle{position:absolute;width:var(--d);height:var(--d);left:var(--x);top:var(--y);transform:translate(-50%,-50%);border-radius:50%;background:var(--c);opacity:.85;animation:circleIn .7s cubic-bezier(.2,.8,.2,1) both;transition:opacity .2s;cursor:pointer}
+.circle:hover{opacity:1;filter:saturate(1.2)}
+.circle.popping{animation:pop .35s ease-in forwards}
+@keyframes circleIn{from{opacity:0;scale:.1}to{opacity:.85;scale:1}}
+@keyframes pop{0%{scale:1;opacity:.85}40%{scale:1.35;opacity:1}100%{scale:0;opacity:0}}
+.legend{display:flex;gap:20px;flex-wrap:wrap;padding:18px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.legend-item{display:flex;align-items:center;gap:8px;font-size:11px}
+.legend-swatch{width:10px;height:10px;border-radius:50%}
+.sizes{display:flex;gap:22px;flex-wrap:wrap;margin-top:15px}
+.size-key{display:flex;align-items:center;gap:7px;color:#777;font-size:10px}
+.size-circle{border:1px solid #777;border-radius:50%}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin-top:40px}
+.stat{background:var(--paper);padding:18px 14px}
+.stat strong{font:600 clamp(23px,3vw,36px) "Space Grotesk";display:block}
+.stat span{font-size:10px;color:#777;display:block;margin-top:5px}
+.data-section{margin-top:85px}
+.section-title{font:600 clamp(27px,4vw,43px) "Space Grotesk";letter-spacing:-.045em;margin:10px 0}
+.data-table{width:100%;border-collapse:collapse;margin-top:25px;font-size:12px}
+.data-table th,.data-table td{text-align:left;padding:13px 8px;border-bottom:1px solid var(--line)}
+.data-table th{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:#777}
+.admin{border-top:1px solid var(--line);margin-top:80px;padding-top:25px}
+.admin-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
+.admin-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:15px}
+.circle-form{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:15px}
+.status{font-size:11px;color:#777;line-height:1.6;margin-top:10px;white-space:pre-wrap}
+footer{padding:25px 5vw;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:10px;color:#777;letter-spacing:.04em}
+@media(max-width:800px){.layout{grid-template-columns:1fr}.sidebar{position:static}.board-stage{min-height:230px}.hero-title{top:30px}.hero-ball{width:90vw;height:90vw}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.circle-form{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:480px){main{padding:65px 20px}.board-stage{aspect-ratio:1.25;min-height:250px}.acrylic[data-layer="morning"]{transform:translateY(-10px)}.acrylic[data-layer="night"]{transform:translateY(10px)}.admin-grid{grid-template-columns:1fr}.hero-title h1{font-size:46px}}
 </style>
 </head>
-
 <body>
-
-<section class="hero">
-  <div id="rain"></div>
-  <div class="hero-divider"></div>
-
-  <div class="hero-copy">
-    <header class="hero-header">
-      <div>
-        Taller de Diseño de Servicios 2026<br>
-        Escuela de Arquitectura y Diseño · PUCV
-      </div>
-      <div class="hero-meta">
-        Proyecto de levantamiento<br>
-        de información física
-      </div>
-    </header>
-
-    <div class="hero-content">
-      <div class="kicker">Observación · Resultados de terreno</div>
-      <h1>Tramas de<br><span>elección.</span></h1>
-      <p class="hero-description">
-        Una visualización de las respuestas recogidas en terreno.
-        Cada ficha hace visible una percepción y, en conjunto,
-        las fichas revelan cómo se configuran las elecciones del recorrido.
-      </p>
-      <p class="hero-note">Resultados del levantamiento · Visualización pública</p>
-    </div>
-
-    <div class="hero-footer">
-      Valparaíso / Buenos Aires · 2026
-    </div>
-  </div>
+<section class="hero" id="hero">
+<div class="hero-title">
+<p class="eyebrow">Proyecto de visualización · PUCV</p>
+<h1>La forma<br>de percibir.</h1>
+<p class="subtitle">Un registro visual de las experiencias, los sonidos y los recorridos que habitan un territorio.</p>
+</div>
+<div class="hero-ball" id="heroBall"></div>
+<div class="scroll-hint">Desplázate para explorar <span>↓</span></div>
 </section>
-
-<section class="results">
-  <div class="section-top">
-    <div>
-      <div class="section-label">01 / Resultados del levantamiento</div>
-      <h2>Un recorrido,<br>cuatro posibilidades.</h2>
-    </div>
-    <p>
-      Los datos se presentan por jornada y se organizan por calle,
-      variable de percepción y valoración positiva o negativa.
-      La acumulación de pentágonos permite observar la distribución
-      de las respuestas recogidas.
-    </p>
-  </div>
-
-  <div class="summary">
-    <span>Fecha: <strong id="fechaResumen">Sin datos cargados</strong></span>
-    <span>Ubicación: <strong id="lugarResumen">Valparaíso</strong></span>
-    <span>Respuestas: <strong id="totalResumen">0</strong></span>
-    <span>Calles observadas: <strong>4</strong></span>
-  </div>
-
-  <div class="day-navigation">
-    <label for="dia">Visualizar jornada</label>
-    <select id="dia">
-      <option value="">Esperando archivos de resultados</option>
-    </select>
-    <p id="mensajeDia">Carga los archivos CSV exportados desde la página de registro.</p>
-  </div>
-
-  <section class="upload">
-    <label for="archivos">Cargar resultados exportados (CSV)</label>
-    <input id="archivos" type="file" accept=".csv,text/csv" multiple>
-    <p>
-      Selecciona uno o varios archivos CSV. Esta página solo los lee
-      para visualizarlos. No modifica los archivos ni permite cambiar
-      las cantidades registradas.
-    </p>
-    <div class="status" id="estadoCarga">Todavía no se han cargado archivos.</div>
-  </section>
-
-  <div class="board-wrap">
-    <div class="board" id="board"></div>
-
-    <div class="board-bottom">
-      <div class="board-legend">
-        <div class="legend-tile">
-          <div class="legend-shapes">
-            <span class="token blue"></span><span class="token blue"></span>
-            <span class="token blue"></span><span class="token blue"></span>
-          </div>
-          <p>Seguridad</p>
-        </div>
-        <div class="legend-tile">
-          <div class="legend-shapes">
-            <span class="token yellow"></span><span class="token yellow"></span>
-            <span class="token yellow"></span><span class="token yellow"></span>
-          </div>
-          <p>Luminosidad</p>
-        </div>
-        <div class="legend-tile">
-          <div class="legend-shapes">
-            <span class="token red"></span><span class="token red"></span>
-            <span class="token red"></span><span class="token red"></span>
-          </div>
-          <p>Facilidad para caminar</p>
-        </div>
-        <div class="legend-tile">
-          <div class="legend-shapes">
-            <span class="token green"></span><span class="token green"></span>
-            <span class="token green"></span><span class="token green"></span>
-          </div>
-          <p>Vitalidad urbana</p>
-        </div>
-      </div>
-
-      <div class="board-question">
-        <h3>¿Qué calle prefieres?</h3>
-        <ol>
-          <li>Elige una calle y piensa cómo percibes sus características.</li>
-          <li>Identifica la variable que se registra en cada respuesta.</li>
-          <li>El lado izquierdo representa la valoración negativa (−) y el derecho, la positiva (+).</li>
-        </ol>
-      </div>
-    </div>
-  </div>
-
-  <div class="board-foot">
-    <span>Izquierda: valoración negativa (−)</span>
-    <span>Derecha: valoración positiva (+)</span>
-    <span>Una ficha representa una respuesta registrada</span>
-  </div>
-
-  <div class="variables">
-    <div class="variable">
-      <span class="swatch blue"></span>
-      <div><strong>Seguridad percibida</strong><small>Resguardo y sensación de seguridad.</small></div>
-    </div>
-    <div class="variable">
-      <span class="swatch yellow"></span>
-      <div><strong>Luminosidad percibida</strong><small>Luz y visibilidad del recorrido.</small></div>
-    </div>
-    <div class="variable">
-      <span class="swatch red"></span>
-      <div><strong>Facilidad para caminar</strong><small>Comodidad y facilidad de desplazamiento.</small></div>
-    </div>
-    <div class="variable">
-      <span class="swatch green"></span>
-      <div><strong>Vitalidad urbana</strong><small>Actividad y presencia de personas.</small></div>
-    </div>
-  </div>
-
-  <section class="buenos-aires">
-    <div>
-      <h3>02 / Continuidad territorial</h3>
-      <p>
-        Este sistema de visualización también acompañará el trabajo de
-        campo en Buenos Aires. Cuando se defina el lugar de observación,
-        se incorporarán sus resultados para comparar las percepciones
-        de ambos territorios.
-      </p>
-    </div>
-    <div>
-      <h3>Lectura de los datos</h3>
-      <p>
-        Las fichas muestran cantidades registradas, no porcentajes ni
-        mediciones objetivas de las calles. La comparación depende de
-        las respuestas recogidas en cada jornada.
-      </p>
-    </div>
-  </section>
-
-  <footer>
-    <span>Taller de Diseño de Servicios 2026</span>
-    <span>Escuela de Arquitectura y Diseño · PUCV</span>
-    <span>Visualización de resultados</span>
-  </footer>
+<main>
+<section class="intro">
+<p class="eyebrow">01 / Cartografía sensible</p>
+<h2>Lo que se percibe,<br>toma forma.</h2>
+<p>Una exploración de los datos recopilados mediante fichas circulares sobre láminas de acrílico transparente. Cada círculo representa un registro; su color y tamaño permiten distinguir las categorías y sus intensidades. Las tres capas corresponden a distintos momentos del día.</p>
 </section>
-
+<div class="layout">
+<aside class="sidebar">
+<h3>Explorar datos</h3>
+<label class="control-label" for="datePicker">Fecha del registro</label>
+<input id="datePicker" type="date">
+<span class="control-label">Capas de acrílico</span>
+<label class="layer-option"><input type="checkbox" id="toggleMorning" checked><span class="layer-dot" style="background:#78aa91"></span>Mañana</label>
+<label class="layer-option"><input type="checkbox" id="toggleAfternoon" checked><span class="layer-dot" style="background:#cfbd67"></span>Tarde</label>
+<label class="layer-option"><input type="checkbox" id="toggleNight"><span class="layer-dot" style="background:#8096c7"></span>Noche</label>
+<button class="btn btn-full" id="showAll">Superponer las tres</button>
+<button class="btn btn-light btn-full" id="resetView">Restablecer vista</button>
+<p class="note">Activa varias capas para superponer sus registros sobre el mismo eje y observar sus coincidencias.</p>
+</aside>
+<section class="visualization">
+<div class="canvas-head">
+<div><p class="eyebrow">02 / Artefacto digital</p><h3>Mapa de percepciones</h3></div>
+<p id="dateLabel">Sin fecha seleccionada</p>
+</div>
+<div class="board-stage" id="boardStage">
+<div class="acrylic" data-layer="night" id="boardNight"><span class="board-title">Noche</span><span class="board-count"></span></div>
+<div class="acrylic" data-layer="afternoon" id="boardAfternoon"><span class="board-title">Tarde</span><span class="board-count"></span></div>
+<div class="acrylic" data-layer="morning" id="boardMorning"><span class="board-title">Mañana</span><span class="board-count"></span></div>
+</div>
+<div class="legend">
+<div class="legend-item"><span class="legend-swatch" style="background:var(--red)"></span>Rojo</div>
+<div class="legend-item"><span class="legend-swatch" style="background:var(--green)"></span>Verde</div>
+<div class="legend-item"><span class="legend-swatch" style="background:var(--yellow)"></span>Amarillo</div>
+<div class="legend-item"><span class="legend-swatch" style="background:var(--blue)"></span>Azul</div>
+</div>
+<div class="sizes">
+<div class="size-key"><span class="size-circle" style="width:29px;height:29px"></span>Grande · 95 mm</div>
+<div class="size-key"><span class="size-circle" style="width:22px;height:22px"></span>Mediano · 70 mm</div>
+<div class="size-key"><span class="size-circle" style="width:10px;height:10px"></span>Pequeño · 28 mm</div>
+</div>
+<div class="stats">
+<div class="stat"><strong id="totalCount">0</strong><span>Registros visibles</span></div>
+<div class="stat"><strong id="morningCount">0</strong><span>Mañana</span></div>
+<div class="stat"><strong id="afternoonCount">0</strong><span>Tarde</span></div>
+<div class="stat"><strong id="nightCount">0</strong><span>Noche</span></div>
+</div>
+<section class="data-section">
+<p class="eyebrow">03 / Lectura de datos</p>
+<h2 class="section-title">Cada círculo,<br>un registro.</h2>
+<p class="note">Selecciona un círculo para ver su información. Los datos reales aparecerán aquí cuando se importen desde el proyecto o se registren mediante el panel privado.</p>
+<table class="data-table">
+<thead><tr><th>Color</th><th>Tamaño</th><th>Momento</th><th>Posición</th></tr></thead>
+<tbody id="dataRows"><tr><td colspan="4">Todavía no hay registros para esta fecha.</td></tr></tbody>
+</table>
+</section>
+</section>
+</div>
+<section class="admin" id="adminPanel">
+<p class="eyebrow">04 / Administración privada</p>
+<h2 class="section-title">Gestionar registros.</h2>
+<p class="note">La visualización es pública. Solo la cuenta autorizada puede guardar cambios en la base de datos compartida. Configura Supabase para habilitar este modo.</p>
+<div class="admin-grid">
+<div><label class="control-label" for="supabaseUrl">URL del proyecto Supabase</label><input id="supabaseUrl" type="text" placeholder="https://tu-proyecto.supabase.co"></div>
+<div><label class="control-label" for="supabaseKey">Clave publicable (anon)</label><input id="supabaseKey" type="text" placeholder="sb_publishable_..."></div>
+</div>
+<div class="admin-actions">
+<button class="btn" id="connectBtn">Conectar base de datos</button>
+<button class="btn btn-light" id="loginBtn">Iniciar sesión de administradora</button>
+<button class="btn btn-light" id="logoutBtn">Cerrar sesión</button>
+</div>
+<div class="admin-grid" style="margin-top:15px">
+<div><label class="control-label" for="adminEmail">Correo autorizado</label><input id="adminEmail" type="email" placeholder="administradora@ejemplo.cl"></div>
+<div><label class="control-label" for="adminPassword">Contraseña</label><input id="adminPassword" type="password" placeholder="Contraseña de tu cuenta"></div>
+</div>
+<div class="admin-grid" style="margin-top:15px">
+<div><label class="control-label" for="recordPeriod">Pizarra</label><select id="recordPeriod"><option value="morning">Mañana</option><option value="afternoon">Tarde</option><option value="night">Noche</option></select></div>
+<div><label class="control-label" for="recordColor">Color</label><select id="recordColor"><option value="red">Rojo</option><option value="green">Verde</option><option value="yellow">Amarillo</option><option value="blue">Azul</option></select></div>
+</div>
+<div class="circle-form">
+<div><label class="control-label" for="recordSize">Tamaño</label><select id="recordSize"><option value="large">Grande · 95 mm</option><option value="medium">Mediano · 70 mm</option><option value="small">Pequeño · 28 mm</option></select></div>
+<div><label class="control-label" for="recordX">Posición horizontal (%)</label><input id="recordX" type="number" min="2" max="98" value="25"></div>
+<div><label class="control-label" for="recordY">Posición vertical (%)</label><input id="recordY" type="number" min="8" max="92" value="40"></div>
+<div><label class="control-label" for="recordLabel">Descripción</label><input id="recordLabel" type="text" placeholder="Descripción opcional"></div>
+</div>
+<div class="admin-actions">
+<button class="btn" id="addRecordBtn">Añadir círculo</button>
+<button class="btn btn-light" id="deleteRecordBtn">Eliminar seleccionado</button>
+<button class="btn btn-light" id="saveBtn">Guardar cambios</button>
+<button class="btn btn-light" id="exportBtn">Exportar JSON</button>
+<label class="btn btn-light" for="importFile">Importar JSON</label><input id="importFile" type="file" accept=".json,application/json" hidden>
+</div>
+<div class="status" id="status">Modo de demostración. No se han inventado registros reales. Conecta Supabase para consultar o guardar datos compartidos.</div>
+</section>
+</main>
+<footer><span>PROYECTO DE VISUALIZACIÓN · PUCV</span><span>MAPEAR LO INVISIBLE</span></footer>
 <script>
-/* LLUVIA DE PENTÁGONOS */
-(() => {
-  if (!window.Matter) return;
-
-  const { Engine, Render, Runner, Bodies, Body, Composite, Events } = Matter;
-  const contenedor = document.getElementById("rain");
-  const colores = [
-    "rgba(255,25,60,.57)",
-    "rgba(0,100,255,.55)",
-    "rgba(255,195,0,.62)",
-    "rgba(0,210,120,.55)"
-  ];
-
-  let ancho = Math.max(1, innerWidth / 2);
-  let alto = innerHeight;
-  let piezas = [];
-  let paredes = [];
-  let ultimo = performance.now();
-  let indice = 0;
-
-  const TAMANO = 40;
-  const MAXIMO = 204;
-
-  const motor = Engine.create({ enableSleeping: true });
-  motor.gravity.y = 1;
-  motor.gravity.scale = .001;
-  motor.positionIterations = 10;
-  motor.velocityIterations = 8;
-
-  const render = Render.create({
-    element: contenedor,
-    engine: motor,
-    options: {
-      width: ancho,
-      height: alto,
-      wireframes: false,
-      background: "transparent",
-      pixelRatio: Math.min(devicePixelRatio || 1, 2)
-    }
-  });
-
-  const runner = Runner.create({ delta: 1000 / 60 });
-
-  const azar = (min, max) => Math.random() * (max - min) + min;
-
-  function crearParedes() {
-    paredes.forEach(p => Composite.remove(motor.world, p));
-    const g = 160;
-    paredes = [
-      Bodies.rectangle(ancho/2, alto+g/2, ancho+g*2, g,
-        { isStatic:true, render:{visible:false} }),
-      Bodies.rectangle(-g/2, alto/2, g, alto*3,
-        { isStatic:true, render:{visible:false} }),
-      Bodies.rectangle(ancho+g/2, alto/2, g, alto*3,
-        { isStatic:true, render:{visible:false} })
-    ];
-    Composite.add(motor.world, paredes);
-  }
-
-  function crearPieza() {
-    if (piezas.length >= MAXIMO) return;
-    const x = azar(45, Math.max(46, ancho-45));
-    const p = Bodies.polygon(x, -80-azar(0,alto*.2), 5, 31, {
-      restitution: .005,
-      friction: .92,
-      frictionStatic: 1,
-      frictionAir: .018,
-      density: .0018,
-      slop: .01,
-      sleepThreshold: 35,
-      angle: azar(-.5,.5),
-      render: { visible:false }
-    });
-    p.colorPentagono = colores[indice++ % colores.length];
-    Body.setVelocity(p, { x:azar(-.65,.65), y:azar(0,.3) });
-    Body.setAngularVelocity(p, azar(-.012,.012));
-    piezas.push(p);
-    Composite.add(motor.world,p);
-  }
-
-  function dibujar(ctx,p) {
-    ctx.save();
-    ctx.translate(p.position.x,p.position.y);
-    ctx.rotate(p.angle);
-    ctx.beginPath();
-    for (let i=0;i<5;i++) {
-      const a=-Math.PI/2+i*Math.PI*2/5;
-      const x=Math.cos(a)*TAMANO;
-      const y=Math.sin(a)*TAMANO;
-      if (!i) ctx.moveTo(x,y); else ctx.lineTo(x,y);
-    }
-    ctx.closePath();
-    ctx.fillStyle=p.colorPentagono;
-    ctx.fill();
-    ctx.restore();
-  }
-
-  Events.on(render,"afterRender",()=>{
-    const ctx=render.context;
-    ctx.save();
-    ctx.globalCompositeOperation="multiply";
-    piezas.forEach(p=>dibujar(ctx,p));
-    ctx.restore();
-  });
-
-  Events.on(motor,"beforeUpdate",()=>{
-    const ahora=performance.now();
-    if (ahora-ultimo>135 && piezas.length<MAXIMO) {
-      crearPieza();
-      ultimo=ahora;
-    }
-    piezas.forEach(p=>{
-      if (p.isSleeping) return;
-      if (p.speed<.045 && Math.abs(p.angularVelocity)<.01) {
-        Body.setVelocity(p,{x:0,y:0});
-        Body.setAngularVelocity(p,0);
-      }
-    });
-  });
-
-  Events.on(motor,"afterUpdate",()=>{
-    piezas=piezas.filter(p=>{
-      if (p.position.y>alto+TAMANO*4) {
-        Composite.remove(motor.world,p);
-        return false;
-      }
-      return true;
-    });
-  });
-
-  crearParedes();
-  for (let i=0;i<24;i++) crearPieza();
-
-  addEventListener("resize",()=>{
-    ancho=Math.max(1,innerWidth/2);
-    alto=innerHeight;
-    render.canvas.width=ancho*render.options.pixelRatio;
-    render.canvas.height=alto*render.options.pixelRatio;
-    render.canvas.style.width=ancho+"px";
-    render.canvas.style.height=alto+"px";
-    render.options.width=ancho;
-    render.options.height=alto;
-    crearParedes();
-  });
-
-  Runner.run(runner,motor);
-  Render.run(render);
-})();
-
-/* VISUALIZACIÓN DE ARCHIVOS CSV, SIN EDICIÓN DE DATOS */
-(() => {
-  const CALLES = ["Serrano","Cochrane","Blanco","Errázuriz"];
-  const VARIABLE_MAP = {
-    "seguridad percibida":"blue",
-    "seguridad":"blue",
-    "luminosidad percibida":"yellow",
-    "luminosidad":"yellow",
-    "facilidad para caminar":"red",
-    "transitabilidad":"red",
-    "vitalidad urbana percibida":"green",
-    "vitalidad urbana":"green"
-  };
-
-  const LUGARES = {
-    valparaiso:"Valparaíso · Barrio Puerto",
-    buenosaires:"Buenos Aires · Lugar por definir"
-  };
-
-  const $ = id => document.getElementById(id);
-  const selectorDia = $("dia");
-  const archivosInput = $("archivos");
-  const board = $("board");
-
-  let todosLosRegistros = [];
-  let registrosDia = [];
-  let animaciones = [];
-
-  function parseCSV(texto) {
-    const filas = [];
-    let fila = [], celda = "", entreComillas = false;
-
-    for (let i=0;i<texto.length;i++) {
-      const c=texto[i], siguiente=texto[i+1];
-
-      if (c === '"' && entreComillas && siguiente === '"') {
-        celda += '"'; i++;
-      } else if (c === '"') {
-        entreComillas = !entreComillas;
-      } else if (c === ',' && !entreComillas) {
-        fila.push(celda); celda="";
-      } else if ((c === '\n' || c === '\r') && !entreComillas) {
-        if (c === '\r' && siguiente === '\n') i++;
-        fila.push(celda);
-        if (fila.some(v=>v.trim()!=="")) filas.push(fila);
-        fila=[]; celda="";
-      } else {
-        celda += c;
-      }
-    }
-
-    fila.push(celda);
-    if (fila.some(v=>v.trim()!=="")) filas.push(fila);
-    if (!filas.length) return [];
-
-    const cabeceras=filas.shift().map(v=>v.trim().toLowerCase());
-    return filas.map(f=>{
-      const objeto={};
-      cabeceras.forEach((h,i)=>objeto[h]=(f[i]||"").trim());
-      return objeto;
-    });
-  }
-
-  function campo(obj, nombres) {
-    for (const nombre of nombres) {
-      if (obj[nombre] !== undefined && obj[nombre] !== "") return obj[nombre];
-    }
-    return "";
-  }
-
-  function normalizar(fila) {
-    const fecha=campo(fila,["fecha"]);
-    const lugarTexto=campo(fila,["lugar","ubicación","ubicacion"]).toLowerCase();
-    const calleTexto=campo(fila,["calle"]);
-    const valorTexto=campo(fila,["valoración","valoracion","lado"]).toLowerCase();
-    const variableTexto=campo(fila,["variable"]).toLowerCase();
-    const cantidad=Number(campo(fila,["cantidad","fichas","respuestas"]));
-
-    const calle=CALLES.find(c=>c.toLowerCase()===calleTexto.toLowerCase());
-    const variable=VARIABLE_MAP[variableTexto];
-    let valoracion="";
-
-    if (valorTexto.includes("negativ") || valorTexto==="-" || valorTexto==="−") {
-      valoracion="negativo";
-    } else if (valorTexto.includes("positiv") || valorTexto==="+" || valorTexto==="＋") {
-      valoracion="positivo";
-    }
-
-    const lugar=lugarTexto.includes("buenos") ? "buenosaires" : "valparaiso";
-
-    if (!fecha || !calle || !variable || !valoracion ||
-        !Number.isFinite(cantidad) || cantidad<=0) return null;
-
-    return { fecha, lugar, calle, variable, valoracion, cantidad };
-  }
-
-  function cargarArchivos(lista) {
-    todosLosRegistros=[];
-    registrosDia=[];
-    selectorDia.innerHTML="";
-    board.innerHTML="";
-    $("estadoCarga").textContent="Leyendo archivos…";
-
-    if (!lista.length) {
-      $("estadoCarga").textContent="Todavía no se han cargado archivos.";
-      actualizarResumen();
-      dibujarBoard();
-      return;
-    }
-
-    const tareas=[...lista].map(archivo =>
-      archivo.text().then(texto => ({
-        nombre:archivo.name,
-        filas:parseCSV(texto)
-      }))
-    );
-
-    Promise.all(tareas).then(resultados=>{
-      let rechazadas=0;
-
-      resultados.forEach(resultado=>{
-        resultado.filas.forEach(fila=>{
-          const registro=normalizar(fila);
-          if (registro) todosLosRegistros.push(registro);
-          else rechazadas++;
-        });
-      });
-
-      const dias=[...new Set(todosLosRegistros.map(r=>r.fecha))].sort();
-      const diaActual=new Date().toISOString().slice(0,10);
-
-      if (!dias.length) {
-        selectorDia.add(new Option("No hay registros válidos",""));
-        $("estadoCarga").textContent=
-          "No se encontraron filas válidas. Revisa que los CSV tengan las columnas Fecha, Lugar, Calle, Valoración, Variable y Cantidad.";
-        actualizarResumen();
-        dibujarBoard();
-        return;
-      }
-
-      dias.forEach(dia=>selectorDia.add(new Option(dia,dia)));
-
-      selectorDia.value=dias.includes(diaActual)?diaActual:dias[dias.length-1];
-      actualizarDia();
-
-      $("estadoCarga").textContent=
-        `${todosLosRegistros.length} registros cargados desde ${lista.length} archivo(s).`+
-        (rechazadas ? ` ${rechazadas} fila(s) no reconocidas.` : "");
-    }).catch(()=>{
-      $("estadoCarga").textContent="No se pudo leer uno de los archivos seleccionados.";
-    });
-  }
-
-  function actualizarDia() {
-    const dia=selectorDia.value;
-    registrosDia=todosLosRegistros.filter(r=>r.fecha===dia);
-    actualizarResumen();
-    dibujarBoard();
-  }
-
-  function actualizarResumen() {
-    const dia=selectorDia.value;
-    const filas=todosLosRegistros.filter(r=>r.fecha===dia);
-    const total=filas.reduce((s,r)=>s+r.cantidad,0);
-    const lugares=[...new Set(filas.map(r=>r.lugar))];
-
-    $("fechaResumen").textContent=dia||"Sin datos";
-    $("lugarResumen").textContent=lugares.map(l=>LUGARES[l]).join(" / ")||"Sin datos";
-    $("totalResumen").textContent=total;
-    $("mensajeDia").textContent=dia
-      ? `Visualizando las respuestas registradas el ${dia}.`
-      : "Carga los archivos CSV exportados desde la página de registro.";
-  }
-
-  function dibujarBoard() {
-    animaciones.forEach(clearTimeout);
-    animaciones=[];
-    board.innerHTML="";
-
-    CALLES.forEach((calle,index)=>{
-      const calleDatos=registrosDia.filter(r=>r.calle===calle);
-      const total=calleDatos.reduce((s,r)=>s+r.cantidad,0);
-      const articulo=document.createElement("article");
-      articulo.className="street";
-
-      articulo.innerHTML=`
-        <div class="street-heading">
-          <span class="street-number">CALLE 0${index+1}</span>
-          <div class="street-name">${calle}</div>
-        </div>
-        <div class="lane">
-          <div class="side" data-lado="negativo">
-            <div class="side-label">(−)</div>
-            <div class="side-count">0 fichas</div>
-            <div class="spheres"></div>
-          </div>
-          <div class="side" data-lado="positivo">
-            <div class="side-label">(＋)</div>
-            <div class="side-count">0 fichas</div>
-            <div class="spheres"></div>
-          </div>
-        </div>
-        <div class="street-total">${total} respuestas</div>
-      `;
-
-      board.appendChild(articulo);
-
-      ["negativo","positivo"].forEach(lado=>{
-        const side=articulo.querySelector(`[data-lado="${lado}"]`);
-        const zona=side.querySelector(".spheres");
-        const grupo=calleDatos.filter(r=>r.valoracion===lado);
-        const cantidadLado=grupo.reduce((s,r)=>s+r.cantidad,0);
-
-        side.querySelector(".side-count").textContent=
-          `${cantidadLado} ${cantidadLado===1?"ficha":"fichas"}`;
-
-        /*
-          Cada pentágono corresponde a una unidad registrada.
-          Se muestra un máximo por lado para conservar el rendimiento;
-          el total numérico siempre representa la cantidad completa.
-        */
-        const MAX_VISIBLES=150;
-        const fichas=[];
-
-        grupo.forEach(r=>{
-          const cantidad=Math.min(r.cantidad,MAX_VISIBLES-fichas.length);
-          for(let i=0;i<cantidad;i++) fichas.push(r.variable);
-        });
-
-        if(!fichas.length) return;
-
-        fichas.forEach((color,i)=>{
-          const ficha=document.createElement("span");
-          ficha.className=`token ${color}`;
-          ficha.style.animationDelay=`${Math.min(i*12,900)}ms`;
-          zona.appendChild(ficha);
-        });
-      });
-    });
-  }
-
-  archivosInput.addEventListener("change",e=>{
-    cargarArchivos(e.target.files);
-  });
-
-  selectorDia.addEventListener("change",actualizarDia);
-
-  function inicioVacio() {
-    CALLES.forEach((calle,i)=>{
-      const articulo=document.createElement("article");
-      articulo.className="street";
-      articulo.innerHTML=`
-        <div class="street-heading">
-          <span class="street-number">CALLE 0${i+1}</span>
-          <div class="street-name">${calle}</div>
-        </div>
-        <div class="lane">
-          ${["negativo","positivo"].map(lado=>`
-            <div class="side" data-lado="${lado}">
-              <div class="side-label">${lado==="negativo"?"(−)":"(＋)"}</div>
-              <div class="side-count">0 fichas</div>
-              <div class="spheres"></div>
-            </div>`).join("")}
-        </div>
-        <div class="street-total">0 respuestas</div>`;
-      board.appendChild(articulo);
-    });
-  }
-
-  inicioVacio();
-})();
+const COLORS={red:"#e7193f",green:"#159b62",yellow:"#f0d51a",blue:"#078cbd"};
+const SIZES={large:95,medium:70,small:28};
+const SIZE_LABELS={large:"Grande · 95 mm",medium:"Mediano · 70 mm",small:"Pequeño · 28 mm"};
+const PERIODS=["morning","afternoon","night"];
+const NAMES={morning:"Mañana",afternoon:"Tarde",night:"Noche"};
+const $=id=>document.getElementById(id);
+let records=[];
+let selectedId=null;
+let supabaseClient=null;
+let session=null;
+let adminEmail="";
+let demoRecords=[];
+let configured=false;
+const today=()=>new Date().toLocaleDateString("en-CA");
+$("datePicker").value=today();
+function setStatus(message){$("status").textContent=message}
+function visiblePeriods(){return PERIODS.filter(p=>$("toggle"+p[0].toUpperCase()+p.slice(1)).checked)}
+function createDemoOrbits(){
+const hero=$("hero");
+for(let i=0;i<28;i++){
+const el=document.createElement("div");
+el.className="hero-orbit";
+const color=Object.values(COLORS)[i%4];
+el.style.setProperty("--color",color);
+el.style.setProperty("--size",[10,16,23,31][i%4]);
+el.style.setProperty("--x",`${20+Math.random()*60}%`);
+el.style.setProperty("--y",`${25+Math.random()*60}%`);
+el.style.setProperty("--delay",`${i*.17}s`);
+el.style.setProperty("--dx",`${(Math.random()-.5)*90}px`);
+el.style.setProperty("--dy",`${(Math.random()-.5)*90}px`);
+hero.appendChild(el)
+}
+}
+function updateHero(){
+const hero=$("hero"),ball=$("heroBall");
+const rect=hero.getBoundingClientRect();
+const progress=Math.min(1,Math.max(0,-rect.top/(hero.offsetHeight*.85)));
+const size= Math.max(36,Math.min(window.innerWidth,window.innerHeight)*(.96-.91*progress));
+ball.style.width=size+"px";
+ball.style.height=size+"px";
+ball.style.opacity=String(Math.max(.15,1-progress*.8))
+}
+window.addEventListener("scroll",updateHero,{passive:true});
+window.addEventListener("resize",updateHero);
+function makeId(){return crypto.randomUUID?crypto.randomUUID():String(Date.now())+Math.random().toString(16).slice(2)}
+function currentDate(){return $("datePicker").value||today()}
+function dateRecords(){return records.filter(r=>r.record_date===currentDate())}
+function addCircleToBoard(board,r,index){
+const circle=document.createElement("button");
+circle.type="button";
+circle.className="circle";
+circle.setAttribute("aria-label",`${r.color} ${r.size} ${NAMES[r.period]}`);
+circle.style.setProperty("--c",COLORS[r.color]||COLORS.red);
+circle.style.setProperty("--d",`${SIZES[r.size]||28/3.8}px`);
+circle.style.setProperty("--x",`${r.x}%`);
+circle.style.setProperty("--y",`${r.y}%`);
+circle.style.animationDelay=`${Math.min(index*.035,.8)}s`;
+circle.title=`${r.description||"Registro"} · ${NAMES[r.period]} · ${r.color} · ${SIZE_LABELS[r.size]}`;
+circle.addEventListener("click",()=>{
+selectedId=r.id;
+$("recordPeriod").value=r.period;
+$("recordColor").value=r.color;
+$("recordSize").value=r.size;
+$("recordX").value=r.x;
+$("recordY").value=r.y;
+$("recordLabel").value=r.description||"";
+renderTable();
+});
+circle.addEventListener("dblclick",()=>{circle.classList.add("popping");setTimeout(()=>{records=records.filter(a=>a.id!==r.id);render()},350)});
+board.appendChild(circle)
+}
+function render(){
+const dateRows=dateRecords();
+const active=visiblePeriods();
+for(const p of PERIODS){
+const board=$("board"+p[0].toUpperCase()+p.slice(1));
+board.querySelectorAll(".circle").forEach(el=>el.remove());
+const subset=dateRows.filter(r=>r.period===p);
+board.querySelector(".board-count").textContent=`${subset.length} registros`;
+board.classList.toggle("hidden",!active.includes(p));
+board.classList.toggle("single",active.length===1&&active.includes(p));
+subset.forEach((r,i)=>addCircleToBoard(board,r,i))
+}
+const visible=dateRows.filter(r=>active.includes(r.period));
+$("totalCount").textContent=visible.length;
+$("morningCount").textContent=dateRows.filter(r=>r.period==="morning").length;
+$("afternoonCount").textContent=dateRows.filter(r=>r.period==="afternoon").length;
+$("nightCount").textContent=dateRows.filter(r=>r.period==="night").length;
+$("dateLabel").textContent=new Date(currentDate()+"T12:00:00").toLocaleDateString("es-CL",{day:"numeric",month:"long",year:"numeric"});
+renderTable();
+}
+function renderTable(){
+const subset=dateRecords().filter(r=>visiblePeriods().includes(r.period));
+const body=$("dataRows");
+body.innerHTML="";
+if(!subset.length){
+const tr=document.createElement("tr"),td=document.createElement("td");
+td.colSpan=4;td.textContent="No hay registros para esta fecha y selección.";
+tr.appendChild(td);body.appendChild(tr);return
+}
+subset.forEach(r=>{
+const tr=document.createElement("tr");
+const cells=[r.color,SIZE_LABELS[r.size],NAMES[r.period],`${r.x}%, ${r.y}%`];
+cells.forEach((value,i)=>{
+const td=document.createElement("td");
+if(i===0){const dot=document.createElement("span");dot.className="legend-swatch";dot.style.background=COLORS[r.color];dot.style.display="inline-block";dot.style.marginRight="8px";td.appendChild(dot)}
+td.appendChild(document.createTextNode(value));
+tr.appendChild(td)
+});
+body.appendChild(tr)
+})
+}
+function getConfig(){return{url:$("supabaseUrl").value.trim().replace(/\/+$/,""),key:$("supabaseKey").value.trim()}}
+async function connect(){
+const {url,key}=getConfig();
+if(!url||!key){setStatus("Introduce la URL y la clave publicable de tu proyecto Supabase.");return}
+if(!window.supabase){setStatus("No se pudo cargar la librería de Supabase. Revisa tu conexión.");return}
+try{
+supabaseClient=window.supabase.createClient(url,key);
+configured=true;
+const {data,error}=await supabaseClient.auth.getSession();
+if(error)throw error;
+session=data.session;
+await loadRecords();
+setStatus(session?"Conectado. Sesión iniciada.":"Conectado en modo visitante. Inicia sesión para editar.");
+}catch(e){setStatus("Error de conexión: "+e.message)}
+}
+async function loadRecords(){
+if(!supabaseClient)return;
+const {data,error}=await supabaseClient.from("circle_records").select("*").eq("record_date",currentDate());
+if(error){setStatus("No se pudieron cargar los registros. Comprueba que la tabla circle_records exista y tenga políticas RLS. "+error.message);return}
+records=records.filter(r=>r.record_date!==currentDate()).concat((data||[]).map(r=>({...r})));
+render()
+}
+function isAdmin(){return !!session&&!!session.user&&session.user.email===adminEmail}
+async function login(){
+if(!supabaseClient){setStatus("Conecta Supabase primero.");return}
+const email=$("adminEmail").value.trim(),password=$("adminPassword").value;
+adminEmail=email;
+if(!email||!password){setStatus("Introduce el correo y la contraseña.");return}
+try{
+const {data,error}=await supabaseClient.auth.signInWithPassword({email,password});
+if(error)throw error;
+session=data.session;
+const {data:authData}=await supabaseClient.from("admin_users").select("email").eq("email",email).maybeSingle();
+if(!authData){await supabaseClient.auth.signOut();session=null;setStatus("Esta cuenta no está autorizada para editar.");return}
+setStatus("Sesión iniciada. Administración habilitada.");
+await loadRecords()
+}catch(e){setStatus("No se pudo iniciar sesión: "+e.message)}
+}
+async function logout(){
+if(supabaseClient)await supabaseClient.auth.signOut();
+session=null;setStatus("Sesión cerrada. Modo de solo lectura.")
+}
+function ensureAdmin(){if(!isAdmin()){setStatus("Esta acción requiere una sesión autorizada de administradora.");return false}return true}
+function addRecord(){
+if(!ensureAdmin())return;
+const r={id:makeId(),record_date:currentDate(),period:$("recordPeriod").value,color:$("recordColor").value,size:$("recordSize").value,x:Number($("recordX").value),y:Number($("recordY").value),description:$("recordLabel").value.trim()};
+if(!Number.isFinite(r.x)||!Number.isFinite(r.y)||r.x<2||r.x>98||r.y<8||r.y>92){setStatus("Las posiciones deben estar dentro de los límites indicados.");return}
+records.push(r);selectedId=r.id;render();setStatus("Círculo añadido localmente. Pulsa Guardar cambios para sincronizarlo.")
+}
+function deleteSelected(){
+if(!ensureAdmin())return;
+if(!selectedId){setStatus("Selecciona un círculo antes de eliminarlo.");return}
+records=records.filter(r=>r.id!==selectedId);selectedId=null;render();setStatus("Registro eliminado localmente. Pulsa Guardar cambios para sincronizar.")
+}
+async function save(){
+if(!ensureAdmin()||!supabaseClient)return;
+const local=dateRecords();
+try{
+const {data:existing,error:fetchError}=await supabaseClient.from("circle_records").select("id").eq("record_date",currentDate());
+if(fetchError)throw fetchError;
+const ids=new Set(local.map(r=>r.id));
+const remove=(existing||[]).filter(r=>!ids.has(r.id)).map(r=>r.id);
+if(remove.length){
+const {error}=await supabaseClient.from("circle_records").delete().in("id",remove);
+if(error)throw error
+}
+if(local.length){
+const payload=local.map(({id,record_date,period,color,size,x,y,description})=>({id,record_date,period,color,size,x,y,description}));
+const {error}=await supabaseClient.from("circle_records").upsert(payload,{onConflict:"id"});
+if(error)throw error
+}
+setStatus("Cambios guardados en la base de datos compartida.");
+await loadRecords()
+}catch(e){setStatus("No se pudieron guardar los cambios: "+e.message)}
+}
+function exportJSON(){
+const blob=new Blob([JSON.stringify(records,null,2)],{type:"application/json"});
+const url=URL.createObjectURL(blob);
+const a=document.createElement("a");a.href=url;a.download="registros-percepcion.json";a.click();URL.revokeObjectURL(url)
+}
+async function importJSON(file){
+if(!ensureAdmin())return;
+try{
+const parsed=JSON.parse(await file.text());
+if(!Array.isArray(parsed))throw new Error("El archivo debe contener una lista de registros.");
+records=records.filter(r=>r.record_date!==currentDate()).concat(parsed.filter(r=>r.record_date===currentDate()));
+render();setStatus("Archivo importado localmente. Pulsa Guardar cambios para sincronizar.")
+}catch(e){setStatus("No se pudo importar el archivo: "+e.message)}
+}
+$("toggleMorning").addEventListener("change",render);
+$("toggleAfternoon").addEventListener("change",render);
+$("toggleNight").addEventListener("change",render);
+$("datePicker").addEventListener("change",async()=>{if(supabaseClient)await loadRecords();else render()});
+$("showAll").addEventListener("click",()=>{$("toggleMorning").checked=true;$("toggleAfternoon").checked=true;$("toggleNight").checked=true;render()});
+$("resetView").addEventListener("click",()=>{$("toggleMorning").checked=true;$("toggleAfternoon").checked=true;$("toggleNight").checked=false;render()});
+$("connectBtn").addEventListener("click",connect);
+$("loginBtn").addEventListener("click",login);
+$("logoutBtn").addEventListener("click",logout);
+$("addRecordBtn").addEventListener("click",addRecord);
+$("deleteRecordBtn").addEventListener("click",deleteSelected);
+$("saveBtn").addEventListener("click",save);
+$("exportBtn").addEventListener("click",exportJSON);
+$("importFile").addEventListener("change",e=>{if(e.target.files[0])importJSON(e.target.files[0])});
+const supabaseScript=document.createElement("script");
+supabaseScript.src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2";
+supabaseScript.onload=()=>setStatus("Librería lista. Introduce las credenciales de Supabase y conecta tu proyecto.");
+supabaseScript.onerror=()=>setStatus("No se pudo cargar Supabase. Comprueba la conexión a internet.");
+document.head.appendChild(supabaseScript);
+createDemoOrbits();
+updateHero();
+render();
 </script>
-
 </body>
 </html>
