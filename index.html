@@ -1,0 +1,487 @@
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tramas de elección</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.20.0/matter.min.js"></script>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  width: 100%;
+  min-height: 100%;
+  background: #fff;
+  color: #171717;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+body {
+  overflow: hidden;
+}
+
+#lluvia {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+#lluvia canvas {
+  display: block;
+  mix-blend-mode: multiply;
+}
+
+.pagina {
+  position: relative;
+  z-index: 2;
+  height: 100vh;
+  min-height: 500px;
+  padding: 26px 34px 22px;
+  display: flex;
+  flex-direction: column;
+  pointer-events: none;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(23, 23, 23, .35);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.numero {
+  text-align: right;
+}
+
+main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.contenido {
+  max-width: 690px;
+}
+
+.etiqueta {
+  display: inline-block;
+  margin-bottom: 22px;
+  padding: 7px 10px;
+  border: 1px solid #2364d2;
+  color: #2364d2;
+  border-radius: 2px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .09em;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(48px, 9vw, 112px);
+  font-weight: 700;
+  letter-spacing: -.085em;
+  line-height: .91;
+}
+
+h1 span {
+  color: #2364d2;
+}
+
+.descripcion {
+  max-width: 350px;
+  margin-top: 30px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.instruccion {
+  margin-top: 30px;
+  color: #555;
+  font-size: 11px;
+  line-height: 1.7;
+  letter-spacing: .035em;
+}
+
+.punto {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin-right: 7px;
+  background: #2364d2;
+  border-radius: 50%;
+}
+
+footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding-top: 13px;
+  border-top: 1px solid rgba(23, 23, 23, .35);
+  font-size: 10px;
+  line-height: 1.6;
+  text-transform: uppercase;
+  letter-spacing: .055em;
+}
+
+@media (max-width: 600px) {
+  .pagina {
+    padding: 19px 18px 16px;
+  }
+
+  header {
+    font-size: 10px;
+  }
+
+  .descripcion {
+    max-width: 290px;
+    font-size: 13px;
+  }
+
+  footer {
+    font-size: 9px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div id="lluvia"></div>
+
+<div class="pagina">
+  <header>
+    <div>
+      Florencia Pimentel<br>
+      Estudiante de la EAD · PUCV
+    </div>
+
+    <div class="numero">
+      Proyecto de observación<br>
+      Visualización / 001
+    </div>
+  </header>
+
+  <main>
+    <section class="contenido">
+      <div class="etiqueta">Observación · Registro visual</div>
+
+      <h1>
+        Tramas de<br>
+        <span>elección.</span>
+      </h1>
+
+      <p class="descripcion">
+        Observar es atender a las relaciones, los recorridos y las
+        decisiones que construyen nuestra experiencia de los lugares.
+      </p>
+
+      <p class="instruccion">
+        <span class="punto"></span>
+        Una lluvia de formas, encuentros y acumulaciones.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <span>Registro de observación</span>
+    <span>Valparaíso · Chile</span>
+    <span>2026</span>
+  </footer>
+</div>
+
+<script>
+(() => {
+  const {
+    Engine,
+    Render,
+    Runner,
+    Bodies,
+    Body,
+    Composite,
+    Events
+  } = Matter;
+
+  const contenedor = document.getElementById("lluvia");
+
+  // Tonos intensos con transparencia.
+  const colores = [
+    "rgba(255, 35, 65, 0.57)",
+    "rgba(0, 105, 255, 0.55)",
+    "rgba(255, 200, 0, 0.62)",
+    "rgba(0, 210, 125, 0.55)"
+  ];
+
+  const CANTIDAD_MAXIMA = 204;
+
+  // Todas las piezas tienen exactamente el mismo tamaño visual.
+  const TAMANO = 40;
+
+  // El cuerpo físico es algo menor que la figura dibujada.
+  // Así algunas piezas pueden superponerse visualmente.
+  const RADIO_FISICO = TAMANO * 0.77;
+
+  const INTERVALO_LLEGADA = 135;
+
+  let ancho = window.innerWidth;
+  let alto = window.innerHeight;
+  let piezas = [];
+  let paredes = [];
+  let ultimoLanzamiento = 0;
+  let indiceColor = 0;
+
+  const motor = Engine.create({
+    enableSleeping: true,
+    positionIterations: 10,
+    velocityIterations: 8,
+    constraintIterations: 4
+  });
+
+  motor.gravity.x = 0;
+  motor.gravity.y = 1;
+  motor.gravity.scale = 0.001;
+
+  const render = Render.create({
+    element: contenedor,
+    engine: motor,
+    options: {
+      width: ancho,
+      height: alto,
+      wireframes: false,
+      background: "transparent",
+      pixelRatio: Math.min(window.devicePixelRatio || 1, 2),
+      showSleeping: false
+    }
+  });
+
+  const runner = Runner.create({
+    delta: 1000 / 60,
+    isFixed: true
+  });
+
+  function azar(min, max) {
+    return Math.random() * (max - min) + min;
+  }
+
+  function crearParedes() {
+    for (const pared of paredes) {
+      Composite.remove(motor.world, pared);
+    }
+
+    const grosor = 160;
+
+    paredes = [
+      Bodies.rectangle(
+        ancho / 2,
+        alto + grosor / 2,
+        ancho + grosor * 2,
+        grosor,
+        {
+          isStatic: true,
+          friction: 1,
+          render: { visible: false }
+        }
+      ),
+      Bodies.rectangle(
+        -grosor / 2,
+        alto / 2,
+        grosor,
+        alto * 3,
+        {
+          isStatic: true,
+          friction: 1,
+          render: { visible: false }
+        }
+      ),
+      Bodies.rectangle(
+        ancho + grosor / 2,
+        alto / 2,
+        grosor,
+        alto * 3,
+        {
+          isStatic: true,
+          friction: 1,
+          render: { visible: false }
+        }
+      )
+    ];
+
+    Composite.add(motor.world, paredes);
+  }
+
+  function crearPentagono() {
+    if (piezas.length >= CANTIDAD_MAXIMA) return;
+
+    const margen = TAMANO + 5;
+    const x = azar(margen, Math.max(margen, ancho - margen));
+
+    const pieza = Bodies.polygon(
+      x,
+      -TAMANO * 2 - azar(0, alto * 0.22),
+      5,
+      RADIO_FISICO,
+      {
+        restitution: 0.005,
+        friction: 0.92,
+        frictionStatic: 1,
+        frictionAir: 0.018,
+        density: 0.0018,
+        slop: 0.01,
+        sleepThreshold: 35,
+        angle: azar(-0.5, 0.5),
+        render: {
+          visible: false
+        }
+      }
+    );
+
+    pieza.colorPentagono = colores[indiceColor % colores.length];
+    indiceColor++;
+
+    Body.setVelocity(pieza, {
+      x: azar(-0.65, 0.65),
+      y: azar(0, 0.3)
+    });
+
+    Body.setAngularVelocity(pieza, azar(-0.012, 0.012));
+
+    piezas.push(pieza);
+    Composite.add(motor.world, pieza);
+  }
+
+  /*
+    Dibuja pentágonos del mismo tamaño siguiendo la posición
+    y la rotación calculadas por el motor físico.
+  */
+  function dibujarPentagono(ctx, pieza) {
+    const lados = 5;
+    const radio = TAMANO;
+
+    ctx.save();
+    ctx.translate(pieza.position.x, pieza.position.y);
+    ctx.rotate(pieza.angle);
+
+    ctx.beginPath();
+
+    for (let i = 0; i < lados; i++) {
+      const angulo = -Math.PI / 2 + i * (Math.PI * 2 / lados);
+      const x = Math.cos(angulo) * radio;
+      const y = Math.sin(angulo) * radio;
+
+      if (i === 0) {
+        ctx.moveTo(x, y);
+      } else {
+        ctx.lineTo(x, y);
+      }
+    }
+
+    ctx.closePath();
+    ctx.fillStyle = pieza.colorPentagono;
+    ctx.fill();
+
+    ctx.restore();
+  }
+
+  /*
+    Dibujamos después del renderizado de Matter.js.
+    La mezcla multiply crea una superposición similar a capas
+    de acetato coloreado, sin perder la transparencia.
+  */
+  Events.on(render, "afterRender", () => {
+    const ctx = render.context;
+
+    ctx.save();
+    ctx.globalCompositeOperation = "multiply";
+
+    for (const pieza of piezas) {
+      dibujarPentagono(ctx, pieza);
+    }
+
+    ctx.restore();
+  });
+
+  Events.on(motor, "collisionStart", event => {
+    for (const pareja of event.pairs) {
+      for (const pieza of [pareja.bodyA, pareja.bodyB]) {
+        if (!pieza.isStatic && pieza.speed < 0.3) {
+          Body.setVelocity(pieza, {
+            x: pieza.velocity.x * 0.5,
+            y: pieza.velocity.y * 0.5
+          });
+
+          Body.setAngularVelocity(
+            pieza,
+            pieza.angularVelocity * 0.5
+          );
+        }
+      }
+    }
+  });
+
+  Events.on(motor, "beforeUpdate", () => {
+    const ahora = performance.now();
+
+    if (ahora - ultimoLanzamiento >= INTERVALO_LLEGADA) {
+      crearPentagono();
+      ultimoLanzamiento = ahora;
+    }
+
+    for (const pieza of piezas) {
+      if (pieza.isSleeping) continue;
+
+      const velocidad = Math.hypot(
+        pieza.velocity.x,
+        pieza.velocity.y
+      );
+
+      if (
+        velocidad < 0.045 &&
+        Math.abs(pieza.angularVelocity) < 0.01
+      ) {
+        Body.setVelocity(pieza, { x: 0, y: 0 });
+        Body.setAngularVelocity(pieza, 0);
+      }
+    }
+  });
+
+  crearParedes();
+
+  // Lluvia inicial.
+  for (let i = 0; i < 24; i++) {
+    crearPentagono();
+  }
+
+  ultimoLanzamiento = performance.now();
+
+  window.addEventListener("resize", () => {
+    ancho = window.innerWidth;
+    alto = window.innerHeight;
+
+    render.canvas.width = ancho * render.options.pixelRatio;
+    render.canvas.height = alto * render.options.pixelRatio;
+    render.canvas.style.width = ancho + "px";
+    render.canvas.style.height = alto + "px";
+
+    render.options.width = ancho;
+    render.options.height = alto;
+
+    crearParedes();
+  });
+
+  Runner.run(runner, motor);
+  Render.run(render);
+})();
+</script>
+
+</body>
+</html>
+```
