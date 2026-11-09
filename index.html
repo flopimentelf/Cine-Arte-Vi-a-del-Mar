@@ -7,6 +7,7 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@300;400;500;600;700;800&display=swap');
 
+
 *{box-sizing:border-box}
 
 html,body{
@@ -25,7 +26,7 @@ height:100svh;
 min-height:500px;
 overflow:hidden;
 background:#050505;
-color:white;
+color:#fff;
 }
 
 #openingCanvas{
@@ -98,12 +99,16 @@ font-size:8px;
 }
 }
 </style>
+
 </head>
+
 
 <body>
 
+
 <section id="opening">
 <canvas id="openingCanvas"></canvas>
+
 
 <div class="opening-title" id="openingTitle">
 <div class="eyebrow">CIUDADES PUERTO / CHILE × ARGENTINA</div>
@@ -111,11 +116,13 @@ font-size:8px;
 <p>VALPARAÍSO · BUENOS AIRES</p>
 </div>
 
+
 <div class="opening-bottom" id="openingBottom">
 <span>AQUÍ / CHILE</span>
 <span>ALLÁ / ARGENTINA</span>
 </div>
 </section>
+
 
 <script>
 const canvas=document.getElementById('openingCanvas');
@@ -126,12 +133,14 @@ let H=0;
 let DPR=1;
 let start=performance.now();
 
-const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
-const smooth=t=>{
+const clamp=(v,min,max)=>Math.max(min,Math.min(max,v));
+
+const ease=t=>{
 t=clamp(t,0,1);
 return t*t*(3-2*t);
 };
-const smoother=t=>{
+
+const smooth=t=>{
 t=clamp(t,0,1);
 return t*t*t*(t*(6*t-15)+10);
 };
@@ -152,71 +161,83 @@ ctx.setTransform(DPR,0,0,DPR,0,0);
 window.addEventListener('resize',resize);
 resize();
 
-function line(x1,y1,x2,y2,width,color='#f5f5f2'){
+function stroke(x1,y1,x2,y2,width){
 ctx.beginPath();
 ctx.moveTo(x1,y1);
 ctx.lineTo(x2,y2);
 ctx.lineWidth=width;
 ctx.lineCap='round';
 ctx.lineJoin='round';
-ctx.strokeStyle=color;
+ctx.strokeStyle='#f5f5f2';
 ctx.stroke();
 }
 
-function drawPerson(x,y,phase,lean,scale,fallPose=0){
+function drawPerson(x,ground,phase,lean,scale,pose=0){
 ctx.save();
-ctx.translate(x,y);
+ctx.translate(x,ground);
 ctx.rotate(lean);
 ctx.scale(scale,scale);
 
-const white='#f5f5f2';
-const walk=Math.sin(phase);
-const legA=walk*17;
-const legB=-walk*17;
-const armA=-walk*11;
-const armB=walk*11;
+const swing=Math.sin(phase);
+const legA=swing*16;
+const legB=-swing*16;
+const armA=-swing*11;
+const armB=swing*11;
 
-const headY=-108;
-const torsoTop=-83;
-const torsoBottom=-39;
+ctx.fillStyle='#f5f5f2';
 
-ctx.fillStyle=white;
 ctx.beginPath();
-ctx.arc(0,headY,12,0,Math.PI*2);
+ctx.arc(0,-105,12,0,Math.PI*2);
 ctx.fill();
 
 ctx.beginPath();
-ctx.roundRect(-11,torsoTop,22,46,10);
+ctx.roundRect(-11,-83,22,46,10);
 ctx.fill();
 
-if(fallPose<0.3){
-line(-6,torsoBottom,-12+legA*.45,-20,9,white);
-line(-12+legA*.45,-20,-17+legA,-2,8,white);
-line(6,torsoBottom,12+legB*.45,-20,9,white);
-line(12+legB*.45,-20,17+legB,-2,8,white);
+if(pose<0.25){
+stroke(-6,-40,-12+legA*.45,-21,9);
+stroke(-12+legA*.45,-21,-17+legA,-2,8);
+stroke(6,-40,12+legB*.45,-21,9);
+stroke(12+legB*.45,-21,17+legB,-2,8);
 
-line(-17+legA,-2,-9+legA,-2,7,white);
-line(17+legB,-2,25+legB,-2,7,white);
-
-line(-8,-77,-15+armA*.4,-59,8,white);
-line(-15+armA*.4,-59,-17+armA,-47,7,white);
-line(8,-77,15+armB*.4,-59,8,white);
-line(15+armB*.4,-59,17+armB,-47,7,white);
+stroke(-8,-77,-15+armA*.4,-59,8);
+stroke(-15+armA*.4,-59,-17+armA,-47,7);
+stroke(8,-77,15+armB*.4,-59,8);
+stroke(15+armB*.4,-59,17+armB,-47,7);
 }else{
-const p=clamp(fallPose,0,1);
+const p=clamp(pose,0,1);
 
-line(-6,torsoBottom,-15-p*8,-24+p*8,9,white);
-line(-15-p*8,-24+p*8,-20-p*12,-5+p*5,8,white);
+stroke(-6,-40,-15-p*7,-24+p*7,9);
+stroke(-15-p*7,-24+p*7,-20-p*10,-4+p*5,8);
 
-line(6,torsoBottom,15+p*10,-25+p*8,9,white);
-line(15+p*10,-25+p*8,22+p*12,-7+p*5,8,white);
+stroke(6,-40,15+p*9,-24+p*7,9);
+stroke(15+p*9,-24+p*7,22+p*10,-5+p*5,8);
 
-line(-8,-77,-22-p*8,-63-p*5,8,white);
-line(-22-p*8,-63-p*5,-30-p*8,-51-p*7,7,white);
+stroke(-8,-77,-23-p*8,-64-p*5,8);
+stroke(-23-p*8,-64-p*5,-31-p*8,-52-p*7,7);
 
-line(8,-77,22+p*8,-63-p*5,8,white);
-line(22+p*8,-63-p*5,30+p*8,-51-p*7,7,white);
+stroke(8,-77,23+p*8,-64-p*5,8);
+stroke(23+p*8,-64-p*5,31+p*8,-52-p*7,7);
 }
+
+ctx.restore();
+}
+
+function drawStone(x,y,size,rotation){
+ctx.save();
+ctx.translate(x,y);
+ctx.rotate(rotation);
+ctx.fillStyle='#f5f5f2';
+
+ctx.beginPath();
+ctx.moveTo(-size,-2);
+ctx.lineTo(-size*.55,-size*.7);
+ctx.lineTo(size*.25,-size);
+ctx.lineTo(size,-size*.3);
+ctx.lineTo(size*.65,size*.35);
+ctx.lineTo(-size*.45,size*.4);
+ctx.closePath();
+ctx.fill();
 
 ctx.restore();
 }
@@ -228,100 +249,102 @@ ctx.scale(scale,scale);
 
 ctx.fillStyle='#f5f5f2';
 ctx.beginPath();
-ctx.moveTo(-76,-17);
-ctx.quadraticCurveTo(-70,-34,-47,-36);
-ctx.lineTo(-24,-55);
-ctx.quadraticCurveTo(-16,-62,0,-62);
+ctx.moveTo(-78,-16);
+ctx.quadraticCurveTo(-74,-32,-50,-35);
+ctx.lineTo(-25,-55);
+ctx.quadraticCurveTo(-17,-62,0,-62);
 ctx.lineTo(35,-59);
-ctx.quadraticCurveTo(51,-57,59,-35);
-ctx.lineTo(77,-27);
-ctx.quadraticCurveTo(85,-24,85,-13);
-ctx.lineTo(85,-6);
-ctx.quadraticCurveTo(85,0,76,0);
-ctx.lineTo(-74,0);
-ctx.quadraticCurveTo(-84,0,-84,-9);
-ctx.lineTo(-84,-17);
+ctx.quadraticCurveTo(51,-57,60,-35);
+ctx.lineTo(78,-27);
+ctx.quadraticCurveTo(86,-24,86,-13);
+ctx.lineTo(86,-6);
+ctx.quadraticCurveTo(86,0,76,0);
+ctx.lineTo(-75,0);
+ctx.quadraticCurveTo(-86,0,-86,-9);
+ctx.lineTo(-86,-17);
 ctx.closePath();
 ctx.fill();
 
 ctx.fillStyle='#050505';
+
 ctx.beginPath();
-ctx.moveTo(-19,-54);
-ctx.lineTo(-1,-54);
-ctx.lineTo(0,-37);
-ctx.lineTo(-43,-37);
+ctx.moveTo(-20,-54);
+ctx.lineTo(-2,-54);
+ctx.lineTo(-1,-37);
+ctx.lineTo(-44,-37);
 ctx.closePath();
 ctx.fill();
 
 ctx.beginPath();
 ctx.moveTo(7,-54);
 ctx.lineTo(32,-52);
-ctx.quadraticCurveTo(44,-50,51,-37);
+ctx.quadraticCurveTo(45,-50,52,-37);
 ctx.lineTo(7,-37);
 ctx.closePath();
 ctx.fill();
 
-ctx.fillStyle='#050505';
 ctx.beginPath();
-ctx.arc(-49,0,13,0,Math.PI*2);
+ctx.arc(-50,0,13,0,Math.PI*2);
 ctx.arc(50,0,13,0,Math.PI*2);
 ctx.fill();
 
 ctx.fillStyle='#f5f5f2';
 ctx.beginPath();
-ctx.arc(-49,0,5,0,Math.PI*2);
+ctx.arc(-50,0,5,0,Math.PI*2);
 ctx.arc(50,0,5,0,Math.PI*2);
 ctx.fill();
 
 ctx.restore();
 }
 
-function drawStone(x,y,size){
+function drawGround(ground,holeX,holeWidth,holeHeight,opening){
 ctx.save();
-ctx.translate(x,y);
-ctx.fillStyle='#f5f5f2';
-ctx.beginPath();
-ctx.moveTo(-size,-2);
-ctx.lineTo(-size*.45,-size*.75);
-ctx.lineTo(size*.45,-size);
-ctx.lineTo(size,-size*.25);
-ctx.lineTo(size*.7,size*.25);
-ctx.lineTo(-size*.55,size*.35);
-ctx.closePath();
-ctx.fill();
-ctx.restore();
-}
-
-function drawGroundWithHole(ground,holeX,holeWidth,holeHeight,open){
-ctx.save();
-
-const w=holeWidth*open;
-const h=holeHeight*open;
 
 ctx.fillStyle='#f5f5f2';
 ctx.beginPath();
 ctx.rect(0,ground,W,H-ground);
 
-if(open>0.001){
-ctx.moveTo(holeX-w,ground);
-ctx.ellipse(holeX,ground,w,h,0,Math.PI,Math.PI*2);
-ctx.lineTo(holeX+w,ground);
-ctx.ellipse(holeX,ground,w,h,0,0,Math.PI);
+if(opening>0.001){
+ctx.ellipse(
+holeX,
+ground,
+holeWidth*opening,
+holeHeight*opening,
+0,
+0,
+Math.PI*2
+);
 }
 
 ctx.fill('evenodd');
 ctx.restore();
 
-if(open>0.001){
+if(opening>0.001){
 ctx.fillStyle='#050505';
 ctx.beginPath();
-ctx.ellipse(holeX,ground,w,h,0,0,Math.PI*2);
+ctx.ellipse(
+holeX,
+ground,
+holeWidth*opening,
+holeHeight*opening,
+0,
+0,
+Math.PI*2
+);
 ctx.fill();
 
 ctx.strokeStyle='#f5f5f2';
 ctx.lineWidth=2.5;
 ctx.beginPath();
-ctx.ellipse(holeX,ground,w,h,0,Math.PI,Math.PI*2);
+ctx.ellipse(
+holeX,
+ground,
+holeWidth*opening,
+holeHeight*opening,
+0,
+Math.PI,
+Math.PI*2
+);
 ctx.stroke();
 }
 }
@@ -335,137 +358,137 @@ ctx.fillRect(0,0,W,H);
 
 const ground=H*.74;
 const scale=Math.min(1,H/700);
-const personStart=W*.40;
-const holeX=personStart-90;
-const holeWidth=Math.min(105,W*.17);
-const holeHeight=22;
+const personX=W*.40;
+const holeX=personX-4;
+const holeWidth=Math.min(58,W*.085);
+const holeHeight=19;
 
-const walkProgress=smooth(t/2.4);
-const stumble=smooth((t-1.95)/.45);
-const recover=smooth((t-2.45)/.42);
-const carProgress=smooth((t-3.25)/.72);
-const recoil=smooth((t-3.85)/.2)*(1-smooth((t-4.42)/.3));
-const holeOpen=smooth((t-4.65)/.55);
-const fallStart=5.15;
-const fallProgress=smoother((t-fallStart)/1.65);
-const fade=smooth((t-7.0)/.85);
+const walk=ease(t/2.25);
+const stumble=ease((t-1.85)/.42);
+const recovery=ease((t-2.35)/.45);
+const carTime=clamp((t-3.15)/.78,0,1);
+const carProgress=smooth(carTime);
+const recoil=ease((t-3.82)/.18)*(1-ease((t-4.4)/.32));
+const opening=ease((t-4.65)/.58);
 
-const travel=(W*.07)*walkProgress;
-const personWalkX=personStart+travel;
-const floorTravel=travel*.65;
-const stoneX=personStart-15+floorTravel;
+const fallStart=5.22;
+const fallDuration=1.65;
+const fall=smooth((t-fallStart)/fallDuration);
+const fade=ease((t-7.15)/.9);
 
-const stumbleLean=stumble*(1-recover)*.62;
-const recoilLean=-recoil*.3;
+const floorMovement=walk*W*.10;
+const stoneX=personX+105-floorMovement;
+const stoneJump=stumble*(1-recovery)*24;
+const stoneRotation=stumble*(1-recovery)*.55;
 
-let personX=personWalkX;
-let personY=ground;
-let personLean=stumbleLean+recoilLean;
-let fallPose=0;
+let characterX=personX;
+let characterY=ground;
+let characterLean=stumble*(1-recovery)*.58-recoil*.28;
+let characterPose=Math.max(stumble,recoil);
 
 if(t>=fallStart){
-const fall=smoother((t-fallStart)/1.65);
-personX=holeX;
-personY=ground+fall*205;
-personLean=fall*1.15;
-fallPose=fall;
-}
-
-const carScale=Math.max(.78,Math.min(1.05,H/750));
-
-if(t<fallStart){
-ctx.save();
-ctx.beginPath();
-ctx.rect(0,0,W,H);
-ctx.clip();
-
-if(t<4.65){
-drawStone(
-stoneX,
-ground-3-(stumble*(1-recover)*25),
-10+stumble*3
-);
-}
-
-ctx.restore();
+characterX=holeX;
+characterY=ground+fall*190;
+characterLean=fall*.35;
+characterPose=fall;
 }
 
 if(t<fallStart){
 drawPerson(
-personX,
-personY,
+characterX-recoil*20,
+characterY,
 t*8,
-personLean,
+characterLean,
 scale,
-Math.max(stumble,recoil)
+characterPose
 );
-}
-
-if(t>=fallStart && t<7.0){
+}else if(t<7.1){
 drawPerson(
-personX,
-personY,
-t*8,
-personLean,
+characterX,
+characterY,
+t*5,
+characterLean,
 scale,
-fallPose
+fall
 );
 }
 
-if(t>3.25 && t<4.65){
-const carX=W+190-carProgress*(W+420);
-const carY=ground-3;
-drawCar(carX,carY,carScale);
-}
+const holeOpen=t<fallStart?0:opening;
 
-if(t>3.8 && t<4.45){
-const flash=1-smooth((t-3.8)/.65);
-ctx.save();
-ctx.globalAlpha=flash*.28;
-ctx.fillStyle='#fff';
-ctx.fillRect(0,0,W,H);
-ctx.restore();
-}
-
-if(t>=fallStart){
-drawGroundWithHole(
+drawGround(
 ground,
 holeX,
 holeWidth,
 holeHeight,
 holeOpen
 );
-}else{
-ctx.fillStyle='#f5f5f2';
-ctx.fillRect(0,ground,W,H-ground);
+
+if(t<4.6){
+drawStone(
+stoneX,
+ground-2-stoneJump,
+9,
+stoneRotation
+);
 }
 
-if(t>4.65 && t<5.3){
-const impact=1-smooth((t-4.65)/.65);
+if(t>3.15&&t<4.6){
+const carX=W+210-carProgress*(W+460);
+const carY=ground-3;
+const carScale=Math.max(.78,Math.min(1.05,H/750));
+
+drawCar(carX,carY,carScale);
+
+const impact=ease((t-3.78)/.12)*(1-ease((t-4.35)/.3));
+
+if(impact>0){
+ctx.save();
+ctx.globalAlpha=impact*.2;
+ctx.fillStyle='#fff';
+ctx.fillRect(0,0,W,H);
+ctx.restore();
+}
+}
+
+if(t>4.65&&t<5.35){
+const impact=1-ease((t-4.65)/.7);
+
 ctx.save();
 ctx.globalAlpha=impact*.7;
 ctx.strokeStyle='#f5f5f2';
 ctx.lineWidth=2;
 
 for(let i=0;i<4;i++){
-const spread=holeWidth*(.5+i*.3);
+const spread=holeWidth*(.8+i*.3);
+
 ctx.beginPath();
 ctx.moveTo(holeX-spread,ground-5-i*4);
-ctx.lineTo(holeX-spread-10,ground-12-i*4);
+ctx.lineTo(holeX-spread-9,ground-12-i*4);
+
 ctx.moveTo(holeX+spread,ground-5-i*4);
-ctx.lineTo(holeX+spread+10,ground-12-i*4);
+ctx.lineTo(holeX+spread+9,ground-12-i*4);
 ctx.stroke();
 }
+
 ctx.restore();
 }
 
 if(t>=fallStart){
-const depth=smooth((t-5.55)/.95);
+const depth=ease((t-5.5)/.9);
+
 ctx.save();
-ctx.globalAlpha=depth*.9;
+ctx.globalAlpha=depth*.8;
 ctx.fillStyle='#050505';
 ctx.beginPath();
-ctx.ellipse(holeX,ground,holeWidth*holeOpen,holeHeight*holeOpen,0,0,Math.PI*2);
+ctx.ellipse(
+holeX,
+ground,
+holeWidth*holeOpen,
+holeHeight*holeOpen,
+0,
+0,
+Math.PI*2
+);
 ctx.fill();
 ctx.restore();
 }
@@ -475,7 +498,7 @@ ctx.fillStyle=`rgba(5,5,5,${fade})`;
 ctx.fillRect(0,0,W,H);
 }
 
-if(t>7.8){
+if(t>8.05){
 document.getElementById('openingTitle').classList.add('show');
 document.getElementById('openingBottom').classList.add('show');
 }
@@ -486,5 +509,7 @@ requestAnimationFrame(drawOpening);
 requestAnimationFrame(drawOpening);
 </script>
 
+
 </body>
 </html>
+```
