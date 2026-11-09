@@ -7,22 +7,18 @@
 <title>AQUÍ Y ALLÁ | Percepción peatonal</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@300;400;500;600;700;800&display=swap');
-:root{--red:#d91038;--blue:#009fe3;--black:#111;--gray:#777;--paper:#fff}
+:root{--red:#d91038;--blue:#009fe3}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;background:white;color:var(--black);font-family:Manrope,sans-serif;overflow-x:hidden}
-body::-webkit-scrollbar{width:4px}
-body::-webkit-scrollbar-thumb{background:#aaa}
+body{margin:0;background:white;color:#111;font-family:Manrope,sans-serif;overflow-x:hidden}
 #opening{height:100svh;min-height:560px;position:relative;overflow:hidden;background:#050505;color:white}
-#openingCanvas{position:absolute;inset:0;width:100%;height:100%;background:#050505}
-.opening-labels{position:absolute;top:35px;left:5vw;right:5vw;display:flex;justify-content:space-between;font:10px 'DM Mono';letter-spacing:1.5px;color:#aaa;opacity:0;transition:1s;z-index:3}
-.opening-labels.show{opacity:1}
-.opening-title{position:absolute;top:50%;left:50%;width:90%;transform:translate(-50%,-50%);text-align:center;color:#fff;opacity:0;transition:opacity 1.8s;pointer-events:none;z-index:4}
+#openingCanvas{position:absolute;inset:0;width:100%;height:100%}
+.opening-title{position:absolute;top:50%;left:50%;width:90%;transform:translate(-50%,-50%);text-align:center;opacity:0;transition:opacity 1.8s;pointer-events:none}
 .opening-title.show{opacity:1}
 .opening-title .eyebrow{font:10px 'DM Mono';letter-spacing:3px;margin-bottom:25px;color:#aaa}
-.opening-title h1{font-size:clamp(48px,10vw,132px);font-weight:800;line-height:.88;letter-spacing:-.085em;margin:0}
-.opening-title p{font-size:clamp(11px,1.3vw,15px);line-height:2;color:#bbb;max-width:470px;margin:30px auto 0;letter-spacing:2px}
-.opening-bottom{position:absolute;bottom:30px;left:5vw;right:5vw;display:flex;justify-content:space-between;font:9px 'DM Mono';letter-spacing:1.5px;color:#aaa;opacity:0;transition:1s;z-index:3}
+.opening-title h1{font-size:clamp(48px,10vw,132px);font-weight:800;line-height:.9;letter-spacing:-.085em;margin:0}
+.opening-title p{font:11px 'DM Mono';letter-spacing:2px;line-height:2;color:#aaa;margin:30px auto 0}
+.opening-bottom{position:absolute;bottom:30px;left:5vw;right:5vw;display:flex;justify-content:space-between;font:9px 'DM Mono';letter-spacing:1.5px;color:#888;opacity:0;transition:1s}
 .opening-bottom.show{opacity:1}
 .section{min-height:100svh;padding:13vh 8vw;display:flex;flex-direction:column;justify-content:center;position:relative;border-top:1px solid #eee}
 .section-number{font:10px 'DM Mono';letter-spacing:2px;color:#999;margin-bottom:35px}
@@ -93,10 +89,9 @@ body::-webkit-scrollbar-thumb{background:#aaa}
 .reveal{opacity:0;transform:translateY(35px);transition:opacity 1s,transform 1s}
 .reveal.visible{opacity:1;transform:none}
 @media(max-width:650px){
-.opening-labels,.opening-bottom{left:20px;right:20px;font-size:8px}
+.opening-bottom{left:20px;right:20px;font-size:8px}
 .opening-title{width:94%}
 .opening-title h1{font-size:16vw}
-.opening-title p{font-size:9px}
 .section{padding:100px 7vw}
 .section h2{font-size:clamp(48px,13vw,85px)}
 .lane{grid-template-columns:1fr;gap:12px;padding:22px 0}
@@ -114,18 +109,14 @@ body::-webkit-scrollbar-thumb{background:#aaa}
 
 <section id="opening">
 <canvas id="openingCanvas"></canvas>
-<div class="opening-labels" id="openingLabels">
-<span class="red">AQUÍ / CHILE</span>
-<span class="blue">ALLÁ / ARGENTINA</span>
-</div>
 <div class="opening-title" id="openingTitle">
 <div class="eyebrow">CIUDADES PUERTO / CHILE × ARGENTINA</div>
-<h1>AQUÍ Y ALLÁ</h1>
-<p>PERCEPCIÓN PEATONAL<br>VALPARAÍSO · BUENOS AIRES</p>
+<h1>PERCEPCIÓN<br>PEATONAL</h1>
+<p>VALPARAÍSO · BUENOS AIRES</p>
 </div>
 <div class="opening-bottom" id="openingBottom">
-<span>PERCEPCIÓN PEATONAL</span>
-<span>VALPARAÍSO · BUENOS AIRES</span>
+<span>AQUÍ / CHILE</span>
+<span>ALLÁ / ARGENTINA</span>
 </div>
 </section>
 
@@ -137,18 +128,12 @@ body::-webkit-scrollbar-thumb{background:#aaa}
 <div class="lanes">
 <div class="lane red-lane">
 <div class="lane-name"><i style="background:var(--red)"></i> AQUÍ / CHILE</div>
-<div class="lane-content">
-<h3>Valparaíso</h3>
-<p>¿Cómo se percibe caminar entre pendientes, calles contenidas, espacios abiertos y recorridos que cambian constantemente de escala?</p>
-</div>
+<div class="lane-content"><h3>Valparaíso</h3><p>¿Cómo se percibe caminar entre pendientes, calles contenidas, espacios abiertos y recorridos que cambian constantemente de escala?</p></div>
 <div class="lane-track"><span></span></div>
 </div>
 <div class="lane blue-lane">
 <div class="lane-name"><i style="background:var(--blue)"></i> ALLÁ / ARGENTINA</div>
-<div class="lane-content">
-<h3>Buenos Aires</h3>
-<p>¿Cómo se experimentan las avenidas, las veredas, las intersecciones y las distintas relaciones entre el peatón y la ciudad?</p>
-</div>
+<div class="lane-content"><h3>Buenos Aires</h3><p>¿Cómo se experimentan las avenidas, las veredas, las intersecciones y las distintas relaciones entre el peatón y la ciudad?</p></div>
 <div class="lane-track"><span></span></div>
 </div>
 </div>
@@ -170,26 +155,17 @@ body::-webkit-scrollbar-thumb{background:#aaa}
 <div class="lanes">
 <div class="lane red-lane">
 <div class="lane-name"><i style="background:var(--red)"></i> 01 / ESPACIO</div>
-<div class="lane-content">
-<h3>Apertura y amplitud</h3>
-<p>¿El espacio se siente abierto o contenido? ¿Permite observar lo que viene? ¿Facilita caminar, detenerse o permanecer?</p>
-</div>
+<div class="lane-content"><h3>Apertura y amplitud</h3><p>¿El espacio se siente abierto o contenido? ¿Permite observar lo que viene? ¿Facilita caminar, detenerse o permanecer?</p></div>
 <div class="lane-track"><span></span></div>
 </div>
 <div class="lane blue-lane">
 <div class="lane-name"><i style="background:var(--blue)"></i> 02 / ORIENTACIÓN</div>
-<div class="lane-content">
-<h3>Elementos referenciales</h3>
-<p>¿Qué elementos llaman nuestra atención? ¿Podemos reconocer dónde estamos? ¿Los referentes ayudan a ubicarnos y comprender el recorrido?</p>
-</div>
+<div class="lane-content"><h3>Elementos referenciales</h3><p>¿Qué elementos llaman nuestra atención? ¿Podemos reconocer dónde estamos? ¿Los referentes ayudan a ubicarnos y comprender el recorrido?</p></div>
 <div class="lane-track"><span></span></div>
 </div>
 <div class="lane red-lane">
 <div class="lane-name"><i style="background:var(--red)"></i> 03 / SUPERFICIE</div>
-<div class="lane-content">
-<h3>Materialidad</h3>
-<p>¿La superficie permite caminar cómodamente? ¿Existen desniveles, obstáculos o irregularidades? ¿Cómo cambia el desplazamiento?</p>
-</div>
+<div class="lane-content"><h3>Materialidad</h3><p>¿La superficie permite caminar cómodamente? ¿Existen desniveles, obstáculos o irregularidades? ¿Cómo cambia el desplazamiento?</p></div>
 <div class="lane-track"><span></span></div>
 </div>
 </div>
@@ -202,18 +178,12 @@ body::-webkit-scrollbar-thumb{background:#aaa}
 <div class="lanes">
 <div class="lane red-lane">
 <div class="lane-name"><i style="background:var(--red)"></i> AQUÍ / CHILE</div>
-<div class="lane-content">
-<h3>Valparaíso</h3>
-<p>Observar cómo las pendientes, la amplitud de las calles, los referentes y las superficies participan en la experiencia de caminar.</p>
-</div>
+<div class="lane-content"><h3>Valparaíso</h3><p>Observar cómo las pendientes, la amplitud de las calles, los referentes y las superficies participan en la experiencia de caminar.</p></div>
 <div class="lane-track"><span></span></div>
 </div>
 <div class="lane blue-lane">
 <div class="lane-name"><i style="background:var(--blue)"></i> ALLÁ / ARGENTINA</div>
-<div class="lane-content">
-<h3>Buenos Aires</h3>
-<p>Observar cómo las dimensiones de las veredas, las avenidas, los cruces y los elementos urbanos participan en la experiencia peatonal.</p>
-</div>
+<div class="lane-content"><h3>Buenos Aires</h3><p>Observar cómo las dimensiones de las veredas, las avenidas, los cruces y los elementos urbanos participan en la experiencia peatonal.</p></div>
 <div class="lane-track"><span></span></div>
 </div>
 </div>
@@ -251,10 +221,7 @@ body::-webkit-scrollbar-thumb{background:#aaa}
 <button onclick="changeData('materialidad',this)">MATERIALIDAD</button>
 </div>
 <div class="chart">
-<div class="chart-head">
-<span id="chartTitle">VARIACIÓN DE AMPLITUD</span>
-<span>TRAMOS / 01—12</span>
-</div>
+<div class="chart-head"><span id="chartTitle">VARIACIÓN DE AMPLITUD</span><span>TRAMOS / 01—12</span></div>
 <canvas id="dataCanvas"></canvas>
 <div class="chart-legend">
 <span><i style="background:var(--red)"></i>AQUÍ / CHILE</span>
@@ -263,21 +230,9 @@ body::-webkit-scrollbar-thumb{background:#aaa}
 </div>
 <p class="data-explain">Cada línea representa un territorio. Al seleccionar una dimensión, la visualización cambia para mostrar cómo se distribuyen los valores a través de los distintos tramos. La comparación final deberá incorporar las observaciones y respuestas reales de la investigación.</p>
 <div class="metrics">
-<div class="metric">
-<label>DIMENSIÓN OBSERVADA</label>
-<strong id="metricName">AMPLITUD</strong>
-<small>VARIABLE SELECCIONADA</small>
-</div>
-<div class="metric">
-<label>TRAMOS REPRESENTADOS</label>
-<strong>12</strong>
-<small>DATOS DE DEMOSTRACIÓN</small>
-</div>
-<div class="metric">
-<label>TERRITORIOS</label>
-<strong>02</strong>
-<small>CHILE / ARGENTINA</small>
-</div>
+<div class="metric"><label>DIMENSIÓN OBSERVADA</label><strong id="metricName">AMPLITUD</strong><small>VARIABLE SELECCIONADA</small></div>
+<div class="metric"><label>TRAMOS REPRESENTADOS</label><strong>12</strong><small>DATOS DE DEMOSTRACIÓN</small></div>
+<div class="metric"><label>TERRITORIOS</label><strong>02</strong><small>CHILE / ARGENTINA</small></div>
 </div>
 <p style="font:9px 'DM Mono';color:#888;margin-top:20px">VALORES SIMULADOS PARA EL PROTOTIPO. NO CORRESPONDEN A RESULTADOS REALES.</p>
 </section>
@@ -297,211 +252,230 @@ body::-webkit-scrollbar-thumb{background:#aaa}
 </footer>
 
 <script>
-const openingCanvas=document.getElementById('openingCanvas');
-const ctx=openingCanvas.getContext('2d');
-let W=0,H=0,D=1,openingStart=performance.now();
+const canvas=document.getElementById('openingCanvas');
+const c=canvas.getContext('2d');
+let W,H,D=1,start=performance.now();
 
-function resizeOpening(){
+function resize(){
 D=Math.min(devicePixelRatio||1,2);
-W=innerWidth;H=innerHeight;
-openingCanvas.width=W*D;
-openingCanvas.height=H*D;
-openingCanvas.style.width=W+'px';
-openingCanvas.style.height=H+'px';
-ctx.setTransform(D,0,0,D,0,0);
+W=innerWidth;
+H=innerHeight;
+canvas.width=W*D;
+canvas.height=H*D;
+canvas.style.width=W+'px';
+canvas.style.height=H+'px';
+c.setTransform(D,0,0,D,0,0);
 }
-addEventListener('resize',resizeOpening);
-resizeOpening();
+addEventListener('resize',resize);
+resize();
 
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
-const smooth=t=>{t=clamp(t,0,1);return t*t*(3-2*t)};
+const ease=t=>{t=clamp(t,0,1);return t*t*(3-2*t)};
+const smoother=t=>{t=clamp(t,0,1);return t*t*t*(t*(6*t-15)+10)};
 
 function capsule(x1,y1,x2,y2,width,color='#f5f5f2'){
-ctx.beginPath();
-ctx.moveTo(x1,y1);
-ctx.lineTo(x2,y2);
-ctx.lineWidth=width;
-ctx.lineCap='round';
-ctx.strokeStyle=color;
-ctx.stroke();
+c.beginPath();
+c.moveTo(x1,y1);
+c.lineTo(x2,y2);
+c.lineWidth=width;
+c.lineCap='round';
+c.strokeStyle=color;
+c.stroke();
 }
 
-function drawPedestrian(x,ground,phase,lean,fallPose,scale=1){
-ctx.save();
-ctx.translate(x,ground);
-ctx.scale(scale,scale);
-ctx.rotate(lean);
-
+function pedestrian(x,ground,phase,lean,pose,scale=1){
+c.save();
+c.translate(x,ground);
+c.rotate(lean);
+c.scale(scale,scale);
 const white='#f5f5f2';
 const swing=Math.sin(phase);
-const legA=swing*20;
-const legB=-swing*20;
-const kneeA=Math.sin(phase+1.0)*9;
-const kneeB=-kneeA;
-const armA=Math.sin(phase+Math.PI)*15;
-const armB=-armA;
+const leg1=swing*19;
+const leg2=-swing*19;
+const arm1=-swing*14;
+const arm2=swing*14;
 
-if(fallPose<.15){
-capsule(-6,-39,-13+legA*.45,-19+kneeA,10,white);
-capsule(-13+legA*.45,-19+kneeA,-16+legA,-2,9,white);
-capsule(6,-39,13+legB*.45,-19+kneeB,10,white);
-capsule(13+legB*.45,-19+kneeB,16+legB,-2,9,white);
-capsule(-16+legA,-2,-7+legA,-1,8,white);
-capsule(16+legB,-2,25+legB,-1,8,white);
-capsule(-9,-83,-18+armA*.5,-62,9,white);
-capsule(-18+armA*.5,-62,-20+armA,-47,8,white);
-capsule(10,-83,19+armB*.5,-62,9,white);
-capsule(19+armB*.5,-62,21+armB,-47,8,white);
+if(pose<.2){
+capsule(-6,-40,-12+leg1*.5,-20,10,white);
+capsule(-12+leg1*.5,-20,-17+leg1,-2,9,white);
+capsule(6,-40,12+leg2*.5,-20,10,white);
+capsule(12+leg2*.5,-20,17+leg2,-2,9,white);
+capsule(-17+leg1,-2,-8+leg1,-2,8,white);
+capsule(17+leg2,-2,26+leg2,-2,8,white);
+capsule(-8,-82,-17+arm1*.5,-62,9,white);
+capsule(-17+arm1*.5,-62,-18+arm1,-49,8,white);
+capsule(8,-82,17+arm2*.5,-62,9,white);
+capsule(17+arm2*.5,-62,18+arm2,-49,8,white);
 }else{
-const f=clamp((fallPose-.15)/.85,0,1);
-capsule(-9,-82,-25-f*9,-67-f*4,9,white);
-capsule(10,-82,27+f*10,-72-f*7,9,white);
-capsule(-6,-39,-19-f*5,-22+f*9,10,white);
-capsule(-19-f*5,-22+f*9,-25-f*8,-9+f*12,9,white);
-capsule(6,-39,16+f*5,-24+f*8,10,white);
-capsule(16+f*5,-24+f*8,23+f*8,-12+f*10,9,white);
+let p=clamp(pose,0,1);
+capsule(-7,-40,-13-p*10,-22+p*7,10,white);
+capsule(-13-p*10,-22+p*7,-19-p*12,-4+p*3,9,white);
+capsule(7,-40,17+p*12,-24+p*5,10,white);
+capsule(17+p*12,-24+p*5,25+p*12,-8,9,white);
+capsule(-9,-81,-26-p*12,-65-p*8,9,white);
+capsule(-26-p*12,-65-p*8,-34-p*14,-52-p*12,8,white);
+capsule(9,-81,24+p*12,-65-p*6,9,white);
+capsule(24+p*12,-65-p*6,33+p*15,-52-p*10,8,white);
+}
+c.fillStyle=white;
+c.beginPath();
+c.roundRect(-12,-94,24,57,12);
+c.fill();
+c.beginPath();
+c.arc(0,-108,13,0,Math.PI*2);
+c.fill();
+c.restore();
 }
 
-ctx.fillStyle=white;
-ctx.beginPath();
-ctx.roundRect(-12,-94,25,57,12);
-ctx.fill();
+function drawCar(x,y,scale=1){
+c.save();
+c.translate(x,y);
+c.scale(scale,scale);
+c.fillStyle='#f5f5f2';
+c.beginPath();
+c.moveTo(-74,-17);
+c.quadraticCurveTo(-68,-32,-46,-34);
+c.lineTo(-23,-54);
+c.quadraticCurveTo(-16,-61,0,-61);
+c.lineTo(35,-59);
+c.quadraticCurveTo(49,-57,58,-34);
+c.lineTo(76,-27);
+c.quadraticCurveTo(84,-24,84,-13);
+c.lineTo(84,-5);
+c.quadraticCurveTo(84,0,77,0);
+c.lineTo(-73,0);
+c.quadraticCurveTo(-82,0,-82,-9);
+c.lineTo(-82,-17);
+c.quadraticCurveTo(-82,-21,-74,-17);
+c.fill();
+c.fillStyle='#050505';
+c.beginPath();
+c.moveTo(-20,-53);
+c.lineTo(-1,-53);
+c.lineTo(0,-36);
+c.lineTo(-43,-36);
+c.closePath();
+c.fill();
+c.beginPath();
+c.moveTo(7,-53);
+c.lineTo(32,-51);
+c.quadraticCurveTo(43,-49,50,-36);
+c.lineTo(7,-36);
+c.closePath();
+c.fill();
+c.fillStyle='#050505';
+c.beginPath();
+c.arc(-48,0,13,0,Math.PI*2);
+c.arc(49,0,13,0,Math.PI*2);
+c.fill();
+c.fillStyle='#f5f5f2';
+c.beginPath();
+c.arc(-48,0,5,0,Math.PI*2);
+c.arc(49,0,5,0,Math.PI*2);
+c.fill();
+c.fillStyle='#fff';
+c.fillRect(75,-23,7,7);
+c.restore();
+}
 
-ctx.beginPath();
-ctx.arc(1,-108,13,0,Math.PI*2);
-ctx.fillStyle=white;
-ctx.fill();
-
-ctx.restore();
+function drawHole(x,y,width,open){
+const w=width*open;
+c.fillStyle='#050505';
+c.beginPath();
+c.ellipse(x,y,w,17*open,0,0,Math.PI*2);
+c.fill();
+c.strokeStyle='#f5f5f2';
+c.lineWidth=3;
+c.beginPath();
+c.ellipse(x,y,w,17*open,0,Math.PI,Math.PI*2);
+c.stroke();
 }
 
 function drawOpening(now){
-const t=(now-openingStart)/1000;
-ctx.clearRect(0,0,W,H);
-ctx.fillStyle='#050505';
-ctx.fillRect(0,0,W,H);
+const t=(now-start)/1000;
+c.clearRect(0,0,W,H);
+c.fillStyle='#050505';
+c.fillRect(0,0,W,H);
 
 const ground=H*.74;
-const holeX=W*.72;
-const holeWidth=Math.min(92,W*.16);
-const holeDepth=13;
-const holeOpen=smooth((t-3.0)/.85);
-const approach=smooth(t/4.15);
-const stumble=smooth((t-3.65)/.75);
-const fall=smooth((t-4.35)/1.15);
+const personX=W*.40;
+const scale=Math.min(1,H/700);
+const phase=t*8;
 
-const gap=holeOpen*holeWidth;
-ctx.strokeStyle='#f5f5f2';
-ctx.lineWidth=4;
-ctx.lineCap='butt';
-ctx.beginPath();
-ctx.moveTo(0,ground);
-ctx.lineTo(Math.max(0,holeX-gap),ground);
-ctx.moveTo(Math.min(W,holeX+gap),ground);
-ctx.lineTo(W,ground);
-ctx.stroke();
+const stumble=ease((t-2.0)/.65);
+const recover=ease((t-2.75)/.55);
+const carProgress=ease((t-3.45)/.8);
+const recoil=ease((t-4.05)/.38)*(1-ease((t-4.55)/.35));
+const holeOpen=ease((t-4.55)/.6);
+const fall=ease((t-5.25)/1.05);
+const finalFade=ease((t-6.65)/.9);
 
-if(holeOpen>0){
-ctx.fillStyle='#050505';
-ctx.beginPath();
-ctx.ellipse(holeX,ground+1,gap,holeDepth*holeOpen,0,0,Math.PI*2);
-ctx.fill();
-ctx.strokeStyle='#f5f5f2';
-ctx.lineWidth=3;
-ctx.beginPath();
-ctx.ellipse(holeX,ground,gap,holeDepth*holeOpen,0,Math.PI,Math.PI*2);
-ctx.stroke();
+c.fillStyle='#f5f5f2';
+c.fillRect(0,ground,W,H-ground);
+
+const holeX=personX-90;
+const holeWidth=Math.min(95,W*.16);
+drawHole(holeX,ground,holeWidth,holeOpen);
+
+const stumbleLean=stumble*(1-recover)*.58;
+const recoilLean=recoil*-.24;
+const fallLean=fall*1.42;
+const lean=stumbleLean+recoilLean+fallLean;
+
+const personOffset=-recoil*42+fall*holeWidth*.5;
+const drop=fall*fall*H*.48;
+const personY=ground+drop;
+
+if(t<7.0){
+c.save();
+c.globalAlpha=1-finalFade;
+pedestrian(personX+personOffset,personY,phase,lean,Math.max(stumble,recoil,fall),scale);
+c.restore();
 }
 
-const startX=W*.14;
-const edgeX=holeX-holeWidth-14;
-const px=startX+(edgeX-startX)*approach;
-const phase=t*8.5;
-const lean=stumble*.22+fall*1.48;
-const dropY=fall*fall*H*.54;
-const characterX=px+fall*holeWidth*.72;
-const characterGround=ground+dropY;
-
-if(t<6.35){
-const fadeOut=smooth((t-5.95)/.42);
-ctx.save();
-ctx.globalAlpha=1-fadeOut;
-drawPedestrian(characterX,characterGround,phase,lean,fall,Math.min(1,H/700));
-ctx.restore();
+if(t>3.35&&t<4.65){
+const carX=W+170-carProgress*(W+360);
+const carY=ground-3;
+const carScale=Math.max(.7,Math.min(1.1,H/750));
+drawCar(carX,carY,carScale);
 }
 
-if(t>4.15&&t<5.25){
-const shake=(1-smooth((t-4.15)/1.1))*2.5;
-ctx.save();
-ctx.globalAlpha=.28;
-ctx.strokeStyle='#fff';
-ctx.lineWidth=1;
-ctx.beginPath();
-ctx.moveTo(holeX-gap,ground-5);
-ctx.lineTo(holeX-gap-shake*3,ground-9);
-ctx.moveTo(holeX+gap,ground-5);
-ctx.lineTo(holeX+gap+shake*3,ground-9);
-ctx.stroke();
-ctx.restore();
+if(t>4.05&&t<4.55){
+const flash=1-ease((t-4.05)/.5);
+c.save();
+c.globalAlpha=flash*.22;
+c.fillStyle='#fff';
+c.fillRect(0,0,W,H);
+c.restore();
 }
 
-const fade=smooth((t-6.15)/1.0);
-if(fade>0){
-ctx.fillStyle=`rgba(5,5,5,${fade})`;
-ctx.fillRect(0,0,W,H);
+if(t>5.15&&t<6.6){
+const shake=(1-ease((t-5.15)/1.2))*2.5;
+c.save();
+c.globalAlpha=.25;
+c.strokeStyle='#fff';
+c.lineWidth=2;
+c.beginPath();
+c.moveTo(holeX-holeWidth,ground-4);
+c.lineTo(holeX-holeWidth-shake*4,ground-9);
+c.moveTo(holeX+holeWidth,ground-4);
+c.lineTo(holeX+holeWidth+shake*4,ground-9);
+c.stroke();
+c.restore();
 }
 
-if(t>7.45){
+if(finalFade>0){
+c.fillStyle=`rgba(5,5,5,${finalFade})`;
+c.fillRect(0,0,W,H);
+}
+
+if(t>7.65){
 document.getElementById('openingTitle').classList.add('show');
-document.getElementById('openingLabels').classList.add('show');
 document.getElementById('openingBottom').classList.add('show');
 }
 requestAnimationFrame(drawOpening);
 }
 requestAnimationFrame(drawOpening);
-
-const helix=document.getElementById('helixCanvas');
-const hc=helix.getContext('2d');
-let hw=0,hh=0,walkTime=0;
-
-function resizeHelix(){
-hw=helix.clientWidth;
-hh=helix.clientHeight;
-helix.width=hw*D;
-helix.height=hh*D;
-hc.setTransform(D,0,0,D,0,0);
-}
-
-function drawHelix(){
-hc.clearRect(0,0,hw,hh);
-walkTime+=.012;
-const y=hh*.68;
-hc.strokeStyle='#fff';
-hc.lineWidth=2;
-hc.beginPath();
-hc.moveTo(0,y);
-hc.lineTo(hw,y);
-hc.stroke();
-
-for(let i=0;i<18;i++){
-let x=((i*86-walkTime*95)%(hw+100)+hw+100)%(hw+100)-30;
-let yy=y+Math.sin(i*.8+walkTime)*16;
-hc.save();
-hc.translate(x,yy);
-hc.rotate(Math.sin(i+walkTime)*.18);
-hc.fillStyle=i%2?'#009fe3':'#d91038';
-hc.globalAlpha=.75;
-hc.beginPath();
-hc.ellipse(0,0,5,10,0,0,Math.PI*2);
-hc.fill();
-hc.restore();
-}
-requestAnimationFrame(drawHelix);
-}
-
-addEventListener('resize',()=>{resizeOpening();resizeHelix()});
-resizeHelix();
-drawHelix();
 
 const dataset={
 amplitud:{
@@ -517,7 +491,6 @@ red:[4,2,3,1,4,2,3,4,1,3,2,4],
 blue:[2,4,5,4,3,5,4,3,5,4,3,5]
 }
 };
-
 let current='amplitud';
 const dataCanvas=document.getElementById('dataCanvas');
 const dc=dataCanvas.getContext('2d');
@@ -534,7 +507,6 @@ drawData();
 function drawData(){
 dc.clearRect(0,0,chartW,chartH);
 let left=35,right=chartW-30,top=25,bottom=chartH-40;
-
 for(let i=0;i<6;i++){
 let y=top+i*(bottom-top)/5;
 dc.beginPath();
@@ -551,7 +523,6 @@ let pts=values.map((v,i)=>({
 x:left+i*(right-left)/(values.length-1),
 y:bottom-v/5*(bottom-top)+Math.sin(chartT*.025+i*.45+phase)*2
 }));
-
 dc.beginPath();
 dc.moveTo(pts[0].x,bottom);
 pts.forEach((p,i)=>{
@@ -563,13 +534,11 @@ dc.bezierCurveTo(mid,prev.y,mid,p.y,p.x,p.y);
 });
 dc.lineTo(pts[pts.length-1].x,bottom);
 dc.closePath();
-
 let gradient=dc.createLinearGradient(0,top,0,bottom);
 gradient.addColorStop(0,color+'35');
 gradient.addColorStop(1,color+'00');
 dc.fillStyle=gradient;
 dc.fill();
-
 dc.beginPath();
 pts.forEach((p,i)=>{
 if(i===0)dc.moveTo(p.x,p.y);
@@ -581,7 +550,6 @@ dc.bezierCurveTo(mid,prev.y,mid,p.y,p.x,p.y);
 dc.strokeStyle=color;
 dc.lineWidth=3;
 dc.stroke();
-
 pts.forEach(p=>{
 dc.beginPath();
 dc.arc(p.x,p.y,4,0,Math.PI*2);
@@ -589,7 +557,6 @@ dc.fillStyle=color;
 dc.fill();
 });
 }
-
 drawSeries(dataset[current].red,'#d91038',0);
 drawSeries(dataset[current].blue,'#009fe3',2);
 dc.fillStyle='#888';
@@ -612,7 +579,6 @@ button.classList.add('active');
 document.getElementById('chartTitle').textContent='VARIACIÓN DE '+name.toUpperCase();
 document.getElementById('metricName').textContent=name.toUpperCase();
 }
-
 addEventListener('resize',resizeData);
 resizeData();
 animateChart();
@@ -626,3 +592,4 @@ document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
 </script>
 </body>
 </html>
+
