@@ -273,9 +273,13 @@ const ease=t=>{t=clamp(t,0,1);return t*t*(3-2*t)};
 const smoother=t=>{t=clamp(t,0,1);return t*t*t*(t*(6*t-15)+10)};
 
 function capsule(x1,y1,x2,y2,width,color='#f5f5f2'){
+c.beginPath();c.moveTo(x1,y1);c.lineTo(x2,y2);c.lineWidth=width;c.lineCap='round';c.lineJoin='round';c.strokeStyle=color;c.stroke();
+}
+
+function limb(points,width,color='#f5f5f2'){
 c.beginPath();
-c.moveTo(x1,y1);
-c.lineTo(x2,y2);
+c.moveTo(points[0][0],points[0][1]);
+for(let i=1;i<points.length;i++)c.lineTo(points[i][0],points[i][1]);
 c.lineWidth=width;
 c.lineCap='round';
 c.lineJoin='round';
@@ -283,251 +287,217 @@ c.strokeStyle=color;
 c.stroke();
 }
 
-function pedestrian(x,ground,phase,lean,pose,scale=1){
+function pedestrian(x,ground,pose,scale=1){
 c.save();
 c.translate(x,ground);
-c.rotate(lean);
 c.scale(scale,scale);
+const w='#f5f5f2';
+let torsoAngle=0,headX=0,headY=-127;
+let legs,arms;
 
-const white='#f5f5f2';
-const walk=Math.sin(phase);
-const stumble=clamp(pose,0,1);
-const walking=1-stumble;
-
-const shoulder={x:0,y:-88};
-const hip={x:0,y:-42};
-
-const stride=walk*17*walking;
-
-let kneeA={x:-9+stride*.45,y:-22};
-let footA={x:-13+stride,y:-2};
-let kneeB={x:9-stride*.45,y:-23};
-let footB={x:14-stride,y:-3};
-
-let elbowA={x:-18-walk*7*walking,y:-65};
-let handA={x:-20-walk*13*walking,y:-51};
-let elbowB={x:18+walk*7*walking,y:-65};
-let handB={x:21+walk*13*walking,y:-52};
-
-if(stumble>0){
-kneeA.x-=stumble*12;
-kneeA.y-=stumble*8;
-footA.x-=stumble*24;
-footA.y-=stumble*12;
-
-kneeB.x+=stumble*10;
-kneeB.y-=stumble*3;
-footB.x+=stumble*17;
-
-elbowA.x-=stumble*13;
-elbowA.y-=stumble*9;
-handA.x-=stumble*25;
-handA.y-=stumble*22;
-
-elbowB.x+=stumble*14;
-elbowB.y-=stumble*12;
-handB.x+=stumble*27;
-handB.y-=stumble*25;
+if(pose==='walkA'){
+legs=[[[-5,-49],[-24,-27],[-33,-5]],[[5,-49],[18,-25],[34,-2]]];
+arms=[[[-7,-101],[-20,-79],[-26,-61]],[[7,-101],[18,-79],[23,-62]]];
+}else if(pose==='walkB'){
+legs=[[[-5,-49],[-17,-25],[-30,-2]],[[5,-49],[25,-29],[35,-7]]];
+arms=[[[-7,-101],[-17,-81],[-21,-62]],[[7,-101],[22,-78],[29,-61]]];
+}else if(pose==='trip'){
+torsoAngle=.34;
+headX=5;
+headY=-124;
+legs=[[[-5,-49],[-27,-38],[-42,-19]],[[5,-49],[25,-25],[39,-3]]];
+arms=[[[-7,-100],[-28,-91],[-45,-78]],[[7,-100],[29,-116],[43,-130]]];
+}else if(pose==='brace'){
+torsoAngle=-.22;
+headX=-4;
+headY=-129;
+legs=[[[-5,-49],[-24,-29],[-36,-3]],[[5,-49],[15,-24],[25,-3]]];
+arms=[[[-7,-100],[-27,-116],[-38,-130]],[[7,-100],[28,-111],[43,-116]]];
+}else if(pose==='fall'){
+torsoAngle=.75;
+headX=16;
+headY=-112;
+legs=[[[-5,-49],[-25,-37],[-37,-20]],[[5,-49],[24,-34],[38,-18]]];
+arms=[[[-7,-100],[-25,-112],[-40,-119]],[[7,-100],[25,-113],[42,-121]]];
+}else{
+legs=[[[-5,-49],[-14,-25],[-17,-2]],[[5,-49],[14,-25],[17,-2]]];
+arms=[[[-7,-100],[-18,-78],[-19,-58]],[[7,-100],[18,-78],[19,-58]]];
 }
 
-c.fillStyle=white;
+c.rotate(torsoAngle);
+limb(legs[0],13,w);
+limb(legs[1],13,w);
+limb(arms[0],11,w);
+limb(arms[1],11,w);
 
+c.fillStyle=w;
 c.beginPath();
-c.moveTo(-13,-91);
-c.quadraticCurveTo(-16,-94,-16,-83);
-c.lineTo(-12,-49);
-c.quadraticCurveTo(-11,-41,-5,-39);
-c.lineTo(7,-39);
-c.quadraticCurveTo(14,-41,13,-49);
-c.lineTo(15,-83);
-c.quadraticCurveTo(15,-93,7,-92);
+c.moveTo(-15,-105);
+c.quadraticCurveTo(-17,-111,-10,-113);
+c.lineTo(9,-113);
+c.quadraticCurveTo(16,-111,15,-103);
+c.lineTo(12,-55);
+c.quadraticCurveTo(11,-47,5,-46);
+c.lineTo(-7,-46);
+c.quadraticCurveTo(-14,-47,-14,-55);
 c.closePath();
 c.fill();
 
-capsule(shoulder.x-8,shoulder.y,elbowA.x,elbowA.y,11,white);
-capsule(elbowA.x,elbowA.y,handA.x,handA.y,9,white);
-
-capsule(shoulder.x+8,shoulder.y,elbowB.x,elbowB.y,11,white);
-capsule(elbowB.x,elbowB.y,handB.x,handB.y,9,white);
-
-capsule(hip.x-5,hip.y,kneeA.x,kneeA.y,12,white);
-capsule(kneeA.x,kneeA.y,footA.x,footA.y,10,white);
-
-capsule(hip.x+5,hip.y,kneeB.x,kneeB.y,12,white);
-capsule(kneeB.x,kneeB.y,footB.x,footB.y,10,white);
-
 c.beginPath();
-c.arc(0,-111,13,0,Math.PI*2);
+c.arc(headX,headY,16,0,Math.PI*2);
 c.fill();
-
-capsule(footA.x-1,footA.y,footA.x+8,footA.y,8,white);
-capsule(footB.x-1,footB.y,footB.x+8,footB.y,8,white);
-
 c.restore();
 }
 
-function drawCar(x,y,scale=1){
+function drawCar(x,y,s=1){
 c.save();
 c.translate(x,y);
-c.scale(scale,scale);
+c.scale(s,s);
 c.fillStyle='#f5f5f2';
 c.beginPath();
-c.moveTo(-74,-17);
-c.quadraticCurveTo(-68,-32,-46,-34);
-c.lineTo(-23,-54);
-c.quadraticCurveTo(-16,-61,0,-61);
-c.lineTo(35,-59);
-c.quadraticCurveTo(49,-57,58,-34);
-c.lineTo(76,-27);
-c.quadraticCurveTo(84,-24,84,-13);
-c.lineTo(84,-5);
-c.quadraticCurveTo(84,0,77,0);
-c.lineTo(-73,0);
-c.quadraticCurveTo(-82,0,-82,-9);
-c.lineTo(-82,-17);
-c.quadraticCurveTo(-82,-21,-74,-17);
-c.fill();
-c.fillStyle='#050505';
-c.beginPath();
-c.moveTo(-20,-53);
-c.lineTo(-1,-53);
-c.lineTo(0,-36);
-c.lineTo(-43,-36);
+c.moveTo(-91,-16);
+c.quadraticCurveTo(-87,-36,-60,-38);
+c.lineTo(-35,-61);
+c.quadraticCurveTo(-29,-68,-12,-68);
+c.lineTo(34,-66);
+c.quadraticCurveTo(53,-64,66,-38);
+c.lineTo(88,-30);
+c.quadraticCurveTo(96,-26,96,-14);
+c.lineTo(96,-5);
+c.quadraticCurveTo(96,0,87,0);
+c.lineTo(-85,0);
+c.quadraticCurveTo(-96,0,-96,-9);
+c.lineTo(-96,-15);
 c.closePath();
 c.fill();
-c.beginPath();
-c.moveTo(7,-53);
-c.lineTo(32,-51);
-c.quadraticCurveTo(43,-49,50,-36);
-c.lineTo(7,-36);
-c.closePath();
-c.fill();
-c.fillStyle='#050505';
-c.beginPath();
-c.arc(-48,0,13,0,Math.PI*2);
-c.arc(49,0,13,0,Math.PI*2);
-c.fill();
-c.fillStyle='#f5f5f2';
-c.beginPath();
-c.arc(-48,0,5,0,Math.PI*2);
-c.arc(49,0,5,0,Math.PI*2);
-c.fill();
-c.fillStyle='#fff';
-c.fillRect(75,-23,7,7);
-c.restore();
-}
 
-function drawHole(x,y,width,open){
-const w=width*open;
-if(w<=0)return;
 c.fillStyle='#050505';
 c.beginPath();
-c.ellipse(x,y,w,17*open,0,0,Math.PI*2);
+c.moveTo(-27,-60);
+c.lineTo(-10,-60);
+c.lineTo(-10,-40);
+c.lineTo(-51,-40);
+c.closePath();
 c.fill();
-c.strokeStyle='#f5f5f2';
-c.lineWidth=3;
+
 c.beginPath();
-c.ellipse(x,y,w,17*open,0,Math.PI,Math.PI*2);
-c.stroke();
+c.moveTo(-2,-60);
+c.lineTo(32,-59);
+c.quadraticCurveTo(45,-57,56,-40);
+c.lineTo(-2,-40);
+c.closePath();
+c.fill();
+
+c.fillStyle='#050505';
+c.beginPath();
+c.arc(-57,0,15,0,Math.PI*2);
+c.arc(57,0,15,0,Math.PI*2);
+c.fill();
+
+c.fillStyle='#f5f5f2';
+c.beginPath();
+c.arc(-57,0,6,0,Math.PI*2);
+c.arc(57,0,6,0,Math.PI*2);
+c.fill();
+c.restore();
 }
 
 function drawStone(x,y,jump){
 c.save();
 c.translate(x,y-jump);
-c.rotate(-.25);
-c.fillStyle='#333';
+c.rotate(-.22);
+c.fillStyle='#292929';
 c.beginPath();
 c.moveTo(-13,0);
-c.lineTo(-8,-13);
-c.lineTo(3,-18);
-c.lineTo(14,-9);
+c.lineTo(-9,-12);
+c.lineTo(2,-19);
+c.lineTo(14,-10);
 c.lineTo(12,0);
 c.closePath();
 c.fill();
 c.restore();
 }
 
+function drawHole(x,y,w,open){
+if(open<=0)return;
+c.fillStyle='#050505';
+c.beginPath();
+c.ellipse(x,y,w*open,19*open,0,0,Math.PI*2);
+c.fill();
+c.strokeStyle='#f5f5f2';
+c.lineWidth=3;
+c.beginPath();
+c.ellipse(x,y,w*open,19*open,Math.PI,0,Math.PI);
+c.stroke();
+}
+
 function drawOpening(now){
 const t=(now-start)/1000;
-
 c.clearRect(0,0,W,H);
 c.fillStyle='#050505';
 c.fillRect(0,0,W,H);
 
-const ground=H*.74;
-const personX=W*.40;
-const scale=Math.min(1.35,Math.max(.85,H/650));
-const phase=t*8;
+const ground=H*.76;
+const scale=Math.min(1.45,Math.max(.9,H/620));
+const car=ease((t-3.45)/.55);
+const recoil=ease((t-4.0)/.3);
+const hole=ease((t-4.65)/.42);
+const fall=ease((t-5.15)/.8);
+const fade=ease((t-6.7)/.8);
 
-const stumble=ease((t-2.0)/.55);
-const recover=ease((t-2.75)/.45);
-const carProgress=ease((t-3.55)/.65);
-const recoil=ease((t-4.0)/.4)*(1-ease((t-4.5)/.3));
-const holeOpen=ease((t-4.55)/.6);
-const fall=ease((t-5.25)/1.05);
-const finalFade=ease((t-6.65)/.9);
+const startX=W*.16;
+const endX=W*.43;
+const px=startX+(endX-startX)*ease(t/2.45);
 
 c.fillStyle='#f5f5f2';
 c.fillRect(0,ground,W,H-ground);
 
-const holeX=personX-75;
-const holeWidth=Math.min(95,W*.16);
+let pose='stand';
+if(t<2.45)pose=(Math.floor(t*2.2)%2===0?'walkA':'walkB');
+else if(t<2.85)pose='trip';
+else if(t<4.65)pose='brace';
+else pose='fall';
 
-const stumblePose=stumble*(1-recover);
-const recoilPose=recoil;
-const fallPose=fall;
+let x=px;
+if(t>=2.85&&t<4.65)x=endX-12*recoil;
+if(t>=4.65)x=endX-12;
 
-const personOffset=-recoil*25+fall*0;
-const drop=fall*fall*H*.48;
-const personY=ground+drop;
+const holeX=endX-12;
+const holeW=Math.min(88,W*.13);
+const drop=fall*fall*H*.42;
 
-if(t>2.0&&t<3.0){
-const jump=Math.sin(clamp((t-2.0)/.65,0,1)*Math.PI)*32;
-drawStone(personX-30,ground-1,jump);
-}else if(t>=3.0&&t<4.55){
-drawStone(personX-30,ground-1,0);
+if(t>2.4&&t<3.25){
+const jump=Math.sin(clamp((t-2.4)/.85,0,1)*Math.PI)*39;
+drawStone(endX+24,ground-1,jump);
+}else if(t>=3.25&&t<4.7){
+drawStone(endX+24,ground-1,0);
 }
 
-if(t<7.0){
+if(t<6.95){
 c.save();
-c.globalAlpha=1-finalFade;
-const pose=Math.max(stumblePose,recoilPose,fallPose);
-const lean=stumblePose*.48-recoilPose*.25+fallPose*1.1;
-pedestrian(personX+personOffset,personY,phase,lean,pose,scale);
+c.globalAlpha=1-fade;
+pedestrian(x,ground+drop,pose,scale);
 c.restore();
 }
 
-if(t>3.55&&t<4.7){
-const carX=W+190-carProgress*(W+390);
-const carY=ground-3;
-const carScale=Math.max(.85,Math.min(1.2,H/700));
-drawCar(carX,carY,carScale);
+if(t>3.45&&t<4.35){
+const carX=W+220-car*(W+440);
+drawCar(carX,ground-2,Math.min(1.15,Math.max(.85,H/700)));
 }
 
-if(t>4.05&&t<4.55){
-const flash=1-ease((t-4.05)/.5);
-c.save();
-c.globalAlpha=flash*.15;
-c.fillStyle='#fff';
-c.fillRect(0,0,W,H);
-c.restore();
-}
+drawHole(holeX,ground,holeW,hole);
 
-drawHole(holeX,ground,holeWidth,holeOpen);
-
-if(finalFade>0){
-c.fillStyle=`rgba(5,5,5,${finalFade})`;
+if(fade>0){
+c.fillStyle=`rgba(5,5,5,${fade})`;
 c.fillRect(0,0,W,H);
 }
 
-if(t>7.65){
+if(t>7.55){
 document.getElementById('openingTitle').classList.add('show');
 document.getElementById('openingBottom').classList.add('show');
 }
-
 requestAnimationFrame(drawOpening);
 }
-
 requestAnimationFrame(drawOpening);
 
 const dataset={
@@ -571,7 +541,6 @@ dc.strokeStyle='#e7e7e7';
 dc.setLineDash([3,7]);
 dc.stroke();
 }
-
 dc.setLineDash([]);
 
 function drawSeries(values,color,phase){
@@ -582,7 +551,6 @@ y:bottom-v/5*(bottom-top)+Math.sin(chartT*.025+i*.45+phase)*2
 
 dc.beginPath();
 dc.moveTo(pts[0].x,bottom);
-
 pts.forEach((p,i)=>{
 if(i===0)dc.lineTo(p.x,p.y);
 else{
@@ -590,7 +558,6 @@ let prev=pts[i-1],mid=(prev.x+p.x)/2;
 dc.bezierCurveTo(mid,prev.y,mid,p.y,p.x,p.y);
 }
 });
-
 dc.lineTo(pts[pts.length-1].x,bottom);
 dc.closePath();
 
@@ -601,7 +568,6 @@ dc.fillStyle=gradient;
 dc.fill();
 
 dc.beginPath();
-
 pts.forEach((p,i)=>{
 if(i===0)dc.moveTo(p.x,p.y);
 else{
@@ -609,7 +575,6 @@ let prev=pts[i-1],mid=(prev.x+p.x)/2;
 dc.bezierCurveTo(mid,prev.y,mid,p.y,p.x,p.y);
 }
 });
-
 dc.strokeStyle=color;
 dc.lineWidth=3;
 dc.stroke();
@@ -630,7 +595,6 @@ dc.font='9px DM Mono';
 dc.fillText('INICIO',left,chartH-10);
 dc.fillText('RECORRIDO',chartW/2-30,chartH-10);
 dc.fillText('FINAL',right-30,chartH-10);
-
 chartT++;
 }
 
@@ -656,7 +620,6 @@ entries.forEach(entry=>{
 if(entry.isIntersecting)entry.target.classList.add('visible');
 });
 },{threshold:.12});
-
 document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
 </script>
 </body>
