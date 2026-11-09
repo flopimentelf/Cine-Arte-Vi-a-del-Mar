@@ -4,348 +4,127 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ENTRE DOS LÍNEAS</title>
+<title>AQUÍ Y ALLÁ | Percepción peatonal</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@300;400;500;600;700;800&display=swap');
 
 :root{
 --red:#d91038;
 --blue:#009fe3;
---ink:#101114;
+--black:#111;
+--gray:#777;
 --paper:#fff;
---soft:#f3f4f2;
---gray:#777d80;
---line:#dedfdd;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{
-margin:0;background:var(--paper);color:var(--ink);
-font-family:Manrope,sans-serif;overflow-x:hidden;
-}
+body{margin:0;background:white;color:var(--black);font-family:Manrope,sans-serif;overflow-x:hidden}
 body::-webkit-scrollbar{width:4px}
-body::-webkit-scrollbar-thumb{background:#999}
-button{font:inherit}
-.mono{font-family:'DM Mono',monospace}
-#opening{
-height:100svh;min-height:650px;
-position:relative;overflow:hidden;background:#fff;
-}
-#openingCanvas{
-position:absolute;inset:0;width:100%;height:100%;
-}
-.opening-meta{
-position:absolute;top:32px;left:4vw;right:4vw;
-display:flex;justify-content:space-between;
-font:10px 'DM Mono';letter-spacing:1.5px;color:#777;
-opacity:0;transition:1s;
-}
-.opening-meta.show{opacity:1}
-.opening-copy{
-position:absolute;left:50%;top:50%;
-width:86%;transform:translate(-50%,-50%);
-text-align:center;opacity:0;pointer-events:none;
-transition:opacity 1s ease;
-}
-.opening-copy.show{opacity:1}
-.opening-copy .eyebrow{
-font:10px 'DM Mono';letter-spacing:3px;
-margin-bottom:25px;color:#555;
-}
-.opening-copy h1{
-font-size:clamp(64px,11vw,155px);
-line-height:.94;letter-spacing:-.105em;
-font-weight:800;margin:0;
-}
-.opening-copy h1 span{display:block}
-.opening-copy h1 .outline{
-color:transparent;-webkit-text-stroke:1.5px #111;
-}
-.opening-copy p{
-font-size:clamp(13px,1.2vw,17px);
-line-height:1.9;letter-spacing:.01em;
-color:#666;max-width:420px;margin:25px auto 0;
-}
-.opening-footer{
-position:absolute;bottom:30px;left:4vw;right:4vw;
-display:flex;justify-content:space-between;
-font:9px 'DM Mono';letter-spacing:1.5px;color:#888;
-opacity:0;transition:1s;
-}
-.opening-footer.show{opacity:1}
-.scroll-cue{
-position:absolute;bottom:28px;left:50%;
-transform:translateX(-50%);
-font:9px 'DM Mono';letter-spacing:2px;
-color:#777;opacity:0;transition:1s;
-}
-.scroll-cue.show{opacity:1}
-.scroll-cue span{display:block;text-align:center;font-size:19px;margin-top:6px}
-.floating-menu{
-position:fixed;z-index:30;right:25px;top:50%;
-transform:translateY(-50%);
-display:flex;flex-direction:column;gap:12px;
-opacity:0;transition:1s;
-}
-.floating-menu.show{opacity:1}
-.floating-menu a{
-width:9px;height:9px;border:1px solid #777;
-border-radius:50%;display:block;background:#fff;
-transition:.3s;
-}
-.floating-menu a:hover{background:var(--red);border-color:var(--red);transform:scale(1.6)}
-.chapter{
-position:relative;min-height:100svh;
-padding:15vh 9vw;display:flex;
-flex-direction:column;justify-content:center;
-overflow:hidden;border-top:1px solid #eee;
-}
-.chapter-number{
-font:10px 'DM Mono';letter-spacing:2px;
-color:#929292;margin-bottom:45px;
-}
-.chapter h2{
-font-size:clamp(54px,9vw,135px);
-line-height:1.06;letter-spacing:-.09em;
-font-weight:700;margin:0;max-width:1100px;
-}
-.chapter h2 .red{color:var(--red)}
-.chapter h2 .blue{color:var(--blue)}
-.chapter-copy{
-font-size:clamp(16px,1.6vw,21px);
-line-height:2;letter-spacing:.005em;
-color:#74797b;max-width:610px;
-margin:40px 0 0;
-}
-.word-reveal{
-display:inline-block;overflow:hidden;vertical-align:bottom;
-}
-.word-reveal span{display:inline-block;transform:translateY(110%);transition:transform .8s}
-.visible .word-reveal span{transform:translateY(0)}
-.line-art{
-height:220px;margin-top:65px;position:relative;
-}
-.line-art svg{width:100%;height:100%;overflow:visible}
-.line-art path{
-stroke-dasharray:1400;stroke-dashoffset:1400;
-transition:stroke-dashoffset 2.5s ease;
-}
-.visible .line-art path{stroke-dashoffset:0}
-.orbit{
-position:absolute;width:110px;height:110px;
-border:1px solid #ddd;border-radius:50%;
-right:10%;top:10%;
-animation:orbit 12s linear infinite;
-}
-.orbit:before,.orbit:after{
-content:"";position:absolute;border:1px solid #ddd;
-border-radius:50%;inset:15px;
-}
-.orbit:after{inset:32px}
-@keyframes orbit{to{transform:rotate(360deg)}}
-.marquee{
-overflow:hidden;white-space:nowrap;
-padding:24px 0;background:var(--red);color:#fff;
-font-size:clamp(25px,4vw,55px);
-font-weight:700;letter-spacing:-2px;
-}
-.marquee span{display:inline-block;animation:marquee 24s linear infinite}
+body::-webkit-scrollbar-thumb{background:#aaa}
+
+#opening{height:100svh;min-height:620px;position:relative;overflow:hidden;background:#fff}
+#openingCanvas{position:absolute;inset:0;width:100%;height:100%}
+.opening-labels{position:absolute;top:35px;left:5vw;right:5vw;display:flex;justify-content:space-between;font:10px 'DM Mono';letter-spacing:1.5px;opacity:0;transition:1s}
+.opening-labels.show{opacity:1}
+.opening-title{position:absolute;top:50%;left:50%;width:90%;transform:translate(-50%,-50%);text-align:center;opacity:0;transition:opacity 1s;pointer-events:none}
+.opening-title.show{opacity:1}
+.opening-title .eyebrow{font:10px 'DM Mono';letter-spacing:3px;margin-bottom:25px;color:#555}
+.opening-title h1{font-size:clamp(65px,12vw,165px);font-weight:800;line-height:.92;letter-spacing:-.105em;margin:0}
+.opening-title h1 span{display:block}
+.opening-title .outline{color:transparent;-webkit-text-stroke:1.5px #111}
+.opening-title p{font-size:clamp(13px,1.3vw,17px);line-height:1.9;color:#666;max-width:470px;margin:25px auto 0}
+.opening-bottom{position:absolute;bottom:30px;left:5vw;right:5vw;display:flex;justify-content:space-between;font:9px 'DM Mono';letter-spacing:1.5px;color:#777;opacity:0;transition:1s}
+.opening-bottom.show{opacity:1}
+
+.section{min-height:100svh;padding:13vh 8vw;display:flex;flex-direction:column;justify-content:center;position:relative;border-top:1px solid #eee}
+.section-number{font:10px 'DM Mono';letter-spacing:2px;color:#999;margin-bottom:35px}
+.section h2{font-size:clamp(55px,9vw,125px);line-height:1.04;letter-spacing:-.09em;font-weight:700;margin:0;max-width:1050px}
+.red{color:var(--red)}
+.blue{color:var(--blue)}
+.description{font-size:clamp(15px,1.5vw,20px);line-height:2;color:#777;max-width:650px;margin:35px 0 0}
+.lanes{margin-top:75px;display:flex;flex-direction:column}
+.lane{min-height:130px;display:grid;grid-template-columns:150px 1fr;align-items:center;gap:30px;position:relative;border-top:1px solid #e5e5e5;padding:25px 0}
+.lane:last-child{border-bottom:1px solid #e5e5e5}
+.lane-name{font:10px 'DM Mono';letter-spacing:1px;display:flex;align-items:center;gap:10px}
+.lane-name i{width:9px;height:9px;border-radius:50%;display:inline-block;flex-shrink:0}
+.red-lane .lane-name{color:var(--red)}
+.blue-lane .lane-name{color:var(--blue)}
+.lane-content h3{font-size:clamp(20px,3vw,34px);letter-spacing:-1.5px;font-weight:600;margin:0 0 9px}
+.lane-content p{font-size:13px;line-height:1.9;color:#777;margin:0;max-width:700px}
+.lane-track{position:absolute;left:0;right:0;bottom:0;height:3px;overflow:hidden}
+.lane-track span{display:block;width:100%;height:100%;transform:translateX(-100%);transition:transform 1.5s ease}
+.visible .lane-track span{transform:translateX(0)}
+.red-lane .lane-track span{background:var(--red)}
+.blue-lane .lane-track span{background:var(--blue)}
+
+.helix-section{min-height:80vh;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#f5f5f3}
+#helixCanvas{position:absolute;inset:0;width:100%;height:100%}
+.helix-copy{position:relative;z-index:2;text-align:center;background:rgba(245,245,243,.9);padding:30px 45px}
+.helix-copy .section-number{margin:0 0 15px}
+.helix-copy h2{font-size:clamp(40px,7vw,85px);letter-spacing:-.08em;margin:0}
+.helix-copy p{font-size:13px;color:#777;line-height:1.9;max-width:440px;margin:15px auto 0}
+
+.marquee{overflow:hidden;white-space:nowrap;padding:22px 0;background:var(--red);color:white;font-size:clamp(23px,3.5vw,45px);font-weight:700;letter-spacing:-1px}
+.marquee span{display:inline-block;animation:marquee 28s linear infinite}
 @keyframes marquee{to{transform:translateX(-50%)}}
-.dimension-section{background:#f2f3f1}
-.dimension-list{
-margin-top:75px;border-top:1px solid #ccc;
-max-width:1050px;
-}
-.dimension-row{
-display:grid;grid-template-columns:90px 1fr 60px;
-gap:20px;align-items:start;
-padding:30px 0;border-bottom:1px solid #ccc;
-cursor:pointer;transition:padding .4s;
-}
-.dimension-row:hover{padding-left:18px}
-.dimension-row .num{
-font:11px 'DM Mono';color:#999;padding-top:10px;
-}
-.dimension-row h3{
-font-size:clamp(25px,4vw,48px);
-line-height:1.2;letter-spacing:-2px;
-font-weight:500;margin:0;
-}
-.dimension-row .arrow{
-font-size:30px;text-align:right;color:#999;
-transition:transform .4s;
-}
-.dimension-row.active .arrow{
-transform:rotate(45deg);color:var(--red);
-}
-.dimension-description{
-grid-column:2/4;max-height:0;overflow:hidden;
-opacity:0;transition:max-height .5s,opacity .5s;
-font-size:15px;line-height:2;color:#73797b;
-max-width:600px;
-}
-.dimension-row.active .dimension-description{
-max-height:150px;opacity:1;margin-top:20px;
-}
-.dimension-row.active h3{color:var(--red)}
-.interlude{
-height:65vh;min-height:400px;position:relative;
-overflow:hidden;display:flex;align-items:center;
-justify-content:center;background:#fff;
-}
-.interlude svg{position:absolute;width:100%;height:100%}
-.interlude-label{
-position:relative;z-index:2;background:#fff;
-padding:18px 25px;font:10px 'DM Mono';
-letter-spacing:2px;
-}
-.interlude-circle{
-position:absolute;width:240px;height:240px;
-border:1px solid #e5e5e5;border-radius:50%;
-animation:orbit 18s linear infinite;
-}
-.interlude-circle:before{
-content:"";position:absolute;inset:25px;
-border:1px solid #e5e5e5;border-radius:50%;
-}
-.compare{
-background:#111;color:#fff;
-padding:16vh 8vw;min-height:100svh;
-}
-.compare .chapter-number{color:#aaa}
-.compare .chapter-copy{color:#aaa}
-.compare-grid{
-display:grid;grid-template-columns:1fr 1fr;
-gap:8vw;margin-top:80px;
-}
-.city{
-padding-top:25px;border-top:1px solid #555;
-}
-.city h3{
-font:11px 'DM Mono';letter-spacing:2px;
-margin:0 0 25px;
-}
-.city .city-mark{
-height:10px;width:100%;position:relative;
-overflow:hidden;margin:25px 0;
-}
-.city .city-mark:after{
-content:"";position:absolute;inset:0;
-transform:translateX(-100%);
-animation:barEnter 2s ease forwards;
-}
-.city.chile .city-mark:after{background:var(--red)}
-.city.arg .city-mark:after{background:var(--blue)}
-@keyframes barEnter{to{transform:translateX(0)}}
-.city p{
-font-size:15px;line-height:2;color:#aaa;
-max-width:400px;
-}
-.data-section{
-padding:15vh 8vw;min-height:100svh;
-}
-.data-section h2{
-font-size:clamp(55px,9vw,125px);
-line-height:1.05;letter-spacing:-.09em;margin:0;
-}
-.data-section .chapter-copy{margin-bottom:50px}
-.data-controls{
-display:flex;gap:10px;flex-wrap:wrap;margin:40px 0 20px;
-}
-.data-controls button{
-padding:14px 20px;background:white;
-border:1px solid #ccc;cursor:pointer;
-font:10px 'DM Mono';letter-spacing:1px;
-transition:.3s;
-}
-.data-controls button.active{
-background:#111;color:#fff;border-color:#111;
-}
-.chart-shell{
-background:#f3f4f2;padding:25px 25px 15px;
-position:relative;overflow:hidden;
-}
-.chart-top{
-display:flex;justify-content:space-between;
-font:9px 'DM Mono';letter-spacing:1px;color:#777;
-}
-#dataVisual{width:100%;height:390px;display:block}
-.chart-legend{
-display:flex;gap:25px;font:10px 'DM Mono';
-color:#777;padding:10px 0 5px;
-}
-.chart-legend span{display:flex;align-items:center;gap:8px}
+
+.comparison{background:#111;color:#fff}
+.comparison .section-number{color:#999}
+.comparison .description{color:#aaa}
+.comparison .lane{border-color:#444}
+.comparison .lane-content p{color:#aaa}
+.comparison .lane:last-child{border-color:#444}
+.comparison .lane-content h3{color:#fff}
+.comparison .red-lane .lane-name{color:#ff738a}
+.comparison .blue-lane .lane-name{color:#79d7f5}
+
+.question-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;margin-top:65px}
+.question-column{border-top:2px solid;padding-top:20px}
+.question-column.red-side{border-color:var(--red)}
+.question-column.blue-side{border-color:var(--blue)}
+.question-column h3{font-size:25px;letter-spacing:-1px;margin:0 0 20px}
+.question-column ul{padding:0;margin:0;list-style:none}
+.question-column li{padding:15px 0;border-top:1px solid #444;font-size:13px;line-height:1.8;color:#aaa}
+.question-column li:before{content:"↗";margin-right:12px;color:var(--red)}
+.question-column.blue-side li:before{color:var(--blue)}
+
+.data-section{background:#f4f4f2}
+.data-controls{display:flex;gap:8px;flex-wrap:wrap;margin:45px 0 20px}
+.data-controls button{border:1px solid #ccc;background:transparent;padding:13px 18px;cursor:pointer;font:10px 'DM Mono';letter-spacing:1px}
+.data-controls button.active{background:#111;color:white;border-color:#111}
+.chart{background:white;padding:25px 25px 15px}
+.chart-head{display:flex;justify-content:space-between;font:9px 'DM Mono';color:#888;letter-spacing:1px}
+#dataCanvas{display:block;width:100%;height:350px}
+.chart-legend{display:flex;gap:25px;font:10px 'DM Mono';color:#777}
+.chart-legend span{display:flex;gap:8px;align-items:center}
 .chart-legend i{width:9px;height:9px;border-radius:50%}
-.metrics{
-display:grid;grid-template-columns:repeat(3,1fr);
-border-top:1px solid #ddd;margin-top:35px;
-}
+.data-explain{font-size:13px;line-height:1.9;color:#777;margin-top:25px;max-width:700px}
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid #ddd;margin-top:35px}
 .metric{padding:25px 20px 15px 0}
-.metric label{
-font:9px 'DM Mono';color:#888;letter-spacing:1px;
-}
-.metric strong{
-display:block;font-size:clamp(30px,5vw,55px);
-letter-spacing:-3px;margin-top:15px;
-}
+.metric label{font:9px 'DM Mono';color:#888;letter-spacing:1px}
+.metric strong{display:block;font-size:clamp(30px,5vw,55px);letter-spacing:-3px;margin-top:15px}
 .metric small{font-size:11px;color:#888}
-.finding{
-min-height:100svh;background:#f1f1ef;
-padding:12vh 8vw;display:flex;
-align-items:center;justify-content:center;
-text-align:center;position:relative;overflow:hidden;
-}
-.finding h2{
-font-size:clamp(55px,10vw,145px);
-line-height:1.02;letter-spacing:-.1em;
-margin:0;position:relative;z-index:2;
-}
-.finding h2 span{display:block}
-.finding p{
-font-size:16px;line-height:2;color:#777;
-max-width:500px;margin:40px auto 0;
-}
-.finding .ring{
-position:absolute;width:45vw;height:45vw;
-max-width:650px;max-height:650px;
-border:1px solid #ddd;border-radius:50%;
-animation:orbit 35s linear infinite;
-}
-.finding .ring:before{
-content:"";position:absolute;inset:30px;
-border:1px solid #ddd;border-radius:50%;
-}
-.footer{
-padding:30px 5vw;display:flex;justify-content:space-between;
-gap:20px;font:9px 'DM Mono';letter-spacing:1px;color:#888;
-}
-.reveal{
-opacity:0;transform:translateY(55px);
-transition:opacity 1.1s,transform 1.1s;
-}
-.reveal.visible{opacity:1;transform:translateY(0)}
-@media(max-width:700px){
-.opening-meta{left:20px;right:20px;top:22px;font-size:8px}
-.opening-copy{width:92%}
-.opening-copy h1{font-size:18vw}
-.opening-copy p{font-size:12px}
-.opening-footer{left:20px;right:20px}
-.chapter{padding:110px 7vw}
-.chapter h2{font-size:clamp(48px,13vw,85px)}
-.chapter-copy{font-size:15px;line-height:1.9}
-.line-art{height:150px}
-.dimension-row{grid-template-columns:38px 1fr 30px;gap:10px}
-.dimension-row h3{font-size:25px}
-.dimension-description{grid-column:2/4}
-.compare{padding:110px 7vw}
-.compare-grid{grid-template-columns:1fr;gap:45px;margin-top:55px}
-.data-section{padding:110px 7vw}
-#dataVisual{height:300px}
+
+.end-section{min-height:100svh;text-align:center;align-items:center;background:#fff}
+.end-section h2{font-size:clamp(55px,10vw,140px);line-height:1.02;letter-spacing:-.1em}
+.end-section p{font-size:15px;line-height:2;color:#777;max-width:500px;margin:30px auto}
+.footer{padding:25px 5vw;display:flex;justify-content:space-between;gap:15px;font:9px 'DM Mono';color:#888}
+.reveal{opacity:0;transform:translateY(35px);transition:opacity 1s,transform 1s}
+.reveal.visible{opacity:1;transform:none}
+
+@media(max-width:650px){
+.opening-labels,.opening-bottom{left:20px;right:20px;font-size:8px}
+.opening-title{width:94%}
+.opening-title h1{font-size:17vw}
+.section{padding:100px 7vw}
+.section h2{font-size:clamp(48px,13vw,85px)}
+.lane{grid-template-columns:1fr;gap:12px;padding:22px 0}
+.lane-content h3{font-size:24px}
+.helix-copy{padding:25px}
+.question-grid{grid-template-columns:1fr;gap:35px}
+#dataCanvas{height:280px}
 .metrics{grid-template-columns:1fr}
 .metric{border-bottom:1px solid #ddd}
-.finding{padding:100px 7vw}
 .footer{flex-direction:column}
-.floating-menu{right:10px}
 }
 </style>
 </head>
@@ -353,132 +132,162 @@ transition:opacity 1.1s,transform 1.1s;
 
 <section id="opening">
 <canvas id="openingCanvas"></canvas>
-
-<div class="opening-meta" id="openingMeta">
-<span>INVESTIGACIÓN / VISUALIZACIÓN</span>
-<span>CHILE × ARGENTINA</span>
+<div class="opening-labels" id="openingLabels">
+<span class="red">AQUÍ / CHILE</span>
+<span class="blue">ALLÁ / ARGENTINA</span>
 </div>
-
-<div class="opening-copy" id="openingCopy">
-<div class="eyebrow">DOS TERRITORIOS / UNA EXPERIENCIA</div>
-<h1><span>ENTRE</span><span class="outline">DOS LÍNEAS.</span></h1>
-<p>Una exploración sobre cómo percibimos, recorremos y experimentamos el espacio urbano.</p>
+<div class="opening-title" id="openingTitle">
+<div class="eyebrow">CHILE × ARGENTINA / PERCEPCIÓN PEATONAL</div>
+<h1><span>AQUÍ</span><span class="outline">Y ALLÁ.</span></h1>
+<p>Dos territorios, dos formas de percibir, recorrer y experimentar el espacio urbano.</p>
 </div>
-
-<div class="opening-footer" id="openingFooter">
-<span>VALPARAÍSO / CHILE</span>
-<span>BUENOS AIRES / ARGENTINA</span>
-</div>
-<div class="scroll-cue" id="scrollCue">DESLIZA PARA CONTINUAR<span>↓</span></div>
-</section>
-
-<nav class="floating-menu" id="floatingMenu">
-<a href="#inicio" title="Inicio"></a>
-<a href="#pregunta" title="Pregunta"></a>
-<a href="#dimensiones" title="Dimensiones"></a>
-<a href="#territorios" title="Territorios"></a>
-<a href="#datos" title="Datos"></a>
-<a href="#hallazgo" title="Hallazgo"></a>
-</nav>
-
-<main id="inicio">
-
-<section class="chapter reveal" id="pregunta">
-<div class="chapter-number">01 / EL PUNTO DE PARTIDA</div>
-<h2>Dos ciudades.<br>Dos formas de<br><span class="red">experimentar.</span></h2>
-<p class="chapter-copy">¿Cómo se transforma nuestra experiencia al recorrer distintos espacios urbanos? Cada calle, cada superficie y cada elemento del entorno construye una manera particular de habitar la ciudad.</p>
-<div class="line-art">
-<svg viewBox="0 0 1000 220" preserveAspectRatio="none">
-<path d="M-20 40 C180 40 180 40 320 110 S500 180 650 110 S850 40 1020 40" fill="none" stroke="#d91038" stroke-width="8"/>
-<path d="M-20 180 C180 180 180 180 320 110 S500 40 650 110 S850 180 1020 180" fill="none" stroke="#009fe3" stroke-width="8"/>
-</svg>
-<div class="orbit"></div>
+<div class="opening-bottom" id="openingBottom">
+<span>AQUÍ / CHILE</span>
+<span>ALLÁ / ARGENTINA</span>
 </div>
 </section>
 
-<div class="marquee"><span>OBSERVAR · RECORRER · RECONOCER · EXPERIMENTAR · OBSERVAR · RECORRER · RECONOCER · EXPERIMENTAR · </span></div>
+<main>
 
-<section class="chapter dimension-section reveal" id="dimensiones">
-<div class="chapter-number">02 / TRES DIMENSIONES</div>
-<h2>La ciudad<br>se <span class="blue">descompone.</span></h2>
-<p class="chapter-copy">Para estudiar la experiencia peatonal, observamos tres dimensiones. Cada una revela una capa distinta del espacio.</p>
-<div class="dimension-list">
-<div class="dimension-row active" onclick="toggleDimension(this)">
-<span class="num">01</span>
+<section class="section reveal">
+<div class="section-number">01 / AQUÍ Y ALLÁ</div>
+<h2>Caminar no es<br>solamente avanzar.<br><span class="red">Es percibir.</span></h2>
+<p class="description">Cada recorrido implica una relación entre el cuerpo y el entorno. La amplitud de una calle, la presencia de un referente o las condiciones del suelo influyen en cómo nos orientamos, nos desplazamos y experimentamos un lugar.</p>
+<div class="lanes">
+<div class="lane red-lane">
+<div class="lane-name"><i style="background:var(--red)"></i> AQUÍ / CHILE</div>
+<div class="lane-content">
+<h3>Valparaíso</h3>
+<p>¿Cómo se percibe caminar entre pendientes, calles contenidas, espacios abiertos y recorridos que cambian constantemente de escala?</p>
+</div>
+<div class="lane-track"><span></span></div>
+</div>
+<div class="lane blue-lane">
+<div class="lane-name"><i style="background:var(--blue)"></i> ALLÁ / ARGENTINA</div>
+<div class="lane-content">
+<h3>Buenos Aires</h3>
+<p>¿Cómo se experimentan las avenidas, las veredas, las intersecciones y las distintas relaciones entre el peatón y la ciudad?</p>
+</div>
+<div class="lane-track"><span></span></div>
+</div>
+</div>
+</section>
+
+<div class="marquee"><span>CAMINAR · OBSERVAR · ORIENTARSE · SENTIR · RECONOCER · CAMINAR · OBSERVAR · ORIENTARSE · SENTIR · RECONOCER · </span></div>
+
+<section class="helix-section">
+<canvas id="helixCanvas"></canvas>
+<div class="helix-copy">
+<div class="section-number">02 / LA EXPERIENCIA PEATONAL</div>
+<h2>¿Qué sentimos<br>al <span class="red">recorrer?</span></h2>
+<p>La percepción peatonal se construye a través de distintas condiciones espaciales y de la relación que establecemos con ellas.</p>
+</div>
+</section>
+
+<section class="section reveal">
+<div class="section-number">03 / LAS DIMENSIONES</div>
+<h2>El espacio<br>también se <span class="blue">percibe.</span></h2>
+<p class="description">Para observar la experiencia peatonal, el estudio se organiza en tres dimensiones que permiten relacionar las características físicas del territorio con la manera en que se vive el recorrido.</p>
+<div class="lanes">
+<div class="lane red-lane">
+<div class="lane-name"><i style="background:var(--red)"></i> 01 / ESPACIO</div>
+<div class="lane-content">
 <h3>Apertura y amplitud</h3>
-<span class="arrow">↗</span>
-<div class="dimension-description">Espacios abiertos y contenidos, amplitud, continuidad visual y relación entre el cuerpo y el entorno.</div>
+<p>¿El espacio se siente abierto o contenido? ¿Permite observar lo que viene? ¿Facilita caminar, detenerse o permanecer?</p>
 </div>
-<div class="dimension-row" onclick="toggleDimension(this)">
-<span class="num">02</span>
+<div class="lane-track"><span></span></div>
+</div>
+<div class="lane blue-lane">
+<div class="lane-name"><i style="background:var(--blue)"></i> 02 / ORIENTACIÓN</div>
+<div class="lane-content">
 <h3>Elementos referenciales</h3>
-<span class="arrow">↗</span>
-<div class="dimension-description">Hitos, fachadas y elementos que destacan, orientan y permiten reconocer el territorio.</div>
+<p>¿Qué elementos llaman nuestra atención? ¿Podemos reconocer dónde estamos? ¿Los referentes ayudan a ubicarnos y comprender el recorrido?</p>
 </div>
-<div class="dimension-row" onclick="toggleDimension(this)">
-<span class="num">03</span>
+<div class="lane-track"><span></span></div>
+</div>
+<div class="lane red-lane">
+<div class="lane-name"><i style="background:var(--red)"></i> 03 / SUPERFICIE</div>
+<div class="lane-content">
 <h3>Materialidad</h3>
-<span class="arrow">↗</span>
-<div class="dimension-description">Superficies, texturas, irregularidades y continuidad del suelo durante el desplazamiento.</div>
+<p>¿La superficie permite caminar cómodamente? ¿Existen desniveles, obstáculos o irregularidades? ¿Cómo cambia el desplazamiento?</p>
+</div>
+<div class="lane-track"><span></span></div>
 </div>
 </div>
 </section>
 
-<section class="interlude">
-<svg viewBox="0 0 1200 500" preserveAspectRatio="none">
-<path d="M-30 100 C200 100 250 100 400 250 S600 400 800 250 S1000 100 1230 100" fill="none" stroke="#d91038" stroke-width="7"/>
-<path d="M-30 400 C200 400 250 400 400 250 S600 100 800 250 S1000 400 1230 400" fill="none" stroke="#009fe3" stroke-width="7"/>
-</svg>
-<div class="interlude-circle"></div>
-<div class="interlude-label">DOS TERRITORIOS / DOS LECTURAS</div>
+<section class="section comparison">
+<div class="section-number">04 / AQUÍ Y ALLÁ</div>
+<h2>Dos lugares.<br>Dos maneras de<br><span class="red">experimentar.</span></h2>
+<p class="description">La percepción peatonal no depende únicamente de la forma de una calle. También intervienen la orientación, la continuidad del recorrido, la sensación de comodidad y la relación con el entorno.</p>
+<div class="lanes">
+<div class="lane red-lane">
+<div class="lane-name"><i style="background:var(--red)"></i> AQUÍ / CHILE</div>
+<div class="lane-content">
+<h3>Valparaíso</h3>
+<p>Observar cómo las pendientes, la amplitud de las calles, los referentes y las superficies participan en la experiencia de caminar.</p>
+</div>
+<div class="lane-track"><span></span></div>
+</div>
+<div class="lane blue-lane">
+<div class="lane-name"><i style="background:var(--blue)"></i> ALLÁ / ARGENTINA</div>
+<div class="lane-content">
+<h3>Buenos Aires</h3>
+<p>Observar cómo las dimensiones de las veredas, las avenidas, los cruces y los elementos urbanos participan en la experiencia peatonal.</p>
+</div>
+<div class="lane-track"><span></span></div>
+</div>
+</div>
+<div class="question-grid">
+<div class="question-column red-side">
+<h3>Aquí / Chile</h3>
+<ul>
+<li>¿Qué tan fácil resulta orientarse?</li>
+<li>¿Cómo se percibe la amplitud del recorrido?</li>
+<li>¿Qué elementos ayudan a reconocer el lugar?</li>
+<li>¿Qué condiciones dificultan el desplazamiento?</li>
+<li>¿Dónde se siente comodidad o incomodidad?</li>
+</ul>
+</div>
+<div class="question-column blue-side">
+<h3>Allá / Argentina</h3>
+<ul>
+<li>¿Cómo se experimenta la continuidad de las veredas?</li>
+<li>¿Qué tan visibles son los referentes urbanos?</li>
+<li>¿Cómo se perciben las dimensiones del espacio?</li>
+<li>¿Qué obstáculos aparecen durante el recorrido?</li>
+<li>¿Qué condiciones favorecen la permanencia?</li>
+</ul>
+</div>
+</div>
 </section>
 
-<section class="chapter compare reveal" id="territorios">
-<div class="chapter-number">03 / DOS TERRITORIOS</div>
-<h2>Una pregunta.<br><span class="red">Dos contextos.</span></h2>
-<p class="chapter-copy">Valparaíso y Buenos Aires se convierten en escenarios de observación. La comparación permite reconocer semejanzas, contrastes y particularidades de sus espacios peatonales.</p>
-<div class="compare-grid">
-<div class="city chile">
-<h3 style="color:#ff647e">01 / VALPARAÍSO · CHILE</h3>
-<div class="city-mark"></div>
-<p>Pendientes, calles, recorridos y espacios que construyen una experiencia urbana particular.</p>
-</div>
-<div class="city arg">
-<h3 style="color:#79d7f5">02 / BUENOS AIRES · ARGENTINA</h3>
-<div class="city-mark"></div>
-<p>Avenidas, intersecciones, fachadas y distintas escalas de desplazamiento peatonal.</p>
-</div>
-</div>
-</section>
-
-<section class="data-section reveal" id="datos">
-<div class="chapter-number">04 / EL TERRITORIO EN DATOS</div>
-<h2>Las líneas<br>también <span style="color:#009fe3">cuentan.</span></h2>
-<p class="chapter-copy">Explora las dimensiones y observa cómo se comportan los registros a lo largo de los tramos estudiados.</p>
-
+<section class="section data-section reveal">
+<div class="section-number">05 / LA PERCEPCIÓN EN DATOS</div>
+<h2>Lo que vemos.<br>Lo que <span class="blue">sentimos.</span></h2>
+<p class="description">Los registros permiten explorar las condiciones físicas del recorrido y relacionarlas con la percepción de quienes transitan por él.</p>
 <div class="data-controls">
 <button class="active" onclick="changeData('amplitud',this)">AMPLITUD</button>
 <button onclick="changeData('referentes',this)">REFERENTES</button>
 <button onclick="changeData('materialidad',this)">MATERIALIDAD</button>
 </div>
-
-<div class="chart-shell">
-<div class="chart-top">
+<div class="chart">
+<div class="chart-head">
 <span id="chartTitle">VARIACIÓN DE AMPLITUD</span>
 <span>TRAMOS / 01—12</span>
 </div>
-<canvas id="dataVisual"></canvas>
+<canvas id="dataCanvas"></canvas>
 <div class="chart-legend">
-<span><i style="background:#d91038"></i>VALPARAÍSO</span>
-<span><i style="background:#009fe3"></i>BUENOS AIRES</span>
+<span><i style="background:var(--red)"></i>AQUÍ / CHILE</span>
+<span><i style="background:var(--blue)"></i>ALLÁ / ARGENTINA</span>
 </div>
 </div>
-
+<p class="data-explain">Cada línea representa un territorio. Al seleccionar una dimensión, la visualización cambia para mostrar cómo se distribuyen los valores a través de los distintos tramos. La comparación final deberá incorporar las observaciones y respuestas reales de la investigación.</p>
 <div class="metrics">
 <div class="metric">
-<label>DIMENSIÓN SELECCIONADA</label>
+<label>DIMENSIÓN OBSERVADA</label>
 <strong id="metricName">AMPLITUD</strong>
-<small>VARIABLE EXPLORADA</small>
+<small>VARIABLE SELECCIONADA</small>
 </div>
 <div class="metric">
 <label>TRAMOS REPRESENTADOS</label>
@@ -491,125 +300,154 @@ transition:opacity 1.1s,transform 1.1s;
 <small>CHILE / ARGENTINA</small>
 </div>
 </div>
-<p class="data-note">PROTOTIPO VISUAL · VALORES SIMULADOS, NO CORRESPONDEN A RESULTADOS REALES.</p>
+<p style="font:9px 'DM Mono';color:#888;margin-top:20px">VALORES SIMULADOS PARA EL PROTOTIPO. NO CORRESPONDEN A RESULTADOS REALES.</p>
 </section>
 
-<section class="finding reveal" id="hallazgo">
-<div class="ring"></div>
-<div>
-<div class="chapter-number">05 / EL RECORRIDO CONTINÚA</div>
-<h2>La ciudad<br><span style="color:#d91038">se siente.</span></h2>
-<p>El espacio urbano no es solamente una composición física. También es una experiencia que cambia con cada recorrido, cada mirada y cada encuentro.</p>
-<div class="chapter-number" style="margin-top:55px">ENTRE DOS LÍNEAS / 2026</div>
-</div>
+<section class="section end-section reveal">
+<div class="section-number">06 / UNA EXPERIENCIA COMPARTIDA</div>
+<h2>Aquí y<br><span class="red">allá.</span></h2>
+<p>Caminar es encontrarse con el espacio. En Chile y Argentina, cada recorrido construye una experiencia distinta, hecha de sensaciones, referencias, superficies y movimientos.</p>
+<div class="section-number">PERCEPCIÓN PEATONAL / 2026</div>
 </section>
 
 </main>
 
 <footer class="footer">
-<span>ENTRE DOS LÍNEAS</span>
-<span>VALPARAÍSO × BUENOS AIRES</span>
-<span>INVESTIGACIÓN Y VISUALIZACIÓN</span>
+<span>AQUÍ Y ALLÁ</span>
+<span>CHILE × ARGENTINA</span>
+<span>PERCEPCIÓN PEATONAL / 2026</span>
 </footer>
 
 <script>
 const openingCanvas=document.getElementById('openingCanvas');
-const oc=openingCanvas.getContext('2d');
-let W,H,openingStart=performance.now();
-let particles=[];
+const ctx=openingCanvas.getContext('2d');
+let W,H,start=performance.now();
+
 function resizeOpening(){
 W=openingCanvas.width=innerWidth*devicePixelRatio;
 H=openingCanvas.height=innerHeight*devicePixelRatio;
 openingCanvas.style.width=innerWidth+'px';
 openingCanvas.style.height=innerHeight+'px';
-oc.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);
+ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);
 W=innerWidth;H=innerHeight;
 }
 addEventListener('resize',resizeOpening);
 resizeOpening();
 
-for(let i=0;i<100;i++){
-particles.push({
-x:Math.random(),offset:(Math.random()-.5)*22,
-speed:.001+Math.random()*.003,
-size:1+Math.random()*2,
-lane:Math.random()>.5?1:-1
-});
-}
 function ease(t){return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2}
+
 function drawOpening(now){
-let elapsed=now-openingStart;
-let split=ease(Math.max(0,Math.min(1,(elapsed-5000)/1800)));
-oc.clearRect(0,0,W,H);
-let center=H*.5;
-let upper=center-12-split*H*.24;
-let lower=center+12+split*H*.24;
-let turnX=W*.32;
+let t=now-start;
+let center=H/2;
+let separation=ease(Math.max(0,Math.min(1,(t-5000)/1700)));
+ctx.clearRect(0,0,W,H);
 
-function drawTrack(color,y,side){
-oc.save();
-oc.strokeStyle=color;
-oc.fillStyle=color;
-oc.lineWidth=Math.max(17,Math.min(34,W*.024));
-oc.lineCap='butt';
-oc.lineJoin='round';
-oc.beginPath();
-oc.moveTo(-30,center+side*12);
-if(elapsed<5000){
-let progress=Math.min(1,elapsed/4500);
-oc.lineTo(-30+progress*(W*.95),center+side*12);
+function drawLine(color,phase){
+ctx.beginPath();
+ctx.lineWidth=30;
+ctx.lineCap='round';
+ctx.strokeStyle=color;
+let points=160;
+for(let i=0;i<=points;i++){
+let x=-25+(W+50)*i/points;
+let progress=i/points;
+let wave=Math.sin(progress*9*Math.PI-t*.0012)*22;
+let amplitude=separation*(H*.27);
+let y=center+phase*(12+amplitude)+wave*separation;
+if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
+}
+ctx.stroke();
+let endY=center+phase*(12+separation*(H*.27));
+ctx.beginPath();
+ctx.arc(W-25,endY,16,0,Math.PI*2);
+ctx.fillStyle=color;
+ctx.fill();
+}
+
+if(t<5000){
+let movement=Math.min(1,t/4000);
+let x=-25+movement*(W+50);
+ctx.fillStyle='#d91038';
+ctx.fillRect(-30,center-24,x+30,20);
+ctx.beginPath();ctx.arc(x,center-14,14,0,Math.PI*2);ctx.fill();
+ctx.fillStyle='#009fe3';
+ctx.fillRect(-30,center+4,x*.88+30,20);
+ctx.beginPath();ctx.arc(x*.88,center+14,14,0,Math.PI*2);ctx.fill();
 }else{
-oc.lineTo(turnX,center+side*12);
-oc.bezierCurveTo(turnX+W*.035,center+side*12,turnX+W*.035,y,turnX+W*.09,y);
-oc.lineTo(W+30,y);
+drawLine('#d91038',-1);
+drawLine('#009fe3',1);
 }
-oc.stroke();
-let endX=elapsed<5000?-30+Math.min(1,elapsed/4500)*(W*.95):W+30;
-let endY=elapsed<5000?center+side*12:y;
-oc.beginPath();
-oc.arc(endX,endY,Math.max(9,Math.min(18,W*.012)),0,Math.PI*2);
-oc.fill();
-oc.restore();
-}
-drawTrack('#d91038',upper,-1);
-drawTrack('#009fe3',lower,1);
 
-particles.forEach(p=>{
-p.x+=p.speed;
-if(p.x>1)p.x=0;
-let x=p.x*W;
-let y;
-if(elapsed<5000)y=center+p.lane*12+p.offset;
-else{
-let target=p.lane<0?upper:lower;
-let blend=ease(Math.min(1,(elapsed-5000)/1800));
-y=center+p.lane*12*(1-blend)+target*blend-center*blend+p.offset;
+if(t>5000){
+document.getElementById('openingTitle').classList.add('show');
+document.getElementById('openingLabels').classList.add('show');
+document.getElementById('openingBottom').classList.add('show');
 }
-oc.beginPath();
-oc.arc(x,y,p.size,0,Math.PI*2);
-oc.fillStyle=p.lane<0?'#d91038':'#009fe3';
-oc.globalAlpha=.22+.55*split;
-oc.fill();
+requestAnimationFrame(drawOpening);
+}
+requestAnimationFrame(drawOpening);
+
+const helix=document.getElementById('helixCanvas');
+const hc=helix.getContext('2d');
+let hw,hh,helixTime=0;
+function resizeHelix(){
+hw=helix.width=helix.clientWidth*devicePixelRatio;
+hh=helix.height=helix.clientHeight*devicePixelRatio;
+helix.style.width=helix.clientWidth+'px';
+helix.style.height=helix.clientHeight+'px';
+hc.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);
+hw=helix.clientWidth;hh=helix.clientHeight;
+}
+function drawHelix(){
+hc.clearRect(0,0,hw,hh);
+helixTime+=.012;
+let center=hh/2;
+let amplitude=Math.min(hh*.31,130);
+let pts=[];
+for(let i=0;i<=220;i++){
+let x=hw*i/220;
+let angle=i/220*Math.PI*4.8+helixTime;
+let y1=center+Math.sin(angle)*amplitude;
+let y2=center+Math.sin(angle+Math.PI)*amplitude;
+pts.push({x,y1,y2,angle});
+}
+for(let i=0;i<pts.length-1;i++){
+let p=pts[i];
+if(Math.cos(p.angle)>0){
+hc.beginPath();
+hc.moveTo(p.x,p.y1);
+hc.lineTo(p.x,p.y2);
+hc.strokeStyle='#ccc';
+hc.lineWidth=1;
+hc.stroke();
+}
+}
+function strand(key,color){
+hc.beginPath();
+pts.forEach((p,i)=>{
+if(i===0)hc.moveTo(p.x,p[key]);else hc.lineTo(p.x,p[key]);
 });
-oc.globalAlpha=1;
-
-if(elapsed>5000){
-document.getElementById('openingCopy').classList.add('show');
-document.getElementById('openingMeta').classList.add('show');
-document.getElementById('openingFooter').classList.add('show');
-document.getElementById('scrollCue').classList.add('show');
-document.getElementById('floatingMenu').classList.add('show');
+hc.strokeStyle=color;
+hc.lineWidth=7;
+hc.lineCap='round';
+hc.stroke();
 }
-requestAnimationFrame(drawOpening);
+strand('y1','#d91038');
+strand('y2','#009fe3');
+for(let i=0;i<pts.length;i+=12){
+let p=pts[i];
+hc.beginPath();hc.arc(p.x,p.y1,3,0,Math.PI*2);
+hc.fillStyle='#d91038';hc.fill();
+hc.beginPath();hc.arc(p.x,p.y2,3,0,Math.PI*2);
+hc.fillStyle='#009fe3';hc.fill();
 }
-requestAnimationFrame(drawOpening);
-
-function toggleDimension(el){
-document.querySelectorAll('.dimension-row').forEach(row=>row.classList.remove('active'));
-el.classList.add('active');
+requestAnimationFrame(drawHelix);
 }
+addEventListener('resize',resizeHelix);
+resizeHelix();
+drawHelix();
 
-const chartData={
+const dataset={
 amplitud:{
 red:[4,3,2,4,3,5,2,3,4,2,5,3],
 blue:[2,4,5,3,4,2,4,5,3,4,2,5]
@@ -623,51 +461,53 @@ red:[4,2,3,1,4,2,3,4,1,3,2,4],
 blue:[2,4,5,4,3,5,4,3,5,4,3,5]
 }
 };
-let selected='amplitud';
-const dataCanvas=document.getElementById('dataVisual');
+let current='amplitud';
+const dataCanvas=document.getElementById('dataCanvas');
 const dc=dataCanvas.getContext('2d');
-let cw=0,ch=390,chartProgress=0;
+let chartW=0,chartH=350,chartT=0;
+
 function resizeData(){
-cw=dataCanvas.clientWidth;
-dataCanvas.width=cw*devicePixelRatio;
-dataCanvas.height=ch*devicePixelRatio;
+chartW=dataCanvas.clientWidth;
+dataCanvas.width=chartW*devicePixelRatio;
+dataCanvas.height=chartH*devicePixelRatio;
 dc.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);
 drawData();
 }
 function drawData(){
-dc.clearRect(0,0,cw,ch);
-let red=chartData[selected].red;
-let blue=chartData[selected].blue;
-let left=42,right=cw-35,top=35,bottom=ch-45;
+dc.clearRect(0,0,chartW,chartH);
+let left=35,right=chartW-30,top=25,bottom=chartH-40;
 for(let i=0;i<6;i++){
 let y=top+i*(bottom-top)/5;
 dc.beginPath();
-dc.moveTo(left,y);dc.lineTo(right,y);
-dc.strokeStyle='#dedfdd';dc.lineWidth=1;
-dc.setLineDash([3,7]);dc.stroke();
+dc.moveTo(left,y);
+dc.lineTo(right,y);
+dc.strokeStyle='#e7e7e7';
+dc.setLineDash([3,7]);
+dc.stroke();
 }
 dc.setLineDash([]);
-function makeCurve(values,color,phase){
+
+function drawSeries(values,color,phase){
 let pts=values.map((v,i)=>({
 x:left+i*(right-left)/(values.length-1),
-y:bottom-(v/5)*(bottom-top)+Math.sin(chartProgress*.035+i*.5+phase)*2
+y:bottom-v/5*(bottom-top)+Math.sin(chartT*.025+i*.45+phase)*2
 }));
 dc.beginPath();
 dc.moveTo(pts[0].x,bottom);
 pts.forEach((p,i)=>{
 if(i===0)dc.lineTo(p.x,p.y);
 else{
-let prev=pts[i-1];
-let mid=(prev.x+p.x)/2;
+let prev=pts[i-1],mid=(prev.x+p.x)/2;
 dc.bezierCurveTo(mid,prev.y,mid,p.y,p.x,p.y);
 }
 });
 dc.lineTo(pts[pts.length-1].x,bottom);
 dc.closePath();
-let grad=dc.createLinearGradient(0,top,0,bottom);
-grad.addColorStop(0,color+'35');
-grad.addColorStop(1,color+'00');
-dc.fillStyle=grad;dc.fill();
+let gradient=dc.createLinearGradient(0,top,0,bottom);
+gradient.addColorStop(0,color+'35');
+gradient.addColorStop(1,color+'00');
+dc.fillStyle=gradient;
+dc.fill();
 
 dc.beginPath();
 pts.forEach((p,i)=>{
@@ -677,30 +517,32 @@ let prev=pts[i-1],mid=(prev.x+p.x)/2;
 dc.bezierCurveTo(mid,prev.y,mid,p.y,p.x,p.y);
 }
 });
-dc.strokeStyle=color;dc.lineWidth=3;dc.stroke();
+dc.strokeStyle=color;
+dc.lineWidth=3;
+dc.stroke();
 
-pts.forEach((p,i)=>{
-dc.beginPath();dc.arc(p.x,p.y,4.5,0,Math.PI*2);
-dc.fillStyle=color;dc.fill();
-dc.beginPath();dc.arc(p.x,p.y,9+Math.sin(chartProgress*.05+i)*2,0,Math.PI*2);
-dc.strokeStyle=color;dc.globalAlpha=.2;dc.lineWidth=1;dc.stroke();
-dc.globalAlpha=1;
+pts.forEach(p=>{
+dc.beginPath();
+dc.arc(p.x,p.y,4,0,Math.PI*2);
+dc.fillStyle=color;
+dc.fill();
 });
 }
-makeCurve(red,'#d91038',0);
-makeCurve(blue,'#009fe3',2);
-dc.fillStyle='#888';dc.font='10px DM Mono';
-dc.fillText('INICIO',left,bottom+25);
-dc.fillText('RECORRIDO',cw/2-30,bottom+25);
-dc.fillText('FINAL',right-30,bottom+25);
-chartProgress++;
+drawSeries(dataset[current].red,'#d91038',0);
+drawSeries(dataset[current].blue,'#009fe3',2);
+dc.fillStyle='#888';
+dc.font='9px DM Mono';
+dc.fillText('INICIO',left,chartH-10);
+dc.fillText('RECORRIDO',chartW/2-30,chartH-10);
+dc.fillText('FINAL',right-30,chartH-10);
+chartT++;
 }
-function animateData(){
+function animateChart(){
 drawData();
-requestAnimationFrame(animateData);
+requestAnimationFrame(animateChart);
 }
 function changeData(name,button){
-selected=name;
+current=name;
 document.querySelectorAll('.data-controls button').forEach(b=>b.classList.remove('active'));
 button.classList.add('active');
 document.getElementById('chartTitle').textContent='VARIACIÓN DE '+name.toUpperCase();
@@ -708,13 +550,13 @@ document.getElementById('metricName').textContent=name.toUpperCase();
 }
 addEventListener('resize',resizeData);
 resizeData();
-animateData();
+animateChart();
 
 const observer=new IntersectionObserver(entries=>{
 entries.forEach(entry=>{
 if(entry.isIntersecting)entry.target.classList.add('visible');
 });
-},{threshold:.15});
+},{threshold:.12});
 document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
 </script>
 </body>
