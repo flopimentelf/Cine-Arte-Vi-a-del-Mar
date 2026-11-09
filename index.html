@@ -4,705 +4,491 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ENTRE DOS LÍNEAS | Experiencia urbana</title>
+<title>ENTRE DOS LÍNEAS</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@300;400;500;600;700;800&display=swap');
 
 :root{
---bg:#080b0e;
---panel:#10171d;
---white:#edf0ed;
---muted:#87939c;
---red:#ff625f;
---cyan:#79d7f5;
---gold:#e5c48a;
---green:#9cc7a4;
---line:#263039;
+--red:#d90d35;
+--blue:#009fe3;
+--black:#111;
+--gray:#929292;
+--paper:#fafafa;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{
-margin:0;
-background:var(--bg);
-color:var(--white);
-font-family:'Manrope',sans-serif;
-overflow-x:hidden;
+margin:0;background:var(--paper);color:var(--black);
+font-family:Manrope,sans-serif;overflow-x:hidden;
 }
-body::-webkit-scrollbar{width:5px}
-body::-webkit-scrollbar-thumb{background:#45515b}
-button{font:inherit}
-.mono{font-family:'DM Mono',monospace}
-.topbar{
-position:fixed;top:0;left:0;width:100%;
-height:65px;padding:0 5vw;
-display:flex;align-items:center;justify-content:space-between;
-z-index:20;mix-blend-mode:normal;
-background:rgba(8,11,14,.76);
-backdrop-filter:blur(16px);
-border-bottom:1px solid rgba(255,255,255,.07);
+body::-webkit-scrollbar{width:4px}
+body::-webkit-scrollbar-thumb{background:#999}
+canvas{display:block}
+#opening{
+height:100svh;min-height:580px;
+position:relative;background:#fff;overflow:hidden;
 }
-.logo{font-size:12px;font-weight:800;letter-spacing:4px}
-.logo span{color:var(--cyan)}
-.top-info{font:9px 'DM Mono';color:#8c9aa3;letter-spacing:1px}
-.menu{display:flex;gap:20px}
-.menu a{color:#aab5bc;text-decoration:none;font:9px 'DM Mono';letter-spacing:1px}
-.menu a:hover{color:white}
-section{position:relative}
-.hero{
-height:100svh;min-height:650px;
+#openingCanvas{position:absolute;inset:0;width:100%;height:100%}
+.opening-meta{
+position:absolute;top:35px;left:42px;right:42px;
+display:flex;justify-content:space-between;
+font:10px 'DM Mono';letter-spacing:1.5px;color:#777;
+opacity:0;animation:appear 1s 5.7s forwards;
+}
+.opening-title{
+position:absolute;left:8vw;top:50%;
+transform:translateY(-40%);
+opacity:0;pointer-events:none;
+}
+.opening-title.show{animation:titleIn 1.2s forwards}
+.opening-title .eyebrow{
+font:10px 'DM Mono';letter-spacing:3px;margin-bottom:28px;
+}
+.opening-title h1{
+font-size:clamp(65px,12vw,170px);
+line-height:.77;letter-spacing:-.105em;
+margin:0;font-weight:800;
+}
+.opening-title h1 span{display:block}
+.opening-title h1 .outline{
+color:transparent;-webkit-text-stroke:1.5px #111;
+}
+.opening-title p{
+font-size:13px;line-height:1.7;color:#666;
+max-width:300px;margin-top:35px;
+}
+.enter{
+position:absolute;right:45px;bottom:40px;
+font:10px 'DM Mono';letter-spacing:1.5px;
+border:0;background:none;cursor:pointer;
+opacity:0;animation:appear 1s 6.5s forwards;
+}
+.enter span{font-size:20px;margin-left:12px}
+@keyframes appear{to{opacity:1}}
+@keyframes titleIn{
+from{opacity:0;transform:translateY(-25%)}
+to{opacity:1;transform:translateY(-40%)}
+}
+#story{background:#fff}
+.chapter{
+min-height:100svh;padding:12vh 9vw;
+position:relative;display:flex;flex-direction:column;
+justify-content:center;overflow:hidden;
+border-top:1px solid #e9e9e9;
+}
+.chapter-index{
+font:10px 'DM Mono';letter-spacing:2px;color:#888;
+margin-bottom:35px;
+}
+.chapter h2{
+font-size:clamp(48px,9vw,120px);
+letter-spacing:-.09em;line-height:.9;
+font-weight:700;margin:0;max-width:1000px;
+}
+.chapter h2 .red{color:var(--red)}
+.chapter h2 .blue{color:var(--blue)}
+.chapter-copy{
+font-size:clamp(14px,1.5vw,18px);
+line-height:1.8;color:#777;
+max-width:510px;margin-top:35px;
+}
+.dual-lines{
+height:180px;position:relative;margin-top:65px;
+}
+.dual-lines svg{width:100%;height:100%;overflow:visible}
+.line-draw{
+stroke-dasharray:1000;stroke-dashoffset:1000;
+transition:stroke-dashoffset 2s ease;
+}
+.visible .line-draw{stroke-dashoffset:0}
+.dimension-chapter{
+background:#f4f4f2;
+min-height:110vh;
+}
+.dimension-list{
+margin-top:65px;border-top:1px solid #ccc;
+max-width:950px;
+}
+.dimension-row{
+padding:24px 0;border-bottom:1px solid #ccc;
+display:grid;grid-template-columns:90px 1fr 50px;
+align-items:center;gap:20px;cursor:pointer;
+transition:padding .3s;
+}
+.dimension-row:hover{padding-left:15px}
+.dimension-row .num{font:11px 'DM Mono';color:#999}
+.dimension-row h3{
+font-size:clamp(20px,3vw,34px);
+font-weight:500;letter-spacing:-1.5px;margin:0;
+}
+.dimension-row .arrow{font-size:25px;text-align:right}
+.dimension-description{
+display:none;grid-column:2/4;
+font-size:13px;line-height:1.8;color:#777;
+max-width:500px;padding:0 0 15px;
+}
+.dimension-row.active .dimension-description{display:block}
+.dimension-row.active h3{color:var(--red)}
+.dimension-row.active .arrow{color:var(--red)}
+.transition{
+height:55vh;min-height:300px;position:relative;
 display:flex;align-items:center;justify-content:center;
-overflow:hidden;
+overflow:hidden;background:white;
 }
-#introCanvas{
-position:absolute;inset:0;width:100%;height:100%;
-}
-.hero-content{
+.transition svg{width:100%;height:100%;position:absolute}
+.transition-label{
 position:relative;z-index:2;
-width:100%;padding:0 8vw;
-pointer-events:none;
+font:10px 'DM Mono';letter-spacing:3px;
+background:white;padding:15px 25px;
 }
-.hero-tag{font:10px 'DM Mono';letter-spacing:3px;color:#a0adb4}
-.hero h1{
-font-size:clamp(60px,12vw,160px);
-letter-spacing:-.09em;line-height:.78;
-margin:35px 0 30px;font-weight:800;
+.comparison{
+background:#111;color:white;min-height:100svh;
+padding:13vh 8vw;
 }
-.hero h1 span{display:block}
-.hero h1 .second{
-color:transparent;
--webkit-text-stroke:1px #dce8ec;
+.comparison .chapter-index{color:#999}
+.comparison h2{font-size:clamp(45px,8vw,105px)}
+.comparison .chapter-copy{color:#aaa}
+.city-lines{
+margin:70px 0 35px;
+display:grid;grid-template-columns:1fr 1fr;gap:35px;
 }
-.hero-bottom{
-display:flex;justify-content:space-between;align-items:end;
-gap:25px;margin-top:65px;
+.city-line{border-top:1px solid #444;padding-top:20px}
+.city-line h3{
+font:11px 'DM Mono';letter-spacing:2px;margin:0 0 20px;
 }
-.hero-bottom p{
-font-size:13px;line-height:1.8;color:#a5b0b6;
-max-width:310px;
+.city-line .stripe{height:8px;width:100%;margin:12px 0}
+.city-line p{font-size:12px;color:#aaa;line-height:1.8}
+.red-bg{background:var(--red)}
+.blue-bg{background:var(--blue)}
+.explore{
+background:#fff;min-height:100svh;padding:12vh 8vw;
 }
-.scroll-indicator{
-font:9px 'DM Mono';letter-spacing:2px;color:#aab4ba;
-display:flex;align-items:center;gap:15px;
+.explore h2{
+font-size:clamp(45px,8vw,100px);
+letter-spacing:-.08em;line-height:.9;margin:0;
 }
-.scroll-indicator i{
-height:45px;width:1px;background:linear-gradient(transparent,var(--cyan));
-display:block;animation:pulse 1.8s infinite;
+.controls{
+display:flex;flex-wrap:wrap;gap:10px;margin:50px 0 20px;
 }
-@keyframes pulse{50%{opacity:.25;transform:scaleY(.5)}}
-.country-label{
-position:absolute;top:43%;font:9px 'DM Mono';
-letter-spacing:2px;opacity:.85;z-index:2;
+.controls button{
+padding:12px 18px;border:1px solid #ccc;
+background:white;font:10px 'DM Mono';
+letter-spacing:1px;cursor:pointer;
 }
-.country-label.left{left:5%;color:var(--red)}
-.country-label.right{right:5%;color:var(--cyan)}
-.section{
-padding:150px 8vw;
-max-width:1600px;margin:auto;
+.controls button.active{background:#111;color:white;border-color:#111}
+#dataVisual{
+width:100%;height:350px;background:#f3f3f1;
 }
-.kicker{
-font:10px 'DM Mono';letter-spacing:2px;
-color:var(--cyan);text-transform:uppercase;
+.data-note{
+font:10px 'DM Mono';color:#888;margin-top:20px;
 }
-.section h2{
-font-size:clamp(38px,7vw,90px);
-letter-spacing:-.07em;line-height:.98;
-margin:25px 0 30px;
+.last{
+min-height:100svh;display:flex;align-items:center;
+justify-content:center;text-align:center;
+padding:10vw;background:#f0f0ee;
 }
-.lead{
-font-size:clamp(15px,2vw,20px);
-color:#a9b3b8;line-height:1.8;max-width:650px;
-font-weight:300;
+.last h2{
+font-size:clamp(48px,10vw,130px);
+letter-spacing:-.1em;line-height:.85;margin:0;
 }
-.intro-stage{
-min-height:90vh;display:flex;flex-direction:column;
-justify-content:center;
-border-top:1px solid var(--line);
+.last h2 span{display:block}
+.last p{
+font-size:12px;line-height:1.8;color:#777;
+max-width:380px;margin:35px auto;
 }
-.split-title{
-display:grid;grid-template-columns:1fr 1fr;
-gap:40px;margin-top:75px;
+.footer{
+padding:25px 5vw;display:flex;justify-content:space-between;
+font:9px 'DM Mono';color:#888;gap:15px;
 }
-.split-title div{border-top:1px solid var(--line);padding-top:20px}
-.split-title h3{font-size:14px;letter-spacing:2px}
-.split-title p{font-size:12px;color:var(--muted);line-height:1.8}
-.red{color:var(--red)}
-.cyan{color:var(--cyan)}
-.branch-section{
-background:#0c1116;
-border-top:1px solid var(--line);
-border-bottom:1px solid var(--line);
+.reveal{
+opacity:0;transform:translateY(45px);
+transition:opacity 1s,transform 1s;
 }
-.dimension-grid{
-display:grid;grid-template-columns:repeat(3,1fr);
-gap:12px;margin-top:65px;
-}
-.dimension{
-background:var(--panel);border:1px solid #26323a;
-padding:25px;min-height:280px;cursor:pointer;
-transition:.4s;position:relative;overflow:hidden;
-}
-.dimension:hover,.dimension.active{
-border-color:var(--cyan);transform:translateY(-5px);
-background:#152029;
-}
-.dimension-number{font:10px 'DM Mono';color:var(--muted)}
-.dimension-icon{
-font-size:38px;margin:35px 0 25px;display:block;
-}
-.dimension h3{font-size:19px;letter-spacing:-.5px}
-.dimension p{font-size:11px;color:var(--muted);line-height:1.8}
-.dimension small{
-position:absolute;right:20px;bottom:20px;
-color:var(--cyan);font:9px 'DM Mono';
-}
-.dimension-detail{
-margin-top:20px;padding:25px;border:1px solid var(--line);
-background:#10171d;min-height:125px;
-display:flex;justify-content:space-between;gap:25px;align-items:center;
-}
-.dimension-detail p{color:#aab5bb;font-size:12px;line-height:1.8;max-width:650px}
-.detail-number{font-size:45px;color:var(--cyan);font-weight:800}
-.explorer{
-padding:130px 5vw 100px;
-max-width:1700px;margin:auto;
-}
-.explorer-header{
-display:flex;justify-content:space-between;align-items:end;
-gap:30px;flex-wrap:wrap;
-}
-.explorer h2{
-font-size:clamp(40px,7vw,85px);
-letter-spacing:-.075em;margin:15px 0;
-}
-.city-switch{display:flex;gap:8px}
-.city-switch button,.variable-switch button{
-background:transparent;border:1px solid #34414a;
-color:#aeb9c0;padding:12px 16px;
-font:9px 'DM Mono';letter-spacing:1px;cursor:pointer;
-}
-.city-switch button.active,.variable-switch button.active{
-color:#071015;background:var(--cyan);border-color:var(--cyan);
-}
-.city-switch button.active.arg{
-background:var(--red);border-color:var(--red);
-}
-.visualization{
-position:relative;margin-top:40px;
-background:#0e151b;border:1px solid #28343d;
-min-height:420px;overflow:hidden;
-}
-.visualization canvas{display:block;width:100%;height:420px}
-.visual-caption{
-position:absolute;top:22px;left:24px;
-font:9px 'DM Mono';color:#84929b;letter-spacing:1px;
-}
-.visual-legend{
-position:absolute;bottom:20px;left:25px;
-font:9px 'DM Mono';color:#a3afb6;
-display:flex;gap:20px;
-}
-.visual-legend span{display:flex;align-items:center;gap:7px}
-.legend-dot{width:7px;height:7px;border-radius:50%}
-.data-bottom{
-display:grid;grid-template-columns:1fr 1fr 1fr;
-border:1px solid var(--line);border-top:0;
-}
-.data-cell{padding:25px;border-right:1px solid var(--line)}
-.data-cell:last-child{border:0}
-.data-cell label{
-display:block;color:var(--muted);
-font:9px 'DM Mono';letter-spacing:1px;
-}
-.data-cell strong{font-size:36px;display:block;margin:12px 0}
-.data-cell small{font-size:10px;color:#8d9aa1}
-.variable-switch{
-display:flex;gap:8px;flex-wrap:wrap;margin:35px 0 20px;
-}
-.variable-switch button.active{background:#d9e8eb;color:#0a1318}
-.analysis{
-background:#0d1318;
-border-top:1px solid var(--line);
-padding:130px 8vw;
-}
-.analysis-grid{
-display:grid;grid-template-columns:1fr 1fr;
-gap:60px;align-items:center;
-}
-.analysis h2{
-font-size:clamp(42px,6vw,75px);
-letter-spacing:-.07em;line-height:1;
-}
-.analysis p{font-size:13px;color:#a4b0b8;line-height:2}
-.bars{margin-top:30px}
-.bar-row{margin-bottom:24px}
-.bar-head{
-display:flex;justify-content:space-between;
-font:10px 'DM Mono';margin-bottom:10px;
-}
-.bar-track{height:5px;background:#29343b}
-.bar-fill{height:100%;width:0;transition:width 1.3s ease}
-.bar-fill.chile{background:var(--red)}
-.bar-fill.argentina{background:var(--cyan)}
-.finding{
-padding:160px 8vw;text-align:center;
-min-height:85vh;display:flex;flex-direction:column;
-justify-content:center;align-items:center;
-overflow:hidden;
-}
-.finding h2{
-font-size:clamp(45px,9vw,115px);
-letter-spacing:-.08em;line-height:.95;
-max-width:1000px;margin:30px auto;
-}
-.finding p{font-size:13px;color:var(--muted);max-width:550px;line-height:1.9}
-.finding-lines{
-height:100px;width:100%;position:relative;margin:30px 0;
-}
-.finding-lines span{
-position:absolute;left:0;right:0;height:2px;top:35px;
-background:var(--red);transform:rotate(-5deg);
-box-shadow:0 0 20px var(--red);
-}
-.finding-lines span:last-child{
-top:65px;background:var(--cyan);
-transform:rotate(5deg);box-shadow:0 0 20px var(--cyan);
-}
-footer{
-padding:35px 6vw;border-top:1px solid var(--line);
-display:flex;justify-content:space-between;
-gap:20px;color:#78858d;font:9px 'DM Mono';
-}
-.reveal{opacity:0;transform:translateY(35px);transition:1s}
-.reveal.visible{opacity:1;transform:none}
-@media(max-width:750px){
-.top-info,.menu{display:none}
-.section{padding:100px 7vw}
-.hero-content{padding:0 7vw}
-.hero h1{font-size:19vw}
-.hero-bottom{display:block;margin-top:45px}
-.country-label{top:35%;font-size:7px}
-.split-title{grid-template-columns:1fr;gap:20px}
-.dimension-grid{grid-template-columns:1fr}
-.dimension{min-height:220px}
-.dimension-detail{align-items:start;flex-direction:column}
-.explorer{padding:100px 5vw}
-.visualization canvas{height:350px}
-.visualization{min-height:350px}
-.data-bottom{grid-template-columns:1fr}
-.data-cell{border-right:0;border-bottom:1px solid var(--line)}
-.analysis{padding:100px 7vw}
-.analysis-grid{grid-template-columns:1fr;gap:20px}
-.finding{padding:100px 7vw}
-footer{flex-direction:column}
+.reveal.visible{opacity:1;transform:translateY(0)}
+@media(max-width:650px){
+.opening-meta{left:20px;right:20px;top:22px;font-size:8px}
+.opening-title{left:7vw}
+.opening-title h1{font-size:18vw}
+.enter{right:20px;bottom:25px}
+.chapter{padding:100px 7vw}
+.dimension-row{grid-template-columns:40px 1fr 30px;gap:10px}
+.city-lines{grid-template-columns:1fr;gap:30px}
+.comparison{padding:100px 7vw}
+.explore{padding:100px 7vw}
+#dataVisual{height:280px}
+.footer{flex-direction:column}
 }
 </style>
 </head>
 <body>
 
-<header class="topbar">
- <div class="logo">ENTRE DOS <span>LÍNEAS.</span></div>
- <div class="top-info">ESTUDIO DE PERCEPCIÓN URBANA / 2026</div>
- <nav class="menu">
-  <a href="#concepto">CONCEPTO</a>
-  <a href="#dimensiones">DIMENSIONES</a>
-  <a href="#datos">EXPLORAR</a>
- </nav>
-</header>
-
-<section class="hero" id="inicio">
- <canvas id="introCanvas"></canvas>
- <div class="country-label left">VALPARAÍSO / CHILE</div>
- <div class="country-label right">BUENOS AIRES / ARGENTINA</div>
- <div class="hero-content">
-  <div class="hero-tag">DOS TERRITORIOS / UNA EXPERIENCIA</div>
-  <h1><span>ENTRE</span><span class="second">DOS LÍNEAS.</span></h1>
-  <div class="hero-bottom">
-   <p>Dos ciudades. Dos formas de habitar.
-   Una exploración sobre cómo percibimos,
-   recorremos y experimentamos el espacio urbano.</p>
-   <div class="scroll-indicator"><i></i> DESLIZA PARA DESCUBRIR</div>
-  </div>
- </div>
+<section id="opening">
+<canvas id="openingCanvas"></canvas>
+<div class="opening-meta">
+<span>ESTUDIO URBANO / 2026</span>
+<span>CHILE — ARGENTINA</span>
+</div>
+<div class="opening-title" id="openingTitle">
+<div class="eyebrow">DOS TERRITORIOS / UNA EXPERIENCIA</div>
+<h1><span>ENTRE</span><span class="outline">DOS LÍNEAS.</span></h1>
+<p>Dos ciudades, dos formas de recorrer y experimentar el espacio urbano.</p>
+</div>
+<button class="enter" onclick="goToStory()">DESCUBRIR EL PROYECTO <span>↘</span></button>
 </section>
 
-<section class="section intro-stage reveal" id="concepto">
- <div class="kicker">01 / EL ENCUENTRO</div>
- <h2>Dos ciudades.<br>Dos territorios.<br><span class="red">Una pregunta.</span></h2>
- <p class="lead">
- ¿Cómo se transforma nuestra experiencia al recorrer
- distintos espacios urbanos? Las características físicas
- de una ciudad construyen condiciones, pero también
- generan distintas percepciones en quienes la habitan.
- </p>
- <div class="split-title">
-  <div>
-   <h3 class="red">01 / VALPARAÍSO</h3>
-   <p>Un territorio de pendientes, calles contenidas,
-   espacios abiertos y transiciones urbanas.</p>
-  </div>
-  <div>
-   <h3 class="cyan">02 / BUENOS AIRES</h3>
-   <p>Un territorio de avenidas, intersecciones,
-   fachadas y distintas escalas espaciales.</p>
-  </div>
- </div>
+<main id="story">
+
+<section class="chapter reveal">
+<div class="chapter-index">01 / EL PUNTO DE PARTIDA</div>
+<h2>Dos líneas.<br>Dos maneras de<br><span class="red">vivir la ciudad.</span></h2>
+<p class="chapter-copy">Una exploración sobre la experiencia peatonal en dos territorios. Lo que vemos, lo que reconocemos y lo que encontramos bajo nuestros pies construye una forma particular de recorrer la ciudad.</p>
+<div class="dual-lines">
+<svg viewBox="0 0 900 180" preserveAspectRatio="none">
+<path class="line-draw" d="M0 45 H230 Q280 45 320 90 T440 90 H900" fill="none" stroke="#d90d35" stroke-width="9"/>
+<path class="line-draw" d="M0 135 H230 Q280 135 320 90 T440 90 H900" fill="none" stroke="#009fe3" stroke-width="9"/>
+</svg>
+</div>
 </section>
 
-<section class="branch-section" id="dimensiones">
- <div class="section reveal">
-  <div class="kicker">02 / LAS RAMIFICACIONES</div>
-  <h2>¿Qué compone<br>la experiencia?</h2>
-  <p class="lead">Las dos líneas se dividen. Cada ramificación
-  representa una dimensión que permite observar y estudiar
-  el espacio urbano.</p>
-  <div class="dimension-grid">
-   <article class="dimension active" onclick="dimension(0,this)">
-    <div class="dimension-number">01 / ESPACIO</div>
-    <span class="dimension-icon">↗</span>
-    <h3>Apertura y amplitud</h3>
-    <p>La relación entre espacios abiertos, contenidos,
-    visuales y permanencia.</p>
-    <small>EXPLORAR +</small>
-   </article>
-   <article class="dimension" onclick="dimension(1,this)">
-    <div class="dimension-number">02 / REFERENTES</div>
-    <span class="dimension-icon">◎</span>
-    <h3>Elementos referenciales</h3>
-    <p>Los elementos que destacan, orientan y construyen
-    reconocimiento del territorio.</p>
-    <small>EXPLORAR +</small>
-   </article>
-   <article class="dimension" onclick="dimension(2,this)">
-    <div class="dimension-number">03 / SUPERFICIE</div>
-    <span class="dimension-icon">⌁</span>
-    <h3>Materialidad</h3>
-    <p>Las superficies, texturas, irregularidades
-    y condiciones del desplazamiento.</p>
-    <small>EXPLORAR +</small>
-   </article>
-  </div>
-  <div class="dimension-detail">
-   <div>
-    <div class="kicker" id="dimNumber">DIMENSIÓN 01</div>
-    <h3 id="dimTitle">Apertura y amplitud</h3>
-    <p id="dimDescription">Se estudia la variación entre espacios
-    abiertos y contenidos, observando cómo cambia la
-    relación visual con el entorno.</p>
-   </div>
-   <div class="detail-number" id="dimSymbol">↗</div>
-  </div>
- </div>
+<section class="chapter dimension-chapter reveal">
+<div class="chapter-index">02 / TRES DIMENSIONES</div>
+<h2>La experiencia<br>se <span class="blue">descompone.</span></h2>
+<p class="chapter-copy">Para comprender el recorrido, observamos tres dimensiones que permiten leer las condiciones del espacio urbano.</p>
+<div class="dimension-list">
+<div class="dimension-row active" onclick="toggleDimension(this)">
+<span class="num">01</span>
+<h3>Apertura y amplitud</h3>
+<span class="arrow">↗</span>
+<div class="dimension-description">Espacios abiertos y contenidos, amplitud, continuidad visual y relación entre el cuerpo y el entorno.</div>
+</div>
+<div class="dimension-row" onclick="toggleDimension(this)">
+<span class="num">02</span>
+<h3>Elementos referenciales</h3>
+<span class="arrow">↗</span>
+<div class="dimension-description">Hitos, fachadas y elementos que destacan, orientan y permiten reconocer el territorio.</div>
+</div>
+<div class="dimension-row" onclick="toggleDimension(this)">
+<span class="num">03</span>
+<h3>Materialidad</h3>
+<span class="arrow">↗</span>
+<div class="dimension-description">Superficies, texturas, irregularidades y continuidad del suelo durante el desplazamiento.</div>
+</div>
+</div>
 </section>
 
-<section class="explorer" id="datos">
- <div class="explorer-header">
-  <div>
-   <div class="kicker">03 / EL TERRITORIO EN DATOS</div>
-   <h2>Dos líneas.<br>Dos experiencias.</h2>
-   <p class="lead">Selecciona un territorio y explora cómo
-   cambian las variables a lo largo del recorrido.</p>
-  </div>
-  <div class="city-switch">
-   <button class="active" onclick="setCity('chile',this)">CHILE</button>
-   <button onclick="setCity('argentina',this)">ARGENTINA</button>
-  </div>
- </div>
-
- <div class="variable-switch">
-  <button class="active" onclick="setVariable('amplitud',this)">AMPLITUD</button>
-  <button onclick="setVariable('referentes',this)">REFERENTES</button>
-  <button onclick="setVariable('materialidad',this)">MATERIALIDAD</button>
- </div>
-
- <div class="visualization">
-  <div class="visual-caption" id="chartCaption">VARIACIÓN DE APERTURA / ESCALA ILUSTRATIVA</div>
-  <canvas id="dataCanvas"></canvas>
-  <div class="visual-legend">
-   <span><i class="legend-dot" style="background:var(--red)"></i>CHILE</span>
-   <span><i class="legend-dot" style="background:var(--cyan)"></i>ARGENTINA</span>
-  </div>
- </div>
-
- <div class="data-bottom">
-  <div class="data-cell">
-   <label id="metricLabel">APERTURA PROMEDIO</label>
-   <strong id="metricValue">3.6</strong>
-   <small>ESCALA ILUSTRATIVA DE 1 A 5</small>
-  </div>
-  <div class="data-cell">
-   <label>TRAMOS REGISTRADOS</label>
-   <strong id="segmentValue">08</strong>
-   <small>DATOS DE DEMOSTRACIÓN</small>
-  </div>
-  <div class="data-cell">
-   <label>TERRITORIO SELECCIONADO</label>
-   <strong id="territoryValue" style="font-size:24px">CHILE</strong>
-   <small>SECUENCIA DE OBSERVACIÓN</small>
-  </div>
- </div>
+<section class="transition">
+<svg viewBox="0 0 1200 400" preserveAspectRatio="none">
+<path d="M-20 100 H350 Q450 100 500 200 T650 200 H1220" fill="none" stroke="#d90d35" stroke-width="8"/>
+<path d="M-20 300 H350 Q450 300 500 200 T650 200 H1220" fill="none" stroke="#009fe3" stroke-width="8"/>
+</svg>
+<div class="transition-label">EL TERRITORIO SE VUELVE VISIBLE</div>
 </section>
 
-<section class="analysis">
- <div class="analysis-grid reveal">
-  <div>
-   <div class="kicker">04 / LA COMPARACIÓN</div>
-   <h2>Las diferencias<br>aparecen en<br>los detalles.</h2>
-   <p>Una lectura comparativa de las dimensiones
-   del espacio urbano. Los indicadores permiten
-   explorar diferencias entre los territorios,
-   sin establecer una clasificación de superioridad.</p>
-  </div>
-  <div>
-   <div class="kicker">PERFILES DE DEMOSTRACIÓN</div>
-   <div class="bars">
-    <div class="bar-row">
-     <div class="bar-head"><span>APERTURA / CHILE</span><span>3.6</span></div>
-     <div class="bar-track"><div class="bar-fill chile" style="width:72%"></div></div>
-    </div>
-    <div class="bar-row">
-     <div class="bar-head"><span>APERTURA / ARGENTINA</span><span>3.1</span></div>
-     <div class="bar-track"><div class="bar-fill argentina" style="width:62%"></div></div>
-    </div>
-    <div class="bar-row">
-     <div class="bar-head"><span>CONTINUIDAD / CHILE</span><span>2.8</span></div>
-     <div class="bar-track"><div class="bar-fill chile" style="width:56%"></div></div>
-    </div>
-    <div class="bar-row">
-     <div class="bar-head"><span>CONTINUIDAD / ARGENTINA</span><span>4.0</span></div>
-     <div class="bar-track"><div class="bar-fill argentina" style="width:80%"></div></div>
-    </div>
-   </div>
-   <p style="font-size:9px">Valores ficticios para demostrar la comparación.</p>
-  </div>
- </div>
+<section class="chapter comparison reveal">
+<div class="chapter-index">03 / DOS TERRITORIOS</div>
+<h2>Una misma<br>pregunta.<br><span class="red">Dos contextos.</span></h2>
+<p class="chapter-copy">Valparaíso y Buenos Aires se convierten en dos escenarios de observación. La comparación permite reconocer semejanzas, contrastes y particularidades en sus espacios peatonales.</p>
+<div class="city-lines">
+<div class="city-line">
+<h3 style="color:#ff647e">01 / VALPARAÍSO · CHILE</h3>
+<div class="stripe red-bg"></div>
+<p>Pendientes, calles, recorridos y espacios que construyen una experiencia urbana particular.</p>
+</div>
+<div class="city-line">
+<h3 style="color:#79d7f5">02 / BUENOS AIRES · ARGENTINA</h3>
+<div class="stripe blue-bg"></div>
+<p>Avenidas, intersecciones, fachadas y distintas escalas de desplazamiento peatonal.</p>
+</div>
+</div>
 </section>
 
-<section class="finding reveal">
- <div class="kicker">05 / EL HALLAZGO</div>
- <div class="finding-lines"><span></span><span></span></div>
- <h2>La ciudad no es solo lo que vemos.<br><span class="cyan">Es cómo la vivimos.</span></h2>
- <p>Dos líneas que parten juntas, atraviesan
- distintas condiciones y revelan las múltiples
- maneras de experimentar el espacio urbano.</p>
- <div style="font:9px 'DM Mono';letter-spacing:2px;color:#7f8c95;margin-top:40px">
-  ENTRE DOS LÍNEAS / FIN DEL RECORRIDO
- </div>
+<section class="explore reveal">
+<div class="chapter-index">04 / EXPLORACIÓN DE DATOS</div>
+<h2>Las líneas<br>también <span style="color:#009fe3">cuentan.</span></h2>
+<p class="chapter-copy">Selecciona una dimensión y observa cómo se comportan los registros a lo largo de los tramos estudiados.</p>
+<div class="controls">
+<button class="active" onclick="changeData('amplitud',this)">AMPLITUD</button>
+<button onclick="changeData('referentes',this)">REFERENTES</button>
+<button onclick="changeData('materialidad',this)">MATERIALIDAD</button>
+</div>
+<canvas id="dataVisual"></canvas>
+<div class="data-note">VISUALIZACIÓN DE EJEMPLO · REEMPLAZAR CON DATOS DEL ESTUDIO</div>
 </section>
 
-<footer>
- <span>ENTRE DOS LÍNEAS / INVESTIGACIÓN URBANA</span>
- <span>VALPARAÍSO × BUENOS AIRES / 2026</span>
- <span>PROTOTIPO CON DATOS SIMULADOS</span>
+<section class="last reveal">
+<div>
+<div class="chapter-index">05 / EL RECORRIDO CONTINÚA</div>
+<h2>La ciudad<br><span style="color:#d90d35">se siente.</span></h2>
+<p>El espacio urbano no es solamente una composición física. También es una experiencia que cambia con cada recorrido, cada mirada y cada encuentro.</p>
+<div style="font:10px 'DM Mono';letter-spacing:2px">ENTRE DOS LÍNEAS / 2026</div>
+</div>
+</section>
+
+</main>
+
+<footer class="footer">
+<span>ENTRE DOS LÍNEAS</span>
+<span>VALPARAÍSO × BUENOS AIRES</span>
+<span>INVESTIGACIÓN Y VISUALIZACIÓN</span>
 </footer>
 
 <script>
-const intro=document.getElementById('introCanvas');
-const ictx=intro.getContext('2d');
-let W,H,progress=0;
-let particles=[];
-let mouse={x:0,y:0};
-
-function resizeIntro(){
- W=intro.width=window.innerWidth*devicePixelRatio;
- H=intro.height=window.innerHeight*devicePixelRatio;
- intro.style.width=window.innerWidth+'px';
- intro.style.height=window.innerHeight+'px';
- ictx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);
- W=window.innerWidth;H=window.innerHeight;
+const canvas=document.getElementById('openingCanvas');
+const c=canvas.getContext('2d');
+let w,h,start=performance.now(),finished=false;
+let dots=[];
+function resize(){
+w=canvas.width=innerWidth*devicePixelRatio;
+h=canvas.height=innerHeight*devicePixelRatio;
+canvas.style.width=innerWidth+'px';
+canvas.style.height=innerHeight+'px';
+c.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);
+w=innerWidth;h=innerHeight;
 }
-window.addEventListener('resize',resizeIntro);
-resizeIntro();
+addEventListener('resize',resize);
+resize();
 
-for(let i=0;i<160;i++){
- particles.push({
-  t:Math.random(),lane:Math.random(),
-  speed:.0003+Math.random()*.0012,
-  size:.5+Math.random()*2,
-  offset:(Math.random()-.5)*70
- });
+function ease(t){return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2}
+function linePath(color,y,dir,t){
+let x0=-100;
+let split=w*.34;
+let end=w*.72;
+let sep=ease(Math.max(0,Math.min(1,(t-5000)/1300)));
+let xEnd=x0+(w*.82)*Math.min(1,t/3500);
+let bend=dir*(h*.27)*sep;
+let currentY=y+bend;
+let radius=14;
+c.save();
+c.strokeStyle=color;
+c.fillStyle=color;
+c.lineWidth=31;
+c.lineCap='butt';
+c.lineJoin='miter';
+c.beginPath();
+c.moveTo(x0,y);
+if(t<5000){
+c.lineTo(xEnd,y);
+}else{
+c.lineTo(split,y);
+c.lineTo(split,currentY);
+c.lineTo(end,currentY);
+c.lineTo(w+100,currentY);
 }
-
-let time=0;
-function drawIntro(){
- time+=.006;
- ictx.clearRect(0,0,W,H);
- let cx=W/2,cy=H*.49;
- let separation=Math.min(1,Math.max(0,(time%14-3)/6));
- separation=separation*separation*(3-2*separation);
- for(let lane=0;lane<2;lane++){
-  let color=lane===0?'#ff625f':'#79d7f5';
-  for(let strand=0;strand<3;strand++){
-   ictx.beginPath();
-   for(let x=0;x<=W+10;x+=5){
-    let t=x/W;
-    let gap=(lane===0?-1:1)*(10+separation*90);
-    let wave=Math.sin(t*8-time*2+strand)*8+
-    Math.sin(t*16+time*2+strand)*3;
-    let branch=Math.sin(t*5+time*.4)*separation*32;
-    let y=cy+gap+wave+branch+
-    (lane===0?-1:1)*(strand-1)*3;
-    if(x===0)ictx.moveTo(x,y);else ictx.lineTo(x,y);
-   }
-   ictx.strokeStyle=color;
-   ictx.globalAlpha=.25+strand*.17;
-   ictx.lineWidth=strand===1?2.4:1;
-   ictx.shadowColor=color;
-   ictx.shadowBlur=12;
-   ictx.stroke();
-  }
- }
- ictx.globalAlpha=1;
- ictx.shadowBlur=0;
- particles.forEach(p=>{
-  p.t+=p.speed;
-  if(p.t>1)p.t=0;
-  let gap=(p.lane<.5?-1:1)*(10+separation*90);
-  let x=p.t*W;
-  let y=cy+gap+Math.sin(p.t*8-time*2)*8+
-  p.offset*(.2+separation);
-  ictx.beginPath();
-  ictx.arc(x,y,p.size,0,Math.PI*2);
-  ictx.fillStyle=p.lane<.5?'#ff8279':'#9ce5ff';
-  ictx.globalAlpha=.25+separation*.55;
-  ictx.fill();
- });
- ictx.globalAlpha=1;
- requestAnimationFrame(drawIntro);
+c.stroke();
+let endX=t<5000?xEnd:end;
+let endY=t<5000?y:currentY;
+c.beginPath();
+c.arc(endX,endY,radius,0,Math.PI*2);
+c.fill();
+c.restore();
 }
-drawIntro();
+function draw(now){
+let t=now-start;
+c.clearRect(0,0,w,h);
+let center=h*.57;
+let travel=Math.min(1,t/5000);
+let drift=Math.sin(now*.0012)*2;
+let sep=ease(Math.max(0,Math.min(1,(t-5000)/1300)));
+let upper=center-24;
+let lower=center+24;
+linePath('#d90d35',upper,-1,t);
+linePath('#009fe3',lower,1,t);
+if(t>5000&&!finished){
+finished=true;
+document.getElementById('openingTitle').classList.add('show');
+}
+if(t<5000){
+let p=t/5000;
+c.fillStyle='#777';
+c.font='10px DM Mono';
+c.fillText('01',w-55,h-45);
+}
+requestAnimationFrame(draw);
+}
+requestAnimationFrame(draw);
 
-const dimensions=[
- {title:'Apertura y amplitud',symbol:'↗',
- description:'Se estudia la variación entre espacios abiertos y contenidos, observando la amplitud, continuidad visual y relación con el entorno.'},
- {title:'Elementos referenciales',symbol:'◎',
- description:'Se identifican los elementos que destacan en el territorio, su visibilidad, ubicación, escala y capacidad de reconocimiento.'},
- {title:'Materialidad',symbol:'⌁',
- description:'Se observan las superficies del recorrido, sus texturas, irregularidades, continuidad y condiciones para el desplazamiento.'}
-];
-function dimension(i,el){
- document.querySelectorAll('.dimension').forEach(x=>x.classList.remove('active'));
- el.classList.add('active');
- document.getElementById('dimNumber').textContent='DIMENSIÓN 0'+(i+1);
- document.getElementById('dimTitle').textContent=dimensions[i].title;
- document.getElementById('dimDescription').textContent=dimensions[i].description;
- document.getElementById('dimSymbol').textContent=dimensions[i].symbol;
+function goToStory(){
+document.getElementById('story').scrollIntoView({behavior:'smooth'});
+}
+function toggleDimension(el){
+document.querySelectorAll('.dimension-row').forEach(x=>x.classList.remove('active'));
+el.classList.add('active');
 }
 
-const values={
- chile:{
- amplitud:[4.5,3.8,2.5,3.2,2.1,4.1,3.5,3.1,4.7,2.8,3.9,2.3],
- referentes:[3,6,8,4,9,5,3,7,8,2,5,6],
- materialidad:[3,2,4,3,1,4,3,2,5,3,2,4]
- },
- argentina:{
- amplitud:[3.2,4.1,4.4,3.8,3.5,4.5,2.9,4.2,3.6,4.3,3.1,4.4],
- referentes:[6,7,4,8,5,9,7,3,6,8,4,5],
- materialidad:[4,4,3,5,4,3,4,5,3,4,4,5]
- }
+const datasets={
+amplitud:{
+red:[4,3,2,4,3,5,2,3,4,2,5,3],
+blue:[2,4,5,3,4,2,4,5,3,4,2,5]
+},
+referentes:{
+red:[2,4,3,5,2,4,5,3,4,5,2,3],
+blue:[5,3,4,2,5,3,4,5,2,3,5,4]
+},
+materialidad:{
+red:[4,2,3,1,4,2,3,4,1,3,2,4],
+blue:[2,4,5,4,3,5,4,3,5,4,3,5]
+}
 };
-let city='chile',variable='amplitud';
-const canvas=document.getElementById('dataCanvas');
-const ctx=canvas.getContext('2d');
-let anim=0;
-let chartPoints=[];
-
-function resizeChart(){
- let rect=canvas.getBoundingClientRect();
- let dpr=devicePixelRatio||1;
- canvas.width=rect.width*dpr;
- canvas.height=420*dpr;
- ctx.setTransform(dpr,0,0,dpr,0,0);
- drawChart();
+let current='amplitud';
+const chart=document.getElementById('dataVisual');
+const ctx=chart.getContext('2d');
+let chartWidth=0,chartHeight=350;
+function sizeChart(){
+chartWidth=chart.clientWidth;
+chart.width=chartWidth*devicePixelRatio;
+chart.height=chartHeight*devicePixelRatio;
+ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);
+drawData();
 }
-window.addEventListener('resize',resizeChart);
-
-function drawChart(){
- const w=canvas.clientWidth,h=420;
- ctx.clearRect(0,0,w,h);
- let arr=values[city][variable];
- let color=city==='chile'?'#ff625f':'#79d7f5';
- chartPoints=[];
- let base=h-50;
- let max=variable==='referentes'?10:5;
- for(let i=0;i<5;i++){
-  let y=45+i*(base-45)/4;
-  ctx.strokeStyle='#26343d';
-  ctx.lineWidth=1;
-  ctx.setLineDash([3,8]);
-  ctx.beginPath();ctx.moveTo(25,y);ctx.lineTo(w-25,y);ctx.stroke();
-  ctx.setLineDash([]);
- }
- ctx.beginPath();
- arr.forEach((v,i)=>{
-  let x=35+i*(w-70)/(arr.length-1);
-  let y=base-(v/max)*(base-65);
-  chartPoints.push({x,y,v,i});
-  let wave=Math.sin(anim*.025+i*.5)*4;
-  if(i===0)ctx.moveTo(x,y+wave);
-  else ctx.lineTo(x,y+wave);
- });
- ctx.strokeStyle=color;
- ctx.lineWidth=2;
- ctx.shadowColor=color;ctx.shadowBlur=12;
- ctx.stroke();ctx.shadowBlur=0;
- chartPoints.forEach(p=>{
-  let r=3+Math.sin(anim*.03+p.i)*1.5;
-  ctx.beginPath();
-  ctx.arc(p.x,p.y,r,0,Math.PI*2);
-  ctx.fillStyle=color;
-  ctx.fill();
-  for(let j=1;j<=3;j++){
-   ctx.beginPath();
-   ctx.arc(p.x,p.y,r+j*5,0,Math.PI*2);
-   ctx.strokeStyle=color;
-   ctx.globalAlpha=.12/j;
-   ctx.stroke();
-  }
-  ctx.globalAlpha=1;
- });
- ctx.fillStyle='#8c9ba4';
- ctx.font='9px DM Mono';
- ctx.fillText('TRAMOS DEL RECORRIDO',25,h-12);
- anim++;
- requestAnimationFrame(drawChart);
+function drawData(){
+let width=chartWidth,height=chartHeight;
+ctx.clearRect(0,0,width,height);
+for(let i=0;i<6;i++){
+let y=30+i*55;
+ctx.strokeStyle='#ddd';
+ctx.lineWidth=1;
+ctx.setLineDash([3,6]);
+ctx.beginPath();ctx.moveTo(25,y);ctx.lineTo(width-25,y);ctx.stroke();
 }
-
-function setCity(c,el){
- city=c;
- document.querySelectorAll('.city-switch button').forEach(b=>b.classList.remove('active','arg'));
- el.classList.add('active');
- if(c==='argentina')el.classList.add('arg');
- document.getElementById('territoryValue').textContent=c==='chile'?'CHILE':'ARGENTINA';
- document.getElementById('metricValue').textContent=average(values[c][variable]).toFixed(1);
- drawChart();
+ctx.setLineDash([]);
+[['red','#d90d35'],['blue','#009fe3']].forEach(([key,color])=>{
+let values=datasets[current][key];
+ctx.beginPath();
+values.forEach((v,i)=>{
+let x=30+i*(width-60)/(values.length-1);
+let y=305-v*53;
+if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
+});
+ctx.strokeStyle=color;
+ctx.lineWidth=3;
+ctx.stroke();
+values.forEach((v,i)=>{
+let x=30+i*(width-60)/(values.length-1);
+let y=305-v*53;
+ctx.beginPath();ctx.arc(x,y,4,0,Math.PI*2);
+ctx.fillStyle=color;ctx.fill();
+});
+});
+ctx.font='10px DM Mono';
+ctx.fillStyle='#777';
+ctx.fillText('TRAMO 01',25,340);
+ctx.fillText('TRAMO 12',width-95,340);
 }
-
-function setVariable(v,el){
- variable=v;
- document.querySelectorAll('.variable-switch button').forEach(b=>b.classList.remove('active'));
- el.classList.add('active');
- const labels={
- amplitud:['APERTURA / ESCALA ILUSTRATIVA','APERTURA PROMEDIO'],
- referentes:['REFERENTES / CANTIDAD ILUSTRATIVA','REFERENTES PROMEDIO'],
- materialidad:['CONDICIÓN MATERIAL / ESCALA ILUSTRATIVA','MATERIALIDAD PROMEDIO']
- };
- document.getElementById('chartCaption').textContent=labels[v][0];
- document.getElementById('metricLabel').textContent=labels[v][1];
- document.getElementById('metricValue').textContent=average(values[city][v]).toFixed(1);
- drawChart();
+function changeData(name,el){
+current=name;
+document.querySelectorAll('.controls button').forEach(b=>b.classList.remove('active'));
+el.classList.add('active');
+drawData();
 }
-function average(arr){return arr.reduce((a,b)=>a+b,0)/arr.length}
+addEventListener('resize',sizeChart);
+sizeChart();
 
-function observe(){
- const observer=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-   if(e.isIntersecting)e.target.classList.add('visible');
-  });
- },{threshold:.12});
- document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
-}
-observe();
-resizeChart();
+const observer=new IntersectionObserver(entries=>{
+entries.forEach(entry=>{
+if(entry.isIntersecting)entry.target.classList.add('visible');
+});
+},{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
 </script>
 </body>
 </html>
