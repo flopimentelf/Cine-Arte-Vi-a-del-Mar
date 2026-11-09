@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AQUÍ Y ALLÁ | Percepción peatonal</title>
+<title>Percepción peatonal | Buenos Aires · Valparaíso</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@300;400;500;600;700;800&display=swap');
 :root{--red:#d91038;--blue:#009fe3}
@@ -18,7 +17,7 @@ body{margin:0;background:white;color:#111;font-family:Manrope,sans-serif;overflo
 .opening-title .eyebrow{font:10px 'DM Mono';letter-spacing:3px;margin-bottom:25px;color:#aaa}
 .opening-title h1{font-size:clamp(48px,10vw,132px);font-weight:800;line-height:.9;letter-spacing:-.085em;margin:0}
 .opening-title p{font:11px 'DM Mono';letter-spacing:2px;line-height:2;color:#aaa;margin:30px auto 0}
-.opening-bottom{position:absolute;bottom:30px;left:5vw;right:5vw;display:flex;justify-content:space-between;font:9px 'DM Mono';letter-spacing:1.5px;color:#888;opacity:0;transition:1s}
+.opening-bottom{position:absolute;bottom:30px;left:5vw;right:5vw;display:flex;justify-content:center;font:9px 'DM Mono';letter-spacing:1.5px;color:#888;opacity:0;transition:1s}
 .opening-bottom.show{opacity:1}
 .section{min-height:100svh;padding:13vh 8vw;display:flex;flex-direction:column;justify-content:center;position:relative;border-top:1px solid #eee}
 .section-number{font:10px 'DM Mono';letter-spacing:2px;color:#999;margin-bottom:35px}
@@ -110,29 +109,27 @@ body{margin:0;background:white;color:#111;font-family:Manrope,sans-serif;overflo
 <section id="opening">
 <canvas id="openingCanvas"></canvas>
 <div class="opening-title" id="openingTitle">
-<div class="eyebrow">CIUDADES PUERTO / CHILE × ARGENTINA</div>
 <h1>PERCEPCIÓN<br>PEATONAL</h1>
-<p>VALPARAÍSO · BUENOS AIRES</p>
+<p>BUENOS AIRES · VALPARAÍSO</p>
 </div>
 <div class="opening-bottom" id="openingBottom">
-<span>AQUÍ / CHILE</span>
-<span>ALLÁ / ARGENTINA</span>
+<span>BUENOS AIRES · VALPARAÍSO</span>
 </div>
 </section>
 
 <main>
 <section class="section reveal">
-<div class="section-number">01 / AQUÍ Y ALLÁ</div>
+<div class="section-number">01 / CONTEXTO TERRITORIAL</div>
 <h2>Caminar no es<br>solamente avanzar.<br><span class="red">Es percibir.</span></h2>
 <p class="description">Cada recorrido implica una relación entre el cuerpo y el entorno. La amplitud de una calle, la presencia de un referente o las condiciones del suelo influyen en cómo nos orientamos, nos desplazamos y experimentamos un lugar.</p>
 <div class="lanes">
 <div class="lane red-lane">
-<div class="lane-name"><i style="background:var(--red)"></i> AQUÍ / CHILE</div>
+<div class="lane-name"><i style="background:var(--red)"></i> VALPARAÍSO / CHILE</div>
 <div class="lane-content"><h3>Valparaíso</h3><p>¿Cómo se percibe caminar entre pendientes, calles contenidas, espacios abiertos y recorridos que cambian constantemente de escala?</p></div>
 <div class="lane-track"><span></span></div>
 </div>
 <div class="lane blue-lane">
-<div class="lane-name"><i style="background:var(--blue)"></i> ALLÁ / ARGENTINA</div>
+<div class="lane-name"><i style="background:var(--blue)"></i> BUENOS AIRES / ARGENTINA</div>
 <div class="lane-content"><h3>Buenos Aires</h3><p>¿Cómo se experimentan las avenidas, las veredas, las intersecciones y las distintas relaciones entre el peatón y la ciudad?</p></div>
 <div class="lane-track"><span></span></div>
 </div>
@@ -172,24 +169,24 @@ body{margin:0;background:white;color:#111;font-family:Manrope,sans-serif;overflo
 </section>
 
 <section class="section comparison">
-<div class="section-number">04 / AQUÍ Y ALLÁ</div>
+<div class="section-number">04 / COMPARACIÓN TERRITORIAL</div>
 <h2>Dos lugares.<br>Dos maneras de<br><span class="red">experimentar.</span></h2>
 <p class="description">La percepción peatonal no depende únicamente de la forma de una calle. También intervienen la orientación, la continuidad del recorrido, la sensación de comodidad y la relación con el entorno.</p>
 <div class="lanes">
 <div class="lane red-lane">
-<div class="lane-name"><i style="background:var(--red)"></i> AQUÍ / CHILE</div>
+<div class="lane-name"><i style="background:var(--red)"></i> VALPARAÍSO / CHILE</div>
 <div class="lane-content"><h3>Valparaíso</h3><p>Observar cómo las pendientes, la amplitud de las calles, los referentes y las superficies participan en la experiencia de caminar.</p></div>
 <div class="lane-track"><span></span></div>
 </div>
 <div class="lane blue-lane">
-<div class="lane-name"><i style="background:var(--blue)"></i> ALLÁ / ARGENTINA</div>
+<div class="lane-name"><i style="background:var(--blue)"></i> BUENOS AIRES / ARGENTINA</div>
 <div class="lane-content"><h3>Buenos Aires</h3><p>Observar cómo las dimensiones de las veredas, las avenidas, los cruces y los elementos urbanos participan en la experiencia peatonal.</p></div>
 <div class="lane-track"><span></span></div>
 </div>
 </div>
 <div class="question-grid">
 <div class="question-column red-side">
-<h3>Aquí / Chile</h3>
+<h3>Valparaíso / Chile</h3>
 <ul>
 <li>¿Qué tan fácil resulta orientarse?</li>
 <li>¿Cómo se percibe la amplitud del recorrido?</li>
@@ -199,7 +196,7 @@ body{margin:0;background:white;color:#111;font-family:Manrope,sans-serif;overflo
 </ul>
 </div>
 <div class="question-column blue-side">
-<h3>Allá / Argentina</h3>
+<h3>Buenos Aires / Argentina</h3>
 <ul>
 <li>¿Cómo se experimenta la continuidad de las veredas?</li>
 <li>¿Qué tan visibles son los referentes urbanos?</li>
@@ -224,31 +221,31 @@ body{margin:0;background:white;color:#111;font-family:Manrope,sans-serif;overflo
 <div class="chart-head"><span id="chartTitle">VARIACIÓN DE AMPLITUD</span><span>TRAMOS / 01—12</span></div>
 <canvas id="dataCanvas"></canvas>
 <div class="chart-legend">
-<span><i style="background:var(--red)"></i>AQUÍ / CHILE</span>
-<span><i style="background:var(--blue)"></i>ALLÁ / ARGENTINA</span>
+<span><i style="background:var(--red)"></i>VALPARAÍSO</span>
+<span><i style="background:var(--blue)"></i>BUENOS AIRES</span>
 </div>
 </div>
 <p class="data-explain">Cada línea representa un territorio. Al seleccionar una dimensión, la visualización cambia para mostrar cómo se distribuyen los valores a través de los distintos tramos. La comparación final deberá incorporar las observaciones y respuestas reales de la investigación.</p>
 <div class="metrics">
 <div class="metric"><label>DIMENSIÓN OBSERVADA</label><strong id="metricName">AMPLITUD</strong><small>VARIABLE SELECCIONADA</small></div>
 <div class="metric"><label>TRAMOS REPRESENTADOS</label><strong>12</strong><small>DATOS DE DEMOSTRACIÓN</small></div>
-<div class="metric"><label>TERRITORIOS</label><strong>02</strong><small>CHILE / ARGENTINA</small></div>
+<div class="metric"><label>TERRITORIOS</label><strong>02</strong><small>BUENOS AIRES / VALPARAÍSO</small></div>
 </div>
 <p style="font:9px 'DM Mono';color:#888;margin-top:20px">VALORES SIMULADOS PARA EL PROTOTIPO. NO CORRESPONDEN A RESULTADOS REALES.</p>
 </section>
 
 <section class="section end-section reveal">
 <div class="section-number">06 / UNA EXPERIENCIA COMPARTIDA</div>
-<h2>Aquí y<br><span class="red">allá.</span></h2>
-<p>Caminar es encontrarse con el espacio. En Chile y Argentina, cada recorrido construye una experiencia distinta, hecha de sensaciones, referencias, superficies y movimientos.</p>
+<h2>Buenos Aires<br><span class="red">· Valparaíso.</span></h2>
+<p>Caminar es encontrarse con el espacio. En Buenos Aires y Valparaíso, cada recorrido construye una experiencia distinta, hecha de sensaciones, referencias, superficies y movimientos.</p>
 <div class="section-number">PERCEPCIÓN PEATONAL / 2026</div>
 </section>
 </main>
 
 <footer class="footer">
-<span>AQUÍ Y ALLÁ</span>
-<span>CHILE × ARGENTINA</span>
-<span>PERCEPCIÓN PEATONAL / 2026</span>
+<span>PERCEPCIÓN PEATONAL</span>
+<span>BUENOS AIRES · VALPARAÍSO</span>
+<span>2026</span>
 </footer>
 
 <script>
@@ -271,7 +268,6 @@ resize();
 
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 const ease=t=>{t=clamp(t,0,1);return t*t*(3-2*t)};
-const smoother=t=>{t=clamp(t,0,1);return t*t*t*(t*(6*t-15)+10)};
 
 function capsule(x1,y1,x2,y2,width,color='#f5f5f2'){
 c.beginPath();
@@ -378,17 +374,43 @@ c.fillRect(75,-23,7,7);
 c.restore();
 }
 
+function drawStone(x,y,progress){
+const lift=Math.sin(Math.min(1,progress)*Math.PI)*34;
+const drift=progress*30;
+c.save();
+c.translate(x+drift,y-lift);
+c.rotate(progress*1.1);
+c.fillStyle='#bcbcb8';
+c.beginPath();
+c.moveTo(-13,4);
+c.lineTo(-9,-7);
+c.lineTo(1,-12);
+c.lineTo(12,-5);
+c.lineTo(15,5);
+c.lineTo(5,10);
+c.lineTo(-8,9);
+c.closePath();
+c.fill();
+c.strokeStyle='#f5f5f2';
+c.lineWidth=1.2;
+c.stroke();
+c.restore();
+}
+
 function drawHole(x,y,width,open){
 const w=width*open;
-c.fillStyle='#050505';
+if(open<=0)return;
+c.save();
+c.fillStyle='#000';
 c.beginPath();
-c.ellipse(x,y,w,17*open,0,0,Math.PI*2);
+c.ellipse(x,y,w,19*open,0,0,Math.PI*2);
 c.fill();
 c.strokeStyle='#f5f5f2';
 c.lineWidth=3;
 c.beginPath();
-c.ellipse(x,y,w,17*open,0,Math.PI,Math.PI*2);
+c.ellipse(x,y,w,19*open,Math.PI,Math.PI*2);
 c.stroke();
+c.restore();
 }
 
 function drawOpening(now){
@@ -398,68 +420,84 @@ c.fillStyle='#050505';
 c.fillRect(0,0,W,H);
 
 const ground=H*.74;
-const personX=W*.40;
 const scale=Math.min(1,H/700);
+const personStart=W*.18;
+const personWalkEnd=W*.49;
+const personX=personWalkEnd;
+const holeX=personX-72;
+const holeWidth=Math.min(105,W*.17);
 const phase=t*8;
 
-const stumble=ease((t-2.0)/.65);
-const recover=ease((t-2.75)/.55);
-const carProgress=ease((t-3.45)/.8);
-const recoil=ease((t-4.05)/.38)*(1-ease((t-4.55)/.35));
-const holeOpen=ease((t-4.55)/.6);
-const fall=ease((t-5.25)/1.05);
-const finalFade=ease((t-6.65)/.9);
+const walk=ease(t/2.25);
+const stumble=ease((t-2.2)/.38);
+const stoneLift=ease((t-2.22)/.16);
+const carProgress=ease((t-3.35)/.48);
+const recoil=ease((t-4.02)/.5);
+const holeOpen=ease((t-4.28)/.48);
+const fall=ease((t-5.05)/1.0);
+const finalFade=ease((t-6.65)/.85);
 
+const personWalkX=personStart+(personWalkEnd-personStart)*walk;
+const personRecoilX=personX-recoil*72;
+const personFallX=personRecoilX+(holeX-personRecoilX)*ease((t-5.0)/.32);
+const personXNow=t<2.2?personWalkX:(t<4.02?personX+stumble*9:personFallX);
+
+const groundLeft=holeX-holeWidth*holeOpen;
+const groundRight=holeX+holeWidth*holeOpen;
 c.fillStyle='#f5f5f2';
+if(holeOpen<.02){
 c.fillRect(0,ground,W,H-ground);
+}else{
+c.fillRect(0,ground,Math.max(0,groundLeft),H-ground);
+c.fillRect(groundRight,ground,Math.max(0,W-groundRight),H-ground);
+}
 
-const holeX=personX-90;
-const holeWidth=Math.min(95,W*.16);
 drawHole(holeX,ground,holeWidth,holeOpen);
 
-const stumbleLean=stumble*(1-recover)*.58;
-const recoilLean=recoil*-.24;
-const fallLean=fall*1.42;
-const lean=stumbleLean+recoilLean+fallLean;
+if(t>2.18&&t<3.02){
+const stoneProgress=clamp((t-2.18)/.82,0,1);
+drawStone(personX+22,ground-3,stoneProgress);
+}
 
-const personOffset=-recoil*42+fall*holeWidth*.5;
-const drop=fall*fall*H*.48;
-const personY=ground+drop;
+let stumbleLean=stumble*(1-ease((t-2.72)/.4))*.55;
+let recoilLean=-recoil*.52;
+let fallLean=fall*1.45;
+let lean=stumbleLean+recoilLean+fallLean;
 
-if(t<7.0){
+const fallDrop=fall*fall*H*.55;
+const personY=ground+fallDrop;
+const disappearing=ease((t-5.55)/.8);
+
+if(t<6.55){
 c.save();
-c.globalAlpha=1-finalFade;
-pedestrian(personX+personOffset,personY,phase,lean,Math.max(stumble,recoil,fall),scale);
+c.globalAlpha=1-disappearing;
+pedestrian(personXNow,personY,phase,lean,Math.max(stumble,recoil,fall),scale);
 c.restore();
 }
 
-if(t>3.35&&t<4.65){
-const carX=W+170-carProgress*(W+360);
-const carY=ground-3;
-const carScale=Math.max(.7,Math.min(1.1,H/750));
+if(t>3.35&&t<3.95){
+const carX=W+190-carProgress*(W+390);
+const carY=ground-8;
+const carScale=Math.max(.78,Math.min(1.18,H/700));
 drawCar(carX,carY,carScale);
 }
 
-if(t>4.05&&t<4.55){
-const flash=1-ease((t-4.05)/.5);
+if(t>4.0&&t<4.28){
+const flash=1-ease((t-4.0)/.28);
 c.save();
-c.globalAlpha=flash*.22;
+c.globalAlpha=flash*.13;
 c.fillStyle='#fff';
 c.fillRect(0,0,W,H);
 c.restore();
 }
 
-if(t>5.15&&t<6.6){
-const shake=(1-ease((t-5.15)/1.2))*2.5;
+if(t>5.05&&t<6.55){
 c.save();
-c.globalAlpha=.25;
+c.globalAlpha=.2*(1-fall);
 c.strokeStyle='#fff';
 c.lineWidth=2;
 c.beginPath();
-c.moveTo(holeX-holeWidth,ground-4);
-c.lineTo(holeX-holeWidth-shake*4,ground-9);
-c.moveTo(holeX+holeWidth,ground-4);
-c.lineTo(holeX+holeWidth+shake*4,ground-9);
+c.ellipse(holeX,ground,holeWidth*holeOpen,19*holeOpen,0,0,Math.PI*2);
 c.stroke();
 c.restore();
 }
@@ -469,7 +507,7 @@ c.fillStyle=`rgba(5,5,5,${finalFade})`;
 c.fillRect(0,0,W,H);
 }
 
-if(t>7.65){
+if(t>7.55){
 document.getElementById('openingTitle').classList.add('show');
 document.getElementById('openingBottom').classList.add('show');
 }
@@ -592,4 +630,3 @@ document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
 </script>
 </body>
 </html>
-
