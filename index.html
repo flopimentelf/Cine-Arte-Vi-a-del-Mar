@@ -52,15 +52,15 @@ const start=performance.now();
 
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 
-const ease=t=>{
+function ease(t){
 t=clamp(t,0,1);
 return t*t*(3-2*t);
-};
+}
 
-const smoother=t=>{
+function smoother(t){
 t=clamp(t,0,1);
 return t*t*t*(t*(6*t-15)+10);
-};
+}
 
 function resize(){
 DPR=Math.min(window.devicePixelRatio||1,2);
@@ -87,32 +87,32 @@ ctx.strokeStyle='#f5f5f2';
 ctx.stroke();
 }
 
-function drawPerson(x,ground,phase,lean,scale,pose=0){
+function drawPerson(x,y,phase,lean,scale,pose=0){
 ctx.save();
-ctx.translate(x,ground);
+ctx.translate(x,y);
 ctx.rotate(lean);
 ctx.scale(scale,scale);
 
 const swing=Math.sin(phase);
 const legA=swing*19;
 const legB=-swing*19;
-const armA=-swing*14;
-const armB=swing*14;
+const armA=-swing*13;
+const armB=swing*13;
 
 ctx.fillStyle='#f5f5f2';
 
 ctx.beginPath();
-ctx.arc(0,-105,13,0,Math.PI*2);
+ctx.arc(0,-108,14,0,Math.PI*2);
 ctx.fill();
 
 ctx.beginPath();
-ctx.roundRect(-12,-84,24,47,11);
+ctx.roundRect(-13,-86,26,49,12);
 ctx.fill();
 
-if(pose<0.25){
-stroke(-7,-40,-13+legA*.45,-21,10);
+if(pose<0.2){
+stroke(-7,-41,-13+legA*.45,-21,10);
 stroke(-13+legA*.45,-21,-18+legA,-2,9);
-stroke(7,-40,13+legB*.45,-21,10);
+stroke(7,-41,13+legB*.45,-21,10);
 stroke(13+legB*.45,-21,18+legB,-2,9);
 
 stroke(-9,-78,-17+armA*.4,-59,9);
@@ -122,17 +122,17 @@ stroke(17+armB*.4,-59,19+armB,-46,8);
 }else{
 const p=clamp(pose,0,1);
 
-stroke(-7,-40,-17-p*8,-24+p*7,10);
-stroke(-17-p*8,-24+p*7,-23-p*11,-4+p*5,9);
+stroke(-7,-41,-17-p*9,-24+p*7,10);
+stroke(-17-p*9,-24+p*7,-23-p*12,-4+p*5,9);
 
-stroke(7,-40,17+p*10,-24+p*7,10);
+stroke(7,-41,17+p*10,-24+p*7,10);
 stroke(17+p*10,-24+p*7,24+p*12,-5+p*5,9);
 
-stroke(-9,-78,-26-p*9,-64-p*6,9);
-stroke(-26-p*9,-64-p*6,-35-p*9,-51-p*8,8);
+stroke(-9,-79,-27-p*10,-65-p*5,9);
+stroke(-27-p*10,-65-p*5,-37-p*8,-51-p*8,8);
 
-stroke(9,-78,26+p*9,-64-p*6,9);
-stroke(26+p*9,-64-p*6,35+p*9,-51-p*8,8);
+stroke(9,-79,27+p*10,-65-p*5,9);
+stroke(27+p*10,-65-p*5,37+p*8,-51-p*8,8);
 }
 
 ctx.restore();
@@ -212,18 +212,15 @@ ctx.fill();
 ctx.restore();
 }
 
-function drawGround(ground,holeX,holeWidth,holeHeight){
+function drawFloor(ground,holeX,holeWidth,holeHeight){
 ctx.save();
 
 ctx.fillStyle='#f5f5f2';
-ctx.fillRect(0,ground,W,H-ground);
-
-ctx.globalCompositeOperation='destination-out';
 ctx.beginPath();
+ctx.rect(0,ground,W,H-ground);
 ctx.ellipse(holeX,ground,holeWidth,holeHeight,0,0,Math.PI*2);
-ctx.fill();
+ctx.fill('evenodd');
 
-ctx.globalCompositeOperation='source-over';
 ctx.strokeStyle='#f5f5f2';
 ctx.lineWidth=3;
 ctx.beginPath();
@@ -241,109 +238,109 @@ ctx.fillStyle='#050505';
 ctx.fillRect(0,0,W,H);
 
 const ground=H*.76;
-const scale=Math.min(2.55,H/310);
+const scale=Math.min(2.1,Math.max(1.65,H/390));
 
-const personStart=W*.17;
+const startX=W*.12;
 const stoneX=W*.40;
-const holeX=W*.76;
-const holeWidth=Math.min(105,W*.15);
+const holeX=W*.79;
+const holeWidth=Math.min(105,W*.14);
 const holeHeight=30;
 
-const walkToStone=ease(t/2.2);
-const stumble=ease((t-2.05)/.22);
-const stumbleHold=ease((t-2.35)/.25);
-const carStart=3.0;
-const carDuration=.85;
-const carProgress=smoother((t-carStart)/carDuration);
-const recoil=ease((t-3.55)/.18)*(1-ease((t-4.2)/.3));
-const resume=ease((t-4.45)/.5);
-const approachHole=ease((t-4.45)/1.95);
+const stumbleAt=2.8;
+const carAt=3.65;
+const recoveryAt=4.65;
+const walkAgainAt=4.9;
+const fallAt=7.3;
+const fallDuration=1.5;
 
-let personX;
+const stumbleProgress=ease((t-stumbleAt)/.2);
+const stumbleEnd=ease((t-3.3)/.35);
+const recoil=ease((t-3.75)/.15)*(1-ease((t-4.4)/.3));
+
+const stumbleX=stoneX-25*scale;
+const walkStartProgress=ease(t/stumbleAt);
+
+let personX=startX+(stumbleX-startX)*walkStartProgress;
 let personY=ground;
 let lean=0;
 let pose=0;
 let phase=t*8;
 
-if(t<2.05){
-personX=personStart+(stoneX-personStart)*walkTo;
-}else if(t<2.8){
-personX=stoneX+12;
-lean=stumble*(1-stumbleHold)*.7;
-pose=stumble;
-phase=2.05*8;
-}else if(t<4.45){
-personX=stoneX+12;
-lean=-recoil*.35;
-pose=Math.max(.35,recoil);
-phase=2.8*8;
-}else{
-personX=stoneX+12+(holeX-stoneX-12)*approachHole;
+if(t>=stumbleAt&&t<recoveryAt){
+personX=stumbleX;
+lean=stumbleProgress*(1-stumbleEnd)*.62-recoil*.3;
+pose=Math.max(stumbleProgress*(1-stumbleEnd),recoil);
+phase=stumbleAt*8;
+}
+
+if(t>=recoveryAt&&t<fallAt){
+const walkProgress=ease((t-walkAgainAt)/(fallAt-walkAgainAt));
+personX=stumbleX+(holeX-stumbleX)*walkProgress;
 lean=-recoil*.2;
 pose=0;
 phase=t*8;
 }
 
-const fallStart=6.4;
-const fall=smoother((t-fallStart)/1.35);
-
-if(t>=fallStart){
+if(t>=fallAt){
+const fall=smoother((t-fallAt)/fallDuration);
 personX=holeX;
-personY=ground+fall*340;
-lean=fall*.18;
+personY=ground+fall*390;
+lean=fall*.12;
 pose=fall;
+phase=t*5;
 }
 
-const stoneDisappear=ease((t-2.02)/.12);
-if(t<2.18){
-ctx.save();
-ctx.globalAlpha=1-stoneDisappear;
-drawStone(stoneX,ground-2,18,stumble*.5);
-ctx.restore();
-}
+const stoneFade=ease((t-stumbleAt)/.13);
 
-if(t>carStart&&t<carStart+carDuration){
+const carProgress=smoother((t-carAt)/.85);
+const carScale=Math.max(1.45,Math.min(1.9,H/430));
+
+if(t>carAt&&t<carAt+.95){
 const carX=W+240-carProgress*(W+500);
-const carScale=Math.max(1.5,Math.min(1.9,H/420));
 drawCar(carX,ground-3,carScale);
 }
 
-if(t>3.45&&t<4.15){
-const flash=(1-ease((t-3.45)/.7))*.22;
+if(t>3.75&&t<4.4){
+const flash=(1-ease((t-3.75)/.65))*.18;
 ctx.fillStyle=`rgba(255,255,255,${flash})`;
 ctx.fillRect(0,0,W,H);
 }
 
 drawPerson(personX,personY,phase,lean,scale,pose);
 
-drawGround(ground,holeX,holeWidth,holeHeight);
+drawFloor(ground,holeX,holeWidth,holeHeight);
 
-if(t>4.75&&t<5.45){
-const impact=1-ease((t-4.75)/.7);
+if(t<stumbleAt+.15){
 ctx.save();
-ctx.globalAlpha=impact*.55;
+ctx.globalAlpha=1-stoneFade;
+drawStone(stoneX,ground-2,19,stumbleProgress*.55);
+ctx.restore();
+}
+
+if(t>3.75&&t<4.3){
+const impact=1-ease((t-3.75)/.55);
+ctx.save();
+ctx.globalAlpha=impact*.45;
 ctx.strokeStyle='#f5f5f2';
 ctx.lineWidth=2.5;
-
-for(let i=0;i<4;i++){
-const spread=holeWidth*(.8+i*.3);
+for(let i=0;i<3;i++){
+const spread=55+i*22;
 ctx.beginPath();
-ctx.moveTo(holeX-spread,ground-5-i*4);
-ctx.lineTo(holeX-spread-10,ground-13-i*4);
-ctx.moveTo(holeX+spread,ground-5-i*4);
-ctx.lineTo(holeX+spread+10,ground-13-i*4);
+ctx.moveTo(personX+spread,ground-45-i*12);
+ctx.lineTo(personX+spread+12,ground-57-i*12);
 ctx.stroke();
 }
 ctx.restore();
 }
 
-const fade=ease((t-7.75)/.9);
+const fade=ease((t-8.45)/.9);
+
 if(fade>0){
 ctx.fillStyle=`rgba(5,5,5,${fade})`;
 ctx.fillRect(0,0,W,H);
 }
 
-if(t>8.7){
+if(t>9.35){
 document.getElementById('openingTitle').classList.add('show');
 document.getElementById('openingBottom').classList.add('show');
 }
