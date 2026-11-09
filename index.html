@@ -17,7 +17,7 @@ body{margin:0;background:white;color:#111;font-family:Manrope,sans-serif;overflo
 .opening-title .eyebrow{font:10px 'DM Mono';letter-spacing:3px;margin-bottom:25px;color:#aaa}
 .opening-title h1{font-size:clamp(48px,10vw,132px);font-weight:800;line-height:.9;letter-spacing:-.085em;margin:0}
 .opening-title p{font:11px 'DM Mono';letter-spacing:2px;line-height:2;color:#aaa;margin:30px auto 0}
-.opening-bottom{position:absolute;bottom:30px;left:5vw;right:5vw;display:flex;justify-content:center;font:9px 'DM Mono';letter-spacing:1.5px;color:#888;opacity:0;transition:1s}
+.opening-bottom{position:absolute;bottom:30px;left:5vw;right:5vw;display:flex;justify-content:space-between;font:9px 'DM Mono';letter-spacing:1.5px;color:#888;opacity:0;transition:1s}
 .opening-bottom.show{opacity:1}
 .section{min-height:100svh;padding:13vh 8vw;display:flex;flex-direction:column;justify-content:center;position:relative;border-top:1px solid #eee}
 .section-number{font:10px 'DM Mono';letter-spacing:2px;color:#999;margin-bottom:35px}
@@ -113,7 +113,8 @@ body{margin:0;background:white;color:#111;font-family:Manrope,sans-serif;overflo
 <p>BUENOS AIRES · VALPARAÍSO</p>
 </div>
 <div class="opening-bottom" id="openingBottom">
-<span>BUENOS AIRES · VALPARAÍSO</span>
+<span>VALPARAÍSO / CHILE</span>
+<span>BUENOS AIRES / ARGENTINA</span>
 </div>
 </section>
 
@@ -221,8 +222,8 @@ body{margin:0;background:white;color:#111;font-family:Manrope,sans-serif;overflo
 <div class="chart-head"><span id="chartTitle">VARIACIÓN DE AMPLITUD</span><span>TRAMOS / 01—12</span></div>
 <canvas id="dataCanvas"></canvas>
 <div class="chart-legend">
-<span><i style="background:var(--red)"></i>VALPARAÍSO</span>
-<span><i style="background:var(--blue)"></i>BUENOS AIRES</span>
+<span><i style="background:var(--red)"></i>VALPARAÍSO / CHILE</span>
+<span><i style="background:var(--blue)"></i>BUENOS AIRES / ARGENTINA</span>
 </div>
 </div>
 <p class="data-explain">Cada línea representa un territorio. Al seleccionar una dimensión, la visualización cambia para mostrar cómo se distribuyen los valores a través de los distintos tramos. La comparación final deberá incorporar las observaciones y respuestas reales de la investigación.</p>
@@ -237,7 +238,7 @@ body{margin:0;background:white;color:#111;font-family:Manrope,sans-serif;overflo
 <section class="section end-section reveal">
 <div class="section-number">06 / UNA EXPERIENCIA COMPARTIDA</div>
 <h2>Buenos Aires<br><span class="red">· Valparaíso.</span></h2>
-<p>Caminar es encontrarse con el espacio. En Buenos Aires y Valparaíso, cada recorrido construye una experiencia distinta, hecha de sensaciones, referencias, superficies y movimientos.</p>
+<p>Caminar es encontrarse con el espacio. En Chile y Argentina, cada recorrido construye una experiencia distinta, hecha de sensaciones, referencias, superficies y movimientos.</p>
 <div class="section-number">PERCEPCIÓN PEATONAL / 2026</div>
 </section>
 </main>
@@ -245,7 +246,7 @@ body{margin:0;background:white;color:#111;font-family:Manrope,sans-serif;overflo
 <footer class="footer">
 <span>PERCEPCIÓN PEATONAL</span>
 <span>BUENOS AIRES · VALPARAÍSO</span>
-<span>2026</span>
+<span>PERCEPCIÓN PEATONAL / 2026</span>
 </footer>
 
 <script>
@@ -268,6 +269,7 @@ resize();
 
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 const ease=t=>{t=clamp(t,0,1);return t*t*(3-2*t)};
+const smoother=t=>{t=clamp(t,0,1);return t*t*t*(t*(6*t-15)+10)};
 
 function capsule(x1,y1,x2,y2,width,color='#f5f5f2'){
 c.beginPath();
@@ -286,40 +288,59 @@ c.rotate(lean);
 c.scale(scale,scale);
 const white='#f5f5f2';
 const swing=Math.sin(phase);
-const leg1=swing*19;
-const leg2=-swing*19;
-const arm1=-swing*14;
-const arm2=swing*14;
+const p=clamp(pose,0,1);
+const stumble=p*(1-p);
+const legA=swing*17;
+const legB=-swing*17;
+const armA=-swing*13;
+const armB=swing*13;
 
-if(pose<.2){
-capsule(-6,-40,-12+leg1*.5,-20,10,white);
-capsule(-12+leg1*.5,-20,-17+leg1,-2,9,white);
-capsule(6,-40,12+leg2*.5,-20,10,white);
-capsule(12+leg2*.5,-20,17+leg2,-2,9,white);
-capsule(-17+leg1,-2,-8+leg1,-2,8,white);
-capsule(17+leg2,-2,26+leg2,-2,8,white);
-capsule(-8,-82,-17+arm1*.5,-62,9,white);
-capsule(-17+arm1*.5,-62,-18+arm1,-49,8,white);
-capsule(8,-82,17+arm2*.5,-62,9,white);
-capsule(17+arm2*.5,-62,18+arm2,-49,8,white);
-}else{
-let p=clamp(pose,0,1);
-capsule(-7,-40,-13-p*10,-22+p*7,10,white);
-capsule(-13-p*10,-22+p*7,-19-p*12,-4+p*3,9,white);
-capsule(7,-40,17+p*12,-24+p*5,10,white);
-capsule(17+p*12,-24+p*5,25+p*12,-8,9,white);
-capsule(-9,-81,-26-p*12,-65-p*8,9,white);
-capsule(-26-p*12,-65-p*8,-34-p*14,-52-p*12,8,white);
-capsule(9,-81,24+p*12,-65-p*6,9,white);
-capsule(24+p*12,-65-p*6,33+p*15,-52-p*10,8,white);
-}
 c.fillStyle=white;
-c.beginPath();
-c.roundRect(-12,-94,24,57,12);
-c.fill();
 c.beginPath();
 c.arc(0,-108,13,0,Math.PI*2);
 c.fill();
+
+c.beginPath();
+c.moveTo(-9,-91);
+c.quadraticCurveTo(-17,-89,-23,-83);
+c.lineTo(-31,-57);
+c.quadraticCurveTo(-35,-44,-27,-41);
+c.quadraticCurveTo(-18,-38,-15,-49);
+c.lineTo(-9,-70);
+c.lineTo(-5,-72);
+c.lineTo(-10,-43);
+c.quadraticCurveTo(-12,-35,-5,-32);
+c.lineTo(7,-29);
+c.quadraticCurveTo(17,-27,19,-37);
+c.lineTo(24,-63);
+c.quadraticCurveTo(27,-77,17,-85);
+c.lineTo(9,-91);
+c.closePath();
+c.fill();
+
+capsule(-7,-36,-13+legA*.55,-19,12,white);
+capsule(-13+legA*.55,-19,-19+legA,-3,12,white);
+capsule(-19+legA,-3,-8+legA,-2,11,white);
+
+capsule(8,-36,14+legB*.55,-20,12,white);
+capsule(14+legB*.55,-20,19+legB,-3,12,white);
+capsule(19+legB,-3,29+legB,-2,11,white);
+
+capsule(-12,-82,-20+armA*.45,-62,10,white);
+capsule(-20+armA*.45,-62,-21+armA,-49,10,white);
+
+capsule(12,-82,22+armB*.45,-65,10,white);
+capsule(22+armB*.45,-65,34+armB,-58,10,white);
+
+if(p>.08){
+c.save();
+c.globalAlpha=clamp(p*1.3,0,1);
+capsule(-9,-80,-30,-68,10,white);
+capsule(-30,-68,-38,-55,10,white);
+capsule(12,-80,29,-64,10,white);
+capsule(29,-64,40,-58,10,white);
+c.restore();
+}
 c.restore();
 }
 
@@ -408,7 +429,7 @@ c.fill();
 c.strokeStyle='#f5f5f2';
 c.lineWidth=3;
 c.beginPath();
-c.ellipse(x,y,w,19*open,Math.PI,Math.PI*2);
+c.ellipse(x,y,w,19*open,Math.PI,0);
 c.stroke();
 c.restore();
 }
@@ -431,6 +452,7 @@ const phase=t*8;
 const walk=ease(t/2.25);
 const stumble=ease((t-2.2)/.38);
 const stoneLift=ease((t-2.22)/.16);
+const stoneFall=ease((t-2.65)/.28);
 const carProgress=ease((t-3.35)/.48);
 const recoil=ease((t-4.02)/.5);
 const holeOpen=ease((t-4.28)/.48);
@@ -439,7 +461,7 @@ const finalFade=ease((t-6.65)/.85);
 
 const personWalkX=personStart+(personWalkEnd-personStart)*walk;
 const personRecoilX=personX-recoil*72;
-const personFallX=personRecoilX+(holeX-personRecoilX)*ease((t-5.0)/.32);
+const personFallX=personRecoilX+(holeX-personRecoilX)*ease((t-4.95)/.28);
 const personXNow=t<2.2?personWalkX:(t<4.02?personX+stumble*9:personFallX);
 
 const groundLeft=holeX-holeWidth*holeOpen;
@@ -452,8 +474,6 @@ c.fillRect(0,ground,Math.max(0,groundLeft),H-ground);
 c.fillRect(groundRight,ground,Math.max(0,W-groundRight),H-ground);
 }
 
-drawHole(holeX,ground,holeWidth,holeOpen);
-
 if(t>2.18&&t<3.02){
 const stoneProgress=clamp((t-2.18)/.82,0,1);
 drawStone(personX+22,ground-3,stoneProgress);
@@ -464,7 +484,7 @@ let recoilLean=-recoil*.52;
 let fallLean=fall*1.45;
 let lean=stumbleLean+recoilLean+fallLean;
 
-const fallDrop=fall*fall*H*.55;
+const fallDrop=fall*fall*H*.62;
 const personY=ground+fallDrop;
 const disappearing=ease((t-5.55)/.8);
 
@@ -474,6 +494,8 @@ c.globalAlpha=1-disappearing;
 pedestrian(personXNow,personY,phase,lean,Math.max(stumble,recoil,fall),scale);
 c.restore();
 }
+
+drawHole(holeX,ground,holeWidth,holeOpen);
 
 if(t>3.35&&t<3.95){
 const carX=W+190-carProgress*(W+390);
