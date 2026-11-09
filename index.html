@@ -6,279 +6,156 @@
 <title>AQUÍ Y ALLÁ | Percepción peatonal</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@300;400;500;600;700;800&display=swap');
-:root{--red:#d91038;--blue:#009fe3}
+
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:white;color:#111;font-family:Manrope,sans-serif;overflow-x:hidden}
-#opening{height:100svh;min-height:560px;position:relative;overflow:hidden;background:#050505;color:white}
-#openingCanvas{position:absolute;inset:0;width:100%;height:100%}
-.opening-title{position:absolute;top:50%;left:50%;width:90%;transform:translate(-50%,-50%);text-align:center;opacity:0;transition:opacity 1.8s;pointer-events:none}
+
+html,body{
+margin:0;
+width:100%;
+height:100%;
+overflow:hidden;
+background:#050505;
+font-family:Manrope,sans-serif;
+}
+
+#opening{
+position:relative;
+width:100%;
+height:100svh;
+min-height:500px;
+overflow:hidden;
+background:#050505;
+color:white;
+}
+
+#openingCanvas{
+position:absolute;
+inset:0;
+width:100%;
+height:100%;
+}
+
+.opening-title{
+position:absolute;
+top:50%;
+left:50%;
+width:90%;
+transform:translate(-50%,-50%);
+text-align:center;
+opacity:0;
+transition:opacity 1.8s ease;
+pointer-events:none;
+}
+
 .opening-title.show{opacity:1}
-.opening-title .eyebrow{font:10px 'DM Mono';letter-spacing:3px;margin-bottom:25px;color:#aaa}
-.opening-title h1{font-size:clamp(48px,10vw,132px);font-weight:800;line-height:.9;letter-spacing:-.085em;margin:0}
-.opening-title p{font:11px 'DM Mono';letter-spacing:2px;line-height:2;color:#aaa;margin:30px auto 0}
-.opening-bottom{position:absolute;bottom:30px;left:5vw;right:5vw;display:flex;justify-content:space-between;font:9px 'DM Mono';letter-spacing:1.5px;color:#888;opacity:0;transition:1s}
+
+.eyebrow{
+font:10px 'DM Mono',monospace;
+letter-spacing:3px;
+margin-bottom:25px;
+color:#aaa;
+}
+
+.opening-title h1{
+font-size:clamp(48px,10vw,132px);
+font-weight:800;
+line-height:.9;
+letter-spacing:-.085em;
+margin:0;
+}
+
+.opening-title p{
+font:11px 'DM Mono',monospace;
+letter-spacing:2px;
+line-height:2;
+color:#aaa;
+margin:30px auto 0;
+}
+
+.opening-bottom{
+position:absolute;
+bottom:30px;
+left:5vw;
+right:5vw;
+display:flex;
+justify-content:space-between;
+font:9px 'DM Mono',monospace;
+letter-spacing:1.5px;
+color:#888;
+opacity:0;
+transition:opacity 1s ease;
+}
+
 .opening-bottom.show{opacity:1}
-.section{min-height:100svh;padding:13vh 8vw;display:flex;flex-direction:column;justify-content:center;position:relative;border-top:1px solid #eee}
-.section-number{font:10px 'DM Mono';letter-spacing:2px;color:#999;margin-bottom:35px}
-.section h2{font-size:clamp(55px,9vw,125px);line-height:1.04;letter-spacing:-.09em;font-weight:700;margin:0;max-width:1050px}
-.red{color:var(--red)}
-.blue{color:var(--blue)}
-.description{font-size:clamp(15px,1.5vw,20px);line-height:2;color:#777;max-width:650px;margin:35px 0 0}
-.lanes{margin-top:75px;display:flex;flex-direction:column}
-.lane{min-height:130px;display:grid;grid-template-columns:150px 1fr;align-items:center;gap:30px;position:relative;border-top:1px solid #e5e5e5;padding:25px 0}
-.lane:last-child{border-bottom:1px solid #e5e5e5}
-.lane-name{font:10px 'DM Mono';letter-spacing:1px;display:flex;align-items:center;gap:10px}
-.lane-name i{width:9px;height:9px;border-radius:50%;display:inline-block;flex-shrink:0}
-.red-lane .lane-name{color:var(--red)}
-.blue-lane .lane-name{color:var(--blue)}
-.lane-content h3{font-size:clamp(20px,3vw,34px);letter-spacing:-1.5px;font-weight:600;margin:0 0 9px}
-.lane-content p{font-size:13px;line-height:1.9;color:#777;margin:0;max-width:700px}
-.lane-track{position:absolute;left:0;right:0;bottom:0;height:3px;overflow:hidden}
-.lane-track span{display:block;width:100%;height:100%;transform:translateX(-100%);transition:transform 1.5s ease}
-.visible .lane-track span{transform:translateX(0)}
-.red-lane .lane-track span{background:var(--red)}
-.blue-lane .lane-track span{background:var(--blue)}
-.marquee{overflow:hidden;white-space:nowrap;padding:22px 0;background:var(--red);color:white;font-size:clamp(23px,3.5vw,45px);font-weight:700;letter-spacing:-1px}
-.marquee span{display:inline-block;animation:marquee 28s linear infinite}
-@keyframes marquee{to{transform:translateX(-50%)}}
-.experience{min-height:85vh;background:#080808;color:white;display:flex;flex-direction:column;justify-content:center;padding:12vh 8vw;position:relative;overflow:hidden}
-.experience .section-number{color:#777}
-.experience h2{font-size:clamp(50px,9vw,110px);line-height:1;letter-spacing:-.09em;margin:0}
-.experience p{font-size:15px;line-height:2;color:#999;max-width:600px;margin-top:30px}
-.experience-mark{position:absolute;right:8vw;bottom:8vh;font-size:clamp(100px,20vw,260px);font-weight:800;letter-spacing:-.12em;color:#151515;line-height:.8;pointer-events:none}
-.comparison{background:#111;color:#fff}
-.comparison .section-number{color:#999}
-.comparison .description{color:#aaa}
-.comparison .lane{border-color:#444}
-.comparison .lane-content p{color:#aaa}
-.comparison .lane:last-child{border-color:#444}
-.comparison .lane-content h3{color:#fff}
-.comparison .red-lane .lane-name{color:#ff738a}
-.comparison .blue-lane .lane-name{color:#79d7f5}
-.question-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;margin-top:65px}
-.question-column{border-top:2px solid;padding-top:20px}
-.question-column.red-side{border-color:var(--red)}
-.question-column.blue-side{border-color:var(--blue)}
-.question-column h3{font-size:25px;letter-spacing:-1px;margin:0 0 20px}
-.question-column ul{padding:0;margin:0;list-style:none}
-.question-column li{padding:15px 0;border-top:1px solid #444;font-size:13px;line-height:1.8;color:#aaa}
-.question-column li:before{content:"↗";margin-right:12px;color:var(--red)}
-.question-column.blue-side li:before{color:var(--blue)}
-.data-section{background:#f4f4f2}
-.data-controls{display:flex;gap:8px;flex-wrap:wrap;margin:45px 0 20px}
-.data-controls button{border:1px solid #ccc;background:transparent;padding:13px 18px;cursor:pointer;font:10px 'DM Mono';letter-spacing:1px}
-.data-controls button.active{background:#111;color:white;border-color:#111}
-.chart{background:white;padding:25px 25px 15px}
-.chart-head{display:flex;justify-content:space-between;font:9px 'DM Mono';color:#888;letter-spacing:1px}
-#dataCanvas{display:block;width:100%;height:350px}
-.chart-legend{display:flex;gap:25px;font:10px 'DM Mono';color:#777}
-.chart-legend span{display:flex;gap:8px;align-items:center}
-.chart-legend i{width:9px;height:9px;border-radius:50%}
-.data-explain{font-size:13px;line-height:1.9;color:#777;margin-top:25px;max-width:700px}
-.metrics{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid #ddd;margin-top:35px}
-.metric{padding:25px 20px 15px 0}
-.metric label{font:9px 'DM Mono';color:#888;letter-spacing:1px}
-.metric strong{display:block;font-size:clamp(30px,5vw,55px);letter-spacing:-3px;margin-top:15px}
-.metric small{font-size:11px;color:#888}
-.end-section{min-height:100svh;text-align:center;align-items:center;background:#fff}
-.end-section h2{font-size:clamp(55px,10vw,140px);line-height:1.02;letter-spacing:-.1em}
-.end-section p{font-size:15px;line-height:2;color:#777;max-width:500px;margin:30px auto}
-.footer{padding:25px 5vw;display:flex;justify-content:space-between;gap:15px;font:9px 'DM Mono';color:#888}
-.reveal{opacity:0;transform:translateY(35px);transition:opacity 1s,transform 1s}
-.reveal.visible{opacity:1;transform:none}
+
 @media(max-width:650px){
-.opening-bottom{left:20px;right:20px;font-size:8px}
 .opening-title{width:94%}
 .opening-title h1{font-size:16vw}
-.section{padding:100px 7vw}
-.section h2{font-size:clamp(48px,13vw,85px)}
-.lane{grid-template-columns:1fr;gap:12px;padding:22px 0}
-.lane-content h3{font-size:24px}
-.question-grid{grid-template-columns:1fr;gap:35px}
-#dataCanvas{height:280px}
-.metrics{grid-template-columns:1fr}
-.metric{border-bottom:1px solid #ddd}
-.footer{flex-direction:column}
-.experience-mark{right:5vw;bottom:5vh}
+.opening-bottom{
+left:20px;
+right:20px;
+font-size:8px;
+}
 }
 </style>
 </head>
+
 <body>
 
 <section id="opening">
 <canvas id="openingCanvas"></canvas>
+
 <div class="opening-title" id="openingTitle">
 <div class="eyebrow">CIUDADES PUERTO / CHILE × ARGENTINA</div>
 <h1>PERCEPCIÓN<br>PEATONAL</h1>
 <p>VALPARAÍSO · BUENOS AIRES</p>
 </div>
+
 <div class="opening-bottom" id="openingBottom">
 <span>AQUÍ / CHILE</span>
 <span>ALLÁ / ARGENTINA</span>
 </div>
 </section>
 
-<main>
-<section class="section reveal">
-<div class="section-number">01 / AQUÍ Y ALLÁ</div>
-<h2>Caminar no es<br>solamente avanzar.<br><span class="red">Es percibir.</span></h2>
-<p class="description">Cada recorrido implica una relación entre el cuerpo y el entorno. La amplitud de una calle, la presencia de un referente o las condiciones del suelo influyen en cómo nos orientamos, nos desplazamos y experimentamos un lugar.</p>
-<div class="lanes">
-<div class="lane red-lane">
-<div class="lane-name"><i style="background:var(--red)"></i> AQUÍ / CHILE</div>
-<div class="lane-content"><h3>Valparaíso</h3><p>¿Cómo se percibe caminar entre pendientes, calles contenidas, espacios abiertos y recorridos que cambian constantemente de escala?</p></div>
-<div class="lane-track"><span></span></div>
-</div>
-<div class="lane blue-lane">
-<div class="lane-name"><i style="background:var(--blue)"></i> ALLÁ / ARGENTINA</div>
-<div class="lane-content"><h3>Buenos Aires</h3><p>¿Cómo se experimentan las avenidas, las veredas, las intersecciones y las distintas relaciones entre el peatón y la ciudad?</p></div>
-<div class="lane-track"><span></span></div>
-</div>
-</div>
-</section>
-
-<div class="marquee"><span>CAMINAR · OBSERVAR · ORIENTARSE · SENTIR · RECONOCER · CAMINAR · OBSERVAR · ORIENTARSE · SENTIR · RECONOCER · </span></div>
-
-<section class="experience">
-<div class="section-number">02 / LA EXPERIENCIA PEATONAL</div>
-<h2>El cuerpo<br>recorre el <span class="red">espacio.</span></h2>
-<p>La percepción peatonal se construye a través de las condiciones del entorno y de la relación que establecemos con él. Cada paso implica observar, interpretar y adaptarse al territorio.</p>
-<div class="experience-mark">02</div>
-</section>
-
-<section class="section reveal">
-<div class="section-number">03 / LAS DIMENSIONES</div>
-<h2>El espacio<br>también se <span class="blue">percibe.</span></h2>
-<p class="description">Para observar la experiencia peatonal, el estudio se organiza en tres dimensiones que permiten relacionar las características físicas del territorio con la manera en que se vive el recorrido.</p>
-<div class="lanes">
-<div class="lane red-lane">
-<div class="lane-name"><i style="background:var(--red)"></i> 01 / ESPACIO</div>
-<div class="lane-content"><h3>Apertura y amplitud</h3><p>¿El espacio se siente abierto o contenido? ¿Permite observar lo que viene? ¿Facilita caminar, detenerse o permanecer?</p></div>
-<div class="lane-track"><span></span></div>
-</div>
-<div class="lane blue-lane">
-<div class="lane-name"><i style="background:var(--blue)"></i> 02 / ORIENTACIÓN</div>
-<div class="lane-content"><h3>Elementos referenciales</h3><p>¿Qué elementos llaman nuestra atención? ¿Podemos reconocer dónde estamos? ¿Los referentes ayudan a ubicarnos y comprender el recorrido?</p></div>
-<div class="lane-track"><span></span></div>
-</div>
-<div class="lane red-lane">
-<div class="lane-name"><i style="background:var(--red)"></i> 03 / SUPERFICIE</div>
-<div class="lane-content"><h3>Materialidad</h3><p>¿La superficie permite caminar cómodamente? ¿Existen desniveles, obstáculos o irregularidades? ¿Cómo cambia el desplazamiento?</p></div>
-<div class="lane-track"><span></span></div>
-</div>
-</div>
-</section>
-
-<section class="section comparison">
-<div class="section-number">04 / AQUÍ Y ALLÁ</div>
-<h2>Dos lugares.<br>Dos maneras de<br><span class="red">experimentar.</span></h2>
-<p class="description">La percepción peatonal no depende únicamente de la forma de una calle. También intervienen la orientación, la continuidad del recorrido, la sensación de comodidad y la relación con el entorno.</p>
-<div class="lanes">
-<div class="lane red-lane">
-<div class="lane-name"><i style="background:var(--red)"></i> AQUÍ / CHILE</div>
-<div class="lane-content"><h3>Valparaíso</h3><p>Observar cómo las pendientes, la amplitud de las calles, los referentes y las superficies participan en la experiencia de caminar.</p></div>
-<div class="lane-track"><span></span></div>
-</div>
-<div class="lane blue-lane">
-<div class="lane-name"><i style="background:var(--blue)"></i> ALLÁ / ARGENTINA</div>
-<div class="lane-content"><h3>Buenos Aires</h3><p>Observar cómo las dimensiones de las veredas, las avenidas, los cruces y los elementos urbanos participan en la experiencia peatonal.</p></div>
-<div class="lane-track"><span></span></div>
-</div>
-</div>
-<div class="question-grid">
-<div class="question-column red-side">
-<h3>Aquí / Chile</h3>
-<ul>
-<li>¿Qué tan fácil resulta orientarse?</li>
-<li>¿Cómo se percibe la amplitud del recorrido?</li>
-<li>¿Qué elementos ayudan a reconocer el lugar?</li>
-<li>¿Qué condiciones dificultan el desplazamiento?</li>
-<li>¿Dónde se siente comodidad o incomodidad?</li>
-</ul>
-</div>
-<div class="question-column blue-side">
-<h3>Allá / Argentina</h3>
-<ul>
-<li>¿Cómo se experimenta la continuidad de las veredas?</li>
-<li>¿Qué tan visibles son los referentes urbanos?</li>
-<li>¿Cómo se perciben las dimensiones del espacio?</li>
-<li>¿Qué obstáculos aparecen durante el recorrido?</li>
-<li>¿Qué condiciones favorecen la permanencia?</li>
-</ul>
-</div>
-</div>
-</section>
-
-<section class="section data-section reveal">
-<div class="section-number">05 / LA PERCEPCIÓN EN DATOS</div>
-<h2>Lo que vemos.<br>Lo que <span class="blue">sentimos.</span></h2>
-<p class="description">Los registros permiten explorar las condiciones físicas del recorrido y relacionarlas con la percepción de quienes transitan por él.</p>
-<div class="data-controls">
-<button class="active" onclick="changeData('amplitud',this)">AMPLITUD</button>
-<button onclick="changeData('referentes',this)">REFERENTES</button>
-<button onclick="changeData('materialidad',this)">MATERIALIDAD</button>
-</div>
-<div class="chart">
-<div class="chart-head"><span id="chartTitle">VARIACIÓN DE AMPLITUD</span><span>TRAMOS / 01—12</span></div>
-<canvas id="dataCanvas"></canvas>
-<div class="chart-legend">
-<span><i style="background:var(--red)"></i>AQUÍ / CHILE</span>
-<span><i style="background:var(--blue)"></i>ALLÁ / ARGENTINA</span>
-</div>
-</div>
-<p class="data-explain">Cada línea representa un territorio. Al seleccionar una dimensión, la visualización cambia para mostrar cómo se distribuyen los valores a través de los distintos tramos. La comparación final deberá incorporar las observaciones y respuestas reales de la investigación.</p>
-<div class="metrics">
-<div class="metric"><label>DIMENSIÓN OBSERVADA</label><strong id="metricName">AMPLITUD</strong><small>VARIABLE SELECCIONADA</small></div>
-<div class="metric"><label>TRAMOS REPRESENTADOS</label><strong>12</strong><small>DATOS DE DEMOSTRACIÓN</small></div>
-<div class="metric"><label>TERRITORIOS</label><strong>02</strong><small>CHILE / ARGENTINA</small></div>
-</div>
-<p style="font:9px 'DM Mono';color:#888;margin-top:20px">VALORES SIMULADOS PARA EL PROTOTIPO. NO CORRESPONDEN A RESULTADOS REALES.</p>
-</section>
-
-<section class="section end-section reveal">
-<div class="section-number">06 / UNA EXPERIENCIA COMPARTIDA</div>
-<h2>Aquí y<br><span class="red">allá.</span></h2>
-<p>Caminar es encontrarse con el espacio. En Chile y Argentina, cada recorrido construye una experiencia distinta, hecha de sensaciones, referencias, superficies y movimientos.</p>
-<div class="section-number">PERCEPCIÓN PEATONAL / 2026</div>
-</section>
-</main>
-
-<footer class="footer">
-<span>AQUÍ Y ALLÁ</span>
-<span>CHILE × ARGENTINA</span>
-<span>PERCEPCIÓN PEATONAL / 2026</span>
-</footer>
-
 <script>
 const canvas=document.getElementById('openingCanvas');
 const ctx=canvas.getContext('2d');
-let W=0,H=0,D=1;
+
+let W=0;
+let H=0;
+let DPR=1;
 let start=performance.now();
-let titleShown=false;
+
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const smooth=t=>{
+t=clamp(t,0,1);
+return t*t*(3-2*t);
+};
+const smoother=t=>{
+t=clamp(t,0,1);
+return t*t*t*(t*(6*t-15)+10);
+};
 
 function resize(){
-D=Math.min(window.devicePixelRatio||1,2);
+DPR=Math.min(window.devicePixelRatio||1,2);
 W=window.innerWidth;
 H=window.innerHeight;
-canvas.width=W*D;
-canvas.height=H*D;
+
+canvas.width=W*DPR;
+canvas.height=H*DPR;
 canvas.style.width=W+'px';
 canvas.style.height=H+'px';
-ctx.setTransform(D,0,0,D,0,0);
+
+ctx.setTransform(DPR,0,0,DPR,0,0);
 }
+
 window.addEventListener('resize',resize);
 resize();
 
-const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
-const smooth=t=>{t=clamp(t,0,1);return t*t*(3-2*t)};
-const smoother=t=>{t=clamp(t,0,1);return t*t*t*(t*(6*t-15)+10)};
-const mix=(a,b,t)=>a+(b-a)*t;
-
-function line(points,width,color='#f5f5f2'){
+function line(x1,y1,x2,y2,width,color='#f5f5f2'){
 ctx.beginPath();
-ctx.moveTo(points[0][0],points[0][1]);
-for(let i=1;i<points.length;i++)ctx.lineTo(points[i][0],points[i][1]);
+ctx.moveTo(x1,y1);
+ctx.lineTo(x2,y2);
 ctx.lineWidth=width;
 ctx.lineCap='round';
 ctx.lineJoin='round';
@@ -286,408 +163,328 @@ ctx.strokeStyle=color;
 ctx.stroke();
 }
 
-function ellipse(x,y,rx,ry,color){
-ctx.fillStyle=color;
-ctx.beginPath();
-ctx.ellipse(x,y,rx,ry,0,0,Math.PI*2);
-ctx.fill();
-}
-
-function person(x,ground,pose,scale){
+function drawPerson(x,y,phase,lean,scale,fallPose=0){
 ctx.save();
-ctx.translate(x,ground);
+ctx.translate(x,y);
+ctx.rotate(lean);
 ctx.scale(scale,scale);
 
 const white='#f5f5f2';
-let bob=0,lean=0,armSwing=0,legSwing=0;
-let trip=pose.trip||0;
-let recoil=pose.recoil||0;
-let fall=pose.fall||0;
+const walk=Math.sin(phase);
+const legA=walk*17;
+const legB=-walk*17;
+const armA=-walk*11;
+const armB=walk*11;
 
-if(pose.walk){
-bob=Math.abs(Math.sin(pose.phase*2))*3;
-armSwing=Math.sin(pose.phase)*22;
-legSwing=Math.sin(pose.phase)*25;
-}
-
-lean=trip*.38-recoil*.24+fall*.8;
-ctx.rotate(lean);
-ctx.translate(0,-bob);
-
-const hipY=-48;
-const shoulderY=-100;
-
-const leftKneeX=mix(-11+legSwing*.55,-30,trip);
-const leftKneeY=mix(-25,-31,trip);
-const leftFootX=mix(-14+legSwing,-45,trip);
-const leftFootY=mix(-2,-13,trip);
-
-const rightKneeX=mix(11-legSwing*.55,23,trip);
-const rightKneeY=mix(-25,-22,trip);
-const rightFootX=mix(16-legSwing,39,trip);
-const rightFootY=mix(-2,-3,trip);
-
-const armLeftElbowX=mix(-20-armSwing*.45,-30,trip);
-const armLeftElbowY=mix(-76,-90,trip);
-const armLeftHandX=mix(-23-armSwing,-47,trip);
-const armLeftHandY=mix(-56,-80,trip);
-
-const armRightElbowX=mix(20+armSwing*.45,30,trip);
-const armRightElbowY=mix(-76,-112,trip);
-const armRightHandX=mix(23+armSwing,48,trip);
-const armRightHandY=mix(-56,-132,trip);
-
-line([[-5,hipY],[leftKneeX,leftKneeY],[leftFootX,leftFootY]],13,white);
-line([[5,hipY],[rightKneeX,rightKneeY],[rightFootX,rightFootY]],13,white);
-line([[-8,shoulderY],[armLeftElbowX,armLeftElbowY],[armLeftHandX,armLeftHandY]],11,white);
-line([[8,shoulderY],[armRightElbowX,armRightElbowY],[armRightHandX,armRightHandY]],11,white);
+const headY=-108;
+const torsoTop=-83;
+const torsoBottom=-39;
 
 ctx.fillStyle=white;
 ctx.beginPath();
-ctx.moveTo(-15,-108);
-ctx.quadraticCurveTo(-17,-113,-10,-114);
-ctx.lineTo(10,-114);
-ctx.quadraticCurveTo(16,-112,15,-105);
-ctx.lineTo(12,-53);
-ctx.quadraticCurveTo(11,-46,5,-45);
-ctx.lineTo(-7,-45);
-ctx.quadraticCurveTo(-14,-46,-14,-54);
-ctx.closePath();
+ctx.arc(0,headY,12,0,Math.PI*2);
 ctx.fill();
 
-ellipse(0,-132,16,16,white);
+ctx.beginPath();
+ctx.roundRect(-11,torsoTop,22,46,10);
+ctx.fill();
+
+if(fallPose<0.3){
+line(-6,torsoBottom,-12+legA*.45,-20,9,white);
+line(-12+legA*.45,-20,-17+legA,-2,8,white);
+line(6,torsoBottom,12+legB*.45,-20,9,white);
+line(12+legB*.45,-20,17+legB,-2,8,white);
+
+line(-17+legA,-2,-9+legA,-2,7,white);
+line(17+legB,-2,25+legB,-2,7,white);
+
+line(-8,-77,-15+armA*.4,-59,8,white);
+line(-15+armA*.4,-59,-17+armA,-47,7,white);
+line(8,-77,15+armB*.4,-59,8,white);
+line(15+armB*.4,-59,17+armB,-47,7,white);
+}else{
+const p=clamp(fallPose,0,1);
+
+line(-6,torsoBottom,-15-p*8,-24+p*8,9,white);
+line(-15-p*8,-24+p*8,-20-p*12,-5+p*5,8,white);
+
+line(6,torsoBottom,15+p*10,-25+p*8,9,white);
+line(15+p*10,-25+p*8,22+p*12,-7+p*5,8,white);
+
+line(-8,-77,-22-p*8,-63-p*5,8,white);
+line(-22-p*8,-63-p*5,-30-p*8,-51-p*7,7,white);
+
+line(8,-77,22+p*8,-63-p*5,8,white);
+line(22+p*8,-63-p*5,30+p*8,-51-p*7,7,white);
+}
+
 ctx.restore();
 }
 
-function car(x,y,scale,blur=0){
+function drawCar(x,y,scale){
 ctx.save();
 ctx.translate(x,y);
 ctx.scale(scale,scale);
 
-if(blur>0){
-ctx.save();
-ctx.globalAlpha=.45;
 ctx.fillStyle='#f5f5f2';
-ctx.fillRect(-240,-23,160+blur*100,4);
-ctx.fillRect(-210,-12,120+blur*80,2);
-ctx.restore();
-}
-
-const white='#f5f5f2';
-ctx.fillStyle=white;
 ctx.beginPath();
-ctx.moveTo(-90,-17);
-ctx.quadraticCurveTo(-88,-38,-59,-39);
-ctx.lineTo(-32,-63);
-ctx.quadraticCurveTo(-25,-69,-10,-69);
-ctx.lineTo(35,-67);
-ctx.quadraticCurveTo(55,-65,67,-39);
-ctx.lineTo(89,-30);
-ctx.quadraticCurveTo(98,-26,98,-14);
-ctx.lineTo(98,-5);
-ctx.quadraticCurveTo(98,0,87,0);
-ctx.lineTo(-85,0);
-ctx.quadraticCurveTo(-98,0,-98,-9);
-ctx.lineTo(-98,-17);
+ctx.moveTo(-76,-17);
+ctx.quadraticCurveTo(-70,-34,-47,-36);
+ctx.lineTo(-24,-55);
+ctx.quadraticCurveTo(-16,-62,0,-62);
+ctx.lineTo(35,-59);
+ctx.quadraticCurveTo(51,-57,59,-35);
+ctx.lineTo(77,-27);
+ctx.quadraticCurveTo(85,-24,85,-13);
+ctx.lineTo(85,-6);
+ctx.quadraticCurveTo(85,0,76,0);
+ctx.lineTo(-74,0);
+ctx.quadraticCurveTo(-84,0,-84,-9);
+ctx.lineTo(-84,-17);
 ctx.closePath();
 ctx.fill();
 
 ctx.fillStyle='#050505';
 ctx.beginPath();
-ctx.moveTo(-25,-61);
-ctx.lineTo(-8,-61);
-ctx.lineTo(-8,-40);
-ctx.lineTo(-52,-40);
+ctx.moveTo(-19,-54);
+ctx.lineTo(-1,-54);
+ctx.lineTo(0,-37);
+ctx.lineTo(-43,-37);
 ctx.closePath();
 ctx.fill();
 
 ctx.beginPath();
-ctx.moveTo(0,-61);
-ctx.lineTo(32,-60);
-ctx.quadraticCurveTo(47,-57,57,-40);
-ctx.lineTo(0,-40);
+ctx.moveTo(7,-54);
+ctx.lineTo(32,-52);
+ctx.quadraticCurveTo(44,-50,51,-37);
+ctx.lineTo(7,-37);
 ctx.closePath();
 ctx.fill();
 
-ellipse(-58,0,15,15,'#050505');
-ellipse(58,0,15,15,'#050505');
-ellipse(-58,0,6,6,white);
-ellipse(58,0,6,6,white);
+ctx.fillStyle='#050505';
+ctx.beginPath();
+ctx.arc(-49,0,13,0,Math.PI*2);
+ctx.arc(50,0,13,0,Math.PI*2);
+ctx.fill();
+
+ctx.fillStyle='#f5f5f2';
+ctx.beginPath();
+ctx.arc(-49,0,5,0,Math.PI*2);
+ctx.arc(50,0,5,0,Math.PI*2);
+ctx.fill();
+
 ctx.restore();
 }
 
-function stone(x,y,jump){
+function drawStone(x,y,size){
 ctx.save();
-ctx.translate(x,y-jump);
-ctx.rotate(-.22);
-ctx.fillStyle='#303030';
+ctx.translate(x,y);
+ctx.fillStyle='#f5f5f2';
 ctx.beginPath();
-ctx.moveTo(-13,0);
-ctx.lineTo(-9,-12);
-ctx.lineTo(2,-19);
-ctx.lineTo(14,-10);
-ctx.lineTo(12,0);
+ctx.moveTo(-size,-2);
+ctx.lineTo(-size*.45,-size*.75);
+ctx.lineTo(size*.45,-size);
+ctx.lineTo(size,-size*.25);
+ctx.lineTo(size*.7,size*.25);
+ctx.lineTo(-size*.55,size*.35);
 ctx.closePath();
 ctx.fill();
 ctx.restore();
 }
 
-function hole(x,y,w,open){
-if(open<=0)return;
+function drawGroundWithHole(ground,holeX,holeWidth,holeHeight,open){
+ctx.save();
+
+const w=holeWidth*open;
+const h=holeHeight*open;
+
+ctx.fillStyle='#f5f5f2';
+ctx.beginPath();
+ctx.rect(0,ground,W,H-ground);
+
+if(open>0.001){
+ctx.moveTo(holeX-w,ground);
+ctx.ellipse(holeX,ground,w,h,0,Math.PI,Math.PI*2);
+ctx.lineTo(holeX+w,ground);
+ctx.ellipse(holeX,ground,w,h,0,0,Math.PI);
+}
+
+ctx.fill('evenodd');
+ctx.restore();
+
+if(open>0.001){
 ctx.fillStyle='#050505';
 ctx.beginPath();
-ctx.ellipse(x,y,w*open,20*open,0,0,Math.PI*2);
+ctx.ellipse(holeX,ground,w,h,0,0,Math.PI*2);
 ctx.fill();
+
 ctx.strokeStyle='#f5f5f2';
-ctx.lineWidth=3;
+ctx.lineWidth=2.5;
 ctx.beginPath();
-ctx.ellipse(x,y,w*open,20*open,Math.PI,Math.PI*2);
+ctx.ellipse(holeX,ground,w,h,0,Math.PI,Math.PI*2);
 ctx.stroke();
 }
+}
 
-function draw(now){
+function drawOpening(now){
 const t=(now-start)/1000;
-const ground=H*.76;
-const scale=Math.min(1.5,Math.max(.95,H/620));
 
 ctx.clearRect(0,0,W,H);
 ctx.fillStyle='#050505';
 ctx.fillRect(0,0,W,H);
 
-const walkEnd=2.7;
-const carStart=3.65;
-const carEnd=4.5;
-const recoilStart=4.2;
-const recoilEnd=4.8;
-const holeStart=4.85;
-const fallStart=5.35;
-const fallEnd=6.65;
-const fadeStart=6.95;
-const titleStart=8.2;
+const ground=H*.74;
+const scale=Math.min(1,H/700);
+const personStart=W*.40;
+const holeX=personStart-90;
+const holeWidth=Math.min(105,W*.17);
+const holeHeight=22;
 
-const trip=smooth((t-2.7)/.55)*(1-smooth((t-3.75)/.35));
-const recoil=smooth((t-recoilStart)/(recoilEnd-recoilStart))*(1-smooth((t-5.0)/.3));
-const falling=smoother((t-fallStart)/(fallEnd-fallStart));
-const holeOpen=smooth((t-holeStart)/.45);
-const fade=smooth((t-fadeStart)/.85);
+const walkProgress=smooth(t/2.4);
+const stumble=smooth((t-1.95)/.45);
+const recover=smooth((t-2.45)/.42);
+const carProgress=smooth((t-3.25)/.72);
+const recoil=smooth((t-3.85)/.2)*(1-smooth((t-4.42)/.3));
+const holeOpen=smooth((t-4.65)/.55);
+const fallStart=5.15;
+const fallProgress=smoother((t-fallStart)/1.65);
+const fade=smooth((t-7.0)/.85);
 
-const startX=W*.13;
-const endX=W*.43;
-const walkProgress=smoother(t/walkEnd);
-let x=mix(startX,endX,walkProgress);
+const travel=(W*.07)*walkProgress;
+const personWalkX=personStart+travel;
+const floorTravel=travel*.65;
+const stoneX=personStart-15+floorTravel;
 
-if(t>=2.7)x=endX;
-if(t>=recoilStart)x=mix(endX,endX-35,recoil);
-if(t>=fallStart)x=endX-35;
+const stumbleLean=stumble*(1-recover)*.62;
+const recoilLean=-recoil*.3;
 
-const holeX=endX-35;
-const holeWidth=Math.min(94,W*.14);
+let personX=personWalkX;
+let personY=ground;
+let personLean=stumbleLean+recoilLean;
+let fallPose=0;
 
-const floorTravel=smoother(t/2.7)*(endX-startX);
-const stoneBaseX=startX+floorTravel+58;
-let stoneJump=0;
-
-if(t>=2.7&&t<3.5){
-const p=clamp((t-2.7)/.8,0,1);
-stoneJump=Math.sin(p*Math.PI)*45;
-}
-if(t>=3.5)stoneJump=0;
-
-ctx.fillStyle='#f5f5f2';
-ctx.fillRect(0,ground,W,H-ground);
-
-if(t<holeStart+1){
-stone(stoneBaseX,ground-1,stoneJump);
+if(t>=fallStart){
+const fall=smoother((t-fallStart)/1.65);
+personX=holeX;
+personY=ground+fall*205;
+personLean=fall*1.15;
+fallPose=fall;
 }
 
-const phase=t*7.2;
-const pose={
-walk:t<2.7,
-phase,
-trip,
-recoil,
-fall:falling
-};
+const carScale=Math.max(.78,Math.min(1.05,H/750));
 
-const bodyDrop=falling*190;
-const bodyAlpha=1-smooth((t-6.0)/.55);
-
-if(t<7.0){
+if(t<fallStart){
 ctx.save();
-ctx.globalAlpha=bodyAlpha;
-person(x,ground+bodyDrop,pose,scale);
+ctx.beginPath();
+ctx.rect(0,0,W,H);
+ctx.clip();
+
+if(t<4.65){
+drawStone(
+stoneX,
+ground-3-(stumble*(1-recover)*25),
+10+stumble*3
+);
+}
+
 ctx.restore();
 }
 
-let carFlash=0;
-if(t>=carStart&&t<=carEnd){
-const p=smoother((t-carStart)/(carEnd-carStart));
-const carX=mix(W+240,-240,p);
-const carSpeed=Math.sin(p*Math.PI);
-car(carX,ground-3,Math.min(1.25,Math.max(.95,H/700)),carSpeed);
-carFlash=carSpeed;
+if(t<fallStart){
+drawPerson(
+personX,
+personY,
+t*8,
+personLean,
+scale,
+Math.max(stumble,recoil)
+);
 }
 
-if(carFlash>.75){
+if(t>=fallStart && t<7.0){
+drawPerson(
+personX,
+personY,
+t*8,
+personLean,
+scale,
+fallPose
+);
+}
+
+if(t>3.25 && t<4.65){
+const carX=W+190-carProgress*(W+420);
+const carY=ground-3;
+drawCar(carX,carY,carScale);
+}
+
+if(t>3.8 && t<4.45){
+const flash=1-smooth((t-3.8)/.65);
 ctx.save();
-ctx.globalAlpha=(carFlash-.75)*.45;
+ctx.globalAlpha=flash*.28;
 ctx.fillStyle='#fff';
 ctx.fillRect(0,0,W,H);
 ctx.restore();
 }
 
-if(carFlash>.4){
-const shake=(carFlash-.4)*5;
+if(t>=fallStart){
+drawGroundWithHole(
+ground,
+holeX,
+holeWidth,
+holeHeight,
+holeOpen
+);
+}else{
+ctx.fillStyle='#f5f5f2';
+ctx.fillRect(0,ground,W,H-ground);
+}
+
+if(t>4.65 && t<5.3){
+const impact=1-smooth((t-4.65)/.65);
 ctx.save();
-ctx.globalAlpha=.5;
+ctx.globalAlpha=impact*.7;
 ctx.strokeStyle='#f5f5f2';
 ctx.lineWidth=2;
+
+for(let i=0;i<4;i++){
+const spread=holeWidth*(.5+i*.3);
 ctx.beginPath();
-ctx.moveTo(0,ground-25+shake);
-ctx.lineTo(W,ground-25-shake);
+ctx.moveTo(holeX-spread,ground-5-i*4);
+ctx.lineTo(holeX-spread-10,ground-12-i*4);
+ctx.moveTo(holeX+spread,ground-5-i*4);
+ctx.lineTo(holeX+spread+10,ground-12-i*4);
 ctx.stroke();
+}
 ctx.restore();
 }
 
-hole(holeX,ground,holeWidth,holeOpen);
+if(t>=fallStart){
+const depth=smooth((t-5.55)/.95);
+ctx.save();
+ctx.globalAlpha=depth*.9;
+ctx.fillStyle='#050505';
+ctx.beginPath();
+ctx.ellipse(holeX,ground,holeWidth*holeOpen,holeHeight*holeOpen,0,0,Math.PI*2);
+ctx.fill();
+ctx.restore();
+}
 
 if(fade>0){
 ctx.fillStyle=`rgba(5,5,5,${fade})`;
 ctx.fillRect(0,0,W,H);
 }
 
-if(t>=titleStart&&!titleShown){
-titleShown=true;
+if(t>7.8){
 document.getElementById('openingTitle').classList.add('show');
 document.getElementById('openingBottom').classList.add('show');
 }
 
-requestAnimationFrame(draw);
+requestAnimationFrame(drawOpening);
 }
 
-requestAnimationFrame(draw);
-
-const dataset={
-amplitud:{
-red:[4,3,2,4,3,5,2,3,4,2,5,3],
-blue:[2,4,5,3,4,2,4,5,3,4,2,5]
-},
-referentes:{
-red:[2,4,3,5,2,4,5,3,4,5,2,3],
-blue:[5,3,4,2,5,3,4,5,2,3,5,4]
-},
-materialidad:{
-red:[4,2,3,1,4,2,3,4,1,3,2,4],
-blue:[2,4,5,4,3,5,4,3,5,4,3,5]
-}
-};
-
-let current='amplitud';
-const dataCanvas=document.getElementById('dataCanvas');
-const dc=dataCanvas.getContext('2d');
-let chartW=0,chartH=350,chartT=0;
-
-function resizeData(){
-chartW=dataCanvas.clientWidth;
-dataCanvas.width=chartW*(window.devicePixelRatio||1);
-dataCanvas.height=chartH*(window.devicePixelRatio||1);
-dc.setTransform(window.devicePixelRatio||1,0,0,window.devicePixelRatio||1,0,0);
-drawData();
-}
-
-function drawData(){
-dc.clearRect(0,0,chartW,chartH);
-let left=35,right=chartW-30,top=25,bottom=chartH-40;
-
-for(let i=0;i<6;i++){
-let y=top+i*(bottom-top)/5;
-dc.beginPath();
-dc.moveTo(left,y);
-dc.lineTo(right,y);
-dc.strokeStyle='#e7e7e7';
-dc.setLineDash([3,7]);
-dc.stroke();
-}
-dc.setLineDash([]);
-
-function drawSeries(values,color,phase){
-let pts=values.map((v,i)=>({
-x:left+i*(right-left)/(values.length-1),
-y:bottom-v/5*(bottom-top)+Math.sin(chartT*.025+i*.45+phase)*2
-}));
-
-dc.beginPath();
-dc.moveTo(pts[0].x,bottom);
-pts.forEach((p,i)=>{
-if(i===0)dc.lineTo(p.x,p.y);
-else{
-let prev=pts[i-1],mid=(prev.x+p.x)/2;
-dc.bezierCurveTo(mid,prev.y,mid,p.y,p.x,p.y);
-}
-});
-dc.lineTo(pts[pts.length-1].x,bottom);
-dc.closePath();
-
-let gradient=dc.createLinearGradient(0,top,0,bottom);
-gradient.addColorStop(0,color+'35');
-gradient.addColorStop(1,color+'00');
-dc.fillStyle=gradient;
-dc.fill();
-
-dc.beginPath();
-pts.forEach((p,i)=>{
-if(i===0)dc.moveTo(p.x,p.y);
-else{
-let prev=pts[i-1],mid=(prev.x+p.x)/2;
-dc.bezierCurveTo(mid,prev.y,mid,p.y,p.x,p.y);
-}
-});
-dc.strokeStyle=color;
-dc.lineWidth=3;
-dc.stroke();
-
-pts.forEach(p=>{
-dc.beginPath();
-dc.arc(p.x,p.y,4,0,Math.PI*2);
-dc.fillStyle=color;
-dc.fill();
-});
-}
-
-drawSeries(dataset[current].red,'#d91038',0);
-drawSeries(dataset[current].blue,'#009fe3',2);
-dc.fillStyle='#888';
-dc.font='9px DM Mono';
-dc.fillText('INICIO',left,chartH-10);
-dc.fillText('RECORRIDO',chartW/2-30,chartH-10);
-dc.fillText('FINAL',right-30,chartH-10);
-chartT++;
-}
-
-function animateChart(){
-drawData();
-requestAnimationFrame(animateChart);
-}
-
-function changeData(name,button){
-current=name;
-document.querySelectorAll('.data-controls button').forEach(b=>b.classList.remove('active'));
-button.classList.add('active');
-document.getElementById('chartTitle').textContent='VARIACIÓN DE '+name.toUpperCase();
-document.getElementById('metricName').textContent=name.toUpperCase();
-}
-
-window.addEventListener('resize',resizeData);
-resizeData();
-animateChart();
-
-const observer=new IntersectionObserver(entries=>{
-entries.forEach(entry=>{
-if(entry.isIntersecting)entry.target.classList.add('visible');
-});
-},{threshold:.12});
-
-document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+requestAnimationFrame(drawOpening);
 </script>
+
 </body>
 </html>
