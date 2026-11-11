@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Visualización de Datos</title>
+  <title>Cine Arte Viña del Mar - Visualización de Datos</title>
   <style>
-    /* Estilos globales */
+    /* Reset y estilos generales */
     * {
       box-sizing: border-box;
       margin: 0;
@@ -15,12 +15,12 @@
       width: 100%;
       height: 100%;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #0d1117;
+      background-color: #000000;
       color: #c9d1d9;
       overflow-x: hidden;
     }
 
-    /* PANTALLA DE CARGA / ANIMACIÓN (INTRO) */
+    /* PANTALLA INTRO (Carga / Animación) */
     #intro-screen {
       position: fixed;
       top: 0;
@@ -36,107 +36,120 @@
       transition: opacity 1s ease, visibility 1s ease;
     }
 
-    /* Canvas para renderizar la secuencia de animación */
     #animationCanvas {
-      background-color: #000;
-      border-radius: 8px;
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+      background-color: #000000;
+      max-width: 100%;
+      max-height: 80vh;
     }
 
     .skip-btn {
-      margin-top: 20px;
-      padding: 8px 16px;
-      background: transparent;
-      border: 1px solid #ffffff55;
-      color: #8b949e;
+      margin-top: 15px;
+      padding: 10px 20px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: #ffffff;
       border-radius: 20px;
       cursor: pointer;
-      font-size: 0.85rem;
-      transition: all 0.3s;
-    }
-    .skip-btn:hover {
-      background: #ffffff22;
-      color: #fff;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
     }
 
-    /* CONTENIDO PRINCIPAL */
+    .skip-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+      border-color: #ffffff;
+    }
+
+    /* CONTENIDO PRINCIPAL (Dashboard de datos) */
     #main-content {
       opacity: 0;
-      transition: opacity 1.5s ease;
+      transition: opacity 1.2s ease;
       padding: 40px 20px;
       max-width: 1200px;
       margin: 0 auto;
+      display: none;
     }
 
     header {
       text-align: center;
       margin-bottom: 40px;
+      border-bottom: 1px solid #30363d;
+      padding-bottom: 20px;
     }
 
     header h1 {
-      font-size: 2.5rem;
-      color: #58a6ff;
+      font-size: 2.2rem;
+      color: #ffffff;
       margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
 
-    .dashboard-container {
+    header p {
+      color: #8b949e;
+      font-size: 1rem;
+    }
+
+    .dashboard-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
     }
 
     .card {
       background: #161b22;
       border: 1px solid #30363d;
       border-radius: 8px;
-      padding: 20px;
+      padding: 24px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     }
 
     .card h2 {
       font-size: 1.2rem;
       color: #f0f6fc;
-      margin-bottom: 15px;
+      margin-bottom: 16px;
     }
 
-    .placeholder-chart {
+    .chart-box {
       width: 100%;
-      height: 200px;
-      background: #21262d;
+      height: 220px;
+      background: #0d1117;
+      border: 1px dashed #30363d;
       border-radius: 6px;
       display: flex;
       align-items: center;
       justify-content: center;
       color: #8b949e;
+      font-size: 0.9rem;
     }
   </style>
 </head>
 <body>
 
-  <!-- PANTALLA INTRODUCCIÓN CON ANIMACIÓN -->
+  <!-- PANTALLA DE ANIMACIÓN INICIAL -->
   <div id="intro-screen">
     <canvas id="animationCanvas" width="800" height="450"></canvas>
-    <button class="skip-btn" onclick="endIntro()">Saltar animación ➔</button>
+    <button class="skip-btn" onclick="endIntro()">Saltar intro ➔</button>
   </div>
 
-  <!-- CONTENIDO PRINCIPAL DE LA VISUALIZACIÓN DE DATOS -->
+  <!-- CONTENIDO DE LA VISUALIZACIÓN DE DATOS -->
   <div id="main-content">
     <header>
-      <h1 id="project-title">[ TÍTULO DE LA VISUALIZACIÓN ]</h1>
-      <p>Análisis interactivo de datos de movilidad y seguridad vial</p>
+      <h1>Cine Arte Viña del Mar</h1>
+      <p>Visualización e indicadores de datos</p>
     </header>
 
-    <main class="dashboard-container">
+    <main class="dashboard-grid">
       <div class="card">
-        <h2>Indicador 1</h2>
-        <div class="placeholder-chart">Espacio para gráfico (D3.js / Chart.js)</div>
+        <h2>Visualización 1</h2>
+        <div class="chart-box">Insertar gráfico o mapa aquí</div>
       </div>
       <div class="card">
-        <h2>Indicador 2</h2>
-        <div class="placeholder-chart">Espacio para mapa / gráfico interactivo</div>
+        <h2>Visualización 2</h2>
+        <div class="chart-box">Insertar gráfico o mapa aquí</div>
       </div>
       <div class="card">
-        <h2>Indicador 3</h2>
-        <div class="placeholder-chart">Espacio para tabla / métricas</div>
+        <h2>Visualización 3</h2>
+        <div class="chart-box">Insertar tabla o indicadores aquí</div>
       </div>
     </main>
   </div>
@@ -145,88 +158,91 @@
     const canvas = document.getElementById('animationCanvas');
     const ctx = canvas.getContext('2d');
 
-    // Lógica de la animación en canvas (Simulación de la secuencia)
     let frame = 0;
-    const totalFrames = 180; // ~3 segundos a 60fps
+    const totalFrames = 180; // ~3 segundos de animación
 
-    function drawStickman(x, y, posture) {
+    // Dibuja el monigote estilizado
+    function drawStickman(x, y, state) {
       ctx.strokeStyle = '#FFFFFF';
-      ctx.lineWidth = 4;
+      ctx.lineWidth = 5;
+      ctx.lineCap = 'round';
       ctx.beginPath();
       
       // Cabeza
-      ctx.arc(x, y - 40, 12, 0, Math.PI * 2);
+      ctx.arc(x, y - 45, 14, 0, Math.PI * 2);
       
-      // Cuerpo
-      ctx.moveTo(x, y - 28);
+      // Tronco
+      ctx.moveTo(x, y - 31);
       ctx.lineTo(x, y);
 
-      if (posture === 'walk') {
-        // Brazos
-        ctx.moveTo(x, y - 20);
-        ctx.lineTo(x - 15 + Math.sin(frame * 0.2) * 10, y - 5);
-        ctx.moveTo(x, y - 20);
-        ctx.lineTo(x + 15 - Math.sin(frame * 0.2) * 10, y - 5);
+      if (state === 'walk') {
+        // Brazos cruzados en marcha
+        ctx.moveTo(x, y - 22);
+        ctx.lineTo(x - 15 + Math.sin(frame * 0.2) * 12, y - 5);
+        ctx.moveTo(x, y - 22);
+        ctx.lineTo(x + 15 - Math.sin(frame * 0.2) * 12, y - 5);
 
-        // Piernas
+        // Piernas caminando
         ctx.moveTo(x, y);
-        ctx.lineTo(x - 12 + Math.sin(frame * 0.2) * 15, y + 25);
+        ctx.lineTo(x - 15 + Math.sin(frame * 0.2) * 18, y + 30);
         ctx.moveTo(x, y);
-        ctx.lineTo(x + 12 - Math.sin(frame * 0.2) * 15, y + 25);
-      } else if (posture === 'impact') {
-        // Brazos arriba (reacción)
-        ctx.moveTo(x, y - 20);
-        ctx.lineTo(x - 20, y - 45);
-        ctx.moveTo(x, y - 20);
-        ctx.lineTo(x + 20, y - 45);
+        ctx.lineTo(x + 15 - Math.sin(frame * 0.2) * 18, y + 30);
+      } else {
+        // Brazos abiertos por reacción/impacto
+        ctx.moveTo(x, y - 22);
+        ctx.lineTo(x - 25, y - 45);
+        ctx.moveTo(x, y - 22);
+        ctx.lineTo(x + 25, y - 45);
 
-        // Piernas flexionadas
+        // Piernas separadas
         ctx.moveTo(x, y);
-        ctx.lineTo(x - 20, y + 15);
+        ctx.lineTo(x - 22, y + 25);
         ctx.moveTo(x, y);
-        ctx.lineTo(x + 20, y + 15);
+        ctx.lineTo(x + 22, y + 25);
       }
       
       ctx.stroke();
     }
 
+    // Dibuja el vehículo en silueta
     function drawCar(x, y) {
       ctx.strokeStyle = '#FFFFFF';
       ctx.lineWidth = 4;
       ctx.beginPath();
-      // Silueta simple de vehículo
-      ctx.strokeRect(x, y - 30, 140, 30);
-      ctx.strokeRect(x + 20, y - 55, 90, 25);
+      // Chasis
+      ctx.strokeRect(x, y - 35, 160, 35);
+      ctx.strokeRect(x + 25, y - 65, 100, 30);
       // Ruedas
-      ctx.arc(x + 30, y, 12, 0, Math.PI * 2);
-      ctx.arc(x + 110, y, 12, 0, Math.PI * 2);
+      ctx.arc(x + 35, y, 14, 0, Math.PI * 2);
+      ctx.arc(x + 125, y, 14, 0, Math.PI * 2);
       ctx.stroke();
     }
 
+    // Bucle de animación
     function animate() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Línea de suelo
-      ctx.strokeStyle = '#444';
+      // Línea de base / suelo
+      ctx.strokeStyle = '#333333';
       ctx.lineWidth = 2;
       ctx.beginPath();
       ctx.moveTo(0, 350);
       ctx.lineTo(800, 350);
       ctx.stroke();
 
-      if (frame < 90) {
-        // Fase 1: Monigote caminando hacia el centro
-        let manX = 100 + (frame * 3);
+      if (frame < 80) {
+        // Monigote avanza
+        let manX = 100 + (frame * 3.5);
         drawStickman(manX, 320, 'walk');
-      } else if (frame < 140) {
-        // Fase 2: Aparición del vehículo e impacto/reacción
-        let carX = 800 - ((frame - 90) * 12);
-        drawStickman(370, 320, 'impact');
+      } else if (frame < 130) {
+        // Vehículo se acerca e impacto
+        let carX = 800 - ((frame - 80) * 14);
+        drawStickman(380, 320, 'impact');
         drawCar(carX, 350);
       } else {
-        // Fase 3: Transición final
-        drawStickman(370, 320, 'impact');
-        drawCar(200, 350);
+        // Detención final
+        drawStickman(380, 320, 'impact');
+        drawCar(180, 350);
       }
 
       frame++;
@@ -234,16 +250,15 @@
       if (frame < totalFrames) {
         requestAnimationFrame(animate);
       } else {
-        setTimeout(endIntro, 500); // Finaliza intro al terminar la secuencia
+        setTimeout(endIntro, 600);
       }
     }
 
-    // Iniciar secuencia cuando la página carga
     window.addEventListener('load', () => {
       animate();
     });
 
-    // Función para ocultar el loader/video y mostrar la app de datos
+    // Transición de salida de la animación al contenido
     function endIntro() {
       const intro = document.getElementById('intro-screen');
       const main = document.getElementById('main-content');
@@ -252,8 +267,12 @@
       intro.style.visibility = 'hidden';
       
       setTimeout(() => {
-        main.style.opacity = '1';
-      }, 300);
+        intro.style.display = 'none';
+        main.style.display = 'block';
+        setTimeout(() => {
+          main.style.opacity = '1';
+        }, 50);
+      }, 1000);
     }
   </script>
 </body>
