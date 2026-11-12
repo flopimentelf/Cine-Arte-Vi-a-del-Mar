@@ -4,8 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CAMINAR NO ES NEUTRAL</title>
-
+<title>SENTIR LA CALLE | Percepción peatonal</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -16,30 +15,25 @@
   --white: #F5F5F5;
   --pink: #EB56D4;
   --gray: #888888;
-  --line: #333333;
+  --line: #303030;
 }
-
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-
 html {
   scroll-behavior: smooth;
 }
-
 body {
   background: var(--black);
   color: var(--white);
   font-family: 'Montserrat', sans-serif;
 }
-
 button {
   font-family: inherit;
   cursor: pointer;
 }
-
 .top-progress {
   position: fixed;
   top: 0;
@@ -49,15 +43,13 @@ button {
   background: #222;
   z-index: 1000;
 }
-
 .top-progress span {
   display: block;
-  width: 0%;
   height: 100%;
+  width: 0;
   background: var(--pink);
 }
-
-.intro-animation {
+.intro {
   position: fixed;
   inset: 0;
   z-index: 500;
@@ -66,46 +58,39 @@ button {
   align-items: center;
   justify-content: center;
 }
-
-.intro-animation img {
+.intro img {
   width: 90%;
   height: 85%;
   object-fit: contain;
 }
-
 .intro-controls {
   position: absolute;
-  bottom: 25px;
   left: 30px;
   right: 30px;
+  bottom: 25px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  color: #999;
   font-size: 10px;
   letter-spacing: 2px;
-  color: #aaa;
   text-transform: uppercase;
 }
-
-.intro-controls button,
 .button-outline {
   background: transparent;
   border: 1px solid #777;
   color: white;
-  padding: 12px 20px;
+  padding: 13px 20px;
   font-size: 10px;
   letter-spacing: 1px;
   text-transform: uppercase;
   transition: .2s;
 }
-
-.intro-controls button:hover,
 .button-outline:hover {
   background: var(--pink);
   border-color: var(--pink);
-  color: black;
+  color: #000;
 }
-
 .cover {
   min-height: 100vh;
   padding: 100px 8vw 70px;
@@ -113,198 +98,210 @@ button {
   flex-direction: column;
   justify-content: center;
 }
-
-.eyebrow {
-  color: var(--gray);
+.eyebrow, .section-index {
   font-size: 10px;
   letter-spacing: 3px;
   text-transform: uppercase;
+  color: var(--gray);
 }
-
 .cover h1 {
-  font-size: clamp(55px, 11vw, 155px);
-  line-height: .86;
-  letter-spacing: -.075em;
+  font-size: clamp(65px, 13vw, 175px);
+  line-height: .98;
+  letter-spacing: -.085em;
   font-weight: 800;
   margin: 55px 0;
 }
-
-.cover h1 span,
-.pink {
+.cover h1 span, .pink {
   color: var(--pink);
 }
-
 .cover-bottom {
-  border-top: 1px solid var(--line);
-  padding-top: 22px;
   display: flex;
   justify-content: space-between;
   align-items: end;
   gap: 30px;
+  border-top: 1px solid var(--line);
+  padding-top: 22px;
 }
-
 .cover-bottom p {
+  max-width: 470px;
   color: #aaa;
-  max-width: 480px;
   font-size: 13px;
   line-height: 1.8;
 }
-
 .section {
   padding: 120px 8vw;
   border-top: 1px solid var(--line);
 }
-
 .section-index {
   color: var(--pink);
-  font-size: 10px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
 }
-
 .section h2 {
-  font-size: clamp(38px, 6vw, 85px);
-  line-height: .98;
-  letter-spacing: -.055em;
+  font-size: clamp(38px, 6.5vw, 90px);
+  line-height: 1.12;
+  letter-spacing: -.06em;
   font-weight: 700;
   max-width: 1000px;
   margin: 30px 0;
 }
-
 .description {
+  max-width: 680px;
   color: #aaa;
   font-size: 14px;
   line-height: 1.9;
-  max-width: 650px;
 }
-
-.question {
-  min-height: 70vh;
+.statement {
+  min-height: 75vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
-
+.statement h2 span {
+  color: var(--pink);
+}
+.topic-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  margin-top: 60px;
+}
+.topic {
+  background: var(--black);
+  padding: 35px;
+  min-height: 190px;
+}
+.topic-number {
+  color: var(--pink);
+  font-size: 11px;
+  letter-spacing: 2px;
+}
+.topic h3 {
+  font-size: 22px;
+  margin: 25px 0 12px;
+}
+.topic p {
+  color: #888;
+  font-size: 12px;
+  line-height: 1.8;
+  max-width: 350px;
+}
 .data-section {
   background: #0b0b0b;
 }
-
 .data-layout {
   display: grid;
   grid-template-columns: 1fr 1.1fr;
-  gap: 70px;
+  gap: 65px;
   align-items: center;
   margin-top: 70px;
 }
-
 .stat-number {
-  font-size: clamp(85px, 15vw, 190px);
-  line-height: .8;
+  font-size: clamp(90px, 15vw, 185px);
+  line-height: .95;
   font-weight: 800;
   letter-spacing: -.09em;
 }
-
-.stat-number .fraction {
+.stat-number span {
   color: var(--pink);
   font-size: .48em;
-  letter-spacing: -.06em;
 }
-
 .stat-title {
-  font-size: clamp(18px, 2.5vw, 28px);
+  font-size: clamp(18px, 2.5vw, 27px);
+  line-height: 1.5;
   font-weight: 600;
-  line-height: 1.35;
   margin-top: 30px;
-  max-width: 420px;
+  max-width: 440px;
 }
-
 .stat-description {
   color: #999;
   font-size: 12px;
   line-height: 1.8;
   margin-top: 18px;
-  max-width: 400px;
+  max-width: 410px;
 }
-
 .people-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 22px 14px;
-  max-width: 470px;
+  gap: 20px 15px;
+  max-width: 450px;
   margin: auto;
 }
-
 .person {
   width: 100%;
-  color: var(--white);
   aspect-ratio: .55;
+  color: white;
 }
-
 .person.selected {
   color: var(--pink);
 }
-
 .legend {
   display: flex;
   flex-wrap: wrap;
-  gap: 25px;
+  gap: 20px;
   margin-top: 30px;
   font-size: 10px;
   color: #aaa;
   letter-spacing: 1px;
   text-transform: uppercase;
 }
-
 .legend-item {
   display: flex;
   align-items: center;
-  gap: 9px;
+  gap: 8px;
 }
-
 .legend-color {
-  width: 9px;
   height: 9px;
+  width: 9px;
   background: var(--pink);
   border-radius: 50%;
 }
-
 .legend-color.white {
-  background: var(--white);
+  background: white;
 }
-
 .data-note {
   border-left: 2px solid var(--pink);
   padding: 14px 18px;
+  margin-top: 30px;
   color: #888;
   font-size: 10px;
   line-height: 1.8;
-  margin-top: 35px;
 }
-
 .data-source {
-  margin-top: 50px;
-  padding-top: 20px;
+  margin-top: 45px;
   border-top: 1px solid var(--line);
+  padding-top: 20px;
   color: #777;
   font-size: 10px;
   line-height: 1.8;
 }
-
-.reflection {
+.quote-section {
+  min-height: 75vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.quote-section h2 {
+  font-size: clamp(40px, 8vw, 110px);
+  line-height: 1.12;
+  max-width: 1100px;
+}
+.quote-section h2 span {
+  color: var(--pink);
+}
+.final {
   min-height: 80vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
-
-.reflection h2 {
-  max-width: 1000px;
+.final h2 {
+  font-size: clamp(45px, 9vw, 120px);
+  line-height: 1.12;
 }
-
-.reflection h2 span {
+.final h2 span {
   color: var(--pink);
 }
-
 footer {
   padding: 30px 8vw;
   border-top: 1px solid var(--line);
@@ -316,42 +313,41 @@ footer {
   letter-spacing: 1px;
   text-transform: uppercase;
 }
-
 @media(max-width: 750px) {
   .cover {
     padding: 100px 25px 55px;
   }
-
   .cover h1 {
-    letter-spacing: -.06em;
+    letter-spacing: -.07em;
+    line-height: 1.02;
   }
-
   .cover-bottom {
     flex-direction: column;
     align-items: flex-start;
   }
-
   .section {
     padding: 85px 25px;
   }
-
+  .section h2 {
+    line-height: 1.15;
+  }
   .data-layout {
     grid-template-columns: 1fr;
-    gap: 55px;
+    gap: 50px;
   }
-
   .people-grid {
-    gap: 18px 12px;
+    gap: 16px 10px;
   }
-
-  footer {
-    flex-direction: column;
+  .topic-grid {
+    grid-template-columns: 1fr;
   }
-
   .intro-controls {
     left: 18px;
     right: 18px;
     bottom: 18px;
+  }
+  footer {
+    flex-direction: column;
   }
 }
 </style>
@@ -363,74 +359,118 @@ footer {
   <span id="progressBar"></span>
 </div>
 
-<div class="intro-animation" id="intro">
+<div class="intro" id="intro">
   <img id="animationFrame" alt="Secuencia de apertura">
   <div class="intro-controls">
-    <span>CAMINAR NO ES NEUTRAL / 2026</span>
-    <button onclick="skipAnimation()">Saltar secuencia</button>
+    <span>SENTIR LA CALLE / 2026</span>
+    <button class="button-outline" onclick="skipAnimation()">Saltar secuencia</button>
   </div>
 </div>
 
 <main>
 
 <section class="cover" id="inicio">
-  <div class="eyebrow">Investigación visual / Barrio Puerto / Valparaíso</div>
+  <div class="eyebrow">Investigación visual / Percepción peatonal</div>
 
   <h1>
-    CAMINAR<br>
-    NO ES<br>
-    <span>NEUTRAL.</span>
+    SENTIR<br>
+    LA<br>
+    <span>CALLE.</span>
   </h1>
 
   <div class="cover-bottom">
     <p>
-      Una exploración sobre las condiciones espaciales,
-      los recorridos y las experiencias de quienes
-      transitan por la ciudad.
+      Una exploración visual de la percepción de seguridad
+      peatonal en el espacio público. Una mirada a las
+      condiciones que transforman la manera en que
+      experimentamos la ciudad.
     </p>
 
-    <button class="button-outline" onclick="goTo('investigacion')">
+    <button class="button-outline" onclick="goTo('pregunta')">
       Explorar investigación
     </button>
   </div>
 </section>
 
-<section class="section question" id="investigacion">
-  <div class="section-index">01 / PUNTO DE PARTIDA</div>
+<section class="section statement" id="pregunta">
+  <div class="section-index">01 / PREGUNTA DE INVESTIGACIÓN</div>
 
   <h2>
-    ¿Cómo se siente<br>
-    caminar la ciudad?
+    ¿Qué nos hace sentir
+    <span>seguros o vulnerables</span>
+    al caminar?
   </h2>
 
   <p class="description">
-    Caminar no es solamente desplazarse entre dos puntos.
-    Cada recorrido está condicionado por el espacio, sus
-    características físicas y las formas en que las personas
-    lo utilizan.
+    La percepción de seguridad no depende únicamente
+    de lo que ocurre en una calle. También se construye
+    a partir de las condiciones del entorno, las experiencias
+    personales y la manera en que cada peatón interpreta
+    el espacio que lo rodea.
   </p>
 </section>
 
-<section class="section data-section" id="sotomayor">
-  <div class="section-index">02 / OBSERVACIÓN DEL ESPACIO</div>
+<section class="section" id="entorno">
+  <div class="section-index">02 / CONDICIONES DEL ENTORNO</div>
 
   <h2>
-    Permanecer también<br>
-    es una forma de habitar.
+    La calle también<br>
+    comunica sensaciones.
   </h2>
 
   <p class="description">
-    Durante un registro de observación de diez minutos
+    Los elementos urbanos pueden modificar la forma
+    en que una persona percibe y utiliza el espacio público.
+    Observarlos permite reconocer distintas dimensiones
+    de la experiencia peatonal.
+  </p>
+
+  <div class="topic-grid">
+    <article class="topic">
+      <div class="topic-number">01</div>
+      <h3>Iluminación</h3>
+      <p>La presencia de luz y la posibilidad de reconocer el entorno durante distintos momentos del día.</p>
+    </article>
+
+    <article class="topic">
+      <div class="topic-number">02</div>
+      <h3>Visibilidad</h3>
+      <p>La posibilidad de observar el espacio, anticipar situaciones y reconocer lo que ocurre alrededor.</p>
+    </article>
+
+    <article class="topic">
+      <div class="topic-number">03</div>
+      <h3>Actividad urbana</h3>
+      <p>La presencia de personas, comercios y dinámicas que dan vida al espacio público.</p>
+    </article>
+
+    <article class="topic">
+      <div class="topic-number">04</div>
+      <h3>Estado del espacio</h3>
+      <p>El mantenimiento, los obstáculos y las condiciones físicas que acompañan el desplazamiento.</p>
+    </article>
+  </div>
+</section>
+
+<section class="section data-section" id="observacion">
+  <div class="section-index">03 / OBSERVACIÓN URBANA</div>
+
+  <h2>
+    Permanecer también<br>
+    es habitar la calle.
+  </h2>
+
+  <p class="description">
+    En un registro de observación de diez minutos
     en Plaza Sotomayor se contabilizaron 20 personas.
     De ellas, 15 permanecieron en el lugar y 5 continuaron
     caminando.
   </p>
 
   <div class="data-layout">
-
     <div>
       <div class="stat-number">
-        75<span class="fraction">%</span>
+        75<span>%</span>
       </div>
 
       <div class="stat-title">
@@ -465,45 +505,47 @@ footer {
         continuaron caminando.
       </div>
     </div>
-
   </div>
 
   <div class="data-source">
     FUENTE: PROYECTO DE VISUALIZACIÓN / GRUPO 1 / EAD PUCV.
     REGISTRO DE OBSERVACIÓN DE 10 MINUTOS EN PLAZA SOTOMAYOR.
+    ESTE DATO DESCRIBE COMPORTAMIENTOS OBSERVADOS Y NO
+    REPRESENTA UNA MEDICIÓN DE PERCEPCIÓN DE SEGURIDAD.
   </div>
 </section>
 
-<section class="section question">
-  <div class="section-index">03 / LECTURA DEL ESPACIO</div>
+<section class="section quote-section">
+  <div class="section-index">04 / EXPERIENCIA PEATONAL</div>
 
   <h2>
-    No todos los cuerpos<br>
-    recorren la ciudad<br>
-    de la misma manera.
+    No solo importa<br>
+    <span>por dónde caminamos.</span><br>
+    También cómo<br>
+    nos sentimos.
   </h2>
 
   <p class="description">
-    La permanencia y el desplazamiento son dos formas
-    distintas de relacionarse con el espacio público.
-    Observarlas permite reconocer cómo se ocupa y
-    experimenta un lugar.
+    La experiencia de caminar está atravesada por
+    percepciones, decisiones y sensaciones que cambian
+    según las condiciones del espacio urbano.
   </p>
 </section>
 
-<section class="section reflection">
-  <div class="section-index">04 / REFLEXIÓN</div>
+<section class="section final">
+  <div class="section-index">05 / REFLEXIÓN</div>
 
   <h2>
-    La ciudad no se recorre<br>
-    de una sola manera.<br>
-    <span>Se experimenta.</span>
+    La seguridad<br>
+    también se<br>
+    <span>experimenta.</span>
   </h2>
 
   <p class="description">
-    El espacio urbano influye en nuestras decisiones,
-    movimientos y formas de permanecer.
-    Caminar permite descubrir esas relaciones.
+    Comprender la percepción peatonal permite mirar
+    la ciudad desde quienes la recorren y reconocer
+    que las condiciones del entorno forman parte
+    de la experiencia cotidiana.
   </p>
 
   <div style="margin-top:40px">
@@ -516,8 +558,8 @@ footer {
 </main>
 
 <footer>
-  <span>CAMINAR NO ES NEUTRAL / 2026</span>
-  <span>Investigación visual / EAD PUCV</span>
+  <span>SENTIR LA CALLE / 2026</span>
+  <span>Percepción de seguridad peatonal / EAD PUCV</span>
 </footer>
 
 <script>
@@ -534,9 +576,7 @@ function preloadFrames() {
 
   for (let i = 1; i <= TOTAL_FRAMES; i++) {
     const image = new Image();
-
     image.src = FRAME_PATH + String(i).padStart(2, "0") + ".webp";
-
     frames.push(image);
 
     loading.push(new Promise(resolve => {
@@ -614,9 +654,8 @@ const progressBar = document.getElementById("progressBar");
 
 window.addEventListener("scroll", () => {
   const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-
   const progress = totalHeight > 0
-    ? (window.scrollY / totalHeight) * 100
+    ? window.scrollY / totalHeight * 100
     : 0;
 
   progressBar.style.width = progress + "%";
