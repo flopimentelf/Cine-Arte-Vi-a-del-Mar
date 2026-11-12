@@ -1,279 +1,627 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cine Arte Viña del Mar - Visualización de Datos</title>
-  <style>
-    /* Reset y estilos generales */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    body, html {
-      width: 100%;
-      height: 100%;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #000000;
-      color: #c9d1d9;
-      overflow-x: hidden;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CAMINAR NO ES NEUTRAL</title>
 
-    /* PANTALLA INTRO (Carga / Animación) */
-    #intro-screen {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background-color: #000000;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-      transition: opacity 1s ease, visibility 1s ease;
-    }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-    #animationCanvas {
-      background-color: #000000;
-      max-width: 100%;
-      max-height: 80vh;
-    }
+<style>
+:root {
+  --black: #080808;
+  --white: #F5F5F5;
+  --pink: #EB56D4;
+  --gray: #888888;
+  --line: #333333;
+}
 
-    .skip-btn {
-      margin-top: 15px;
-      padding: 10px 20px;
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      color: #ffffff;
-      border-radius: 20px;
-      cursor: pointer;
-      font-size: 0.9rem;
-      transition: all 0.3s ease;
-    }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-    .skip-btn:hover {
-      background: rgba(255, 255, 255, 0.3);
-      border-color: #ffffff;
-    }
+html {
+  scroll-behavior: smooth;
+}
 
-    /* CONTENIDO PRINCIPAL (Dashboard de datos) */
-    #main-content {
-      opacity: 0;
-      transition: opacity 1.2s ease;
-      padding: 40px 20px;
-      max-width: 1200px;
-      margin: 0 auto;
-      display: none;
-    }
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: 'Montserrat', sans-serif;
+}
 
-    header {
-      text-align: center;
-      margin-bottom: 40px;
-      border-bottom: 1px solid #30363d;
-      padding-bottom: 20px;
-    }
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
 
-    header h1 {
-      font-size: 2.2rem;
-      color: #ffffff;
-      margin-bottom: 10px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
+.top-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 100%;
+  background: #222;
+  z-index: 1000;
+}
 
-    header p {
-      color: #8b949e;
-      font-size: 1rem;
-    }
+.top-progress span {
+  display: block;
+  width: 0%;
+  height: 100%;
+  background: var(--pink);
+}
 
-    .dashboard-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 24px;
-    }
+.intro-animation {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-    .card {
-      background: #161b22;
-      border: 1px solid #30363d;
-      border-radius: 8px;
-      padding: 24px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    }
+.intro-animation img {
+  width: 90%;
+  height: 85%;
+  object-fit: contain;
+}
 
-    .card h2 {
-      font-size: 1.2rem;
-      color: #f0f6fc;
-      margin-bottom: 16px;
-    }
+.intro-controls {
+  position: absolute;
+  bottom: 25px;
+  left: 30px;
+  right: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: #aaa;
+  text-transform: uppercase;
+}
 
-    .chart-box {
-      width: 100%;
-      height: 220px;
-      background: #0d1117;
-      border: 1px dashed #30363d;
-      border-radius: 6px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #8b949e;
-      font-size: 0.9rem;
-    }
-  </style>
+.intro-controls button,
+.button-outline {
+  background: transparent;
+  border: 1px solid #777;
+  color: white;
+  padding: 12px 20px;
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: .2s;
+}
+
+.intro-controls button:hover,
+.button-outline:hover {
+  background: var(--pink);
+  border-color: var(--pink);
+  color: black;
+}
+
+.cover {
+  min-height: 100vh;
+  padding: 100px 8vw 70px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.eyebrow {
+  color: var(--gray);
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+.cover h1 {
+  font-size: clamp(55px, 11vw, 155px);
+  line-height: .86;
+  letter-spacing: -.075em;
+  font-weight: 800;
+  margin: 55px 0;
+}
+
+.cover h1 span,
+.pink {
+  color: var(--pink);
+}
+
+.cover-bottom {
+  border-top: 1px solid var(--line);
+  padding-top: 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 30px;
+}
+
+.cover-bottom p {
+  color: #aaa;
+  max-width: 480px;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.section {
+  padding: 120px 8vw;
+  border-top: 1px solid var(--line);
+}
+
+.section-index {
+  color: var(--pink);
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+.section h2 {
+  font-size: clamp(38px, 6vw, 85px);
+  line-height: .98;
+  letter-spacing: -.055em;
+  font-weight: 700;
+  max-width: 1000px;
+  margin: 30px 0;
+}
+
+.description {
+  color: #aaa;
+  font-size: 14px;
+  line-height: 1.9;
+  max-width: 650px;
+}
+
+.question {
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.data-section {
+  background: #0b0b0b;
+}
+
+.data-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 70px;
+  align-items: center;
+  margin-top: 70px;
+}
+
+.stat-number {
+  font-size: clamp(85px, 15vw, 190px);
+  line-height: .8;
+  font-weight: 800;
+  letter-spacing: -.09em;
+}
+
+.stat-number .fraction {
+  color: var(--pink);
+  font-size: .48em;
+  letter-spacing: -.06em;
+}
+
+.stat-title {
+  font-size: clamp(18px, 2.5vw, 28px);
+  font-weight: 600;
+  line-height: 1.35;
+  margin-top: 30px;
+  max-width: 420px;
+}
+
+.stat-description {
+  color: #999;
+  font-size: 12px;
+  line-height: 1.8;
+  margin-top: 18px;
+  max-width: 400px;
+}
+
+.people-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 22px 14px;
+  max-width: 470px;
+  margin: auto;
+}
+
+.person {
+  width: 100%;
+  color: var(--white);
+  aspect-ratio: .55;
+}
+
+.person.selected {
+  color: var(--pink);
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 25px;
+  margin-top: 30px;
+  font-size: 10px;
+  color: #aaa;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.legend-color {
+  width: 9px;
+  height: 9px;
+  background: var(--pink);
+  border-radius: 50%;
+}
+
+.legend-color.white {
+  background: var(--white);
+}
+
+.data-note {
+  border-left: 2px solid var(--pink);
+  padding: 14px 18px;
+  color: #888;
+  font-size: 10px;
+  line-height: 1.8;
+  margin-top: 35px;
+}
+
+.data-source {
+  margin-top: 50px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+  color: #777;
+  font-size: 10px;
+  line-height: 1.8;
+}
+
+.reflection {
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.reflection h2 {
+  max-width: 1000px;
+}
+
+.reflection h2 span {
+  color: var(--pink);
+}
+
+footer {
+  padding: 30px 8vw;
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  color: #777;
+  font-size: 9px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+@media(max-width: 750px) {
+  .cover {
+    padding: 100px 25px 55px;
+  }
+
+  .cover h1 {
+    letter-spacing: -.06em;
+  }
+
+  .cover-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .section {
+    padding: 85px 25px;
+  }
+
+  .data-layout {
+    grid-template-columns: 1fr;
+    gap: 55px;
+  }
+
+  .people-grid {
+    gap: 18px 12px;
+  }
+
+  footer {
+    flex-direction: column;
+  }
+
+  .intro-controls {
+    left: 18px;
+    right: 18px;
+    bottom: 18px;
+  }
+}
+</style>
 </head>
+
 <body>
 
-  <!-- PANTALLA DE ANIMACIÓN INICIAL -->
-  <div id="intro-screen">
-    <canvas id="animationCanvas" width="800" height="450"></canvas>
-    <button class="skip-btn" onclick="endIntro()">Saltar intro ➔</button>
+<div class="top-progress">
+  <span id="progressBar"></span>
+</div>
+
+<div class="intro-animation" id="intro">
+  <img id="animationFrame" alt="Secuencia de apertura">
+  <div class="intro-controls">
+    <span>CAMINAR NO ES NEUTRAL / 2026</span>
+    <button onclick="skipAnimation()">Saltar secuencia</button>
+  </div>
+</div>
+
+<main>
+
+<section class="cover" id="inicio">
+  <div class="eyebrow">Investigación visual / Barrio Puerto / Valparaíso</div>
+
+  <h1>
+    CAMINAR<br>
+    NO ES<br>
+    <span>NEUTRAL.</span>
+  </h1>
+
+  <div class="cover-bottom">
+    <p>
+      Una exploración sobre las condiciones espaciales,
+      los recorridos y las experiencias de quienes
+      transitan por la ciudad.
+    </p>
+
+    <button class="button-outline" onclick="goTo('investigacion')">
+      Explorar investigación
+    </button>
+  </div>
+</section>
+
+<section class="section question" id="investigacion">
+  <div class="section-index">01 / PUNTO DE PARTIDA</div>
+
+  <h2>
+    ¿Cómo se siente<br>
+    caminar la ciudad?
+  </h2>
+
+  <p class="description">
+    Caminar no es solamente desplazarse entre dos puntos.
+    Cada recorrido está condicionado por el espacio, sus
+    características físicas y las formas en que las personas
+    lo utilizan.
+  </p>
+</section>
+
+<section class="section data-section" id="sotomayor">
+  <div class="section-index">02 / OBSERVACIÓN DEL ESPACIO</div>
+
+  <h2>
+    Permanecer también<br>
+    es una forma de habitar.
+  </h2>
+
+  <p class="description">
+    Durante un registro de observación de diez minutos
+    en Plaza Sotomayor se contabilizaron 20 personas.
+    De ellas, 15 permanecieron en el lugar y 5 continuaron
+    caminando.
+  </p>
+
+  <div class="data-layout">
+
+    <div>
+      <div class="stat-number">
+        75<span class="fraction">%</span>
+      </div>
+
+      <div class="stat-title">
+        3 de cada 4 personas permanecieron en Plaza Sotomayor.
+      </div>
+
+      <p class="stat-description">
+        15 personas permanecieron en el espacio durante
+        el período de observación.
+      </p>
+
+      <div class="legend">
+        <div class="legend-item">
+          <span class="legend-color"></span>
+          Permanecieron
+        </div>
+
+        <div class="legend-item">
+          <span class="legend-color white"></span>
+          Continuaron caminando
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="people-grid" id="peopleGrid"></div>
+
+      <div class="data-note">
+        Cada figura representa una persona observada.
+        Las figuras rosadas representan a quienes permanecieron
+        en el lugar. Las blancas representan a quienes
+        continuaron caminando.
+      </div>
+    </div>
+
   </div>
 
-  <!-- CONTENIDO DE LA VISUALIZACIÓN DE DATOS -->
-  <div id="main-content">
-    <header>
-      <h1>Cine Arte Viña del Mar</h1>
-      <p>Visualización e indicadores de datos</p>
-    </header>
-
-    <main class="dashboard-grid">
-      <div class="card">
-        <h2>Visualización 1</h2>
-        <div class="chart-box">Insertar gráfico o mapa aquí</div>
-      </div>
-      <div class="card">
-        <h2>Visualización 2</h2>
-        <div class="chart-box">Insertar gráfico o mapa aquí</div>
-      </div>
-      <div class="card">
-        <h2>Visualización 3</h2>
-        <div class="chart-box">Insertar tabla o indicadores aquí</div>
-      </div>
-    </main>
+  <div class="data-source">
+    FUENTE: PROYECTO DE VISUALIZACIÓN / GRUPO 1 / EAD PUCV.
+    REGISTRO DE OBSERVACIÓN DE 10 MINUTOS EN PLAZA SOTOMAYOR.
   </div>
+</section>
 
-  <script>
-    const canvas = document.getElementById('animationCanvas');
-    const ctx = canvas.getContext('2d');
+<section class="section question">
+  <div class="section-index">03 / LECTURA DEL ESPACIO</div>
 
-    let frame = 0;
-    const totalFrames = 180; // ~3 segundos de animación
+  <h2>
+    No todos los cuerpos<br>
+    recorren la ciudad<br>
+    de la misma manera.
+  </h2>
 
-    // Dibuja el monigote estilizado
-    function drawStickman(x, y, state) {
-      ctx.strokeStyle = '#FFFFFF';
-      ctx.lineWidth = 5;
-      ctx.lineCap = 'round';
-      ctx.beginPath();
-      
-      // Cabeza
-      ctx.arc(x, y - 45, 14, 0, Math.PI * 2);
-      
-      // Tronco
-      ctx.moveTo(x, y - 31);
-      ctx.lineTo(x, y);
+  <p class="description">
+    La permanencia y el desplazamiento son dos formas
+    distintas de relacionarse con el espacio público.
+    Observarlas permite reconocer cómo se ocupa y
+    experimenta un lugar.
+  </p>
+</section>
 
-      if (state === 'walk') {
-        // Brazos cruzados en marcha
-        ctx.moveTo(x, y - 22);
-        ctx.lineTo(x - 15 + Math.sin(frame * 0.2) * 12, y - 5);
-        ctx.moveTo(x, y - 22);
-        ctx.lineTo(x + 15 - Math.sin(frame * 0.2) * 12, y - 5);
+<section class="section reflection">
+  <div class="section-index">04 / REFLEXIÓN</div>
 
-        // Piernas caminando
-        ctx.moveTo(x, y);
-        ctx.lineTo(x - 15 + Math.sin(frame * 0.2) * 18, y + 30);
-        ctx.moveTo(x, y);
-        ctx.lineTo(x + 15 - Math.sin(frame * 0.2) * 18, y + 30);
-      } else {
-        // Brazos abiertos por reacción/impacto
-        ctx.moveTo(x, y - 22);
-        ctx.lineTo(x - 25, y - 45);
-        ctx.moveTo(x, y - 22);
-        ctx.lineTo(x + 25, y - 45);
+  <h2>
+    La ciudad no se recorre<br>
+    de una sola manera.<br>
+    <span>Se experimenta.</span>
+  </h2>
 
-        // Piernas separadas
-        ctx.moveTo(x, y);
-        ctx.lineTo(x - 22, y + 25);
-        ctx.moveTo(x, y);
-        ctx.lineTo(x + 22, y + 25);
-      }
-      
-      ctx.stroke();
+  <p class="description">
+    El espacio urbano influye en nuestras decisiones,
+    movimientos y formas de permanecer.
+    Caminar permite descubrir esas relaciones.
+  </p>
+
+  <div style="margin-top:40px">
+    <button class="button-outline" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+      Volver al inicio
+    </button>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <span>CAMINAR NO ES NEUTRAL / 2026</span>
+  <span>Investigación visual / EAD PUCV</span>
+</footer>
+
+<script>
+const FRAME_PATH = "caminar_frames/frame-";
+const TOTAL_FRAMES = 53;
+const FRAME_DURATION = 120;
+
+let frames = [];
+let currentFrame = 1;
+let animationTimer;
+
+function preloadFrames() {
+  const loading = [];
+
+  for (let i = 1; i <= TOTAL_FRAMES; i++) {
+    const image = new Image();
+
+    image.src = FRAME_PATH + String(i).padStart(2, "0") + ".webp";
+
+    frames.push(image);
+
+    loading.push(new Promise(resolve => {
+      image.onload = resolve;
+      image.onerror = resolve;
+    }));
+  }
+
+  return Promise.all(loading);
+}
+
+function showFrame(index) {
+  const image = document.getElementById("animationFrame");
+  const selectedFrame = frames[index - 1];
+
+  if (selectedFrame && selectedFrame.complete && selectedFrame.naturalWidth > 0) {
+    image.src = selectedFrame.src;
+  }
+}
+
+function startAnimation() {
+  showFrame(1);
+
+  animationTimer = setInterval(() => {
+    currentFrame++;
+
+    if (currentFrame > TOTAL_FRAMES) {
+      skipAnimation();
+      return;
     }
 
-    // Dibuja el vehículo en silueta
-    function drawCar(x, y) {
-      ctx.strokeStyle = '#FFFFFF';
-      ctx.lineWidth = 4;
-      ctx.beginPath();
-      // Chasis
-      ctx.strokeRect(x, y - 35, 160, 35);
-      ctx.strokeRect(x + 25, y - 65, 100, 30);
-      // Ruedas
-      ctx.arc(x + 35, y, 14, 0, Math.PI * 2);
-      ctx.arc(x + 125, y, 14, 0, Math.PI * 2);
-      ctx.stroke();
-    }
+    showFrame(currentFrame);
+  }, FRAME_DURATION);
+}
 
-    // Bucle de animación
-    function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+function skipAnimation() {
+  clearInterval(animationTimer);
+  document.getElementById("intro").style.display = "none";
+}
 
-      // Línea de base / suelo
-      ctx.strokeStyle = '#333333';
-      ctx.lineWidth = 2;
-      ctx.beginPath();
-      ctx.moveTo(0, 350);
-      ctx.lineTo(800, 350);
-      ctx.stroke();
+function goTo(id) {
+  document.getElementById(id).scrollIntoView({
+    behavior: "smooth"
+  });
+}
 
-      if (frame < 80) {
-        // Monigote avanza
-        let manX = 100 + (frame * 3.5);
-        drawStickman(manX, 320, 'walk');
-      } else if (frame < 130) {
-        // Vehículo se acerca e impacto
-        let carX = 800 - ((frame - 80) * 14);
-        drawStickman(380, 320, 'impact');
-        drawCar(carX, 350);
-      } else {
-        // Detención final
-        drawStickman(380, 320, 'impact');
-        drawCar(180, 350);
-      }
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape") {
+    skipAnimation();
+  }
+});
 
-      frame++;
+preloadFrames().then(startAnimation);
 
-      if (frame < totalFrames) {
-        requestAnimationFrame(animate);
-      } else {
-        setTimeout(endIntro, 600);
-      }
-    }
+const peopleGrid = document.getElementById("peopleGrid");
 
-    window.addEventListener('load', () => {
-      animate();
-    });
+for (let i = 0; i < 20; i++) {
+  const person = document.createElement("div");
 
-    // Transición de salida de la animación al contenido
-    function endIntro() {
-      const intro = document.getElementById('intro-screen');
-      const main = document.getElementById('main-content');
-      
-      intro.style.opacity = '0';
-      intro.style.visibility = 'hidden';
-      
-      setTimeout(() => {
-        intro.style.display = 'none';
-        main.style.display = 'block';
-        setTimeout(() => {
-          main.style.opacity = '1';
-        }, 50);
-      }, 1000);
-    }
-  </script>
+  person.className = "person" + (i < 15 ? " selected" : "");
+
+  person.innerHTML = `
+    <svg viewBox="0 0 40 72" width="100%" height="100%" fill="currentColor" aria-hidden="true">
+      <circle cx="20" cy="9" r="7"></circle>
+      <path d="M10 21 Q20 16 30 21 L33 43 Q33 47 29 47 L28 70 L21 70 L20 49 L19 70 L12 70 L11 47 Q7 47 7 43 Z"></path>
+      <path d="M9 23 L3 43 Q2 47 6 48 Q9 49 11 44 L16 29 Z"></path>
+      <path d="M31 23 L37 43 Q38 47 34 48 Q31 49 29 44 L24 29 Z"></path>
+    </svg>
+  `;
+
+  peopleGrid.appendChild(person);
+}
+
+const progressBar = document.getElementById("progressBar");
+
+window.addEventListener("scroll", () => {
+  const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+
+  const progress = totalHeight > 0
+    ? (window.scrollY / totalHeight) * 100
+    : 0;
+
+  progressBar.style.width = progress + "%";
+});
+</script>
+
 </body>
 </html>
