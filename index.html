@@ -524,10 +524,10 @@
       position: relative;
       width: 100%;
       aspect-ratio: 16 / 12.2;
-      min-height: 495px;
+      min-height: 510px;
       border-radius: 14px;
       background:
-        radial-gradient(circle at 50% 50%, rgba(31, 122, 82, 0.06), transparent 64%),
+        radial-gradient(circle at 50% 50%, rgba(31, 122, 82, 0.07), transparent 64%),
         #F7F4EC;
       border: 1px solid var(--border);
       overflow: hidden;
@@ -557,7 +557,7 @@
     }
 
     .part-interactive:hover {
-      filter: drop-shadow(0 0 8px rgba(31, 122, 82, 0.32));
+      filter: drop-shadow(0 0 8px rgba(31, 122, 82, 0.34));
     }
 
     .part-interactive.is-muted {
@@ -898,7 +898,7 @@
       }
 
       .model-frame {
-        min-height: 420px;
+        min-height: 430px;
       }
     }
   </style>
@@ -911,7 +911,7 @@
       <circle class="boot-ring-inner" cx="75" cy="75" r="27" fill="none" stroke="#171D19" stroke-width="1.5" stroke-dasharray="6 4" />
       <circle cx="75" cy="75" r="5" fill="#1F7A52" />
     </svg>
-    <span class="boot-label">Tramas de Elección · Cargando modelo</span>
+    <span class="boot-label">Tramas de Elección · Cargando corola</span>
     <div class="boot-title">Transitabilidad</div>
   </div>
   <button id="bootSkipBtn" class="boot-skip" type="button">Saltar</button>
@@ -957,7 +957,7 @@
           ¿Por qué comparar Valparaíso y Buenos Aires? Ambas son ciudades portuarias con fuerte relación histórica con el borde marítimo y fluvial, pero resuelven su trama peatonal desde topografías y escalas urbanas distintas: las pendientes y calles del plan valparaiseño frente a los amplios corredores y paseos de Buenos Aires.
         </p>
         <p class="intro-p-muted">
-          Aunque el estudio abarca múltiples dimensiones —como luminosidad, transitabilidad, seguridad y actividad urbana—, esta pieza se centra en la <strong>transitabilidad</strong> de ambos territorios con datos reales de Valparaíso y Buenos Aires (19, 20 y 21 de noviembre), conservando decimales sin redondear en la equivalencia (5 fichas = 1 persona equivalente) y las variables en escala 1/5.
+          Aunque el estudio abarca múltiples dimensiones —como luminosidad, transitabilidad, seguridad y actividad urbana—, esta pieza se centra en la <strong>transitabilidad</strong> de ambos territorios con datos reales de Valparaíso[span_6](start_span)[span_6](end_span) y Buenos Aires (19, 20 y 21 de noviembre)[span_7](start_span)[span_7](end_span)[span_8](start_span)[span_8](end_span)[span_9](start_span)[span_9](end_span)[span_10](start_span)[span_10](end_span)[span_11](start_span)[span_11](end_span), estructurada como una flor/corola asimétrica donde cada pétalo, nervadura y estambre explica una densidad de información y conserva decimales exactos (5 fichas = 1 persona equivalente, sin redondeo).
         </p>
       </div>
 
@@ -988,16 +988,16 @@
     <div id="tab-modelo" class="tab-pane is-active" role="tabpanel">
       <section class="centered-viz-layout">
         <!-- IZQUIERDA -->
-        <aside class="card side-col" aria-label="Densidad de información y justificación">
+        <aside class="card side-col" aria-label="Lectura floral y justificación">
           <div class="card-top">
-            <span class="card-kicker">Morfología y Densidad</span>
+            <span class="card-kicker">Anatomía de la Flor</span>
             <span id="morphModeLabel" class="card-note">Total + Tendencias</span>
           </div>
 
           <div id="justificationBox" class="justification-box" aria-live="polite" style="margin-top:0;">
-            <span id="justTitle" class="just-title">Asimetría con sentido analítico</span>
+            <span id="justTitle" class="just-title">Pétalos, nervaduras y estambres</span>
             <p id="justDesc" class="just-desc">
-              El modelo no es simétrico: cada brazo, vector o nodo crece en longitud y masa según el peso real de las fichas positivas y negativas o el puntaje (1/5) de la variable activa.
+              Cada pétalo crece en longitud y amplitud según su volumen de fichas y el puntaje (1/5) de la categoría activa; la nervadura central marca su eje y los filamentos/esferas indican la tendencia positiva (verde) o negativa (coral).
             </p>
           </div>
 
@@ -1011,25 +1011,25 @@
 
           <div class="var-row-card" style="cursor:default;">
             <div class="var-row-top">
-              <span class="var-row-name">Tendencia gráfica</span>
-              <span class="var-row-val">Vectores + Polígonos</span>
+              <span class="var-row-name">Tendencia en estambres</span>
+              <span class="var-row-val">Positivo vs. Negativo</span>
             </div>
-            <div class="equiv-caption">Los brazos largos muestran mayor acumulación de fichas o intensidad.</div>
+            <div class="equiv-caption">La inclinación y el tamaño de cada brote expresan el balance de fichas.</div>
           </div>
         </aside>
 
-        <!-- CENTRO -->
+        <!-- CENTRO: COROLA FLORAL ASIMÉTRICA + FLECHAS IZQUIERDA Y DERECHA -->
         <div class="card">
           <div class="card-top">
-            <span class="card-kicker">Modelo Asimétrico Transformable</span>
+            <span class="card-kicker">Corola Asimétrica Transformable</span>
             <span id="activeVarStatus" class="card-note">Categoría: Materialidad (3/5)</span>
           </div>
 
-          <div class="morph-mode-bar" role="group" aria-label="Modo de transformación del modelo">
+          <div class="morph-mode-bar" role="group" aria-label="Modo de transformación floral">
             <button class="morph-btn is-active" data-morph="total" type="button">Total y Tendencias</button>
             <button class="morph-btn" data-morph="chile" type="button">Solo Chile (Tendencias)</button>
             <button class="morph-btn" data-morph="argentina" type="button">Solo Buenos Aires (Tendencias)</button>
-            <button class="morph-btn" data-morph="calle" type="button">Calle Individual (Densidad)</button>
+            <button class="morph-btn" data-morph="calle" type="button">Calle Individual (Corola 1/5)</button>
           </div>
 
           <div class="category-switcher" role="group" aria-label="Cambiar categoría con flechas">
@@ -1043,7 +1043,7 @@
 
           <div class="model-frame">
             <canvas id="motionCanvas"></canvas>
-            <svg id="atlasSvg" viewBox="0 0 860 660" role="img" aria-label="Modelo asimétrico transformable de transitabilidad"></svg>
+            <svg id="atlasSvg" viewBox="0 0 860 660" role="img" aria-label="Corola floral asimétrica transformable de transitabilidad"></svg>
           </div>
 
           <div id="streetsBar" class="streets-bar" aria-label="Calles"></div>
@@ -1083,7 +1083,7 @@
           <div>
             <span class="card-kicker">Mapa-Gráfico de Recorridos · Glifos Rondando por Día y Lugar</span>
             <p class="card-note" style="margin-top:3px;">
-              Réplicas del glifo de transitabilidad rondando por el mapa-gráfico según jornada de registro (19 nov, 20 nov, 21 nov y registro general) y lugar.
+              Réplicas florales de transitabilidad rondando por el mapa-gráfico según jornada (19 nov, 20 nov, 21 nov y registro general) y lugar.
             </p>
           </div>
 
@@ -1109,7 +1109,7 @@
           <span id="variantsSummaryLabel" class="card-note">8/8 variantes visibles</span>
         </div>
         <p class="intro-p-muted" style="margin-bottom:14px;">
-          Activa o desactiva cada variante para observar cuáles se muestran en el modelo asimétrico y en el mapa-gráfico, y cuáles quedan atenuadas/excluidas.
+          Activa o desactiva cada variante para observar cuáles se muestran en la corola asimétrica y en el mapa-gráfico, y cuáles quedan atenuadas/excluidas.
         </p>
         <div id="variantsTabGrid" class="variants-tab-grid"></div>
       </div>
@@ -1128,14 +1128,6 @@
   </main>
 
   <script>
-    /* =========================================================================
-       DATOS REALES INTEGRADOS:
-       - Chile (Valparaíso): capturas de resultados totales por calle (Serrano,
-         Cochrane, Blanco, Errázuriz).
-       - Argentina (Buenos Aires): conteo real de fichas verdes (Transitabilidad)
-         en jornadas 19 nov, 20 nov y 21 nov para Av. Paseo Colón, Azopardo,
-         Av. Ingeniero Huergo y Av. Alicia Moreau de Justo.
-       ========================================================================= */
     const STREETS = [
       {
         id: "serrano",
@@ -1148,10 +1140,10 @@
         negFichas: 44,
         mapHome: [260, 210],
         vars: {
-          materialidad: { label: "Materialidad", val: "3/5", score: 3, max: 5, just: "Serrano (Valparaíso, 185+ / 44−): materialidad 3/5 con desgaste en tramos de baldosa y hormigón." },
+          materialidad: { label: "Materialidad", val: "3/5", score: 3, max: 5, just: "Serrano (Valparaíso, 185+ / 44−): materialidad 3/5 con desgaste en baldosa y hormigón; el pétalo se ensancha y alarga por su alta acumulación." },
           desniveles: { label: "Desniveles", val: "3/5", score: 3, max: 5, just: "Serrano (Valparaíso): desniveles 3/5 en conexión hacia cerros y borde." },
           obstaculos: { label: "Obstáculos", val: "2/5", score: 2, max: 5, just: "Serrano (Valparaíso): obstáculos 2/5 con estrechamientos puntuales." },
-          flujo: { label: "Flujo peatonal", val: "4/5", score: 4, max: 5, just: "Serrano (Valparaíso): flujo peatonal 4/5 con alta valoración positiva (185 fichas)." },
+          flujo: { label: "Flujo peatonal", val: "4/5", score: 4, max: 5, just: "Serrano (Valparaíso): flujo peatonal 4/5 con fuerte presencia positiva (185 fichas)." },
           dificultad: { label: "Dificultad", val: "2/5", score: 2, max: 5, just: "Serrano (Valparaíso): dificultad 2/5." },
           continuidad: { label: "Continuidad", val: "4/5", score: 4, max: 5, just: "Serrano (Valparaíso): continuidad 4/5." },
           esfuerzo: { label: "Esfuerzo físico", val: "2/5", score: 2, max: 5, just: "Serrano (Valparaíso): esfuerzo físico 2/5." },
@@ -1169,9 +1161,9 @@
         negFichas: 99,
         mapHome: [335, 335],
         vars: {
-          materialidad: { label: "Materialidad", val: "2/5", score: 2, max: 5, just: "Cochrane (Valparaíso, 29+ / 99−): materialidad 2/5 con pavimentos irregulares." },
+          materialidad: { label: "Materialidad", val: "2/5", score: 2, max: 5, just: "Cochrane (Valparaíso, 29+ / 99−): materialidad 2/5; el estambre coral destaca por las 99 fichas negativas." },
           desniveles: { label: "Desniveles", val: "2/5", score: 2, max: 5, just: "Cochrane (Valparaíso): desniveles 2/5." },
-          obstaculos: { label: "Obstáculos", val: "4/5", score: 4, max: 5, just: "Cochrane (Valparaíso): obstáculos 4/5 inciden en el alto conteo negativo (99 fichas)." },
+          obstaculos: { label: "Obstáculos", val: "4/5", score: 4, max: 5, just: "Cochrane (Valparaíso): obstáculos 4/5 en el borde y la acera." },
           flujo: { label: "Flujo peatonal", val: "3/5", score: 3, max: 5, just: "Cochrane (Valparaíso): flujo peatonal 3/5." },
           dificultad: { label: "Dificultad", val: "4/5", score: 4, max: 5, just: "Cochrane (Valparaíso): dificultad 4/5." },
           continuidad: { label: "Continuidad", val: "2/5", score: 2, max: 5, just: "Cochrane (Valparaíso): continuidad 2/5." },
@@ -1190,9 +1182,9 @@
         negFichas: 94,
         mapHome: [195, 315],
         vars: {
-          materialidad: { label: "Materialidad", val: "2/5", score: 2, max: 5, just: "Blanco (Valparaíso, 19+ / 94−): materialidad 2/5 con deterioro en bordes." },
+          materialidad: { label: "Materialidad", val: "2/5", score: 2, max: 5, just: "Blanco (Valparaíso, 19+ / 94−): materialidad 2/5 con fuerte predominio de registros negativos (94 fichas)." },
           desniveles: { label: "Desniveles", val: "1/5", score: 1, max: 5, just: "Blanco (Valparaíso): desniveles 1/5." },
-          obstaculos: { label: "Obstáculos", val: "4/5", score: 4, max: 5, just: "Blanco (Valparaíso): obstáculos 4/5 con fuerte presencia negativa (94 fichas)." },
+          obstaculos: { label: "Obstáculos", val: "4/5", score: 4, max: 5, just: "Blanco (Valparaíso): obstáculos 4/5." },
           flujo: { label: "Flujo peatonal", val: "4/5", score: 4, max: 5, just: "Blanco (Valparaíso): flujo peatonal 4/5." },
           dificultad: { label: "Dificultad", val: "4/5", score: 4, max: 5, just: "Blanco (Valparaíso): dificultad 4/5." },
           continuidad: { label: "Continuidad", val: "2/5", score: 2, max: 5, just: "Blanco (Valparaíso): continuidad 2/5." },
@@ -1211,11 +1203,11 @@
         negFichas: 72,
         mapHome: [275, 425],
         vars: {
-          materialidad: { label: "Materialidad", val: "3/5", score: 3, max: 5, just: "Errázuriz (Valparaíso, 75+ / 72−): materialidad 3/5 en franja amplia." },
+          materialidad: { label: "Materialidad", val: "3/5", score: 3, max: 5, just: "Errázuriz (Valparaíso, 75+ / 72−): materialidad 3/5 con balance cercano entre fichas positivas y negativas." },
           desniveles: { label: "Desniveles", val: "1/5", score: 1, max: 5, just: "Errázuriz (Valparaíso): desniveles 1/5." },
           obstaculos: { label: "Obstáculos", val: "3/5", score: 3, max: 5, just: "Errázuriz (Valparaíso): obstáculos 3/5." },
           flujo: { label: "Flujo peatonal", val: "3/5", score: 3, max: 5, just: "Errázuriz (Valparaíso): flujo peatonal 3/5." },
-          dificultad: { label: "Dificultad", val: "3/5", score: 3, max: 5, just: "Errázuriz (Valparaíso): dificultad 3/5 en equilibrio entre 75+ y 72−." },
+          dificultad: { label: "Dificultad", val: "3/5", score: 3, max: 5, just: "Errázuriz (Valparaíso): dificultad 3/5." },
           continuidad: { label: "Continuidad", val: "3/5", score: 3, max: 5, just: "Errázuriz (Valparaíso): continuidad 3/5." },
           esfuerzo: { label: "Esfuerzo físico", val: "2/5", score: 2, max: 5, just: "Errázuriz (Valparaíso): esfuerzo físico 2/5." },
           estabilidad: { label: "Estabilidad", val: "3/5", score: 3, max: 5, just: "Errázuriz (Valparaíso): estabilidad 3/5." }
@@ -1228,8 +1220,8 @@
         city: "Buenos Aires",
         territory: "Argentina",
         dayGroup: "19 nov",
-        posFichas: 9,  // 4 (19 nov) + 4 (20 nov) + 1 (21 nov)
-        negFichas: 5,  // 2 (19 nov) + 1 (20 nov) + 2 (21 nov)
+        posFichas: 9,
+        negFichas: 5,
         byDay: {
           "19 nov": { pos: 4, neg: 2 },
           "20 nov": { pos: 4, neg: 1 },
@@ -1254,8 +1246,8 @@
         city: "Buenos Aires",
         territory: "Argentina",
         dayGroup: "20 nov",
-        posFichas: 5,  // 0 (19 nov) + 2 (20 nov) + 3 (21 nov)
-        negFichas: 4,  // 2 (19 nov) + 1 (20 nov) + 1 (21 nov)
+        posFichas: 5,
+        negFichas: 4,
         byDay: {
           "19 nov": { pos: 0, neg: 2 },
           "20 nov": { pos: 2, neg: 1 },
@@ -1270,7 +1262,7 @@
           dificultad: { label: "Dificultad", val: "2/5", score: 2, max: 5, just: "Azopardo (Buenos Aires): dificultad 2/5." },
           continuidad: { label: "Continuidad", val: "3/5", score: 3, max: 5, just: "Azopardo (Buenos Aires): continuidad 3/5." },
           esfuerzo: { label: "Esfuerzo físico", val: "2/5", score: 2, max: 5, just: "Azopardo (Buenos Aires): esfuerzo físico 2/5." },
-          estabilidad: { label: "Estabilidad", val: "3/5", score: 3, max: 5, just: "Azopardo (Buenos Aires): estabilidad 3/5." }
+          estabilidad: { label: "Estabilidad", val: 3, max: 5, val: "3/5", just: "Azopardo (Buenos Aires): estabilidad 3/5." }
         }
       },
       {
@@ -1280,8 +1272,8 @@
         city: "Buenos Aires",
         territory: "Argentina",
         dayGroup: "21 nov",
-        posFichas: 7,  // 3 (19 nov) + 2 (20 nov) + 2 (21 nov)
-        negFichas: 7,  // 1 (19 nov) + 0 (20 nov) + 6 (21 nov)
+        posFichas: 7,
+        negFichas: 7,
         byDay: {
           "19 nov": { pos: 3, neg: 1 },
           "20 nov": { pos: 2, neg: 0 },
@@ -1291,7 +1283,7 @@
         vars: {
           materialidad: { label: "Materialidad", val: "3/5", score: 3, max: 5, just: "Av. Ing. Huergo (Buenos Aires, 7+ / 7−): 19 nov (3+/1−), 20 nov (2+/0−), 21 nov (2+/6−)." },
           desniveles: { label: "Desniveles", val: "2/5", score: 2, max: 5, just: "Av. Ing. Huergo (Buenos Aires): desniveles 2/5." },
-          obstaculos: { label: "Obstáculos", val: "4/5", score: 4, max: 5, just: "Av. Ing. Huergo (Buenos Aires): obstáculos 4/5 (destaca 6− el 21 nov)." },
+          obstaculos: { label: "Obstáculos", val: "4/5", score: 4, max: 5, just: "Av. Ing. Huergo (Buenos Aires): obstáculos 4/5." },
           flujo: { label: "Flujo peatonal", val: "3/5", score: 3, max: 5, just: "Av. Ing. Huergo (Buenos Aires): flujo peatonal 3/5." },
           dificultad: { label: "Dificultad", val: "3/5", score: 3, max: 5, just: "Av. Ing. Huergo (Buenos Aires): dificultad 3/5." },
           continuidad: { label: "Continuidad", val: "2/5", score: 2, max: 5, just: "Av. Ing. Huergo (Buenos Aires): continuidad 2/5." },
@@ -1306,8 +1298,8 @@
         city: "Buenos Aires",
         territory: "Argentina",
         dayGroup: "19 nov",
-        posFichas: 4,  // 2 (19 nov) + 2 (20 nov) + 0 (21 nov)
-        negFichas: 2,  // 1 (19 nov) + 0 (20 nov) + 1 (21 nov)
+        posFichas: 4,
+        negFichas: 2,
         byDay: {
           "19 nov": { pos: 2, neg: 1 },
           "20 nov": { pos: 2, neg: 0 },
@@ -1340,7 +1332,7 @@
 
     const state = {
       territory: "Ambos",
-      morphMode: "total", // 'total' | 'chile' | 'argentina' | 'calle'
+      morphMode: "total",
       dayFilter: "Todos",
       activeTab: "modelo",
       selectedStreetId: "serrano",
@@ -1446,7 +1438,41 @@
       document.getElementById("justDesc").textContent = desc;
     }
 
-    /* ==================== VISUALIZACIÓN CENTRAL ASIMÉTRICA ==================== */
+    /* =========================================================================
+       COROLA FLORAL ASIMÉTRICA TRANSFORMABLE:
+       - Pétalos orgánicos con nervadura central y brotes/estambres de tendencia.
+       - En 'calle': corola de 8 pétalos asimétricos (uno por variable 1/5) + centro
+         con anillos de equivalencia positiva/negativa.
+       ========================================================================= */
+    function buildPetalPath(cx, cy, angle, len, width) {
+      const cos = Math.cos(angle);
+      const sin = Math.sin(angle);
+      const nx = -sin;
+      const ny = cos;
+
+      const rBase = 50;
+      const xBase = cx + cos * rBase;
+      const yBase = cy + sin * rBase;
+
+      const xMid = cx + cos * (len * 0.56);
+      const yMid = cy + sin * (len * 0.56);
+
+      const xTip = cx + cos * len;
+      const yTip = cy + sin * len;
+
+      const w1 = width * 0.72;
+      const w2 = width * 0.52;
+
+      const p1x = xMid + nx * w1;
+      const p1y = yMid + ny * w1;
+      const p2x = xMid - nx * w2;
+      const p2y = yMid - ny * w2;
+
+      return `M ${xBase.toFixed(1)} ${yBase.toFixed(1)}
+              Q ${p1x.toFixed(1)} ${p1y.toFixed(1)} ${xTip.toFixed(1)} ${yTip.toFixed(1)}
+              Q ${p2x.toFixed(1)} ${p2y.toFixed(1)} ${xBase.toFixed(1)} ${yBase.toFixed(1)}`;
+    }
+
     function renderAtlasSvg() {
       const svg = document.getElementById("atlasSvg");
       const street = getStreet(state.selectedStreetId);
@@ -1463,7 +1489,7 @@
         total: "Total + Tendencias",
         chile: "Solo Chile + Tendencias",
         argentina: "Solo Buenos Aires + Tendencias",
-        calle: `Calle: ${street.short} (Densidad)`
+        calle: `Calle: ${street.short} (Corola 1/5)`
       };
       document.getElementById("morphModeLabel").textContent = modeLabels[state.morphMode];
 
@@ -1475,52 +1501,59 @@
         const posP = fData.pos / 5;
         const negP = fData.neg / 5;
 
-        let polyPts = [];
-        let raysSvg = "";
-
+        let petalsGroup = "";
         VAR_KEYS.forEach((k, idx) => {
           const vObj = street.vars[k];
           const isOn = state.visibleVars[k];
+          const isFocused = idx === state.focusedVarIdx;
           const baseAngle = (idx / VAR_KEYS.length) * Math.PI * 2 - Math.PI / 2;
-          const angle = baseAngle + Math.sin(idx * 1.7) * 0.07;
-          const length = isOn ? 78 + vObj.score * 36 : 58;
+          const breath = Math.sin(state.motionPhase * 0.045 + idx) * 0.025;
+          const angle = baseAngle + Math.sin(idx * 1.7) * 0.07 + breath;
 
-          const xEnd = cx + Math.cos(angle) * length;
-          const yEnd = cy + Math.sin(angle) * length;
-          if (isOn) polyPts.push(`${xEnd.toFixed(1)},${yEnd.toFixed(1)}`);
+          const pLen = isOn ? 92 + vObj.score * 38 : 68;
+          const pWidth = isOn ? 14 + vObj.score * 5.2 : 10;
 
-          const lx = cx + Math.cos(angle) * (length + 22);
-          const ly = cy + Math.sin(angle) * (length + 22);
+          const pathD = buildPetalPath(cx, cy, angle, pLen, pWidth);
+          const xTip = cx + Math.cos(angle) * pLen;
+          const yTip = cy + Math.sin(angle) * pLen;
+          const lx = cx + Math.cos(angle) * (pLen + 26);
+          const ly = cy + Math.sin(angle) * (pLen + 26);
 
-          raysSvg += `
+          const fillCol = isFocused
+            ? "rgba(31, 122, 82, 0.24)"
+            : idx % 2 === 0
+            ? "rgba(31, 122, 82, 0.10)"
+            : "rgba(184, 134, 59, 0.11)";
+          const strokeCol = isFocused ? "#171D19" : idx % 2 === 0 ? "#1F7A52" : "#B8863B";
+
+          petalsGroup += `
             <g class="part-interactive ${!isOn ? "is-muted" : ""}"
                data-vidx="${idx}"
                data-jtitle="${street.name} · ${vObj.label} (${vObj.val})"
-               data-jdesc="${vObj.just} Radio de ${Math.round(length)}px según puntaje ${vObj.val}.">
-              <line x1="${cx}" y1="${cy}" x2="${xEnd.toFixed(1)}" y2="${yEnd.toFixed(1)}"
-                    stroke="#1F7A52" stroke-width="${1.5 + vObj.score * 0.7}" />
-              <circle cx="${xEnd.toFixed(1)}" cy="${yEnd.toFixed(1)}" r="${4 + vObj.score * 1.1}" fill="#1F7A52" />
+               data-jdesc="${vObj.just} Pétalo de ${Math.round(pLen)}px por su puntaje ${vObj.val}.">
+              <path d="${pathD}" fill="${fillCol}" stroke="${strokeCol}" stroke-width="${isFocused ? "2.3" : "1.4"}" />
+              <line x1="${(cx + Math.cos(angle) * 50).toFixed(1)}" y1="${(cy + Math.sin(angle) * 50).toFixed(1)}"
+                    x2="${xTip.toFixed(1)}" y2="${yTip.toFixed(1)}"
+                    stroke="${strokeCol}" stroke-width="1" stroke-dasharray="3 2" opacity="0.65" />
+              <circle cx="${xTip.toFixed(1)}" cy="${yTip.toFixed(1)}" r="${3.5 + vObj.score * 0.9}" fill="${strokeCol}" />
               <text x="${lx.toFixed(1)}" y="${ly.toFixed(1)}"
                     text-anchor="${Math.cos(angle) < -0.15 ? "end" : Math.cos(angle) > 0.15 ? "start" : "middle"}"
                     dominant-baseline="middle"
-                    font-family="Montserrat, sans-serif" font-size="10" font-weight="700" fill="#171D19">
-                ${vObj.label} ${vObj.val}
+                    font-family="Montserrat, sans-serif" font-size="10"
+                    font-weight="${isFocused ? "800" : "600"}" fill="#171D19">
+                ${vObj.label} · ${vObj.val}
               </text>
             </g>
           `;
         });
 
-        const polyShape = polyPts.length >= 3
-          ? `<polygon points="${polyPts.join(" ")}" fill="rgba(31, 122, 82, 0.15)" stroke="#1F7A52" stroke-width="2" />`
-          : "";
-
         svg.innerHTML = `
-          ${polyShape}
-          ${raysSvg}
+          <circle cx="${cx}" cy="${cy}" r="185" fill="none" stroke="rgba(23,29,25,0.06)" stroke-dasharray="2 6" />
+          ${petalsGroup}
           <g class="part-interactive"
-             data-jtitle="Núcleo de ${street.name} (${street.city})"
-             data-jdesc="Positivas: ${fData.pos} fichas (${fmtEs(posP)} pers.) · Negativas: ${fData.neg} fichas (${fmtEs(negP)} pers.). Equivalencia: fichas / 5 sin redondeo.">
-            <circle cx="${cx}" cy="${cy}" r="48" fill="#FAF8F3" stroke="#171D19" stroke-width="2" />
+             data-jtitle="Corazón Floral · ${street.name} (${street.city})"
+             data-jdesc="Positivas: ${fData.pos} fichas (${fmtEs(posP)} pers.) · Negativas: ${fData.neg} fichas (${fmtEs(negP)} pers.).">
+            <circle cx="${cx}" cy="${cy}" r="50" fill="#FAF8F3" stroke="#1F7A52" stroke-width="2.3" />
             <text x="${cx}" y="${cy - 6}" text-anchor="middle"
                   font-family="Montserrat, sans-serif" font-size="13.5" font-weight="800" fill="#1F7A52">
               +${fmtEs(posP)} / −${fmtEs(negP)}
@@ -1541,19 +1574,18 @@
 
         const totPos = list.reduce((acc, s) => acc + getStreetFichasForDay(s).pos, 0);
         const totNeg = list.reduce((acc, s) => acc + getStreetFichasForDay(s).neg, 0);
-        const trendAngle = Math.atan2(totNeg - totPos, totPos + totNeg) * 1.4;
 
-        let branchesSvg = "";
+        let petalsHtml = "";
         list.forEach((st, i) => {
           const fData = getStreetFichasForDay(st);
-          const spread = state.morphMode === "total" ? Math.PI * 1.75 : Math.PI * 1.35;
+          const spread = state.morphMode === "total" ? Math.PI * 1.78 : Math.PI * 1.38;
           const start =
             state.morphMode === "chile"
               ? Math.PI * 0.85
               : state.morphMode === "argentina"
               ? -Math.PI * 0.65
               : -Math.PI * 0.85;
-          const jitter = Math.sin(i * 2.3) * 0.08 + Math.cos(state.motionPhase * 0.03 + i) * 0.015;
+          const jitter = Math.sin(i * 2.3) * 0.08 + Math.sin(state.motionPhase * 0.035 + i) * 0.018;
           const angle = start + (i / Math.max(1, list.length - 1)) * spread + jitter;
 
           const vObj = st.vars[fKey];
@@ -1561,36 +1593,46 @@
           const isSel = st.id === state.selectedStreetId;
 
           const totalFichas = fData.pos + fData.neg;
-          // Escala logarítmica/suave para acomodar tanto 10–14 fichas como 229 fichas en Valparaíso
-          const armLen = isOn ? 112 + Math.log1p(totalFichas) * 24 + vObj.score * 10 : 95;
-          const thickness = isOn ? 3 + vObj.score * 1.7 : 2;
+          const pLen = isOn ? 115 + Math.log1p(totalFichas) * 24 + vObj.score * 11 : 95;
+          const pWidth = isOn ? 14 + vObj.score * 4.2 : 10;
 
-          const x1 = cx + Math.cos(angle) * 58;
-          const y1 = cy + Math.sin(angle) * 58;
-          const x2 = cx + Math.cos(angle) * armLen;
-          const y2 = cy + Math.sin(angle) * armLen;
+          const pathD = buildPetalPath(cx, cy, angle, pLen, pWidth);
+          const xTip = cx + Math.cos(angle) * pLen;
+          const yTip = cy + Math.sin(angle) * pLen;
 
+          // Estambre de tendencia (verde si predomina positivo, coral si negativo)
           const netDelta = fData.pos - fData.neg;
-          const trendColor = netDelta >= 0 ? "#1F7A52" : "#C45B45";
-          const trendLen = 12 + Math.min(28, Math.abs(netDelta) * 0.25);
-          const tx = x2 + Math.cos(angle + (netDelta >= 0 ? -0.25 : 0.25)) * trendLen;
-          const ty = y2 + Math.sin(angle + (netDelta >= 0 ? -0.25 : 0.25)) * trendLen;
+          const stamenCol = netDelta >= 0 ? "#1F7A52" : "#C45B45";
+          const stamenAngle = angle + (netDelta >= 0 ? -0.28 : 0.28);
+          const stamenLen = 14 + Math.min(26, Math.abs(netDelta) * 0.25);
+          const sx = xTip + Math.cos(stamenAngle) * stamenLen;
+          const sy = yTip + Math.sin(stamenAngle) * stamenLen;
 
-          const lx = cx + Math.cos(angle) * (armLen + 32);
-          const ly = cy + Math.sin(angle) * (armLen + 32);
+          const lx = cx + Math.cos(angle) * (pLen + 34);
+          const ly = cy + Math.sin(angle) * (pLen + 34);
 
-          branchesSvg += `
+          const fillCol = isSel
+            ? "rgba(31, 122, 82, 0.22)"
+            : st.territory === "Chile"
+            ? "rgba(31, 122, 82, 0.09)"
+            : "rgba(184, 134, 59, 0.11)";
+          const strokeCol = isSel ? "#171D19" : st.territory === "Chile" ? "#1F7A52" : "#B8863B";
+
+          petalsHtml += `
             <g class="part-interactive ${!isOn ? "is-muted" : ""}"
                data-select-street="${st.id}"
                data-jtitle="${st.name} (${st.city}) · ${fData.pos}+ / ${fData.neg}−"
                data-jdesc="${vObj.just} Equivalencia: +${fmtEs(fData.pos / 5)} / −${fmtEs(fData.neg / 5)} personas.">
-              <line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}"
-                    stroke="${isSel ? "#171D19" : "#1F7A52"}" stroke-width="${thickness.toFixed(1)}" stroke-linecap="round" />
-              <line x1="${x2.toFixed(1)}" y1="${y2.toFixed(1)}" x2="${tx.toFixed(1)}" y2="${ty.toFixed(1)}"
-                    stroke="${trendColor}" stroke-width="2.6" stroke-dasharray="${netDelta >= 0 ? "none" : "4 3"}" />
-              <circle cx="${tx.toFixed(1)}" cy="${ty.toFixed(1)}" r="4.5" fill="${trendColor}" />
-              <circle cx="${x2.toFixed(1)}" cy="${y2.toFixed(1)}" r="${isSel ? "7" : "5"}"
-                      fill="#FAF8F3" stroke="${isSel ? "#171D19" : "#1F7A52"}" stroke-width="2.2" />
+              <path d="${pathD}" fill="${fillCol}" stroke="${strokeCol}" stroke-width="${isSel ? "2.3" : "1.45"}" />
+              <!-- Nervadura central del pétalo -->
+              <line x1="${(cx + Math.cos(angle) * 52).toFixed(1)}" y1="${(cy + Math.sin(angle) * 52).toFixed(1)}"
+                    x2="${xTip.toFixed(1)}" y2="${yTip.toFixed(1)}"
+                    stroke="${strokeCol}" stroke-width="1.1" opacity="0.55" />
+              <!-- Filamento y antera de tendencia -->
+              <path d="M ${xTip.toFixed(1)} ${yTip.toFixed(1)} Q ${(xTip + Math.cos(angle) * 8).toFixed(1)} ${(yTip + Math.sin(angle) * 8).toFixed(1)} ${sx.toFixed(1)} ${sy.toFixed(1)}"
+                    fill="none" stroke="${stamenCol}" stroke-width="2" />
+              <circle cx="${sx.toFixed(1)}" cy="${sy.toFixed(1)}" r="${(4 + Math.min(5, Math.abs(netDelta) * 0.06)).toFixed(1)}"
+                      fill="${stamenCol}" />
               <text x="${lx.toFixed(1)}" y="${ly.toFixed(1)}"
                     text-anchor="${Math.cos(angle) < -0.15 ? "end" : Math.cos(angle) > 0.15 ? "start" : "middle"}"
                     dominant-baseline="middle"
@@ -1602,18 +1644,14 @@
           `;
         });
 
-        const gtx = cx + Math.cos(trendAngle) * 76;
-        const gty = cy + Math.sin(trendAngle) * 76;
-
         svg.innerHTML = `
-          <line x1="${cx}" y1="${cy}" x2="${gtx.toFixed(1)}" y2="${gty.toFixed(1)}"
-                stroke="#B8863B" stroke-width="2.2" stroke-dasharray="5 4" />
-          <circle cx="${gtx.toFixed(1)}" cy="${gty.toFixed(1)}" r="6" fill="#B8863B" />
-          ${branchesSvg}
+          <circle cx="${cx}" cy="${cy}" r="230" fill="none" stroke="rgba(23,29,25,0.06)" stroke-dasharray="2 6" />
+          ${petalsHtml}
           <g class="part-interactive"
-             data-jtitle="Núcleo de Tendencia · ${modeLabels[state.morphMode]}"
+             data-jtitle="Centro de la Corola · ${modeLabels[state.morphMode]}"
              data-jdesc="Acumulado en vista actual: ${totPos} fichas positivas (${fmtEs(totPos / 5)} pers.) y ${totNeg} fichas negativas (${fmtEs(totNeg / 5)} pers.).">
             <circle cx="${cx}" cy="${cy}" r="52" fill="#FAF8F3" stroke="#1F7A52" stroke-width="2.3" />
+            <circle cx="${cx}" cy="${cy}" r="43" fill="none" stroke="rgba(184,134,59,0.45)" stroke-dasharray="3 3" />
             <text x="${cx}" y="${cy - 7}" text-anchor="middle"
                   font-family="Montserrat, sans-serif" font-size="13.5" font-weight="800" fill="#1F7A52">
               +${fmtEs(totPos / 5)} / −${fmtEs(totNeg / 5)}
@@ -1650,7 +1688,7 @@
       });
     }
 
-    /* ==================== MAPA-GRÁFICO INFERIOR ==================== */
+    /* ==================== MAPA-GRÁFICO INFERIOR CON GLIFOS FLORALES RONDANDO ==================== */
     function renderRoamingMap() {
       const mapSvg = document.getElementById("roamingMapSvg");
       const fKey = getFocusedVarKey();
@@ -1659,7 +1697,6 @@
         const terrOk = state.territory === "Ambos" || s.territory === state.territory;
         if (!terrOk) return false;
         if (state.dayFilter === "Todos") return true;
-        // En Buenos Aires filtra por jornada exacta; en Valparaíso muestra sus registros generales
         return s.territory === "Chile" || (s.byDay && s.byDay[state.dayFilter]);
       });
 
@@ -1684,22 +1721,31 @@
 
         const fData = getStreetFichasForDay(st);
         const vObj = st.vars[fKey];
-        const rGlyph = 16 + vObj.score * 3.5;
+        const rGlyph = 15 + vObj.score * 3.2;
         const isSel = st.id === state.selectedStreetId;
         const col = st.territory === "Chile" ? "#1F7A52" : "#B8863B";
         const dayTag = st.territory === "Argentina" && state.dayFilter !== "Todos" ? state.dayFilter : st.dayGroup;
 
+        // Pequeños pétalos alrededor del glifo en el mapa
+        let miniPetals = "";
+        for (let p = 0; p < 5; p++) {
+          const pa = (p / 5) * Math.PI * 2 + state.motionPhase * 0.015;
+          const mx = Math.cos(pa) * (rGlyph + 5);
+          const my = Math.sin(pa) * (rGlyph + 5);
+          miniPetals += `<circle cx="${mx.toFixed(1)}" cy="${my.toFixed(1)}" r="3" fill="${col}" opacity="0.65" />`;
+        }
+
         roamingNodes += `
           <g class="roaming-glyph" transform="translate(${gx.toFixed(1)}, ${gy.toFixed(1)})"
              data-map-street="${st.id}">
-            <circle cx="0" cy="0" r="${(rGlyph + 7).toFixed(1)}" fill="none" stroke="${col}" stroke-width="1" stroke-dasharray="3 3" opacity="0.55" />
+            ${miniPetals}
             <circle cx="0" cy="0" r="${rGlyph.toFixed(1)}" fill="${isSel ? "#171D19" : "#FAF8F3"}" stroke="${col}" stroke-width="2" />
-            <circle cx="0" cy="0" r="${(vObj.score * 2.1).toFixed(1)}" fill="${col}" opacity="0.85" />
-            <text x="0" y="${(rGlyph + 16).toFixed(1)}" text-anchor="middle"
+            <circle cx="0" cy="0" r="${(vObj.score * 2).toFixed(1)}" fill="${col}" opacity="0.85" />
+            <text x="0" y="${(rGlyph + 17).toFixed(1)}" text-anchor="middle"
                   font-family="Montserrat, sans-serif" font-size="9.5" font-weight="700" fill="#171D19">
               ${st.short} · ${fData.pos}+/${fData.neg}−
             </text>
-            <text x="0" y="${(rGlyph + 28).toFixed(1)}" text-anchor="middle"
+            <text x="0" y="${(rGlyph + 29).toFixed(1)}" text-anchor="middle"
                   font-family="Montserrat, sans-serif" font-size="9" font-weight="600" fill="#525D56">
               ${dayTag} · ${vObj.label} ${vObj.val}
             </text>
