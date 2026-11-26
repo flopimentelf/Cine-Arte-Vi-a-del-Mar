@@ -6,29 +6,27 @@
   <title>Transitabilidad — Valparaíso · Buenos Aires</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg: #060807;
-      --surface: #0C110E;
-      --surface-2: #111814;
-      --surface-3: #16201A;
-      --ink: #F5F8F6;
-      --ink-muted: #9AA89F;
-      --ink-dim: #5F6E65;
-      --border: rgba(245, 248, 246, 0.11);
-      --border-strong: rgba(116, 236, 174, 0.36);
+      --bg: #050706;
+      --surface: #0B100D;
+      --surface-2: #101713;
+      --surface-3: #151E19;
+      --ink: #F6F8F7;
+      --ink-muted: #9BA9A0;
+      --ink-dim: #5D6C63;
+      --border: rgba(246, 248, 247, 0.11);
+      --border-strong: rgba(114, 236, 174, 0.36);
 
-      --green-bright: #74ECAE;
-      --green-mid: #2BB673;
-      --green-deep: #14633E;
-      --green-soft: rgba(116, 236, 174, 0.14);
-      --white-soft: #E4ECE7;
-      --neg-accent: #D67A62;
+      --green-bright: #72ECAE;
+      --green-mid: #29B572;
+      --green-deep: #135E3B;
+      --green-soft: rgba(114, 236, 174, 0.13);
+      --white-soft: #E5ECE8;
+      --neg-accent: #D77A61;
 
-      --font-display: 'Space Grotesk', 'Inter', sans-serif;
-      --font-body: 'Inter', sans-serif;
-      --font-mono: 'JetBrains Mono', monospace;
+      --font-sans: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
       --ease: cubic-bezier(0.22, 1, 0.36, 1);
     }
 
@@ -39,174 +37,39 @@
     }
 
     html {
+      scroll-behavior: smooth;
       background: var(--bg);
       color: var(--ink);
-      font-family: var(--font-body);
+      font-family: var(--font-sans);
       font-size: 15px;
       -webkit-font-smoothing: antialiased;
     }
 
     body {
       background:
-        radial-gradient(circle at 50% 34%, rgba(43, 182, 115, 0.11), transparent 55%),
-        radial-gradient(circle at 18% 85%, rgba(116, 236, 174, 0.05), transparent 45%),
+        radial-gradient(circle at 50% 24%, rgba(41, 181, 114, 0.11), transparent 58%),
+        radial-gradient(circle at 15% 78%, rgba(114, 236, 174, 0.05), transparent 48%),
         var(--bg);
       color: var(--ink);
       min-height: 100vh;
       overflow-x: hidden;
+      font-family: var(--font-sans);
     }
 
-    /* ==================== INVESTIGACIÓN INTRO MODAL ==================== */
-    .research-gate {
-      position: fixed;
-      inset: 0;
-      z-index: 900;
-      background: rgba(6, 8, 7, 0.96);
-      backdrop-filter: blur(14px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-      transition: opacity 0.55s var(--ease), visibility 0.55s var(--ease);
-    }
-
-    .research-gate.is-dismissed {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-    }
-
-    .research-card {
-      max-width: 820px;
-      width: 100%;
-      background: var(--surface);
-      border: 1px solid var(--border-strong);
-      border-radius: 18px;
-      padding: 34px;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      box-shadow: 0 28px 90px rgba(0, 0, 0, 0.75);
-    }
-
-    .research-kicker {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--green-bright);
-    }
-
-    .research-title {
-      font-family: var(--font-display);
-      font-size: clamp(1.9rem, 4.2vw, 2.85rem);
-      font-weight: 700;
-      letter-spacing: -0.025em;
-      line-height: 1.05;
-      color: var(--ink);
-    }
-
-    .research-copy {
-      font-size: 14.5px;
-      line-height: 1.65;
-      color: var(--white-soft);
-    }
-
-    .research-pillars {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 12px;
-    }
-
-    .pillar-box {
-      background: var(--surface-2);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 14px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .pillar-label {
-      font-family: var(--font-mono);
-      font-size: 10.5px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--green-bright);
-    }
-
-    .pillar-text {
-      font-size: 12.5px;
-      line-height: 1.45;
-      color: var(--ink-muted);
-    }
-
-    .research-actions {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px;
-      flex-wrap: wrap;
-      border-top: 1px solid var(--border);
-      padding-top: 18px;
-    }
-
-    .btn-primary {
-      appearance: none;
-      border: 1px solid var(--green-bright);
-      background: var(--green-mid);
-      color: #050806;
-      font-family: var(--font-display);
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      padding: 12px 24px;
-      border-radius: 999px;
-      cursor: pointer;
-      transition: all 0.22s var(--ease);
-    }
-
-    .btn-primary:hover {
-      background: var(--green-bright);
-      transform: translateY(-1px);
-    }
-
-    .btn-ghost {
-      appearance: none;
-      border: 1px solid var(--border);
-      background: transparent;
-      color: var(--ink-muted);
-      font-family: var(--font-mono);
-      font-size: 10.5px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      padding: 8px 14px;
-      border-radius: 999px;
-      cursor: pointer;
-      transition: all 0.22s var(--ease);
-    }
-
-    .btn-ghost:hover {
-      border-color: var(--green-bright);
-      color: var(--green-bright);
-    }
-
-    /* ==================== HEADER ==================== */
-    .top-header {
-      border-bottom: 1px solid var(--border);
-      background: rgba(6, 8, 7, 0.85);
-      backdrop-filter: blur(12px);
+    /* ==================== STICKY TOP NAV ==================== */
+    .top-nav {
       position: sticky;
       top: 0;
-      z-index: 80;
+      z-index: 90;
+      background: rgba(5, 7, 6, 0.86);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
     }
 
-    .header-wrap {
-      max-width: 1520px;
+    .top-nav-inner {
+      max-width: 1480px;
       margin: 0 auto;
-      padding: 15px 26px;
+      padding: 14px 28px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -214,107 +77,225 @@
       flex-wrap: wrap;
     }
 
-    .brand-col {
+    .nav-brand {
       display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .brand-kicker {
-      font-family: var(--font-mono);
-      font-size: 10px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--green-bright);
-    }
-
-    .brand-title {
-      font-family: var(--font-display);
-      font-size: clamp(1.3rem, 2.2vw, 1.85rem);
-      font-weight: 700;
-      letter-spacing: 0.03em;
-      text-transform: uppercase;
-      line-height: 1.05;
-    }
-
-    .territory-controls {
-      display: flex;
-      align-items: center;
-      gap: 8px;
+      align-items: baseline;
+      gap: 12px;
       flex-wrap: wrap;
     }
 
-    .territory-btn {
-      appearance: none;
-      font-family: var(--font-display);
-      font-size: 11.5px;
-      font-weight: 700;
-      letter-spacing: 0.13em;
+    .nav-brand-title {
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
-      padding: 8px 14px;
-      border-radius: 6px;
-      cursor: pointer;
-      border: 1px solid var(--border);
-      background: var(--surface-2);
-      color: var(--white-soft);
-      transition: all 0.2s var(--ease);
-    }
-
-    .territory-btn:hover {
-      border-color: var(--green-bright);
-      color: var(--green-bright);
-    }
-
-    .territory-btn.is-active {
-      background: var(--green-deep);
-      border-color: var(--green-bright);
       color: var(--ink);
     }
 
-    .view-pills {
+    .nav-brand-sub {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--green-bright);
+    }
+
+    .nav-links {
       display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      text-decoration: none;
+      transition: color 0.2s var(--ease);
+    }
+
+    .nav-links a:hover {
+      color: var(--green-bright);
+    }
+
+    .territory-bar {
+      display: flex;
+      align-items: center;
+      gap: 6px;
       background: var(--surface);
       padding: 4px;
       border-radius: 999px;
       border: 1px solid var(--border);
     }
 
-    .view-pill {
+    .terr-btn {
       appearance: none;
       border: none;
       background: transparent;
       color: var(--ink-muted);
-      font-family: var(--font-mono);
+      font-family: var(--font-sans);
       font-size: 10.5px;
-      font-weight: 600;
-      letter-spacing: 0.11em;
+      font-weight: 700;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      padding: 7px 12px;
+      padding: 7px 13px;
       border-radius: 999px;
       cursor: pointer;
-      transition: all 0.2s var(--ease);
+      transition: all 0.22s var(--ease);
     }
 
-    .view-pill.is-active {
-      background: var(--ink);
-      color: var(--bg);
+    .terr-btn:hover {
+      color: var(--ink);
     }
 
-    /* ==================== MAIN STAGE (MODELO CENTRADO DE MAYOR PESO) ==================== */
-    .main-shell {
-      max-width: 1520px;
+    .terr-btn.is-active {
+      background: var(--green-mid);
+      color: #050706;
+    }
+
+    /* ==================== PRIMERA SECCIÓN: ZONA INTRODUCTORIA EDITORIAL ==================== */
+    .intro-section {
+      max-width: 1480px;
       margin: 0 auto;
-      padding: 22px 26px 64px;
+      padding: 54px 28px 42px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hero-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--green-bright);
+      margin-bottom: 14px;
+    }
+
+    .hero-display-title {
+      font-size: clamp(2.6rem, 6.4vw, 5.2rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 0.98;
+      text-transform: uppercase;
+      color: var(--ink);
+      max-width: 18ch;
+    }
+
+    .hero-display-title span {
+      color: var(--green-bright);
+    }
+
+    .intro-grid {
+      margin-top: 28px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+      gap: 28px;
+      align-items: start;
+    }
+
+    .intro-lead {
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.68;
+      color: var(--white-soft);
+      margin-bottom: 16px;
+    }
+
+    .intro-body {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--ink-muted);
+    }
+
+    .dimensions-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 22px 24px;
       display: flex;
       flex-direction: column;
-      gap: 24px;
+      gap: 14px;
     }
 
-    .centerpiece-layout {
+    .box-kicker {
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--green-bright);
+    }
+
+    .dim-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .dim-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 9px 12px;
+      border-radius: 8px;
+      background: var(--surface-2);
+      border: 1px solid rgba(246, 248, 247, 0.06);
+      font-size: 12.5px;
+    }
+
+    .dim-row.is-active-dim {
+      border-color: var(--green-bright);
+      background: var(--surface-3);
+    }
+
+    .dim-name {
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .dim-status {
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--green-bright);
+    }
+
+    .dim-status.is-other {
+      color: var(--ink-dim);
+    }
+
+    /* ==================== SECCIÓN PRINCIPAL: MANDALA / ARQUITECTURA ARMÓNICA ==================== */
+    .main-section {
+      max-width: 1480px;
+      margin: 0 auto;
+      padding: 36px 28px 72px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    .section-header-block {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .section-heading-lg {
+      font-size: clamp(1.75rem, 3.4vw, 2.7rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+      text-transform: uppercase;
+    }
+
+    .harmony-layout {
       display: grid;
-      grid-template-columns: minmax(0, 1.55fr) minmax(340px, 0.85fr);
+      grid-template-columns: minmax(0, 1.48fr) minmax(340px, 0.92fr);
       gap: 24px;
       align-items: start;
     }
@@ -322,451 +303,465 @@
     .panel {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 20px 22px;
+      border-radius: 18px;
+      padding: 22px 24px;
     }
 
-    .panel-top {
+    .panel-bar {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 10px;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
       flex-wrap: wrap;
     }
 
-    .mono-kicker {
-      font-family: var(--font-mono);
-      font-size: 10.5px;
-      font-weight: 600;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--green-bright);
-    }
-
-    .mono-note {
-      font-family: var(--font-mono);
-      font-size: 10.5px;
-      color: var(--ink-muted);
-    }
-
-    .model-stage {
-      position: relative;
+    .mandala-stage {
       width: 100%;
-      aspect-ratio: 16 / 11.2;
-      min-height: 490px;
-      border-radius: 12px;
+      aspect-ratio: 16 / 12.5;
+      min-height: 540px;
+      border-radius: 14px;
       background:
-        radial-gradient(circle at 50% 50%, rgba(116, 236, 174, 0.06), transparent 62%),
-        linear-gradient(180deg, rgba(255, 255, 255, 0.015), transparent),
-        #070A08;
+        radial-gradient(circle at 50% 50%, rgba(114, 236, 174, 0.07), transparent 62%),
+        #060908;
       border: 1px solid var(--border);
       overflow: hidden;
+      position: relative;
     }
 
-    #modelSvg {
+    #mandalaSvg {
       width: 100%;
       height: 100%;
       display: block;
       user-select: none;
     }
 
-    .semantic-part {
+    .geo-node {
       cursor: pointer;
       transition: opacity 0.25s var(--ease), filter 0.25s var(--ease);
     }
 
-    .semantic-part:hover {
-      filter: drop-shadow(0 0 8px rgba(116, 236, 174, 0.35));
+    .geo-node:hover {
+      filter: drop-shadow(0 0 10px rgba(114, 236, 174, 0.42));
     }
 
-    .semantic-part.is-muted {
+    .geo-node.is-dimmed {
       opacity: 0.16;
     }
 
-    /* Lectura semántica en vivo al tocar o pasar sobre cualquier parte del modelo */
-    .element-meaning-bar {
-      margin-top: 12px;
-      padding: 12px 15px;
-      border-radius: 10px;
+    /* Caja de explicación de la parte tocada */
+    .anatomy-readout {
+      margin-top: 14px;
+      padding: 14px 16px;
+      border-radius: 12px;
       background: var(--surface-2);
       border: 1px solid var(--border-strong);
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px;
-      flex-wrap: wrap;
+      flex-direction: column;
+      gap: 5px;
     }
 
-    .meaning-title {
-      font-family: var(--font-display);
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--green-bright);
+    .anatomy-part-tag {
+      font-size: 10.5px;
+      font-weight: 800;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
+      color: var(--green-bright);
     }
 
-    .meaning-desc {
-      font-size: 13px;
+    .anatomy-part-text {
+      font-size: 13.5px;
+      line-height: 1.5;
       color: var(--white-soft);
-      line-height: 1.45;
-      flex: 1 1 360px;
     }
 
-    .streets-strip {
-      margin-top: 12px;
+    /* Selector de las 8 calles */
+    .streets-pills {
+      margin-top: 14px;
       display: flex;
       gap: 7px;
       flex-wrap: wrap;
     }
 
-    .street-pill {
+    .st-pill {
       appearance: none;
       border: 1px solid var(--border);
       background: var(--surface-2);
       color: var(--white-soft);
-      font-family: var(--font-display);
-      font-size: 11.5px;
-      font-weight: 500;
-      padding: 6px 12px;
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 7px 12px;
       border-radius: 999px;
       cursor: pointer;
       transition: all 0.2s var(--ease);
     }
 
-    .street-pill:hover {
+    .st-pill:hover {
       border-color: var(--green-bright);
       color: var(--green-bright);
     }
 
-    .street-pill.is-active {
-      background: var(--green-mid);
+    .st-pill.is-active {
+      background: var(--green-bright);
       border-color: var(--green-bright);
-      color: #050806;
+      color: #050706;
       font-weight: 700;
     }
 
-    /* ==================== INSPECTOR LATERAL ==================== */
-    .inspector-col {
+    /* ==================== INSPECTOR DERECHO ==================== */
+    .inspector-panel {
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 18px;
     }
 
-    .street-head {
+    .insp-head {
       border-bottom: 1px solid var(--border);
-      padding-bottom: 12px;
+      padding-bottom: 14px;
       display: flex;
       align-items: baseline;
       justify-content: space-between;
       gap: 10px;
     }
 
-    .street-head h2 {
-      font-family: var(--font-display);
-      font-size: 1.55rem;
+    .insp-street-name {
+      font-size: 1.65rem;
       font-weight: 700;
+      letter-spacing: -0.015em;
       line-height: 1.1;
     }
 
-    .perception-grid {
+    .insp-city {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--green-bright);
+    }
+
+    .equiv-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 10px;
     }
 
-    .perc-box {
+    .equiv-card {
       background: var(--surface-2);
       border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 12px 14px;
+      border-radius: 12px;
+      padding: 13px 15px;
     }
 
-    .perc-val {
-      font-family: var(--font-display);
-      font-size: 1.9rem;
-      font-weight: 700;
+    .equiv-num {
+      font-size: 2rem;
+      font-weight: 800;
       line-height: 1;
       color: var(--green-bright);
     }
 
-    .perc-val.is-neg {
+    .equiv-num.is-neg {
       color: var(--neg-accent);
     }
 
-    .perc-lbl {
-      font-family: var(--font-mono);
-      font-size: 10.5px;
+    .equiv-sub {
+      font-size: 11px;
       color: var(--ink-muted);
-      margin-top: 5px;
+      margin-top: 6px;
     }
 
-    .vars-list {
+    .vars-stack {
       display: flex;
       flex-direction: column;
-      gap: 9px;
+      gap: 8px;
     }
 
-    .var-item {
-      padding: 8px 10px;
-      border-radius: 8px;
+    .var-card {
+      padding: 9px 12px;
+      border-radius: 10px;
       background: var(--surface-2);
-      border: 1px solid rgba(245, 248, 246, 0.07);
-      transition: border-color 0.2s var(--ease), opacity 0.2s var(--ease);
+      border: 1px solid rgba(246, 248, 247, 0.07);
+      cursor: pointer;
+      transition: all 0.2s var(--ease);
     }
 
-    .var-item.is-selected-var {
+    .var-card:hover {
+      border-color: rgba(114, 236, 174, 0.45);
+    }
+
+    .var-card.is-focused {
       border-color: var(--green-bright);
       background: var(--surface-3);
     }
 
-    .var-item.is-hidden-var {
-      opacity: 0.36;
+    .var-card.is-excluded {
+      opacity: 0.34;
     }
 
-    .var-top {
+    .var-card-head {
       display: flex;
       justify-content: space-between;
-      align-items: baseline;
+      align-items: center;
       font-size: 12.5px;
       margin-bottom: 5px;
     }
 
-    .var-name {
-      font-weight: 500;
+    .var-card-title {
+      font-weight: 600;
       color: var(--white-soft);
     }
 
-    .var-val {
-      font-family: var(--font-mono);
+    .var-card-val {
       font-size: 11px;
+      font-weight: 700;
       color: var(--green-bright);
     }
 
-    .var-bar {
+    .var-meter {
       height: 4px;
       border-radius: 999px;
-      background: rgba(245, 248, 246, 0.09);
+      background: rgba(246, 248, 247, 0.09);
       overflow: hidden;
     }
 
-    .var-fill {
+    .var-meter-fill {
       height: 100%;
       background: linear-gradient(90deg, var(--green-deep), var(--green-bright));
       border-radius: 999px;
       transition: width 0.35s var(--ease);
     }
 
-    /* ==================== VARIANTES ACTIVAS / NO ACTIVAS & COMPARACIÓN ==================== */
-    .variants-grid {
+    /* ==================== VARIANTES ACTIVAS / EXCLUIDAS Y COMPARACIÓN ==================== */
+    .variants-row {
       display: flex;
       gap: 8px;
       flex-wrap: wrap;
     }
 
-    .var-toggle {
+    .variant-chip {
       appearance: none;
       border: 1px solid var(--border);
       background: var(--surface-2);
       color: var(--ink-muted);
-      font-family: var(--font-mono);
+      font-family: var(--font-sans);
       font-size: 11px;
-      letter-spacing: 0.09em;
+      font-weight: 700;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      padding: 8px 13px;
+      padding: 8px 14px;
       border-radius: 999px;
       cursor: pointer;
       transition: all 0.2s var(--ease);
     }
 
-    .var-toggle.is-on {
+    .variant-chip.is-active {
       background: var(--green-soft);
       border-color: var(--green-bright);
       color: var(--green-bright);
-      font-weight: 600;
     }
 
-    .compare-row {
+    .compare-two-col {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
+      gap: 16px;
     }
 
-    .compare-card {
+    .cmp-box {
       background: var(--surface-2);
       border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 14px;
+      border-radius: 12px;
+      padding: 16px;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 10px;
     }
 
-    .compare-card select {
+    .cmp-box select {
       background: var(--surface);
       color: var(--ink);
       border: 1px solid var(--border-strong);
-      border-radius: 6px;
-      padding: 6px 10px;
-      font-family: var(--font-body);
+      border-radius: 8px;
+      padding: 7px 10px;
+      font-family: var(--font-sans);
       font-size: 12.5px;
     }
 
-    .scale-bar {
-      height: 8px;
+    .shared-scale {
+      height: 9px;
       border-radius: 999px;
-      background: rgba(245, 248, 246, 0.08);
+      background: rgba(246, 248, 247, 0.08);
       overflow: hidden;
       display: flex;
     }
 
-    .scale-pos {
+    .shared-pos {
       background: var(--green-bright);
       height: 100%;
       transition: width 0.35s var(--ease);
     }
 
-    .scale-neg {
+    .shared-neg {
       background: var(--neg-accent);
       height: 100%;
       transition: width 0.35s var(--ease);
     }
 
     @media (max-width: 1080px) {
-      .centerpiece-layout,
-      .compare-row,
-      .research-pillars {
+      .intro-grid,
+      .harmony-layout,
+      .compare-two-col {
         grid-template-columns: 1fr;
+      }
+
+      .mandala-stage {
+        min-height: 430px;
       }
     }
   </style>
 </head>
 <body>
-  <!-- MODAL DE INVESTIGACIÓN AL INICIO -->
-  <div id="researchGate" class="research-gate" role="dialog" aria-modal="true" aria-labelledby="researchHeading">
-    <div class="research-card">
-      <span class="research-kicker">Investigación · Tramas de Elección</span>
-      <h1 id="researchHeading" class="research-title">Transitabilidad: Valparaíso y Buenos Aires</h1>
-      <p class="research-copy">
-        Esta visualización investiga la transitabilidad peatonal en ocho calles de Valparaíso y Buenos Aires. Cada línea, anillo, radio y nodo del modelo central tiene una función específica: al tocar o recorrer cualquier elemento verás qué variable representa, cómo se comporta según el territorio y qué variantes están activas o excluidas.
-      </p>
-      <div class="research-pillars">
-        <div class="pillar-box">
-          <span class="pillar-label">01 · Territorios y Calles</span>
-          <p class="pillar-text">Valparaíso (Serrano, Cochrane, Blanco, Errázuriz) y Buenos Aires (Paseo Colón, Azopardo, Ingeniero Huergo, Alicia Moreau de Justo).</p>
-        </div>
-        <div class="pillar-box">
-          <span class="pillar-label">02 · Percepción en Personas</span>
-          <p class="pillar-text">Equivalencia directa de transitabilidad: 5 fichas = 1 persona equivalente, conservando decimales sin redondear.</p>
-        </div>
-        <div class="pillar-box">
-          <span class="pillar-label">03 · Lectura por Elemento</span>
-          <p class="pillar-text">Cada trazo radial, anillo de cota y nodo de condición física responde al cursor y al clic con su significado exacto.</p>
-        </div>
-      </div>
-      <div class="research-actions">
-        <button id="enterAppBtn" class="btn-primary" type="button">Abrir visualización central</button>
-        <span class="mono-note">Datos exclusivos de transitabilidad · Escalas originales y ND</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- ENCABEZADO -->
-  <header class="top-header">
-    <div class="header-wrap">
-      <div class="brand-col">
-        <span class="brand-kicker">Tramas de Elección · Investigación Urbana</span>
-        <h1 class="brand-title">Transitabilidad</h1>
+  <!-- NAVEGACIÓN SUPERIOR -->
+  <header class="top-nav">
+    <div class="top-nav-inner">
+      <div class="nav-brand">
+        <span class="nav-brand-title">Transitabilidad</span>
+        <span class="nav-brand-sub">Valparaíso · Buenos Aires</span>
       </div>
 
-      <div class="territory-controls" role="group" aria-label="Desglose territorial">
-        <button class="territory-btn" data-territory="Chile" type="button">Chile · Valparaíso</button>
-        <button class="territory-btn" data-territory="Argentina" type="button">Argentina · Buenos Aires</button>
-        <button class="territory-btn is-active" data-territory="Ambos" type="button">Argentina y Chile</button>
-      </div>
+      <nav class="nav-links" aria-label="Secciones de la página">
+        <a href="#investigacion">Investigación</a>
+        <a href="#modelo-central">Modelo Central</a>
+        <a href="#variantes-control">Variantes</a>
+        <a href="#comparacion-calles">Comparar</a>
+      </nav>
 
-      <div class="view-pills" role="group" aria-label="Modo de lectura">
-        <button class="view-pill is-active" data-view="calles" type="button">Calles</button>
-        <button class="view-pill" data-view="variantes" type="button">Variantes</button>
-        <button class="view-pill" data-view="comparar" type="button">Comparar</button>
+      <div class="territory-bar" role="group" aria-label="Desglose territorial">
+        <button class="terr-btn is-active" data-terr="Ambos" type="button">Argentina y Chile</button>
+        <button class="terr-btn" data-terr="Chile" type="button">Solo Chile</button>
+        <button class="terr-btn" data-terr="Argentina" type="button">Solo Argentina</button>
       </div>
     </div>
   </header>
 
-  <!-- CONTENIDO PRINCIPAL -->
-  <main class="main-shell">
-    <section class="centerpiece-layout">
-      <!-- MODELO CENTRAL DE ALTO PESO VISUAL -->
-      <div class="panel">
-        <div class="panel-top">
-          <span class="mono-kicker">Modelo Central · Anatomía de Transitabilidad</span>
-          <div style="display:flex; gap:8px; align-items:center;">
-            <span id="activeVariantsCount" class="mono-note">8/8 variantes activas</span>
-            <button id="reopenResearchBtn" class="btn-ghost" type="button">Investigación</button>
+  <!-- 1. ZONA INTRODUCTORIA: POR QUÉ VALPARAÍSO Y BUENOS AIRES + DIMENSIONES DE LA INVESTIGACIÓN -->
+  <section id="investigacion" class="intro-section" aria-label="Introducción de la investigación">
+    <div class="hero-eyebrow">Tramas de Elección · Estudio Urbano Comparado</div>
+    <h1 class="hero-display-title">
+      El Peso de Caminar en <span>Valparaíso</span> y <span>Buenos Aires</span>
+    </h1>
+
+    <div class="intro-grid">
+      <div>
+        <p class="intro-lead">
+          ¿Por qué comparar Valparaíso y Buenos Aires? Ambas son ciudades portuarias con fuerte relación histórica con el borde marítimo y fluvial, pero resuelven su trama peatonal desde topografías y escalas urbanas distintas: las pendientes, escaleras y calles del plan porteño valparaiseño frente a los amplios corredores y paseos de Buenos Aires.
+        </p>
+        <p class="intro-body">
+          Aunque la investigación registra múltiples dimensiones de la experiencia urbana —como luminosidad, transitabilidad, seguridad y actividad urbana—, esta visualización se concentra específicamente en la <strong>transitabilidad</strong> de ambos territorios, contrastando la percepción peatonal (5 fichas = 1 persona equivalente, sin redondeo) con las condiciones físicas del recorrido y mostrando en cada componente del modelo qué significa cada trazo, anillo o nodo.
+        </p>
+      </div>
+
+      <div class="dimensions-box">
+        <span class="box-kicker">Dimensiones de la Investigación · Enfoque Actual</span>
+        <div class="dim-list">
+          <div class="dim-row is-active-dim">
+            <span class="dim-name">Transitabilidad (Valparaíso y Buenos Aires)</span>
+            <span class="dim-status">Activa en modelo</span>
+          </div>
+          <div class="dim-row">
+            <span class="dim-name">Luminosidad</span>
+            <span class="dim-status is-other">Dimensión paralela del estudio</span>
+          </div>
+          <div class="dim-row">
+            <span class="dim-name">Seguridad</span>
+            <span class="dim-status is-other">Dimensión paralela del estudio</span>
+          </div>
+          <div class="dim-row">
+            <span class="dim-name">Actividad urbana</span>
+            <span class="dim-status is-other">Dimensión paralela del estudio</span>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
 
-        <div class="model-stage">
-          <svg id="modelSvg" viewBox="0 0 880 616" role="img" aria-label="Modelo interactivo de transitabilidad para Chile y Argentina y sus ocho calles"></svg>
+  <!-- 2. MODELO ARMÓNICO CENTRAL + LECTURA DE CADA PARTE + VARIANTES + COMPARACIÓN -->
+  <main class="main-section">
+    <div id="modelo-central" class="section-header-block">
+      <div>
+        <span class="box-kicker">Arquitectura Radial Integrada</span>
+        <h2 class="section-heading-lg">Modelo Armónico de Transitabilidad</h2>
+      </div>
+      <span id="statusSummary" class="nav-brand-sub">Argentina y Chile · 8 calles</span>
+    </div>
+
+    <section class="harmony-layout">
+      <!-- MODELO CENTRAL ARMÓNICO (NO CRECE HACIA ABAJO COMO DOS COLUMNAS) -->
+      <div class="panel">
+        <div class="panel-bar">
+          <span class="box-kicker">Mandala Cartográfico · Toca cualquier anillo, radio o nodo</span>
+          <span id="activeVarBadge" class="dim-status">Variable: Materialidad</span>
         </div>
 
-        <!-- Significado inmediato de cada línea, anillo o punto tocado -->
-        <div id="meaningBar" class="element-meaning-bar" aria-live="polite">
-          <span id="meaningTitle" class="meaning-title">Núcleo · Transitabilidad</span>
-          <p id="meaningDesc" class="meaning-desc">
-            Pasa el cursor o haz clic sobre cualquier radio de calle, anillo territorial, trazo ramificado o nodo para leer su significado en la investigación.
+        <div class="mandala-stage">
+          <svg id="mandalaSvg" viewBox="0 0 840 660" role="img" aria-label="Modelo radial armónico que integra Chile y Argentina y las ocho calles"></svg>
+        </div>
+
+        <!-- Explicación explícita de cada parte al tocarla -->
+        <div id="anatomyReadout" class="anatomy-readout" aria-live="polite">
+          <span id="anatomyTitle" class="anatomy-part-tag">Significado del componente</span>
+          <p id="anatomyDesc" class="anatomy-part-text">
+            Pasa el cursor o haz clic sobre el núcleo central, los anillos concéntricos, los pétalos/radios de cada calle o los nodos periféricos para leer exactamente qué representa cada elemento.
           </p>
         </div>
 
-        <!-- Desglose rápido por calles según territorio activo -->
-        <div id="streetsStrip" class="streets-strip" aria-label="Selección de calles"></div>
+        <!-- Selector de las 8 calles -->
+        <div id="streetsPills" class="streets-pills" aria-label="Calles estudiadas"></div>
       </div>
 
       <!-- INSPECTOR LATERAL -->
-      <aside class="panel inspector-col" aria-label="Datos de la calle seleccionada">
-        <div class="street-head">
-          <h2 id="inspTitle">Serrano</h2>
-          <span id="inspTerritory" class="mono-kicker">Valparaíso · Chile</span>
+      <aside class="panel inspector-panel" aria-label="Ficha de calle seleccionada">
+        <div class="insp-head">
+          <h3 id="inspName" class="insp-street-name">Serrano</h3>
+          <span id="inspCity" class="insp-city">Valparaíso · Chile</span>
         </div>
 
-        <div class="perception-grid">
-          <div class="perc-box">
-            <div id="inspPos" class="perc-val">1,8</div>
-            <div id="inspPosSub" class="perc-lbl">Positiva · 9 fichas / 5</div>
+        <div class="equiv-grid">
+          <div class="equiv-card">
+            <div id="inspPosNum" class="equiv-num">1,8</div>
+            <div id="inspPosSub" class="equiv-sub">Positiva · 9 fichas / 5</div>
           </div>
-          <div class="perc-box">
-            <div id="inspNeg" class="perc-val is-neg">1,0</div>
-            <div id="inspNegSub" class="perc-lbl">Negativa · 5 fichas / 5</div>
+          <div class="equiv-card">
+            <div id="inspNegNum" class="equiv-num is-neg">1,0</div>
+            <div id="inspNegSub" class="equiv-sub">Negativa · 5 fichas / 5</div>
           </div>
         </div>
 
         <div>
-          <div class="panel-top" style="margin-bottom:8px;">
-            <span class="mono-kicker">Variables del Recorrido</span>
-            <span class="mono-note">Activas vs. excluidas</span>
+          <div class="panel-bar" style="margin-bottom:8px;">
+            <span class="box-kicker">Variables del Recorrido</span>
+            <span class="nav-brand-sub" style="color:var(--ink-muted);">Clic para enfocar</span>
           </div>
-          <div id="varsList" class="vars-list"></div>
+          <div id="varsStack" class="vars-stack"></div>
         </div>
       </aside>
     </section>
 
-    <!-- SELECCIONAR QUÉ VARIANTES SE VEN Y CUÁLES NO -->
-    <section class="panel" aria-label="Variantes visibles en el modelo">
-      <div class="panel-top">
-        <span class="mono-kicker">Variantes del Modelo · Mostrar / Ocultar</span>
-        <span class="mono-note">Al desactivar una variante se atenúa su trazo y se marca como excluida</span>
+    <!-- QUÉ VARIANTES SE VEN Y CUÁLES NO -->
+    <section id="variantes-control" class="panel" aria-label="Control de variantes visibles">
+      <div class="panel-bar">
+        <span class="box-kicker">Selección de Variantes · Visibles vs. Excluidas</span>
+        <span id="variantsCounter" class="dim-status">8/8 visibles</span>
       </div>
-      <div id="variantsToggles" class="variants-grid"></div>
+      <div id="variantsRow" class="variants-row"></div>
     </section>
 
-    <!-- COMPARACIÓN CON ESCALA COMPARTIDA -->
-    <section class="panel" aria-label="Comparación de calles">
-      <div class="panel-top">
-        <span class="mono-kicker">Comparación Entre Calles</span>
-        <span class="mono-note">Escala compartida · 5 fichas = 1 persona equivalente</span>
+    <!-- COMPARACIÓN DIRECTA ENTRE DOS CALLES -->
+    <section id="comparacion-calles" class="panel" aria-label="Comparación entre dos calles">
+      <div class="panel-bar">
+        <span class="box-kicker">Comparación con Escala Compartida</span>
+        <span class="nav-brand-sub" style="color:var(--ink-muted);">5 fichas = 1 persona equivalente (sin redondeo)</span>
       </div>
-      <div id="compareRow" class="compare-row"></div>
+      <div id="compareTwoCol" class="compare-two-col"></div>
     </section>
   </main>
 
@@ -781,14 +776,14 @@
         posFichas: 9,
         negFichas: 5,
         vars: {
-          materialidad: { label: "Materialidad", val: "Baldosa / Hormigón", score: 3, max: 5, meaning: "Superficie mixta con desgaste en paños de baldosa." },
-          desniveles: { label: "Desniveles", val: "2/5", score: 2, max: 5, meaning: "Pendiente moderada asociada al encuentro con cerros y borde." },
-          obstaculos: { label: "Obstáculos", val: "3 reg.", score: 3, max: 5, meaning: "Tres registros de obstrucción o estrechamiento sobre el recorrido." },
-          flujo: { label: "Flujo peatonal", val: "Medio-alto", score: 4, max: 5, meaning: "Presencia peatonal sostenida durante el día." },
-          dificultad: { label: "Dificultad", val: "2/5", score: 2, max: 5, meaning: "Dificultad moderada en uniones y cambios de cota." },
-          continuidad: { label: "Continuidad", val: "Parcial", score: 3, max: 5, meaning: "Continuidad parcial con tramos de transición." },
-          esfuerzo: { label: "Esfuerzo físico", val: "2/5", score: 2, max: 5, meaning: "Exigencia física moderada al caminar." },
-          estabilidad: { label: "Estabilidad", val: "Variable", score: 3, max: 5, meaning: "Apoyo variable por piezas irregulares." }
+          materialidad: { label: "Materialidad", val: "Baldosa / Hormigón", score: 3, max: 5, desc: "Superficie mixta con desgaste en tramos de baldosa y hormigón." },
+          desniveles: { label: "Desniveles", val: "2/5", score: 2, max: 5, desc: "Pendiente moderada entre cerros y borde urbano." },
+          obstaculos: { label: "Obstáculos", val: "3 reg.", score: 3, max: 5, desc: "Tres registros de interrupción o estrechamiento en la acera." },
+          flujo: { label: "Flujo peatonal", val: "Medio-alto", score: 4, max: 5, desc: "Circulación peatonal sostenida durante la jornada." },
+          dificultad: { label: "Dificultad", val: "2/5", score: 2, max: 5, desc: "Dificultad moderada al enlazar tramos de distinta cota." },
+          continuidad: { label: "Continuidad", val: "Parcial", score: 3, max: 5, desc: "Continuidad parcial con transiciones notorias." },
+          esfuerzo: { label: "Esfuerzo físico", val: "2/5", score: 2, max: 5, desc: "Exigencia física moderada durante el desplazamiento." },
+          estabilidad: { label: "Estabilidad", val: "Variable", score: 3, max: 5, desc: "Estabilidad variable según el estado de cada paño." }
         }
       },
       {
@@ -800,14 +795,14 @@
         posFichas: 5,
         negFichas: 4,
         vars: {
-          materialidad: { label: "Materialidad", val: "Pavimento mixto", score: 2, max: 5, meaning: "Combinación de baldosas y tramos reparados." },
-          desniveles: { label: "Desniveles", val: "1/5", score: 1, max: 5, meaning: "Desnivel leve en el plan de Valparaíso." },
-          obstaculos: { label: "Obstáculos", val: "4 reg.", score: 4, max: 5, meaning: "Cuatro registros de obstáculos o desvíos laterales." },
-          flujo: { label: "Flujo peatonal", val: "Medio", score: 3, max: 5, meaning: "Flujo peatonal medio con tramos puntuales." },
-          dificultad: { label: "Dificultad", val: "3/5", score: 3, max: 5, meaning: "Dificultad media-alta por interferencias en el trayecto." },
-          continuidad: { label: "Continuidad", val: "Discontinua", score: 2, max: 5, meaning: "Trayecto discontinuo en segmentos de acera." },
-          esfuerzo: { label: "Esfuerzo físico", val: "2/5", score: 2, max: 5, meaning: "Esfuerzo moderado por cambios de trayectoria." },
-          estabilidad: { label: "Estabilidad", val: "Irregular", score: 2, max: 5, meaning: "Estabilidad irregular en puntos de apoyo." }
+          materialidad: { label: "Materialidad", val: "Pavimento mixto", score: 2, max: 5, desc: "Mezcla de baldosas y sectores reparados." },
+          desniveles: { label: "Desniveles", val: "1/5", score: 1, max: 5, desc: "Desnivel leve en el plan." },
+          obstaculos: { label: "Obstáculos", val: 4, max: 5, val: "4 reg.", desc: "Cuatro registros de obstáculos o desvíos laterales." },
+          flujo: { label: "Flujo peatonal", val: "Medio", score: 3, max: 5, desc: "Flujo peatonal medio." },
+          dificultad: { label: "Dificultad", val: "3/5", score: 3, max: 5, desc: "Dificultad media-alta por fricción en el recorrido." },
+          continuidad: { label: "Continuidad", val: "Discontinua", score: 2, max: 5, desc: "Trayecto discontinuo en segmentos." },
+          esfuerzo: { label: "Esfuerzo físico", val: "2/5", score: 2, max: 5, desc: "Esfuerzo moderado por cambios de trayectoria." },
+          estabilidad: { label: "Estabilidad", val: "Irregular", score: 2, max: 5, desc: "Apoyo irregular en puntos del pavimento." }
         }
       },
       {
@@ -819,14 +814,14 @@
         posFichas: 7,
         negFichas: 7,
         vars: {
-          materialidad: { label: "Materialidad", val: "Baldosa / Asfalto", score: 3, max: 5, meaning: "Superficie de acera con sectores desgastados." },
-          desniveles: { label: "Desniveles", val: "1/5", score: 1, max: 5, meaning: "Desnivel leve en trazado longitudinal." },
-          obstaculos: { label: "Obstáculos", val: "3 reg.", score: 3, max: 5, meaning: "Tres registros de elementos o cruces que interrumpen." },
-          flujo: { label: "Flujo peatonal", val: "Alto", score: 5, max: 5, meaning: "Alto flujo peatonal y actividad urbana." },
-          dificultad: { label: "Dificultad", val: "2/5", score: 2, max: 5, meaning: "Dificultad moderada en cruces y convivencia." },
-          continuidad: { label: "Continuidad", val: "Alta", score: 4, max: 5, meaning: "Alta continuidad a lo largo del eje." },
-          esfuerzo: { label: "Esfuerzo físico", val: 1, max: 5, val: "1/5", meaning: "Esfuerzo físico leve." },
-          estabilidad: { label: "Estabilidad", val: "Media-alta", score: 4, max: 5, meaning: "Estabilidad media-alta en la pisada." }
+          materialidad: { label: "Materialidad", val: "Baldosa / Asfalto", score: 3, max: 5, desc: "Aceras de baldosa con sectores de borde desgastados." },
+          desniveles: { label: "Desniveles", val: "1/5", score: 1, max: 5, desc: "Desnivel leve en eje longitudinal." },
+          obstaculos: { label: "Obstáculos", val: "3 reg.", score: 3, max: 5, desc: "Tres registros de elementos que interrumpen el paso." },
+          flujo: { label: "Flujo peatonal", val: "Alto", score: 5, max: 5, desc: "Alto flujo peatonal." },
+          dificultad: { label: "Dificultad", val: "2/5", score: 2, max: 5, desc: "Dificultad moderada en cruces y tramos concurridos." },
+          continuidad: { label: "Continuidad", val: "Alta", score: 4, max: 5, desc: "Alta continuidad a lo largo de la calle." },
+          esfuerzo: { label: "Esfuerzo físico", val: "1/5", score: 1, max: 5, desc: "Esfuerzo físico leve." },
+          estabilidad: { label: "Estabilidad", val: "Media-alta", score: 4, max: 5, desc: "Estabilidad media-alta en la pisada." }
         }
       },
       {
@@ -838,14 +833,14 @@
         posFichas: 6,
         negFichas: 2,
         vars: {
-          materialidad: { label: "Materialidad", val: "Hormigón / Baldosa", score: 4, max: 5, meaning: "Superficie amplia de hormigón y baldosa." },
-          desniveles: { label: "Desniveles", val: "1/5", score: 1, max: 5, meaning: "Desnivel leve y perfil regular." },
-          obstaculos: { label: "Obstáculos", val: "1 reg.", score: 1, max: 5, meaning: "Un registro de obstáculo." },
-          flujo: { label: "Flujo peatonal", val: "Medio", score: 3, max: 5, meaning: "Flujo peatonal medio." },
-          dificultad: { label: "Dificultad", val: "1/5", score: 1, max: 5, meaning: "Baja dificultad de desplazamiento." },
-          continuidad: { label: "Continuidad", val: "Alta", score: 4, max: 5, meaning: "Alta continuidad lineal." },
-          esfuerzo: { label: "Esfuerzo físico", val: "1/5", score: 1, max: 5, meaning: "Bajo esfuerzo físico." },
-          estabilidad: { label: "Estabilidad", val: "Alta", score: 4, max: 5, meaning: "Alta estabilidad del suelo." }
+          materialidad: { label: "Materialidad", val: "Hormigón / Baldosa", score: 4, max: 5, desc: "Franja amplia de hormigón y baldosa." },
+          desniveles: { label: "Desniveles", val: "1/5", score: 1, max: 5, desc: "Desnivel leve." },
+          obstaculos: { label: "Obstáculos", val: "1 reg.", score: 1, max: 5, desc: "Un registro de obstáculo." },
+          flujo: { label: "Flujo peatonal", val: "Medio", score: 3, max: 5, desc: "Flujo peatonal medio." },
+          dificultad: { label: "Dificultad", val: "1/5", score: 1, max: 5, desc: "Baja dificultad de desplazamiento." },
+          continuidad: { label: "Continuidad", val: "Alta", score: 4, max: 5, desc: "Alta continuidad." },
+          esfuerzo: { label: "Esfuerzo físico", val: "1/5", score: 1, max: 5, desc: "Bajo esfuerzo físico." },
+          estabilidad: { label: "Estabilidad", val: "Alta", score: 4, max: 5, desc: "Alta estabilidad del suelo." }
         }
       },
       {
@@ -857,14 +852,14 @@
         posFichas: 5,
         negFichas: 5,
         vars: {
-          materialidad: { label: "Materialidad", val: "Baldosa / Hormigón", score: 3, max: 5, meaning: "Alternancia de solados a lo largo de la avenida." },
-          desniveles: { label: "Desniveles", val: "1/5", score: 1, max: 5, meaning: "Desnivel leve en topografía urbana." },
-          obstaculos: { label: "Obstáculos", val: "4 reg.", score: 4, max: 5, meaning: "Cuatro registros de obstáculos en el recorrido." },
-          flujo: { label: "Flujo peatonal", val: "Alto", score: 5, max: 5, meaning: "Alto flujo peatonal." },
-          dificultad: { label: "Dificultad", val: "3/5", score: 3, max: 5, meaning: "Dificultad media-alta en cruces amplios." },
-          continuidad: { label: "Continuidad", val: "Parcial", score: 3, max: 5, meaning: "Continuidad parcial condicionada por intersecciones." },
-          esfuerzo: { label: "Esfuerzo físico", val: "2/5", score: 2, max: 5, meaning: "Esfuerzo físico moderado." },
-          estabilidad: { label: "Estabilidad", val: "Media", score: 3, max: 5, meaning: "Estabilidad media del apoyo." }
+          materialidad: { label: "Materialidad", val: "Baldosa / Hormigón", score: 3, max: 5, desc: "Cambios de solado entre cuadras y cruces." },
+          desniveles: { label: "Desniveles", val: "1/5", score: 1, max: 5, desc: "Desnivel leve en topografía urbana." },
+          obstaculos: { label: "Obstáculos", val: "4 reg.", score: 4, max: 5, desc: "Cuatro registros de obstáculos a lo largo del corredor." },
+          flujo: { label: "Flujo peatonal", val: "Alto", score: 5, max: 5, desc: "Alto flujo peatonal." },
+          dificultad: { label: "Dificultad", val: "3/5", score: 3, max: 5, desc: "Dificultad media-alta en cruces amplios." },
+          continuidad: { label: "Continuidad", val: "Parcial", score: 3, max: 5, desc: "Continuidad parcial condicionada por intersecciones." },
+          esfuerzo: { label: "Esfuerzo físico", val: "2/5", score: 2, max: 5, desc: "Esfuerzo físico moderado." },
+          estabilidad: { label: "Estabilidad", val: "Media", score: 3, max: 5, desc: "Estabilidad media del apoyo." }
         }
       },
       {
@@ -876,14 +871,14 @@
         posFichas: 5,
         negFichas: 4,
         vars: {
-          materialidad: { label: "Materialidad", val: "Baldosa / Pavimento", score: 3, max: 5, meaning: "Solado con desgaste puntual." },
-          desniveles: { label: "Desniveles", val: "1/5", score: 1, max: 5, meaning: "Desnivel leve." },
-          obstaculos: { label: "Obstáculos", val: "3 reg.", score: 3, max: 5, meaning: "Tres registros de obstáculos." },
-          flujo: { label: "Flujo peatonal", val: "Medio", score: 3, max: 5, meaning: "Flujo peatonal medio." },
-          dificultad: { label: "Dificultad", val: "2/5", score: 2, max: 5, meaning: "Dificultad moderada." },
-          continuidad: { label: "Continuidad", val: "Parcial", score: 3, max: 5, meaning: "Continuidad parcial." },
-          esfuerzo: { label: "Esfuerzo físico", val: "2/5", score: 2, max: 5, meaning: "Esfuerzo moderado." },
-          estabilidad: { label: "Estabilidad", val: "Media", score: 3, max: 5, meaning: "Estabilidad media." }
+          materialidad: { label: "Materialidad", val: "Baldosa / Pavimento", score: 3, max: 5, desc: "Superficie con desgaste puntual." },
+          desniveles: { label: "Desniveles", val: "1/5", score: 1, max: 5, desc: "Desnivel leve." },
+          obstaculos: { label: "Obstáculos", val: "3 reg.", score: 3, max: 5, desc: "Tres registros de obstáculos." },
+          flujo: { label: "Flujo peatonal", val: "Medio", score: 3, max: 5, desc: "Flujo peatonal medio." },
+          dificultad: { label: "Dificultad", val: "2/5", score: 2, max: 5, desc: "Dificultad moderada." },
+          continuidad: { label: "Continuidad", val: "Parcial", score: 3, max: 5, desc: "Continuidad parcial." },
+          esfuerzo: { label: "Esfuerzo físico", val: "2/5", score: 2, max: 5, desc: "Esfuerzo moderado." },
+          estabilidad: { label: "Estabilidad", val: "Media", score: 3, max: 5, desc: "Estabilidad media." }
         }
       },
       {
@@ -895,14 +890,14 @@
         posFichas: 7,
         negFichas: 7,
         vars: {
-          materialidad: { label: "Materialidad", val: "Hormigón / Baldosa", score: 3, max: 5, meaning: "Superficie mixta en corredor amplio." },
-          desniveles: { label: "Desniveles", val: "2/5", score: 2, max: 5, meaning: "Desnivel moderado en accesos y pasos." },
-          obstaculos: { label: "Obstáculos", val: "4 reg.", score: 4, max: 5, meaning: "Cuatro registros de obstáculos." },
-          flujo: { label: "Flujo peatonal", val: "Medio-bajo", score: 2, max: 5, meaning: "Flujo peatonal medio-bajo." },
-          dificultad: { label: "Dificultad", val: "3/5", score: 3, max: 5, meaning: "Dificultad media-alta." },
-          continuidad: { label: "Continuidad", val: "Discontinua", score: 2, max: 5, meaning: "Continuidad discontinua en tramos." },
-          esfuerzo: { label: "Esfuerzo físico", val: "2/5", score: 2, max: 5, meaning: "Esfuerzo físico moderado." },
-          estabilidad: { label: "Estabilidad", val: "Media", score: 3, max: 5, meaning: "Estabilidad media." }
+          materialidad: { label: "Materialidad", val: "Hormigón / Baldosa", score: 3, max: 5, desc: "Superficie mixta en corredor amplio." },
+          desniveles: { label: "Desniveles", val: "2/5", score: 2, max: 5, desc: "Desnivel moderado en pasos y accesos." },
+          obstaculos: { label: "Obstáculos", val: "4 reg.", score: 4, max: 5, desc: "Cuatro registros de obstáculos." },
+          flujo: { label: "Flujo peatonal", val: "Medio-bajo", score: 2, max: 5, desc: "Flujo peatonal medio-bajo." },
+          dificultad: { label: "Dificultad", val: "3/5", score: 3, max: 5, desc: "Dificultad media-alta." },
+          continuidad: { label: "Continuidad", val: "Discontinua", score: 2, max: 5, desc: "Continuidad discontinua en tramos." },
+          esfuerzo: { label: "Esfuerzo físico", val: "2/5", score: 2, max: 5, desc: "Esfuerzo físico moderado." },
+          estabilidad: { label: "Estabilidad", val: 3, max: 5, val: "Media", desc: "Estabilidad media." }
         }
       },
       {
@@ -914,14 +909,14 @@
         posFichas: 6,
         negFichas: 2,
         vars: {
-          materialidad: { label: "Materialidad", val: "Piedra / Baldosa", score: 4, max: 5, meaning: "Paseo consolidado de piedra y baldosa." },
-          desniveles: { label: "Desniveles", val: "1/5", score: 1, max: 5, meaning: "Desnivel leve." },
-          obstaculos: { label: "Obstáculos", val: "1 reg.", score: 1, max: 5, meaning: "Un registro de obstáculo." },
-          flujo: { label: "Flujo peatonal", val: "Alto", score: 5, max: 5, meaning: "Alto flujo peatonal." },
-          dificultad: { label: "Dificultad", val: "1/5", score: 1, max: 5, meaning: "Baja dificultad." },
-          continuidad: { label: "Continuidad", val: "Alta", score: 5, max: 5, meaning: "Alta continuidad." },
-          esfuerzo: { label: "Esfuerzo físico", val: "1/5", score: 1, max: 5, meaning: "Bajo esfuerzo físico." },
-          estabilidad: { label: "Estabilidad", val: 4, max: 5, val: "4/5", meaning: "Alta estabilidad del apoyo." }
+          materialidad: { label: "Materialidad", val: "Piedra / Baldosa", score: 4, max: 5, desc: "Paseo consolidado de piedra y baldosa." },
+          desniveles: { label: "Desniveles", val: "1/5", score: 1, max: 5, desc: "Desnivel leve." },
+          obstaculos: { label: "Obstáculos", val: "1 reg.", score: 1, max: 5, desc: "Un registro de obstáculo." },
+          flujo: { label: "Flujo peatonal", val: "Alto", score: 5, max: 5, desc: "Alto flujo peatonal." },
+          dificultad: { label: "Dificultad", val: "1/5", score: 1, max: 5, desc: "Baja dificultad." },
+          continuidad: { label: "Continuidad", val: 5, max: 5, val: "Alta", desc: "Alta continuidad." },
+          esfuerzo: { label: "Esfuerzo físico", val: 1, max: 5, val: "1/5", desc: "Bajo esfuerzo físico." },
+          estabilidad: { label: "Estabilidad", val: "Alta", score: 4, max: 5, desc: "Alta estabilidad del apoyo." }
         }
       }
     ];
@@ -939,9 +934,8 @@
 
     const state = {
       territory: "Ambos", // 'Ambos' | 'Chile' | 'Argentina'
-      view: "calles", // 'calles' | 'variantes' | 'comparar'
       selectedStreetId: "serrano",
-      focusedVarKey: "materialidad",
+      focusedVar: "materialidad",
       visibleVars: {
         materialidad: true,
         desniveles: true,
@@ -954,11 +948,11 @@
       },
       compareA: "serrano",
       compareB: "paseo-colon",
-      pulsePhase: 0
+      tick: 0
     };
 
-    function fmtEs(num) {
-      return Number(num.toFixed(4)).toString().replace(".", ",");
+    function fmtEs(n) {
+      return Number(n.toFixed(4)).toString().replace(".", ",");
     }
 
     function getStreet(id) {
@@ -970,170 +964,211 @@
       return STREETS.filter((s) => s.territory === state.territory);
     }
 
-    function setMeaning(title, desc) {
-      document.getElementById("meaningTitle").textContent = title;
-      document.getElementById("meaningDesc").textContent = desc;
+    function setAnatomyReadout(title, desc) {
+      document.getElementById("anatomyTitle").textContent = title;
+      document.getElementById("anatomyDesc").textContent = desc;
     }
 
     /* =========================================================================
-       MODELO CENTRAL COMPLEJO CON SIGNIFICADO EN CADA LÍNEA, ANILLO Y PUNTO
+       COMPONENTE ARMÓNICO CENTRAL: MANDALA CARTOGRÁFICO DE 360°
+       Cada elemento (núcleo, semicírculos territoriales, 8 sectores/radios de calles,
+       anillo de variables y nodos exteriores) tiene sentido explícito al tocarlo.
        ========================================================================= */
-    function renderCentralModel() {
-      const svg = document.getElementById("modelSvg");
-      const activeStreet = getStreet(state.selectedStreetId);
+    function renderHarmonicMandala() {
+      const svg = document.getElementById("mandalaSvg");
+      const street = getStreet(state.selectedStreetId);
       const visibleStreets = getVisibleStreets();
       const activeVarCount = Object.values(state.visibleVars).filter(Boolean).length;
 
-      document.getElementById("activeVariantsCount").textContent =
-        `${activeVarCount}/${VAR_KEYS.length} variantes activas`;
+      document.getElementById("statusSummary").textContent =
+        `${state.territory === "Ambos" ? "Argentina y Chile" : state.territory} · ${visibleStreets.length} calles · ${activeVarCount}/${VAR_KEYS.length} variantes`;
 
-      const cx = 440;
-      const cy = 308;
+      const fVar = street.vars[state.focusedVar];
+      document.getElementById("activeVarBadge").textContent =
+        `Variable: ${fVar.label} ${state.visibleVars[state.focusedVar] ? "(Visible)" : "(Oculta)"}`;
 
-      const posPeople = activeStreet.posFichas / 5;
-      const negPeople = activeStreet.negFichas / 5;
+      const cx = 420;
+      const cy = 330;
 
-      // 1. Anillos concéntricos con significado explícito
-      const ringsMarkup = `
-        <g class="semantic-part" data-mean-title="Anillo Exterior · Escala Territorial (Chile / Argentina)"
-           data-mean-desc="Delimita el alcance de las 8 calles estudiadas en Valparaíso y Buenos Aires. Los trazos continuos indican variables activas; los punteados señalan variantes desactivadas.">
-          <circle cx="${cx}" cy="${cy}" r="228" fill="none" stroke="#E4ECE7" stroke-width="1" opacity="0.24"
-                  stroke-dasharray="${activeVarCount === VAR_KEYS.length ? "none" : "8 6"}" />
-        </g>
+      const posPeople = street.posFichas / 5;
+      const negPeople = street.negFichas / 5;
 
-        <g class="semantic-part" data-mean-title="Anillo Intermedio · Condición Física y Suelo"
-           data-mean-desc="Representa el umbral de continuidad, relieve y estabilidad de ${activeStreet.name}. Su pulso responde a la variable ${state.focusedVarKey.toUpperCase()}.">
-          <circle cx="${cx}" cy="${cy}" r="142" fill="none" stroke="#74ECAE" stroke-width="1.3" opacity="0.45" />
-        </g>
+      // 1. Semicírculos territoriales armónicos alrededor del mandala
+      const chileMuted = state.territory === "Argentina" ? "is-dimmed" : "";
+      const argMuted = state.territory === "Chile" ? "is-dimmed" : "";
 
-        <g class="semantic-part" data-mean-title="Núcleo Interior · Elección Peatonal (${fmtEs(posPeople)} Pos. / ${fmtEs(negPeople)} Neg.)"
-           data-mean-desc="Cada punto del núcleo equivale a registros de transitabilidad (5 fichas = 1 persona equivalente). Verde brillante: valoraciones positivas; blanco suave: registros base.">
-          <circle cx="${cx}" cy="${cy}" r="66" fill="rgba(20, 99, 62, 0.16)" stroke="#74ECAE" stroke-width="1.5" />
-        </g>
+      const territoryArcs = `
+        <path class="geo-node ${chileMuted}"
+              d="M ${cx} ${cy - 252} A 252 252 0 0 0 ${cx} ${cy + 252}"
+              fill="none" stroke="#E5ECE8" stroke-width="2" opacity="0.35"
+              data-title="Arco Izquierdo (180°–360°): Chile · Valparaíso"
+              data-desc="Reúne las 4 calles estudiadas en Valparaíso (Serrano, Cochrane, Blanco y Errázuriz) en la mitad oeste del modelo armónico." />
+
+        <path class="geo-node ${argMuted}"
+              d="M ${cx} ${cy - 252} A 252 252 0 0 1 ${cx} ${cy + 252}"
+              fill="none" stroke="#72ECAE" stroke-width="2" opacity="0.55"
+              data-title="Arco Derecho (0°–180°): Argentina · Buenos Aires"
+              data-desc="Reúne las 4 calles estudiadas en Buenos Aires (Avenida Paseo Colón, Azopardo, Avenida Ingeniero Huergo y Avenida Alicia Moreau de Justo) en la mitad este del modelo." />
       `;
 
-      // 2. Puntos del núcleo (positivos vs negativos de la calle seleccionada)
-      let coreDotsMarkup = "";
-      const totalDots = Math.max(12, (activeStreet.posFichas + activeStreet.negFichas) * 2);
-      for (let i = 0; i < totalDots; i++) {
-        const ringRadius = 18 + (i % 3) * 15;
-        const angle = (i / totalDots) * Math.PI * 2 + state.pulsePhase * 0.08;
-        const x = cx + Math.cos(angle) * ringRadius;
-        const y = cy + Math.sin(angle) * ringRadius;
-        const isPos = i < activeStreet.posFichas * 2;
-        const fill = isPos ? "#74ECAE" : "#E4ECE7";
-        const r = isPos ? 4.4 : 3.4;
+      // 2. Anillo de las 8 variables físicas alrededor del centro
+      let varRingMarkup = "";
+      VAR_KEYS.forEach((key, idx) => {
+        const angle = (idx / VAR_KEYS.length) * Math.PI * 2 - Math.PI / 2;
+        const vObj = street.vars[key];
+        const isOn = state.visibleVars[key];
+        const isFocused = state.focusedVar === key;
 
-        coreDotsMarkup += `
-          <circle class="semantic-part" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r}"
-                  fill="${fill}" opacity="0.92"
-                  data-mean-title="Punto de Núcleo · ${isPos ? "Elección Positiva" : "Elección Negativa"} (${activeStreet.short})"
-                  data-mean-desc="${isPos
-                    ? `Aporta a las ${activeStreet.posFichas} fichas positivas (${fmtEs(posPeople)} personas equivalentes) de ${activeStreet.name}.`
-                    : `Aporta a las ${activeStreet.negFichas} fichas negativas (${fmtEs(negPeople)} personas equivalentes) de ${activeStreet.name}.`}" />
-        `;
-      }
+        const rVar = 126;
+        const vx = cx + Math.cos(angle) * rVar;
+        const vy = cy + Math.sin(angle) * rVar;
 
-      // 3. Radios/hebras para cada calle (izquierda: Chile, derecha: Argentina)
-      let streetsMarkup = "";
-      const chileList = STREETS.filter((s) => s.territory === "Chile");
-      const argList = STREETS.filter((s) => s.territory === "Argentina");
+        const dotR = isOn ? 4.5 + vObj.score * 1.1 : 3.2;
+        const fillCol = !isOn ? "#5D6C63" : isFocused ? "#72ECAE" : "#E5ECE8";
 
-      STREETS.forEach((st) => {
-        const isChile = st.territory === "Chile";
-        const idx = isChile
-          ? chileList.findIndex((x) => x.id === st.id)
-          : argList.findIndex((x) => x.id === st.id);
-
-        // Ángulos: Chile a la izquierda (-135° a -215°), Argentina a la derecha (-45° a +35°)
-        const baseAngle = isChile
-          ? Math.PI * 0.72 + (idx - 1.5) * 0.24
-          : Math.PI * 0.28 + (idx - 1.5) * 0.24;
-
-        const isVisibleTerritory = visibleStreets.some((v) => v.id === st.id);
-        const isSelected = st.id === state.selectedStreetId;
-        const totalFichas = st.posFichas + st.negFichas;
-
-        const rStart = 68;
-        const rMid = 142;
-        const rEnd = 216;
-
-        const x1 = cx + Math.cos(baseAngle) * rStart;
-        const y1 = cy + Math.sin(baseAngle) * rStart;
-        const x2 = cx + Math.cos(baseAngle + 0.06) * rMid;
-        const y2 = cy + Math.sin(baseAngle + 0.06) * rMid;
-        const x3 = cx + Math.cos(baseAngle - 0.03) * rEnd;
-        const y3 = cy + Math.sin(baseAngle - 0.03) * rEnd;
-
-        // Ramificación secundaria por variable enfocada
-        const vObj = st.vars[state.focusedVarKey];
-        const varIsOn = state.visibleVars[state.focusedVarKey];
-        const branchAngle = baseAngle + (isChile ? -0.14 : 0.14);
-        const bx = x2 + Math.cos(branchAngle) * (26 + vObj.score * 7);
-        const by = y2 + Math.sin(branchAngle) * (26 + vObj.score * 7);
-
-        const strokeW = isSelected ? Math.max(2.6, totalFichas * 0.28) : Math.max(1.5, totalFichas * 0.18);
-        const strokeCol = isSelected ? "#74ECAE" : isChile ? "#E4ECE7" : "#2BB673";
-
-        streetsMarkup += `
-          <g class="semantic-part ${!isVisibleTerritory ? "is-muted" : ""}"
-             data-street-select="${st.id}"
-             data-mean-title="Calle · ${st.name} (${st.city}, ${st.territory})"
-             data-mean-desc="${st.name} registra ${st.posFichas} fichas positivas (${fmtEs(st.posFichas / 5)} pers.) y ${st.negFichas} negativas (${fmtEs(st.negFichas / 5)} pers.). ${vObj.label}: ${vObj.val} — ${vObj.meaning}">
-            <path d="M ${x1.toFixed(1)} ${y1.toFixed(1)} Q ${x2.toFixed(1)} ${y2.toFixed(1)} ${x3.toFixed(1)} ${y3.toFixed(1)}"
-                  fill="none" stroke="${strokeCol}" stroke-width="${strokeW.toFixed(1)}" opacity="${isSelected ? "0.96" : "0.68"}" />
-
-            <path d="M ${x2.toFixed(1)} ${y2.toFixed(1)} L ${bx.toFixed(1)} ${by.toFixed(1)}"
-                  fill="none" stroke="#74ECAE" stroke-width="1.3"
-                  stroke-dasharray="${varIsOn ? "none" : "3 4"}"
-                  opacity="${varIsOn ? "0.78" : "0.22"}" />
-
-            <circle cx="${x3.toFixed(1)}" cy="${y3.toFixed(1)}" r="${isSelected ? "5.2" : "3.6"}"
-                    fill="${isSelected ? "#74ECAE" : "#E4ECE7"}" />
-
-            <circle cx="${bx.toFixed(1)}" cy="${by.toFixed(1)}" r="3.2"
-                    fill="${varIsOn ? "#2BB673" : "#5F6E65"}" />
+        varRingMarkup += `
+          <g class="geo-node ${!isOn ? "is-dimmed" : ""}"
+             data-var-key="${key}"
+             data-title="Nodo de Variable · ${vObj.label} (${vObj.val})"
+             data-desc="${vObj.desc} Estado en el modelo: ${isOn ? "VISIBLE" : "OCULTA / EXCLUIDA"}. Haz clic para enfocar esta variable.">
+            <line x1="${cx}" y1="${cy}" x2="${vx.toFixed(1)}" y2="${vy.toFixed(1)}"
+                  stroke="${isFocused ? "#72ECAE" : "#E5ECE8"}"
+                  stroke-width="${isFocused ? "1.6" : "0.8"}"
+                  stroke-dasharray="${isOn ? "none" : "3 4"}"
+                  opacity="${isOn ? (isFocused ? "0.75" : "0.22") : "0.14"}" />
+            <circle cx="${vx.toFixed(1)}" cy="${vy.toFixed(1)}" r="${dotR.toFixed(1)}"
+                    fill="${fillCol}" stroke="#060908" stroke-width="1.4" />
           </g>
         `;
       });
 
+      // 3. Ocho pétalos/radios armónicos correspondientes a las 8 calles (4 Chile izquierda, 4 Argentina derecha)
+      const chileStreets = STREETS.filter((s) => s.territory === "Chile");
+      const argStreets = STREETS.filter((s) => s.territory === "Argentina");
+
+      let streetPetalsMarkup = "";
+      STREETS.forEach((st) => {
+        const isChile = st.territory === "Chile";
+        const list = isChile ? chileStreets : argStreets;
+        const idx = list.findIndex((x) => x.id === st.id);
+
+        // Ángulos simétricos y armónicos: Chile en cuadrantes izquierdos, Argentina en derechos
+        const span = Math.PI * 0.62;
+        const startA = isChile ? Math.PI - span / 2 : -span / 2;
+        const angle = startA + ((idx + 0.5) / list.length) * span;
+
+        const isTerrVisible = visibleStreets.some((v) => v.id === st.id);
+        const isSelected = st.id === state.selectedStreetId;
+        const total = st.posFichas + st.negFichas;
+
+        const rInner = 64;
+        const rOuter = 178 + total * 1.9;
+
+        const x0 = cx + Math.cos(angle) * rInner;
+        const y0 = cy + Math.sin(angle) * rInner;
+
+        const leftAngle = angle - 0.085;
+        const rightAngle = angle + 0.085;
+
+        const xl = cx + Math.cos(leftAngle) * (rOuter * 0.72);
+        const yl = cy + Math.sin(leftAngle) * (rOuter * 0.72);
+        const xr = cx + Math.cos(rightAngle) * (rOuter * 0.72);
+        const yr = cy + Math.sin(rightAngle) * (rOuter * 0.72);
+
+        const xt = cx + Math.cos(angle) * rOuter;
+        const yt = cy + Math.sin(angle) * rOuter;
+
+        // Nodo exterior de equivalencia en personas
+        const lx = cx + Math.cos(angle) * (rOuter + 28);
+        const ly = cy + Math.sin(angle) * (rOuter + 28);
+
+        const petalFill = isSelected
+          ? "rgba(114, 236, 174, 0.22)"
+          : isChile
+          ? "rgba(229, 236, 232, 0.06)"
+          : "rgba(41, 181, 114, 0.09)";
+
+        const petalStroke = isSelected ? "#72ECAE" : isChile ? "#E5ECE8" : "#29B572";
+
+        streetPetalsMarkup += `
+          <g class="geo-node ${!isTerrVisible ? "is-dimmed" : ""}"
+             data-street-id="${st.id}"
+             data-title="Pétalo Radial · ${st.name} (${st.city}, ${st.territory})"
+             data-desc="Su extensión radial refleja el volumen de transitabilidad (${total} fichas: ${st.posFichas} positivas = ${fmtEs(st.posFichas / 5)} pers. y ${st.negFichas} negativas = ${fmtEs(st.negFichas / 5)} pers.). Haz clic para seleccionar esta calle.">
+            <path d="M ${x0.toFixed(1)} ${y0.toFixed(1)} Q ${xl.toFixed(1)} ${yl.toFixed(1)} ${xt.toFixed(1)} ${yt.toFixed(1)} Q ${xr.toFixed(1)} ${yr.toFixed(1)} ${x0.toFixed(1)} ${y0.toFixed(1)}"
+                  fill="${petalFill}" stroke="${petalStroke}" stroke-width="${isSelected ? "2.1" : "1.2"}" />
+
+            <circle cx="${xt.toFixed(1)}" cy="${yt.toFixed(1)}" r="${isSelected ? "5.2" : "3.6"}"
+                    fill="${isSelected ? "#72ECAE" : "#E5ECE8"}" />
+
+            <text x="${lx.toFixed(1)}" y="${ly.toFixed(1)}"
+                  text-anchor="${Math.cos(angle) < -0.15 ? "end" : Math.cos(angle) > 0.15 ? "start" : "middle"}"
+                  dominant-baseline="middle"
+                  font-family="Montserrat, sans-serif" font-size="10.5"
+                  font-weight="${isSelected ? "700" : "500"}"
+                  fill="${isSelected ? "#72ECAE" : "#E5ECE8"}">
+              ${st.short}
+            </text>
+          </g>
+        `;
+      });
+
+      // 4. Núcleo central armónico: elecciones positivas vs negativas de la calle seleccionada
+      const pulseR = 54 + Math.sin(state.tick * 0.08) * 2.2;
+      const coreMarkup = `
+        <g class="geo-node"
+           data-title="Núcleo Central · Percepción Peatonal en ${street.name}"
+           data-desc="Sintetiza las elecciones de transitabilidad de ${street.name}: ${street.posFichas} fichas positivas (${fmtEs(posPeople)} personas equivalentes) y ${street.negFichas} fichas negativas (${fmtEs(negPeople)} personas equivalentes). Fórmula: fichas / 5 sin redondear.">
+          <circle cx="${cx}" cy="${cy}" r="${pulseR.toFixed(1)}"
+                  fill="#0B100D" stroke="#72ECAE" stroke-width="2" />
+          <text x="${cx}" y="${cy - 8}" text-anchor="middle"
+                font-family="Montserrat, sans-serif" font-size="15" font-weight="800" fill="#72ECAE">
+            +${fmtEs(posPeople)} / −${fmtEs(negPeople)}
+          </text>
+          <text x="${cx}" y="${cy + 11}" text-anchor="middle"
+                font-family="Montserrat, sans-serif" font-size="9.5" font-weight="600" fill="#9BA9A0" letter-spacing="0.08em">
+            PERSONAS EQUIV.
+          </text>
+        </g>
+      `;
+
       svg.innerHTML = `
-        <line x1="${cx}" y1="54" x2="${cx}" y2="562" stroke="#E4ECE7" stroke-width="1" stroke-dasharray="4 6" opacity="0.18" />
+        <!-- Círculo guía exterior armónico -->
+        <circle cx="${cx}" cy="${cy}" r="252" fill="none" stroke="rgba(246,248,247,0.06)" stroke-width="1" />
+        <circle cx="${cx}" cy="${cy}" r="126" fill="none" stroke="rgba(114,236,174,0.12)" stroke-width="1" stroke-dasharray="3 5" />
 
-        <text x="58" y="42" class="semantic-part" font-family="JetBrains Mono, monospace" font-size="11" fill="#E4ECE7" letter-spacing="0.14em"
-              data-mean-title="Sector Izquierdo · Chile (Valparaíso)"
-              data-mean-desc="Agrupa Serrano, Cochrane, Blanco y Errázuriz en la visualización radial.">
-          CHILE · VALPARAÍSO
+        ${territoryArcs}
+        ${streetPetalsMarkup}
+        ${varRingMarkup}
+        ${coreMarkup}
+
+        <text x="28" y="34" font-family="Montserrat, sans-serif" font-size="10.5" font-weight="700" fill="#72ECAE" letter-spacing="0.14em">
+          CHILE (OESTE) · ARGENTINA (ESTE)
         </text>
-
-        <text x="822" y="42" text-anchor="end" class="semantic-part" font-family="JetBrains Mono, monospace" font-size="11" fill="#74ECAE" letter-spacing="0.14em"
-              data-mean-title="Sector Derecho · Argentina (Buenos Aires)"
-              data-mean-desc="Agrupa Avenida Paseo Colón, Azopardo, Avenida Ingeniero Huergo y Avenida Alicia Moreau de Justo.">
-          ARGENTINA · BUENOS AIRES
+        <text x="812" y="34" text-anchor="end" font-family="Montserrat, sans-serif" font-size="10.5" font-weight="600" fill="#9BA9A0">
+          CALLE ACTIVA: ${street.name.toUpperCase()}
         </text>
-
-        ${ringsMarkup}
-        ${streetsMarkup}
-        ${coreDotsMarkup}
-
-        <text x="58" y="592" font-family="JetBrains Mono, monospace" font-size="10.5" fill="#9AA89F">
-          CALLE ACTIVA: ${activeStreet.name.toUpperCase()} · VAR. ENFOCADA: ${state.focusedVarKey.toUpperCase()} (${state.visibleVars[state.focusedVarKey] ? "VISIBLE" : "OCULTA"})
+        <text x="28" y="636" font-family="Montserrat, sans-serif" font-size="10" font-weight="500" fill="#9BA9A0">
+          CADA PÉTALO = 1 CALLE · ANILLO INTERMEDIO = 8 VARIABLES · NÚCLEO = PERSONAS EQUIVALENTES (FICHAS / 5)
         </text>
       `;
 
-      // Vincular hover y clic a cada parte semántica
-      svg.querySelectorAll(".semantic-part").forEach((el) => {
-        const t = el.getAttribute("data-mean-title");
-        const d = el.getAttribute("data-mean-desc");
-        const stId = el.getAttribute("data-street-select");
+      svg.querySelectorAll(".geo-node").forEach((node) => {
+        const title = node.getAttribute("data-title");
+        const desc = node.getAttribute("data-desc");
+        const stId = node.getAttribute("data-street-id");
+        const vKey = node.getAttribute("data-var-key");
 
-        if (t && d) {
-          el.addEventListener("mouseenter", () => setMeaning(t, d));
-          el.addEventListener("click", (ev) => {
-            ev.stopPropagation();
-            setMeaning(t, d);
+        if (title && desc) {
+          node.addEventListener("mouseenter", () => setAnatomyReadout(title, desc));
+          node.addEventListener("click", (e) => {
+            e.stopPropagation();
+            setAnatomyReadout(title, desc);
             if (stId) {
               state.selectedStreetId = stId;
+              renderAll();
+            } else if (vKey) {
+              state.focusedVar = vKey;
               renderAll();
             }
           });
@@ -1141,26 +1176,26 @@
       });
     }
 
-    function renderStreetsStrip() {
+    function renderStreetsPills() {
       const list = getVisibleStreets();
       if (!list.some((s) => s.id === state.selectedStreetId)) {
         state.selectedStreetId = list[0].id;
       }
 
-      const strip = document.getElementById("streetsStrip");
-      strip.innerHTML = list
+      const wrap = document.getElementById("streetsPills");
+      wrap.innerHTML = list
         .map(
           (s) => `
-          <button type="button" class="street-pill ${s.id === state.selectedStreetId ? "is-active" : ""}" data-street="${s.id}">
+          <button type="button" class="st-pill ${s.id === state.selectedStreetId ? "is-active" : ""}" data-sid="${s.id}">
             ${s.short} · ${s.city}
           </button>
         `
         )
         .join("");
 
-      strip.querySelectorAll(".street-pill").forEach((btn) => {
+      wrap.querySelectorAll(".st-pill").forEach((btn) => {
         btn.addEventListener("click", () => {
-          state.selectedStreetId = btn.getAttribute("data-street");
+          state.selectedStreetId = btn.getAttribute("data-sid");
           renderAll();
         });
       });
@@ -1171,67 +1206,70 @@
       const posP = s.posFichas / 5;
       const negP = s.negFichas / 5;
 
-      document.getElementById("inspTitle").textContent = s.name;
-      document.getElementById("inspTerritory").textContent = `${s.city} · ${s.territory}`;
-      document.getElementById("inspPos").textContent = fmtEs(posP);
+      document.getElementById("inspName").textContent = s.name;
+      document.getElementById("inspCity").textContent = `${s.city} · ${s.territory}`;
+      document.getElementById("inspPosNum").textContent = fmtEs(posP);
       document.getElementById("inspPosSub").textContent = `Positiva · ${s.posFichas} fichas / 5`;
-      document.getElementById("inspNeg").textContent = fmtEs(negP);
+      document.getElementById("inspNegNum").textContent = fmtEs(negP);
       document.getElementById("inspNegSub").textContent = `Negativa · ${s.negFichas} fichas / 5`;
 
-      document.getElementById("varsList").innerHTML = VAR_KEYS.map((key) => {
+      document.getElementById("varsStack").innerHTML = VAR_KEYS.map((key) => {
         const v = s.vars[key];
         const isOn = state.visibleVars[key];
-        const isFocused = state.focusedVarKey === key;
+        const isFocused = state.focusedVar === key;
         const pct = (v.score / v.max) * 100;
 
         return `
-          <div class="var-item ${isFocused ? "is-selected-var" : ""} ${!isOn ? "is-hidden-var" : ""}" data-varkey="${key}" style="cursor:pointer;">
-            <div class="var-top">
-              <span class="var-name">${v.label} ${!isOn ? "· (Oculta)" : ""}</span>
-              <span class="var-val">${v.val}</span>
+          <div class="var-card ${isFocused ? "is-focused" : ""} ${!isOn ? "is-excluded" : ""}" data-vk="${key}">
+            <div class="var-card-head">
+              <span class="var-card-title">${v.label} ${!isOn ? "(Excluida)" : ""}</span>
+              <span class="var-card-val">${v.val}</span>
             </div>
-            <div class="var-bar">
-              <div class="var-fill" style="width:${pct}%"></div>
+            <div class="var-meter">
+              <div class="var-meter-fill" style="width:${pct}%"></div>
             </div>
           </div>
         `;
       }).join("");
 
-      document.querySelectorAll(".var-item").forEach((item) => {
-        item.addEventListener("click", () => {
-          const key = item.getAttribute("data-varkey");
-          state.focusedVarKey = key;
+      document.querySelectorAll(".var-card").forEach((card) => {
+        card.addEventListener("click", () => {
+          const key = card.getAttribute("data-vk");
+          state.focusedVar = key;
           const vObj = s.vars[key];
-          setMeaning(`${vObj.label} en ${s.name} (${vObj.val})`, vObj.meaning);
+          setAnatomyReadout(`${vObj.label} en ${s.name} (${vObj.val})`, vObj.desc);
           renderAll();
         });
       });
     }
 
-    function renderVariantToggles() {
+    function renderVariantsControls() {
       const sample = getStreet(state.selectedStreetId);
-      const wrap = document.getElementById("variantsToggles");
-      wrap.innerHTML = VAR_KEYS.map((key) => {
+      const countOn = Object.values(state.visibleVars).filter(Boolean).length;
+      document.getElementById("variantsCounter").textContent = `${countOn}/${VAR_KEYS.length} visibles`;
+
+      const row = document.getElementById("variantsRow");
+      row.innerHTML = VAR_KEYS.map((key) => {
         const v = sample.vars[key];
         const on = state.visibleVars[key];
         return `
-          <button type="button" class="var-toggle ${on ? "is-on" : ""}" data-toggle-var="${key}">
-            ${on ? "● " : "○ "}${v.label}
+          <button type="button" class="variant-chip ${on ? "is-active" : ""}" data-vk-toggle="${key}">
+            ${on ? "Visible · " : "Oculta · "}${v.label}
           </button>
         `;
       }).join("");
 
-      wrap.querySelectorAll(".var-toggle").forEach((btn) => {
+      row.querySelectorAll(".variant-chip").forEach((btn) => {
         btn.addEventListener("click", () => {
-          const key = btn.getAttribute("data-toggle-var");
+          const key = btn.getAttribute("data-vk-toggle");
           state.visibleVars[key] = !state.visibleVars[key];
-          state.focusedVarKey = key;
+          state.focusedVar = key;
           const label = sample.vars[key].label;
-          setMeaning(
-            `Variante ${label}: ${state.visibleVars[key] ? "Visible en el modelo" : "Oculta / Atenuada"}`,
+          setAnatomyReadout(
+            `Variante ${label}: ${state.visibleVars[key] ? "Visible" : "Excluida del trazado activo"}`,
             state.visibleVars[key]
-              ? `Se muestran las ramificaciones y lecturas asociadas a ${label}.`
-              : `La variante ${label} está desactivada; su trazo secundario se atenúa y su etiqueta figura como oculta.`
+              ? `${label} se muestra activa en el anillo intermedio y en la ficha de ${sample.name}.`
+              : `${label} se atenúa en el modelo para distinguir las variables que sí se están observando de las excluidas.`
           );
           renderAll();
         });
@@ -1244,7 +1282,7 @@
       const maxTot = Math.max(1, a.posFichas + a.negFichas, b.posFichas + b.negFichas);
       const opts = STREETS.map((s) => `<option value="${s.id}">${s.name} (${s.city})</option>`).join("");
 
-      document.getElementById("compareRow").innerHTML = [
+      document.getElementById("compareTwoCol").innerHTML = [
         { s: a, key: "compareA", label: "Calle A" },
         { s: b, key: "compareB", label: "Calle B" }
       ]
@@ -1252,25 +1290,25 @@
           const pPos = (s.posFichas / maxTot) * 100;
           const pNeg = (s.negFichas / maxTot) * 100;
           return `
-            <div class="compare-card">
+            <div class="cmp-box">
               <div style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
-                <span class="mono-kicker">${label}</span>
-                <select data-cmp="${key}">${opts}</select>
+                <span class="box-kicker">${label}</span>
+                <select data-cmp-sel="${key}">${opts}</select>
               </div>
-              <div class="mono-note">
-                +${s.posFichas} (${fmtEs(s.posFichas / 5)} pers.) · −${s.negFichas} (${fmtEs(s.negFichas / 5)} pers.)
+              <div class="insp-sub" style="color:var(--white-soft);">
+                Positivas: <strong>${s.posFichas}</strong> (${fmtEs(s.posFichas / 5)} pers.) · Negativas: <strong>${s.negFichas}</strong> (${fmtEs(s.negFichas / 5)} pers.)
               </div>
-              <div class="scale-bar">
-                <div class="scale-pos" style="width:${pPos}%"></div>
-                <div class="scale-neg" style="width:${pNeg}%"></div>
+              <div class="shared-scale">
+                <div class="shared-pos" style="width:${pPos}%"></div>
+                <div class="shared-neg" style="width:${pNeg}%"></div>
               </div>
             </div>
           `;
         })
         .join("");
 
-      const selA = document.querySelector('select[data-cmp="compareA"]');
-      const selB = document.querySelector('select[data-cmp="compareB"]');
+      const selA = document.querySelector('select[data-cmp-sel="compareA"]');
+      const selB = document.querySelector('select[data-cmp-sel="compareB"]');
       selA.value = state.compareA;
       selB.value = state.compareB;
 
@@ -1285,52 +1323,32 @@
     }
 
     function renderAll() {
-      renderStreetsStrip();
+      renderStreetsPills();
       renderInspector();
-      renderVariantToggles();
-      renderCentralModel();
+      renderVariantsControls();
+      renderHarmonicMandala();
       renderComparison();
     }
 
-    // Territorio buttons
-    document.querySelectorAll(".territory-btn").forEach((btn) => {
+    document.querySelectorAll(".terr-btn").forEach((btn) => {
       btn.addEventListener("click", () => {
-        state.territory = btn.getAttribute("data-territory");
-        document.querySelectorAll(".territory-btn").forEach((b) => b.classList.remove("is-active"));
+        state.territory = btn.getAttribute("data-terr");
+        document.querySelectorAll(".terr-btn").forEach((b) => b.classList.remove("is-active"));
         btn.classList.add("is-active");
-        setMeaning(
+        setAnatomyReadout(
           `Desglose territorial · ${state.territory === "Ambos" ? "Argentina y Chile" : state.territory}`,
           state.territory === "Ambos"
-            ? "Mostrando las ocho calles de Valparaíso y Buenos Aires."
-            : `Enfocando el desglose de calles de ${state.territory}.`
+            ? "Comparando ambas mitades del mandala: Valparaíso (Chile) y Buenos Aires (Argentina)."
+            : `Mostrando los pétalos y variables correspondientes a ${state.territory}.`
         );
         renderAll();
       });
     });
 
-    // View pills
-    document.querySelectorAll(".view-pill").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        state.view = btn.getAttribute("data-view");
-        document.querySelectorAll(".view-pill").forEach((b) => b.classList.remove("is-active"));
-        btn.classList.add("is-active");
-      });
-    });
-
-    // Research gate
-    const gate = document.getElementById("researchGate");
-    document.getElementById("enterAppBtn").addEventListener("click", () => {
-      gate.classList.add("is-dismissed");
-    });
-    document.getElementById("reopenResearchBtn").addEventListener("click", () => {
-      gate.classList.remove("is-dismissed");
-    });
-
-    // Pulso constante suave sobre el núcleo (sin efecto Matrix)
     setInterval(() => {
-      state.pulsePhase += 0.35;
-      renderCentralModel();
-    }, 180);
+      state.tick += 1;
+      renderHarmonicMandala();
+    }, 160);
 
     renderAll();
   </script>
