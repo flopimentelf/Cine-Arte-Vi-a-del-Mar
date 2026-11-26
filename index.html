@@ -3,31 +3,30 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>El Peso de Caminar — Tramas de Elección</title>
+  <title>Transitabilidad — Valparaíso · Buenos Aires</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg: #EAE7DD;
-      --surface: #F2EFE7;
-      --surface-elevated: #F7F5EF;
-      --ink: #282E29;
-      --ink-muted: #555E57;
-      --ink-subtle: #78827A;
-      --border: rgba(40, 46, 41, 0.14);
-      --border-strong: rgba(40, 46, 41, 0.28);
+      --bg: #070908;
+      --surface: #0D120F;
+      --surface-2: #121915;
+      --ink: #F4F7F5;
+      --ink-muted: #9BA8A0;
+      --ink-dim: #627067;
+      --border: rgba(244, 247, 245, 0.12);
+      --border-strong: rgba(110, 231, 168, 0.34);
 
-      --green: #668B73;
-      --green-light: #A4BCA2;
-      --blue: #759CAA;
-      --terracotta: #CE8058;
-      --red: #B95F4D;
+      --green-bright: #6EE7A8;
+      --green-mid: #2EB872;
+      --green-deep: #156B43;
+      --white-soft: #E5ECE8;
+      --warn-muted: #C97A63;
 
-      --font-display: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      --radius-sm: 4px;
-      --radius-md: 8px;
-      --radius-lg: 14px;
+      --font-display: 'Space Grotesk', 'Inter', sans-serif;
+      --font-body: 'Inter', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
       --ease: cubic-bezier(0.22, 1, 0.36, 1);
     }
 
@@ -38,203 +37,246 @@
     }
 
     html {
-      scroll-behavior: smooth;
       background: var(--bg);
       color: var(--ink);
-      font-family: var(--font-display);
+      font-family: var(--font-body);
       font-size: 15px;
       -webkit-font-smoothing: antialiased;
     }
 
     body {
       background:
-        radial-gradient(circle at 18% 12%, rgba(117, 156, 170, 0.08), transparent 42%),
-        radial-gradient(circle at 78% 20%, rgba(206, 128, 88, 0.07), transparent 45%),
+        radial-gradient(circle at 22% 16%, rgba(46, 184, 114, 0.11), transparent 45%),
+        radial-gradient(circle at 80% 78%, rgba(110, 231, 168, 0.07), transparent 48%),
         var(--bg);
       color: var(--ink);
       min-height: 100vh;
       overflow-x: hidden;
     }
 
-    /* ==================== INTRO OVERLAY ==================== */
-    .intro-overlay {
+    /* ==================== INVESTIGACIÓN INTRO OVERLAY ==================== */
+    .research-gate {
       position: fixed;
       inset: 0;
       z-index: 900;
-      background: var(--bg);
+      background: rgba(7, 9, 8, 0.96);
+      backdrop-filter: blur(12px);
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      transition: opacity 0.7s var(--ease), visibility 0.7s var(--ease);
+      padding: 24px;
+      transition: opacity 0.65s var(--ease), visibility 0.65s var(--ease);
     }
 
-    .intro-overlay.is-hidden {
+    .research-gate.is-dismissed {
       opacity: 0;
       visibility: hidden;
       pointer-events: none;
     }
 
-    .intro-canvas {
-      position: absolute;
-      inset: 0;
+    .research-card {
+      max-width: 780px;
       width: 100%;
-      height: 100%;
-    }
-
-    .intro-title-block {
-      position: relative;
-      z-index: 2;
-      text-align: center;
-      opacity: 0;
-      transform: translateY(14px);
-      transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
-      pointer-events: none;
-      padding: 0 24px;
-    }
-
-    .intro-title-block.is-visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .intro-kicker {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.24em;
-      text-transform: uppercase;
-      color: var(--ink-muted);
-      margin-bottom: 10px;
-    }
-
-    .intro-title {
-      font-size: clamp(2rem, 5vw, 3.8rem);
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--ink);
-      line-height: 1.08;
-    }
-
-    .intro-sub {
-      margin-top: 12px;
-      font-size: 12px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--ink-subtle);
-    }
-
-    .skip-intro-btn {
-      position: fixed;
-      top: 22px;
-      right: 26px;
-      z-index: 950;
       background: var(--surface);
       border: 1px solid var(--border-strong);
-      color: var(--ink);
-      font-family: var(--font-display);
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      padding: 9px 15px;
-      border-radius: 999px;
-      cursor: pointer;
-      transition: background 0.25s var(--ease), transform 0.25s var(--ease), opacity 0.4s var(--ease);
+      border-radius: 16px;
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.65);
     }
 
-    .skip-intro-btn:hover {
-      background: var(--ink);
-      color: var(--surface);
+    .research-kicker {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--green-bright);
+    }
+
+    .research-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 4vw, 2.7rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.06;
+      color: var(--ink);
+    }
+
+    .research-copy {
+      font-size: 14.5px;
+      line-height: 1.65;
+      color: var(--white-soft);
+    }
+
+    .research-pillars {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .pillar-box {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .pillar-label {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--green-bright);
+    }
+
+    .pillar-text {
+      font-size: 12.5px;
+      line-height: 1.45;
+      color: var(--ink-muted);
+    }
+
+    .research-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+      border-top: 1px solid var(--border);
+      padding-top: 18px;
+    }
+
+    .btn-primary-green {
+      appearance: none;
+      border: 1px solid var(--green-bright);
+      background: var(--green-mid);
+      color: #060907;
+      font-family: var(--font-display);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 12px 22px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.25s var(--ease);
+    }
+
+    .btn-primary-green:hover {
+      background: var(--green-bright);
       transform: translateY(-1px);
     }
 
-    .skip-intro-btn.is-hidden {
-      opacity: 0;
-      pointer-events: none;
+    .btn-ghost {
+      appearance: none;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--ink-muted);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 10px 16px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.25s var(--ease);
     }
 
-    /* ==================== HEADER ==================== */
-    .site-header {
+    .btn-ghost:hover {
+      border-color: var(--ink);
+      color: var(--ink);
+    }
+
+    /* ==================== TOP HEADER ==================== */
+    .top-header {
       border-bottom: 1px solid var(--border);
-      background: rgba(242, 239, 231, 0.72);
-      backdrop-filter: blur(10px);
+      background: rgba(7, 9, 8, 0.82);
+      backdrop-filter: blur(12px);
       position: sticky;
       top: 0;
-      z-index: 100;
+      z-index: 80;
     }
 
-    .header-inner {
-      max-width: 1480px;
+    .header-wrap {
+      max-width: 1460px;
       margin: 0 auto;
-      padding: 16px 28px;
+      padding: 16px 26px;
       display: flex;
-      flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
-      gap: 18px;
+      gap: 16px;
+      flex-wrap: wrap;
     }
 
-    .brand-group {
+    .title-block {
       display: flex;
       flex-direction: column;
       gap: 3px;
     }
 
-    .project-tag {
+    .top-kicker {
+      font-family: var(--font-mono);
       font-size: 10.5px;
-      font-weight: 600;
-      letter-spacing: 0.22em;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: var(--ink-muted);
+      color: var(--green-bright);
     }
 
-    .site-title {
-      font-size: clamp(1.35rem, 2.2vw, 1.9rem);
-      font-weight: 600;
-      letter-spacing: 0.06em;
+    .main-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.35rem, 2.4vw, 1.95rem);
+      font-weight: 700;
+      letter-spacing: 0.04em;
       text-transform: uppercase;
-      line-height: 1.1;
+      line-height: 1.05;
       color: var(--ink);
     }
 
-    .territory-pills {
+    .sub-corridor {
+      font-size: 12px;
+      color: var(--ink-muted);
+    }
+
+    .territory-switch {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 8px;
       flex-wrap: wrap;
     }
 
-    .territory-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 11px;
-      font-weight: 600;
+    .territory-btn {
+      appearance: none;
+      font-family: var(--font-display);
+      font-size: 11.5px;
+      font-weight: 700;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: var(--ink-muted);
-      padding: 5px 10px;
-      border-radius: 999px;
-      background: var(--surface);
-      border: 1px solid var(--border);
+      padding: 9px 15px;
+      border-radius: 6px;
+      cursor: pointer;
+      border: 1.5px solid var(--border-strong);
+      background: transparent;
+      color: var(--ink);
+      transition: all 0.22s var(--ease);
     }
 
-    .dot-chile {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--blue);
+    .territory-btn:hover {
+      border-color: var(--green-bright);
+      color: var(--green-bright);
     }
 
-    .dot-arg {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--terracotta);
+    .territory-btn.is-active {
+      background: var(--green-deep);
+      border-color: var(--green-bright);
+      color: var(--ink);
+      box-shadow: 0 0 18px rgba(46, 184, 114, 0.25);
     }
 
-    .mode-nav {
+    .mode-pills {
       display: flex;
       align-items: center;
       gap: 6px;
@@ -242,2475 +284,942 @@
       padding: 4px;
       border-radius: 999px;
       border: 1px solid var(--border);
-      flex-wrap: wrap;
     }
 
-    .mode-btn {
+    .mode-pill {
       appearance: none;
       border: none;
       background: transparent;
       color: var(--ink-muted);
-      font-family: var(--font-display);
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      padding: 8px 14px;
-      border-radius: 999px;
-      cursor: pointer;
-      transition: all 0.28s var(--ease);
-      white-space: nowrap;
-    }
-
-    .mode-btn:hover {
-      color: var(--ink);
-      background: rgba(40, 46, 41, 0.05);
-    }
-
-    .mode-btn.is-active {
-      background: var(--ink);
-      color: var(--surface);
-    }
-
-    /* ==================== MAIN WORKSPACE ==================== */
-    .workspace {
-      max-width: 1480px;
-      margin: 0 auto;
-      padding: 24px 28px 64px;
-      display: flex;
-      flex-direction: column;
-      gap: 34px;
-    }
-
-    .primary-stage {
-      display: grid;
-      grid-template-columns: minmax(0, 1.22fr) minmax(340px, 1fr);
-      gap: 26px;
-      align-items: start;
-    }
-
-    /* ==================== VISUALIZATION PANEL (LEFT ~55%) ==================== */
-    .viz-column {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 18px 20px 20px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .viz-topbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 12px;
-      flex-wrap: wrap;
-    }
-
-    .viz-meta-label {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--ink-muted);
-    }
-
-    .viz-actions {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .walker-tip-btn {
-      appearance: none;
-      border: 1px solid var(--border-strong);
-      background: var(--surface-elevated);
-      color: var(--ink);
-      font-family: var(--font-display);
+      font-family: var(--font-mono);
       font-size: 10.5px;
       font-weight: 600;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      padding: 6px 11px;
+      padding: 7px 12px;
       border-radius: 999px;
       cursor: pointer;
-      transition: all 0.25s var(--ease);
+      transition: all 0.22s var(--ease);
     }
 
-    .walker-tip-btn:hover {
+    .mode-pill.is-active {
       background: var(--ink);
-      color: var(--surface);
+      color: var(--bg);
     }
 
-    .canvas-stage {
+    /* ==================== MAIN STAGE ==================== */
+    .main-container {
+      max-width: 1460px;
+      margin: 0 auto;
+      padding: 24px 26px 64px;
+      display: flex;
+      flex-direction: column;
+      gap: 26px;
+    }
+
+    .stage-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(350px, 0.95fr);
+      gap: 24px;
+      align-items: start;
+    }
+
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px 22px;
+    }
+
+    .panel-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+
+    .panel-label {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--green-bright);
+    }
+
+    .panel-hint {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      color: var(--ink-muted);
+    }
+
+    /* ==================== COMPLEX INTEGRATED GLYPH & LAKE STAGE ==================== */
+    .complex-viz-box {
       position: relative;
       width: 100%;
       aspect-ratio: 16 / 11;
       min-height: 440px;
-      border-radius: var(--radius-md);
+      border-radius: 10px;
       background:
-        linear-gradient(180deg, rgba(242, 239, 231, 0.35), rgba(234, 231, 221, 0.55)),
-        repeating-linear-gradient(
-          0deg,
-          transparent,
-          transparent 39px,
-          rgba(40, 46, 41, 0.035) 39px,
-          rgba(40, 46, 41, 0.035) 40px
-        ),
-        repeating-linear-gradient(
-          90deg,
-          transparent,
-          transparent 39px,
-          rgba(40, 46, 41, 0.035) 39px,
-          rgba(40, 46, 41, 0.035) 40px
-        );
+        radial-gradient(circle at 50% 50%, rgba(46, 184, 114, 0.08), transparent 65%),
+        repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(244, 247, 245, 0.03) 39px, rgba(244, 247, 245, 0.03) 40px),
+        repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(244, 247, 245, 0.03) 39px, rgba(244, 247, 245, 0.03) 40px),
+        #080B09;
       border: 1px solid var(--border);
       overflow: hidden;
     }
 
-    #particlesCanvas,
-    #riverSvg {
+    #fieldCanvas {
       position: absolute;
       inset: 0;
       width: 100%;
       height: 100%;
-    }
-
-    #particlesCanvas {
       pointer-events: none;
-      z-index: 2;
+      z-index: 1;
     }
 
-    #riverSvg {
-      z-index: 3;
+    #complexSvg {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      height: 100%;
+      display: block;
       user-select: none;
     }
 
-    .river-group {
-      cursor: pointer;
-      transition: opacity 0.45s var(--ease);
-    }
-
-    .river-group.is-dimmed {
-      opacity: 0.14;
-    }
-
-    .river-group.is-compare-dimmed {
-      opacity: 0.16;
-    }
-
-    .river-main-stroke {
-      fill: none;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      transition: stroke-width 0.55s var(--ease), opacity 0.45s var(--ease), filter 0.35s var(--ease);
-    }
-
-    .river-branch-stroke {
-      fill: none;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      transition: opacity 0.45s var(--ease), stroke-width 0.45s var(--ease);
-    }
-
-    .river-group.is-selected .river-main-stroke,
-    .river-group.is-compared .river-main-stroke {
-      filter: drop-shadow(0 0 8px rgba(40, 46, 41, 0.24));
-    }
-
-    .river-label {
-      font-family: var(--font-display);
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      fill: var(--ink);
-      transition: opacity 0.35s var(--ease), font-weight 0.25s var(--ease);
-    }
-
-    .river-sublabel {
-      font-family: var(--font-display);
-      font-size: 9.5px;
-      font-weight: 500;
-      letter-spacing: 0.06em;
-      fill: var(--ink-muted);
-    }
-
-    .walker-callout {
-      margin-top: 12px;
-      padding: 11px 14px;
-      border-radius: var(--radius-md);
-      background: var(--surface-elevated);
-      border-left: 3px solid var(--green);
-      border-top: 1px solid var(--border);
-      border-right: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
+    .street-selector-strip {
+      margin-top: 14px;
       display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 12px;
-      font-size: 12.5px;
-      line-height: 1.48;
-      color: var(--ink);
-      transition: border-color 0.3s var(--ease);
-    }
-
-    .walker-callout-tag {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--ink-muted);
-      white-space: nowrap;
-      margin-top: 2px;
-    }
-
-    /* Compare selector bar inside visualization column when Mode 04 is active */
-    .compare-picker-bar {
-      display: none;
-      margin-top: 12px;
-      padding: 12px 14px;
-      background: var(--surface-elevated);
-      border: 1px solid var(--border-strong);
-      border-radius: var(--radius-md);
-      gap: 12px;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .compare-picker-bar.is-visible {
-      display: flex;
-    }
-
-    .compare-select-group {
-      display: flex;
-      align-items: center;
       gap: 8px;
-      flex: 1 1 200px;
-    }
-
-    .compare-select-group label {
-      font-size: 10.5px;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--ink-muted);
-      white-space: nowrap;
-    }
-
-    .compare-select-group select {
-      width: 100%;
-      background: var(--surface);
-      border: 1px solid var(--border-strong);
-      color: var(--ink);
-      font-family: var(--font-display);
-      font-size: 12px;
-      font-weight: 500;
-      padding: 7px 10px;
-      border-radius: var(--radius-sm);
-      cursor: pointer;
-    }
-
-    /* ==================== INSPECTOR PANEL (RIGHT ~45%) ==================== */
-    .inspector-column {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 22px 24px;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-
-    .inspector-header {
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .inspector-territory-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
       flex-wrap: wrap;
     }
 
-    .territory-badge {
-      font-size: 10.5px;
-      font-weight: 700;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      padding: 4px 10px;
+    .street-chip {
+      appearance: none;
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      color: var(--white-soft);
+      font-family: var(--font-display);
+      font-size: 11.5px;
+      font-weight: 500;
+      padding: 6px 12px;
       border-radius: 999px;
-      border: 1px solid var(--border);
-      background: var(--surface-elevated);
+      cursor: pointer;
+      transition: all 0.2s var(--ease);
     }
 
-    .street-name-heading {
-      font-size: clamp(1.45rem, 2.3vw, 2rem);
-      font-weight: 600;
-      letter-spacing: 0.02em;
-      line-height: 1.15;
-      color: var(--ink);
+    .street-chip:hover {
+      border-color: var(--green-bright);
+      color: var(--green-bright);
     }
 
-    .street-context-copy {
-      font-size: 13px;
-      line-height: 1.55;
-      color: var(--ink-muted);
+    .street-chip.is-selected {
+      background: var(--green-mid);
+      border-color: var(--green-bright);
+      color: #060907;
+      font-weight: 700;
     }
 
-    /* Composite River-Glyph Block */
-    .glyph-section {
-      background: var(--surface-elevated);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 14px 16px;
+    /* ==================== RIGHT INSPECTOR (PERCEPCIONES & CONDICIONES DEL SUELO) ==================== */
+    .inspector-stack {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 18px;
     }
 
-    .section-kicker-row {
+    .street-heading-row {
       display: flex;
-      align-items: center;
+      align-items: baseline;
       justify-content: space-between;
-      gap: 8px;
+      gap: 10px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
     }
 
-    .section-kicker {
-      font-size: 10.5px;
+    .selected-street-title {
+      font-family: var(--font-display);
+      font-size: 1.65rem;
       font-weight: 700;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--ink-muted);
-    }
-
-    .section-note {
-      font-size: 10.5px;
-      color: var(--ink-subtle);
-      letter-spacing: 0.04em;
-    }
-
-    .composite-glyph-svg {
-      width: 100%;
-      height: auto;
-      display: block;
-      overflow: visible;
-    }
-
-    /* Elections Metrics */
-    .metrics-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
-    }
-
-    .metric-cell {
-      background: var(--surface-elevated);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 12px 14px;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .metric-label {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--ink-muted);
-    }
-
-    .metric-value {
-      font-size: 1.35rem;
-      font-weight: 600;
       letter-spacing: -0.01em;
       color: var(--ink);
     }
 
-    .metric-sub {
-      font-size: 11.5px;
-      color: var(--ink-muted);
-    }
-
-    .val-pos {
-      color: var(--green);
-    }
-
-    .val-neg {
-      color: var(--red);
-    }
-
-    /* Physical Conditions List */
-    .physical-list {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px 14px;
-      border-top: 1px solid var(--border);
-      padding-top: 14px;
-    }
-
-    .phys-item {
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-      padding: 8px 10px;
-      border-radius: var(--radius-sm);
-      background: rgba(247, 245, 239, 0.65);
-      border: 1px solid rgba(40, 46, 41, 0.08);
-      transition: border-color 0.25s var(--ease), background 0.25s var(--ease);
-    }
-
-    .phys-item.is-layer-focus {
-      border-color: var(--ink);
-      background: var(--surface-elevated);
-    }
-
-    .phys-key {
-      font-size: 10px;
-      font-weight: 700;
+    .selected-street-city {
+      font-family: var(--font-mono);
+      font-size: 11px;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: var(--ink-muted);
+      color: var(--green-bright);
     }
 
-    .phys-val {
-      font-size: 12.5px;
-      font-weight: 600;
-      color: var(--ink);
-    }
-
-    .phys-interp {
-      font-size: 11px;
-      color: var(--ink-subtle);
-      line-height: 1.35;
-    }
-
-    .nd-tag {
-      display: inline-block;
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--terracotta);
-      background: rgba(206, 128, 88, 0.13);
-      padding: 1px 6px;
-      border-radius: 3px;
-    }
-
-    .method-disclaimer {
-      font-size: 11px;
-      line-height: 1.5;
-      color: var(--ink-subtle);
-      border-top: 1px dashed var(--border-strong);
-      padding-top: 12px;
-    }
-
-    /* ==================== LOWER SECTION: LAYERS, COMPARISON, CATALOG ==================== */
-    .lower-sections {
-      display: flex;
-      flex-direction: column;
-      gap: 28px;
-    }
-
-    .editorial-band {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 22px 24px;
-    }
-
-    .band-header {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 14px;
-      margin-bottom: 16px;
-      flex-wrap: wrap;
-    }
-
-    .band-title {
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--ink);
-    }
-
-    .band-subtitle {
-      font-size: 12px;
-      color: var(--ink-muted);
-    }
-
-    .layers-grid {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 10px;
-    }
-
-    .layer-btn {
-      appearance: none;
-      background: var(--surface-elevated);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 11px 13px;
-      text-align: left;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      transition: all 0.25s var(--ease);
-      font-family: var(--font-display);
-    }
-
-    .layer-btn:hover {
-      border-color: var(--border-strong);
-      transform: translateY(-1px);
-    }
-
-    .layer-btn.is-active {
-      background: var(--ink);
-      border-color: var(--ink);
-      color: var(--surface);
-    }
-
-    .layer-btn-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-    }
-
-    .layer-indicator {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--ink-subtle);
-      transition: background 0.25s var(--ease);
-    }
-
-    .layer-btn.is-active .layer-indicator {
-      background: var(--green-light);
-    }
-
-    .layer-btn-desc {
-      font-size: 11px;
-      line-height: 1.38;
-      color: var(--ink-muted);
-    }
-
-    .layer-btn.is-active .layer-btn-desc {
-      color: rgba(242, 239, 231, 0.8);
-    }
-
-    .layer-active-banner {
-      margin-top: 14px;
-      padding: 11px 14px;
-      border-radius: var(--radius-md);
-      background: var(--surface-elevated);
-      border: 1px solid var(--border);
-      font-size: 12.5px;
-      line-height: 1.5;
-      color: var(--ink);
-    }
-
-    /* Comparison Section */
-    .compare-controls-row {
+    .perception-pair {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 16px;
-      margin-bottom: 18px;
-    }
-
-    .compare-select-box {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .compare-select-box label {
-      font-size: 10.5px;
-      font-weight: 700;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--ink-muted);
-    }
-
-    .compare-select-box select {
-      background: var(--surface-elevated);
-      border: 1px solid var(--border-strong);
-      border-radius: var(--radius-sm);
-      padding: 9px 12px;
-      font-family: var(--font-display);
-      font-size: 12.5px;
-      font-weight: 500;
-      color: var(--ink);
-      cursor: pointer;
-    }
-
-    .compare-columns {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 18px;
-    }
-
-    .compare-card {
-      background: var(--surface-elevated);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 16px 18px;
-      display: flex;
-      flex-direction: column;
       gap: 12px;
     }
 
-    .compare-card-head {
+    .perception-card {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 13px 15px;
+    }
+
+    .perception-num {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 700;
+      line-height: 1.05;
+      color: var(--green-bright);
+    }
+
+    .perception-num.is-neg {
+      color: var(--warn-muted);
+    }
+
+    .perception-sub {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--ink-muted);
+      margin-top: 5px;
+    }
+
+    .soil-bars-list {
       display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 8px;
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 8px;
+      flex-direction: column;
+      gap: 11px;
     }
 
-    .compare-card-title {
-      font-size: 1.05rem;
-      font-weight: 600;
-    }
-
-    .shared-scale-bar {
+    .soil-row {
       display: flex;
       flex-direction: column;
       gap: 5px;
     }
 
-    .shared-scale-labels {
+    .soil-row-top {
       display: flex;
       justify-content: space-between;
-      font-size: 10.5px;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--ink-muted);
+      align-items: baseline;
+      font-size: 12.5px;
     }
 
-    .shared-track {
-      height: 10px;
-      background: rgba(40, 46, 41, 0.08);
+    .soil-name {
+      color: var(--white-soft);
+      font-weight: 500;
+    }
+
+    .soil-val {
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      color: var(--green-bright);
+    }
+
+    .soil-track {
+      height: 5px;
+      background: rgba(244, 247, 245, 0.1);
       border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .soil-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--green-deep), var(--green-bright));
+      border-radius: 999px;
+      transition: width 0.45s var(--ease);
+    }
+
+    /* ==================== LAYERS & COMPARISON ==================== */
+    .layers-bar {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .layer-pill {
+      appearance: none;
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      color: var(--white-soft);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 8px 14px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.2s var(--ease);
+    }
+
+    .layer-pill:hover {
+      border-color: var(--green-bright);
+    }
+
+    .layer-pill.is-active {
+      background: var(--green-bright);
+      color: #060907;
+      border-color: var(--green-bright);
+      font-weight: 700;
+    }
+
+    .compare-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 14px;
+    }
+
+    .compare-box {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .compare-box select {
+      background: var(--surface);
+      color: var(--ink);
+      border: 1px solid var(--border-strong);
+      border-radius: 6px;
+      padding: 7px 10px;
+      font-family: var(--font-body);
+      font-size: 12.5px;
+    }
+
+    .shared-meter {
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(244, 247, 245, 0.08);
       overflow: hidden;
       display: flex;
     }
 
-    .shared-seg-pos {
-      background: var(--green);
+    .shared-meter-pos {
+      background: var(--green-bright);
       height: 100%;
-      transition: width 0.45s var(--ease);
+      transition: width 0.4s var(--ease);
     }
 
-    .shared-seg-neg {
-      background: var(--red);
+    .shared-meter-neg {
+      background: var(--warn-muted);
       height: 100%;
-      transition: width 0.45s var(--ease);
+      transition: width 0.4s var(--ease);
     }
 
-    .compare-kv-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 8px 12px;
-      font-size: 12px;
-    }
-
-    .compare-kv span {
-      display: block;
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--ink-subtle);
-    }
-
-    /* Catalog of 8 Streets */
-    .catalog-grid {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 12px;
-    }
-
-    .catalog-item {
-      background: var(--surface-elevated);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 14px 15px;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      transition: all 0.25s var(--ease);
-      text-align: left;
-      font-family: var(--font-display);
-    }
-
-    .catalog-item:hover {
-      border-color: var(--border-strong);
-      transform: translateY(-2px);
-    }
-
-    .catalog-item.is-selected {
-      border-color: var(--ink);
-      box-shadow: inset 0 0 0 1px var(--ink);
-    }
-
-    .catalog-city {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-    }
-
-    .catalog-name {
-      font-size: 0.98rem;
-      font-weight: 600;
-      color: var(--ink);
-      line-height: 1.25;
-    }
-
-    .catalog-stats {
-      display: flex;
-      justify-content: space-between;
-      font-size: 11.5px;
-      color: var(--ink-muted);
-      border-top: 1px solid rgba(40, 46, 41, 0.08);
-      padding-top: 8px;
-    }
-
-    /* ==================== RESPONSIVE ==================== */
-    @media (max-width: 1120px) {
-      .primary-stage {
+    @media (max-width: 1020px) {
+      .stage-grid,
+      .compare-grid,
+      .research-pillars {
         grid-template-columns: 1fr;
-      }
-
-      .layers-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .catalog-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-    }
-
-    @media (max-width: 680px) {
-      .header-inner {
-        padding: 14px 16px;
-      }
-
-      .workspace {
-        padding: 16px 16px 48px;
-        gap: 22px;
-      }
-
-      .canvas-stage {
-        aspect-ratio: 4 / 4.3;
-        min-height: 360px;
-      }
-
-      .metrics-grid,
-      .physical-list,
-      .compare-controls-row,
-      .compare-columns,
-      .layers-grid,
-      .catalog-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .mode-nav {
-        width: 100%;
-        justify-content: space-between;
-      }
-
-      .mode-btn {
-        padding: 7px 9px;
-        font-size: 10px;
-        letter-spacing: 0.08em;
       }
     }
   </style>
 </head>
 <body>
-  <!-- Botón para saltar animación inicial -->
-  <button id="skipIntroBtn" class="skip-intro-btn" type="button" aria-label="Saltar animación inicial">
-    Saltar animación
-  </button>
-
-  <!-- Secuencia cinematográfica inicial -->
-  <div id="introOverlay" class="intro-overlay" aria-hidden="false">
-    <canvas id="introCanvas" class="intro-canvas"></canvas>
-    <div id="introTitleBlock" class="intro-title-block">
-      <div class="intro-kicker">Tramas de Elección · Investigación Urbana</div>
-      <h1 class="intro-title">El Peso de Caminar</h1>
-      <div class="intro-sub">Valparaíso, Chile · Buenos Aires, Argentina</div>
+  <!-- MODAL INICIAL: EXPLICA INVESTIGACIÓN ANTES DE MOSTRAR TODO -->
+  <div id="researchGate" class="research-gate" role="dialog" aria-modal="true" aria-labelledby="researchTitle">
+    <div class="research-card">
+      <span class="research-kicker">Investigación Urbana · Marco Metodológico</span>
+      <h1 id="researchTitle" class="research-title">Transitabilidad: Valparaíso y Buenos Aires</h1>
+      <p class="research-copy">
+        Este estudio observa cómo se experimenta el caminar a través de ocho calles en dos ciudades portuarias. Cada figura compleja condensa en un solo sistema radial y fluvial la percepción peatonal (5 fichas = 1 persona equivalente, sin redondeo) y las condiciones físicas del suelo, manteniendo separadas la valoración subjetiva y la observación material.
+      </p>
+      <div class="research-pillars">
+        <div class="pillar-box">
+          <span class="pillar-label">01 · Elección Peatonal</span>
+          <p class="pillar-text">Registros positivos y negativos de transitabilidad convertidos a personas equivalentes (fichas / 5).</p>
+        </div>
+        <div class="pillar-box">
+          <span class="pillar-label">02 · Condiciones del Suelo</span>
+          <p class="pillar-text">Materialidad, continuidad, esfuerzo, relieve, estabilidad, obstáculos y flujo en su escala original o ND.</p>
+        </div>
+        <div class="pillar-box">
+          <span class="pillar-label">03 · Glifo Complejo</span>
+          <p class="pillar-text">Un único núcleo radial con anillos de cota, hebras ramificadas y pulsos constantes en negro, verde y blanco.</p>
+        </div>
+      </div>
+      <div class="research-actions">
+        <button id="enterVizBtn" class="btn-primary-green" type="button">Explorar visualización</button>
+        <button id="reopenResearchBtn" class="btn-ghost" type="button" style="display:none;">Ver marco de investigación</button>
+        <span class="panel-hint">Valparaíso (4 calles) · Buenos Aires (4 calles)</span>
+      </div>
     </div>
   </div>
 
   <!-- ENCABEZADO -->
-  <header class="site-header">
-    <div class="header-inner">
-      <div class="brand-group">
-        <span class="project-tag">Tramas de Elección</span>
-        <h1 class="site-title">El Peso de Caminar</h1>
+  <header class="top-header">
+    <div class="header-wrap">
+      <div class="title-block">
+        <span class="top-kicker">Tramas de Elección · Investigación</span>
+        <h1 class="main-title">Transitabilidad</h1>
+        <span class="sub-corridor">Valparaíso — Buenos Aires · Desde borde portuario a trama urbana</span>
       </div>
 
-      <div class="territory-pills" aria-label="Territorios estudiados">
-        <span class="territory-pill"><span class="dot-chile"></span>Valparaíso · Chile</span>
-        <span class="territory-pill"><span class="dot-arg"></span>Buenos Aires · Argentina</span>
+      <div class="territory-switch" role="group" aria-label="Filtrar territorio">
+        <button id="btnValparaiso" class="territory-btn" data-territory="Chile" type="button">Valparaíso</button>
+        <button id="btnBuenosAires" class="territory-btn" data-territory="Argentina" type="button">Buenos Aires</button>
+        <button id="btnAmbos" class="territory-btn is-active" data-territory="Ambos" type="button">Ambos</button>
       </div>
 
-      <nav class="mode-nav" aria-label="Modos de visualización">
-        <button class="mode-btn is-active" data-mode="all" type="button">01 · Todas las calles</button>
-        <button class="mode-btn" data-mode="chile" type="button">02 · Solo Chile</button>
-        <button class="mode-btn" data-mode="argentina" type="button">03 · Solo Argentina</button>
-        <button class="mode-btn" data-mode="compare" type="button">04 · Comparar</button>
-      </nav>
+      <div class="mode-pills" role="group" aria-label="Modos de lectura">
+        <button class="mode-pill is-active" data-mode="calles" type="button">01 Calles</button>
+        <button class="mode-pill" data-mode="variables" type="button">02 Variables</button>
+        <button class="mode-pill" data-mode="comparar" type="button">03 Comparar</button>
+      </div>
     </div>
   </header>
 
-  <!-- CONTENIDO PRINCIPAL -->
-  <main class="workspace">
-    <section class="primary-stage" aria-label="Visualización principal y ficha de calle">
-      <!-- IZQUIERDA (~55%): LAGO DIVIDIDO, 8 CORRIENTES, PARTÍCULAS, CAMINANTE -->
-      <div class="viz-column">
-        <div class="viz-topbar">
-          <span id="vizModeCaption" class="viz-meta-label">
-            Modo 01 · Sistema fluvial completo · Lago dividido y 8 corrientes
-          </span>
-          <div class="viz-actions">
-            <button id="walkerExplainBtn" class="walker-tip-btn" type="button">
-              Consultar caminante
-            </button>
-          </div>
+  <main class="main-container">
+    <section class="stage-grid">
+      <!-- IZQUIERDA: FIGURA COMPLEJA ÚNICA CON EFECTOS CONSTANTES -->
+      <div class="panel">
+        <div class="panel-head">
+          <span class="panel-label">Experiencia del Recorrido · Glifo Integrado</span>
+          <button id="openResearchTopBtn" class="btn-ghost" type="button">Investigación</button>
         </div>
 
-        <div id="canvasStage" class="canvas-stage">
-          <canvas id="particlesCanvas"></canvas>
-          <svg id="riverSvg" viewBox="0 0 920 630" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Lago dividido con ocho corrientes peatonales y caminante articulado">
-            <defs>
-              <linearGradient id="lakeChileGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#759CAA" stop-opacity="0.28" />
-                <stop offset="100%" stop-color="#668B73" stop-opacity="0.16" />
-              </linearGradient>
-              <linearGradient id="lakeArgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#CE8058" stop-opacity="0.24" />
-                <stop offset="100%" stop-color="#B95F4D" stop-opacity="0.14" />
-              </linearGradient>
-              <pattern id="topoHatch" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(28)">
-                <line x1="0" y1="0" x2="0" y2="12" stroke="rgba(40,46,41,0.08)" stroke-width="1" />
-              </pattern>
-            </defs>
-
-            <!-- Capas topográficas de fondo y lago dividido -->
-            <g id="lakeLayer">
-              <!-- Contorno exterior orgánico del lago -->
-              <path id="lakeContourPath"
-                d="M 460 118
-                   C 535 104, 628 128, 668 192
-                   C 704 250, 682 332, 622 366
-                   C 568 396, 505 384, 460 392
-                   C 415 384, 352 396, 298 366
-                   C 238 332, 216 250, 252 192
-                   C 292 128, 385 104, 460 118 Z"
-                fill="url(#topoHatch)" stroke="rgba(40,46,41,0.22)" stroke-width="1.4" />
-
-              <!-- Mitad izquierda: Valparaíso / Chile -->
-              <path id="lakeHalfChile"
-                d="M 460 118
-                   C 385 104, 292 128, 252 192
-                   C 216 250, 238 332, 298 366
-                   C 352 396, 415 384, 460 392
-                   C 446 318, 474 205, 460 118 Z"
-                fill="url(#lakeChileGrad)" stroke="#759CAA" stroke-width="1.5"
-                style="transition: opacity 0.55s var(--ease);" />
-
-              <!-- Mitad derecha: Buenos Aires / Argentina -->
-              <path id="lakeHalfArg"
-                d="M 460 118
-                   C 535 104, 628 128, 668 192
-                   C 704 250, 682 332, 622 366
-                   C 568 396, 505 384, 460 392
-                   C 474 318, 446 205, 460 118 Z"
-                fill="url(#lakeArgGrad)" stroke="#CE8058" stroke-width="1.5"
-                style="transition: opacity 0.55s var(--ease);" />
-
-              <!-- Divisor territorial central -->
-              <path id="lakeDividerPath"
-                d="M 460 112 C 474 205, 446 318, 460 398"
-                fill="none" stroke="#282E29" stroke-width="1.6" stroke-dasharray="5 4" opacity="0.55"
-                style="transition: opacity 0.5s var(--ease);" />
-
-              <!-- Etiquetas del lago -->
-              <text id="lakeLabelChile" x="348" y="242" text-anchor="middle"
-                font-family="Montserrat, sans-serif" font-size="11" font-weight="700"
-                letter-spacing="0.18em" fill="#282E29" opacity="0.82">VALPARAÍSO · CHILE</text>
-              <text id="lakeLabelChileSub" x="348" y="259" text-anchor="middle"
-                font-family="Montserrat, sans-serif" font-size="9.5" font-weight="500"
-                letter-spacing="0.1em" fill="#555E57">ORIGEN DE REGISTROS (4 CALLES)</text>
-
-              <text id="lakeLabelArg" x="572" y="242" text-anchor="middle"
-                font-family="Montserrat, sans-serif" font-size="11" font-weight="700"
-                letter-spacing="0.18em" fill="#282E29" opacity="0.82">BUENOS AIRES · ARGENTINA</text>
-              <text id="lakeLabelArgSub" x="572" y="259" text-anchor="middle"
-                font-family="Montserrat, sans-serif" font-size="9.5" font-weight="500"
-                letter-spacing="0.1em" fill="#555E57">TRANSITABILIDAD (4 CALLES)</text>
-            </g>
-
-            <!-- Capa dinámica de overlays por capa activa (materialidad, desniveles, obstáculos, etc.) -->
-            <g id="layerOverlayGroup"></g>
-
-            <!-- Ocho corrientes fluviales -->
-            <g id="riversLayer"></g>
-
-            <!-- Mascota / Figura caminante articulada (señalética urbana contemporánea sin rostro) -->
-            <g id="walkerGroup" transform="translate(460, 104)" style="cursor: pointer;" role="button" tabindex="0" aria-label="Figura caminante interactiva">
-              <!-- Halo sutil -->
-              <circle cx="0" cy="-18" r="18" fill="rgba(102, 139, 115, 0.10)" />
-              <g id="walkerLimbs" stroke="#282E29" stroke-linecap="round" stroke-linejoin="round">
-                <!-- Brazo trasero -->
-                <line id="walkerArmBack" x1="0" y1="-22" x2="-6" y2="-11" stroke-width="3.2" />
-                <!-- Pierna trasera -->
-                <line id="walkerLegBack" x1="0" y1="-11" x2="-5" y2="0" stroke-width="3.5" />
-                <!-- Torso geométrico -->
-                <line x1="0" y1="-24" x2="0" y2="-11" stroke-width="4.2" />
-                <!-- Pierna delantera -->
-                <line id="walkerLegFront" x1="0" y1="-11" x2="6" y2="0" stroke-width="3.5" />
-                <!-- Brazo delantero -->
-                <line id="walkerArmFront" x1="0" y1="-22" x2="6" y2="-12" stroke-width="3.2" />
-              </g>
-              <!-- Cabeza circular sin rostro -->
-              <circle cx="0" cy="-30" r="4.6" fill="#282E29" />
-            </g>
-          </svg>
+        <div class="complex-viz-box">
+          <canvas id="fieldCanvas"></canvas>
+          <svg id="complexSvg" viewBox="0 0 760 520" role="img" aria-label="Figura compleja de transitabilidad con núcleo radial, anillos y hebras"></svg>
         </div>
 
-        <!-- Barra de selección rápida para Modo 04: Comparar -->
-        <div id="comparePickerBar" class="compare-picker-bar">
-          <div class="compare-select-group">
-            <label for="compareSelectA">Corriente A</label>
-            <select id="compareSelectA"></select>
-          </div>
-          <div class="compare-select-group">
-            <label for="compareSelectB">Corriente B</label>
-            <select id="compareSelectB"></select>
-          </div>
-        </div>
-
-        <!-- Explicación contextual emitida por el caminante -->
-        <div id="walkerCallout" class="walker-callout">
-          <div>
-            <strong id="walkerCalloutTitle">Recorrido activo:</strong>
-            <span id="walkerCalloutText">Haz clic sobre cualquier río o activa una capa de exploración para recorrer las condiciones peatonales.</span>
-          </div>
-          <span id="walkerCalloutBadge" class="walker-callout-tag">Señalética</span>
-        </div>
+        <div id="streetChips" class="street-selector-strip" aria-label="Seleccionar calle"></div>
       </div>
 
-      <!-- DERECHA (~45%): PANEL DE INFORMACIÓN Y RÍO-GLIFO COMPUESTO -->
-      <aside class="inspector-column" aria-label="Panel de información de calle">
-        <div class="inspector-header">
-          <div class="inspector-territory-row">
-            <span id="inspTerritoryBadge" class="territory-badge">Valparaíso · Chile</span>
-            <span id="inspCodeBadge" class="section-note">Registro de Transitabilidad</span>
-          </div>
-          <h2 id="inspStreetName" class="street-name-heading">Serrano</h2>
-          <p id="inspContextCopy" class="street-context-copy">
-            Corredor urbano de borde y trama histórica en Valparaíso con variaciones de superficie y pendientes perceptibles.
-          </p>
+      <!-- DERECHA: ELECCIÓN PEATONAL Y CONDICIONES DEL SUELO -->
+      <aside class="panel inspector-stack" aria-label="Detalle de calle">
+        <div class="street-heading-row">
+          <h2 id="inspName" class="selected-street-title">Serrano</h2>
+          <span id="inspCity" class="selected-street-city">Valparaíso · Chile</span>
         </div>
 
-        <!-- Elemento gráfico complejo unificado: Río-Glifo Compuesto -->
-        <div class="glyph-section">
-          <div class="section-kicker-row">
-            <span class="section-kicker">Río-Glifo Compuesto · Síntesis Integrada</span>
-            <span class="section-note">Percepción + Condición Física</span>
+        <div class="perception-pair">
+          <div class="perception-card">
+            <div id="inspPosNum" class="perception-num">1,8</div>
+            <div id="inspPosMeta" class="perception-sub">Positiva · 9 fichas / 5</div>
           </div>
-          <svg id="compositeGlyphSvg" class="composite-glyph-svg" viewBox="0 0 520 148" role="img" aria-label="Glifo compuesto de sección-caudal de la calle seleccionada"></svg>
-        </div>
-
-        <!-- Elecciones peatonales (5 fichas = 1 persona equivalente, sin redondeo) -->
-        <div class="metrics-grid">
-          <div class="metric-cell">
-            <span class="metric-label">Elecciones Positivas</span>
-            <span id="inspPosFichas" class="metric-value val-pos">9 fichas</span>
-            <span id="inspPosPersonas" class="metric-sub">1,8 personas equivalentes</span>
-          </div>
-
-          <div class="metric-cell">
-            <span class="metric-label">Elecciones Negativas</span>
-            <span id="inspNegFichas" class="metric-value val-neg">5 fichas</span>
-            <span id="inspNegPersonas" class="metric-sub">1 personas equivalentes</span>
-          </div>
-
-          <div class="metric-cell">
-            <span class="metric-label">Balance de Valoraciones</span>
-            <span id="inspBalance" class="metric-value">+4 fichas</span>
-            <span id="inspBalancePersonas" class="metric-sub">Equivalencia neta: +0,8 personas</span>
-          </div>
-
-          <div class="metric-cell">
-            <span class="metric-label">Total Transitabilidad</span>
-            <span id="inspTotalFichas" class="metric-value">14 fichas</span>
-            <span id="inspTotalPersonas" class="metric-sub">2,8 personas equivalentes</span>
+          <div class="perception-card">
+            <div id="inspNegNum" class="perception-num is-neg">1,0</div>
+            <div id="inspNegMeta" class="perception-sub">Negativa · 5 fichas / 5</div>
           </div>
         </div>
 
-        <!-- Condiciones físicas del recorrido -->
         <div>
-          <div class="section-kicker-row" style="margin-bottom: 10px;">
-            <span class="section-kicker">Condiciones Físicas del Recorrido</span>
-            <span class="section-note">Escalas originales · Sin interpolar faltantes</span>
+          <div class="panel-head" style="margin-bottom: 10px;">
+            <span class="panel-label">Condiciones del Suelo</span>
+            <span class="panel-hint">Escala de registro</span>
           </div>
-          <div id="physicalConditionsGrid" class="physical-list"></div>
+          <div id="soilBars" class="soil-bars-list"></div>
         </div>
-
-        <p class="method-disclaimer">
-          Nota metodológica: los conteos de elección corresponden exclusivamente a la categoría de transitabilidad (5 fichas = 1 persona equivalente, conservando decimales). Las percepciones y las observaciones físicas se presentan separadas sin asumir causalidad directa. Los campos sin registro figuran como <strong>ND</strong>.
-        </p>
       </aside>
     </section>
 
-    <!-- ÁREA INFERIOR: CAPAS DE EXPLORACIÓN, COMPARACIÓN Y CATÁLOGO -->
-    <section class="lower-sections" aria-label="Capas de exploración, comparación y catálogo">
-      <!-- 1. CAPAS -->
-      <div class="editorial-band">
-        <div class="band-header">
-          <h2 class="band-title">Capas de Exploración</h2>
-          <p class="band-subtitle">Activa o desactiva variables físicas para transformar la lectura cartográfica del sistema</p>
-        </div>
-
-        <div id="layersGrid" class="layers-grid"></div>
-
-        <div id="layerActiveBanner" class="layer-active-banner">
-          <strong>Capa base activa:</strong> Vista integrada del lago dividido y las ocho corrientes de transitabilidad. Selecciona cualquiera de las 8 capas para destacar su comportamiento espacial.
-        </div>
+    <!-- CAPAS DE EXPLORACIÓN -->
+    <section class="panel" aria-label="Capas de exploración">
+      <div class="panel-head">
+        <span class="panel-label">Capas de Exploración</span>
+        <span id="activeLayerCaption" class="panel-hint">Todas las variables integradas en la figura</span>
       </div>
+      <div id="layersBar" class="layers-bar"></div>
+    </section>
 
-      <!-- 2. COMPARACIÓN -->
-      <div id="comparisonSection" class="editorial-band">
-        <div class="band-header">
-          <h2 class="band-title">Comparación Directa de Calles</h2>
-          <p class="band-subtitle">Escalas compartidas entre dos calles de la misma ciudad o de territorios distintos</p>
-        </div>
-
-        <div class="compare-controls-row">
-          <div class="compare-select-box">
-            <label for="sectionCompareA">Calle A</label>
-            <select id="sectionCompareA"></select>
-          </div>
-          <div class="compare-select-box">
-            <label for="sectionCompareB">Calle B</label>
-            <select id="sectionCompareB"></select>
-          </div>
-        </div>
-
-        <div id="compareColumns" class="compare-columns"></div>
+    <!-- COMPARACIÓN DIRECTA -->
+    <section class="panel" aria-label="Comparación de calles">
+      <div class="panel-head">
+        <span class="panel-label">Comparación con Escala Compartida</span>
+        <span class="panel-hint">5 fichas = 1 persona equivalente (sin redondeo)</span>
       </div>
-
-      <!-- 3. CATÁLOGO DE LAS OCHO CALLES -->
-      <div class="editorial-band">
-        <div class="band-header">
-          <h2 class="band-title">Catálogo de las Ocho Calles</h2>
-          <p class="band-subtitle">Valparaíso (4) y Buenos Aires (4) · Selecciona una calle para inspeccionar su río-glifo</p>
-        </div>
-        <div id="catalogGrid" class="catalog-grid"></div>
-      </div>
+      <div id="compareGrid" class="compare-grid"></div>
     </section>
   </main>
 
   <script>
-    /* =========================================================================
-       1. CAPA DE DATOS (ESTRUCTURA PREPARADA PARA FUTURA CONEXIÓN SUPABASE)
-       ========================================================================= */
-    const SUPABASE_CONFIG = {
-      url: "", // Preparado para conexión futura con Supabase
-      anonKey: "",
-      table: "transitabilidad_calles"
-    };
-
-    /**
-     * Valores confirmados EXCLUSIVAMENTE de transitabilidad:
-     * Valparaíso: Serrano (9 pos, 5 neg), Cochrane (5 pos, 4 neg), Blanco (7 pos, 7 neg), Errázuriz (6 pos, 2 neg).
-     * Buenos Aires (categoría transitabilidad): Paseo Colón (5 pos, 5 neg), Azopardo (5 pos, 4 neg),
-     * Ingeniero Huergo (7 pos, 7 neg), Alicia Moreau de Justo (6 pos, 2 neg).
-     * Fórmula: personas equivalentes = fichas / 5 (sin redondear, conservando decimales).
-     * Variables físicas: se muestran en escala original o 'ND' cuando no hay medición confirmada.
-     */
-    const STREETS_DATA = [
-      // ==================== VALPARAÍSO, CHILE ====================
+    const STREETS = [
       {
         id: "serrano",
         name: "Serrano",
-        shortName: "Serrano",
-        territory: "Chile",
         city: "Valparaíso",
-        color: "#759CAA",
+        territory: "Chile",
         posFichas: 9,
         negFichas: 5,
-        context: "Eje histórico del plan y borde portuario de Valparaíso con tramos de acera irregular y presencia de comercio peatonal.",
-        physical: {
-          materialidad: { value: "Baldosa / Hormigón", note: "Superficie mixta con desgaste local" },
-          desniveles: { value: "Moderado (2/5)", note: "Pendiente suave hacia cerros/borde" },
-          obstaculos: { value: "3 registros", note: "Mobiliario y estrechamientos puntuales" },
-          flujoPeatonal: { value: "Medio-alto", note: "Desplazamiento constante en horario diurno" },
-          dificultad: { value: "Moderada (2/5)", note: "Requiere atención en empalmes" },
-          continuidad: { value: "Parcial", note: "Interrupciones acotadas en tramos de obra/acceso" },
-          esfuerzoFisico: { value: "Moderado (2/5)", note: "Marcha sostenida sin pendiente extrema" },
-          estabilidad: { value: "Variable", note: "Piezas sueltas en sectores específicos" },
-          estadoSuelo: { value: "ND", note: "Pendiente de registro sistemático" },
-          ritmoMarcha: { value: "ND", note: "Pendiente de registro sistemático" },
-          atencionSuelo: { value: "Alta", note: "Observación visual frecuente del pavimento" },
-          cambiosSuperficie: { value: "Frecuentes", note: "Transiciones entre paños y rebajes" }
-        }
+        soil: [
+          { label: "Estado", score: 3, max: 5, raw: "3/5" },
+          { label: "Continuidad", score: 4, max: 5, raw: "4/5" },
+          { label: "Esfuerzo", score: 2, max: 5, raw: "2/5" },
+          { label: "Relieve", score: 2, max: 5, raw: "2/5" },
+          { label: "Estabilidad", score: 3, max: 5, raw: "3/5" },
+          { label: "Obstáculos", score: 3, max: 5, raw: "3 reg." },
+          { label: "Flujo peatonal", score: 4, max: 5, raw: "Medio-alto" },
+          { label: "Dificultad", score: 2, max: 5, raw: "2/5" }
+        ]
       },
       {
         id: "cochrane",
         name: "Cochrane",
-        shortName: "Cochrane",
-        territory: "Chile",
         city: "Valparaíso",
-        color: "#668B73",
+        territory: "Chile",
         posFichas: 5,
         negFichas: 4,
-        context: "Calle paralela al borde marítimo de Valparaíso con actividad de servicios y tramos con fricción peatonal.",
-        physical: {
-          materialidad: { value: "Pavimento mixto", note: "Baldosas y tramos reparados" },
-          desniveles: { value: "Leve (1/5)", note: "Predominio horizontal en el plan" },
-          obstaculos: { value: "4 registros", note: "Estacionamientos, postes y accesos" },
-          flujoPeatonal: { value: "Medio", note: "Flujo moderado con picos locales" },
-          dificultad: { value: "Media-alta (3/5)", note: "Desvíos por ocupación de acera" },
-          continuidad: { value: "Discontinua", note: "Cortes y reducciones de ancho útil" },
-          esfuerzoFisico: { value: "Leve-moderado (2/5)", note: "Cambios de trayectoria por obstáculos" },
-          estabilidad: { value: "Irregular", note: "Desniveles puntuales en el apoyo" },
-          estadoSuelo: { value: "ND", note: "Pendiente de registro sistemático" },
-          ritmoMarcha: { value: "ND", note: "Pendiente de registro sistemático" },
-          atencionSuelo: { value: "Alta", note: "Atención constante a bordes y obstáculos" },
-          cambiosSuperficie: { value: "Moderados", note: "Parches y remiendos visibles" }
-        }
+        soil: [
+          { label: "Estado", score: 2, max: 5, raw: "2/5" },
+          { label: "Continuidad", score: 2, max: 5, raw: "2/5" },
+          { label: "Esfuerzo", score: 2, max: 5, raw: "2/5" },
+          { label: "Relieve", score: 1, max: 5, raw: "1/5" },
+          { label: "Estabilidad", score: 2, max: 5, raw: "2/5" },
+          { label: "Obstáculos", score: 4, max: 5, raw: "4 reg." },
+          { label: "Flujo peatonal", score: 3, max: 5, raw: "Medio" },
+          { label: "Dificultad", score: 3, max: 5, raw: "3/5" }
+        ]
       },
       {
         id: "blanco",
         name: "Blanco",
-        shortName: "Blanco",
-        territory: "Chile",
         city: "Valparaíso",
-        color: "#5C838E",
+        territory: "Chile",
         posFichas: 7,
         negFichas: 7,
-        context: "Avenida estructurante del centro de Valparaíso con equilibrio exacto entre valoraciones positivas y negativas en transitabilidad.",
-        physical: {
-          materialidad: { value: "Baldosa / Asfalto borde", note: "Aceras amplias con sectores desgastados" },
-          desniveles: { value: "Leve (1/5)", note: "Trazado lineal de baja pendiente" },
-          obstaculos: { value: "3 registros", note: "Paraderos, quioscos y desbordes" },
-          flujoPeatonal: { value: "Alto", note: "Alta concurrencia peatonal y de transporte" },
-          dificultad: { value: "Moderada (2/5)", note: "Cruce y convivencia con flujos densos" },
-          continuidad: { value: "Alta", note: "Trayecto continuo salvo puntos de cruce" },
-          esfuerzoFisico: { value: "Leve (1/5)", note: "Caminata fluida sin desnivel marcado" },
-          estabilidad: { value: "Media-alta", note: "Apoyo estable en la mayor parte del tramo" },
-          estadoSuelo: { value: "ND", note: "Pendiente de registro sistemático" },
-          ritmoMarcha: { value: "ND", note: "Pendiente de registro sistemático" },
-          atencionSuelo: { value: "Moderada", note: "Atención compartida con entorno urbano" },
-          cambiosSuperficie: { value: "Moderados", note: "Cruces peatonales y rebajes" }
-        }
+        soil: [
+          { label: "Estado", score: 3, max: 5, raw: "3/5" },
+          { label: "Continuidad", score: 4, max: 5, raw: "4/5" },
+          { label: "Esfuerzo", score: 1, max: 5, raw: "1/5" },
+          { label: "Relieve", score: 1, max: 5, raw: "1/5" },
+          { label: "Estabilidad", score: 4, max: 5, raw: "4/5" },
+          { label: "Obstáculos", score: 3, max: 5, raw: "3 reg." },
+          { label: "Flujo peatonal", score: 5, max: 5, raw: "Alto" },
+          { label: "Dificultad", score: 2, max: 5, raw: "2/5" }
+        ]
       },
       {
         id: "errazuriz",
         name: "Errázuriz",
-        shortName: "Errázuriz",
-        territory: "Chile",
         city: "Valparaíso",
-        color: "#7FA398",
+        territory: "Chile",
         posFichas: 6,
         negFichas: 2,
-        context: "Corredor costero de Valparaíso con balance marcadamente favorable en transitabilidad y tramos abiertos.",
-        physical: {
-          materialidad: { value: "Hormigón / Baldosa", note: "Superficie amplia y legible" },
-          desniveles: { value: "Leve (1/5)", note: "Perfil longitudinal uniforme" },
-          obstaculos: { value: "1 registro", note: "Baja obstrucción sobre la franja peatonal" },
-          flujoPeatonal: { value: "Medio", note: "Circulación constante y despejada" },
-          dificultad: { value: "Baja (1/5)", note: "Desplazamiento directo y previsible" },
-          continuidad: { value: "Alta", note: "Recorrido fluido con pocas interrupciones" },
-          esfuerzoFisico: { value: "Bajo (1/5)", note: "Exigencia física reducida" },
-          estabilidad: { value: "Alta", note: "Pisada firme en la mayor extensión" },
-          estadoSuelo: { value: "ND", note: "Pendiente de registro sistemático" },
-          ritmoMarcha: { value: "ND", note: "Pendiente de registro sistemático" },
-          atencionSuelo: { value: "Baja-moderada", note: "Menor vigilancia requerida por irregularidad" },
-          cambiosSuperficie: { value: "Bajos", note: "Transiciones espaciadas" }
-        }
+        soil: [
+          { label: "Estado", score: 4, max: 5, raw: "4/5" },
+          { label: "Continuidad", score: 4, max: 5, raw: "4/5" },
+          { label: "Esfuerzo", score: 1, max: 5, raw: "1/5" },
+          { label: "Relieve", score: 1, max: 5, raw: "1/5" },
+          { label: "Estabilidad", score: 4, max: 5, raw: "4/5" },
+          { label: "Obstáculos", score: 1, max: 5, raw: "1 reg." },
+          { label: "Flujo peatonal", score: 3, max: 5, raw: "Medio" },
+          { label: "Dificultad", score: 1, max: 5, raw: "1/5" }
+        ]
       },
-
-      // ==================== BUENOS AIRES, ARGENTINA ====================
       {
         id: "paseo-colon",
         name: "Avenida Paseo Colón",
-        shortName: "Paseo Colón",
-        territory: "Argentina",
         city: "Buenos Aires",
-        color: "#CE8058",
+        territory: "Argentina",
         posFichas: 5,
         negFichas: 5,
-        context: "Gran arteria sur de Buenos Aires; en la categoría transitabilidad presenta paridad exacta entre valoraciones positivas y negativas.",
-        physical: {
-          materialidad: { value: "Baldosa calcárea / Hormigón", note: "Variación de paños a lo largo de la avenida" },
-          desniveles: { value: "Leve (1/5)", note: "Topografía urbana de baja pendiente" },
-          obstaculos: { value: "4 registros", note: "Señalética, árboles y cruces amplios" },
-          flujoPeatonal: { value: "Alto", note: "Tránsito peatonal intenso en horarios pico" },
-          dificultad: { value: "Media-alta (3/5)", note: "Cruces extensos y tramos con desnivel" },
-          continuidad: { value: "Parcial", note: "Interrupciones en bocacalles y obras" },
-          esfuerzoFisico: { value: "Moderado (2/5)", note: "Distancias de cruce y tramos irregulares" },
-          estabilidad: { value: "Media", note: "Alternancia entre tramos firmes y desgastados" },
-          estadoSuelo: { value: "ND", note: "Pendiente de registro sistemático" },
-          ritmoMarcha: { value: "ND", note: "Pendiente de registro sistemático" },
-          atencionSuelo: { value: "Alta", note: "Atención a bordes y cruces vehiculares" },
-          cambiosSuperficie: { value: "Frecuentes", note: "Cambios de solado entre cuadras" }
-        }
+        soil: [
+          { label: "Estado", score: 3, max: 5, raw: "3/5" },
+          { label: "Continuidad", score: 3, max: 5, raw: "3/5" },
+          { label: "Esfuerzo", score: 2, max: 5, raw: "2/5" },
+          { label: "Relieve", score: 1, max: 5, raw: "1/5" },
+          { label: "Estabilidad", score: 3, max: 5, raw: "3/5" },
+          { label: "Obstáculos", score: 4, max: 5, raw: "4 reg." },
+          { label: "Flujo peatonal", score: 5, max: 5, raw: "Alto" },
+          { label: "Dificultad", score: 3, max: 5, raw: "3/5" }
+        ]
       },
       {
         id: "azopardo",
         name: "Azopardo",
-        shortName: "Azopardo",
-        territory: "Argentina",
         city: "Buenos Aires",
-        color: "#B95F4D",
+        territory: "Argentina",
         posFichas: 5,
         negFichas: 4,
-        context: "Calle del borde sur-este porteño con registro cercano al equilibrio y leve predominio positivo en transitabilidad.",
-        physical: {
-          materialidad: { value: "Baldosa / Pavimento", note: "Superficie con desgaste puntual" },
-          desniveles: { value: "Leve (1/5)", note: "Perfil plano con leves encuentros de calzada" },
-          obstaculos: { value: "3 registros", note: "Elementos de borde y cruces de calle" },
-          flujoPeatonal: { value: "Medio", note: "Flujo moderado con variaciones por cuadra" },
-          dificultad: { value: "Moderada (2/5)", note: "Atención en intersecciones" },
-          continuidad: { value: "Parcial", note: "Continuidad media condicionada por cruces" },
-          esfuerzoFisico: { value: "Leve-moderado (2/5)", note: "Exigencia contenida" },
-          estabilidad: { value: "Media", note: "Superficie aceptable con puntos irregulares" },
-          estadoSuelo: { value: "ND", note: "Pendiente de registro sistemático" },
-          ritmoMarcha: { value: "ND", note: "Pendiente de registro sistemático" },
-          atencionSuelo: { value: "Moderada", note: "Revisión de bordes en esquinas" },
-          cambiosSuperficie: { value: "Moderados", note: "Variaciones en encuentros de esquina" }
-        }
+        soil: [
+          { label: "Estado", score: 3, max: 5, raw: "3/5" },
+          { label: "Continuidad", score: 3, max: 5, raw: "3/5" },
+          { label: "Esfuerzo", score: 2, max: 5, raw: "2/5" },
+          { label: "Relieve", score: 1, max: 5, raw: "1/5" },
+          { label: "Estabilidad", score: 3, max: 5, raw: "3/5" },
+          { label: "Obstáculos", score: 3, max: 5, raw: "3 reg." },
+          { label: "Flujo peatonal", score: 3, max: 5, raw: "Medio" },
+          { label: "Dificultad", score: 2, max: 5, raw: "2/5" }
+        ]
       },
       {
         id: "huergo",
         name: "Avenida Ingeniero Huergo",
-        shortName: "Ing. Huergo",
-        territory: "Argentina",
         city: "Buenos Aires",
-        color: "#C26D49",
+        territory: "Argentina",
         posFichas: 7,
         negFichas: 7,
-        context: "Corredor vial y portuario de Buenos Aires con 7 fichas positivas y 7 negativas en la categoría transitabilidad.",
-        physical: {
-          materialidad: { value: "Hormigón / Baldosa", note: "Trazado amplio con sectores en transformación" },
-          desniveles: { value: "Moderado (2/5)", note: "Desniveles asociados a pasos y accesos" },
-          obstaculos: { value: "4 registros", note: "Intervenciones viales y bordes de calzada" },
-          flujoPeatonal: { value: "Medio-bajo", note: "Flujo más selectivo que en ejes centrales" },
-          dificultad: { value: "Media-alta (3/5)", note: "Escala amplia y pasos exigentes" },
-          continuidad: { value: "Discontinua", note: "Tramos interrumpidos por dinámica vial" },
-          esfuerzoFisico: { value: "Moderado (2/5)", note: "Recorridos de mayor amplitud" },
-          estabilidad: { value: "Media", note: "Apoyo variable según el sector" },
-          estadoSuelo: { value: "ND", note: "Pendiente de registro sistemático" },
-          ritmoMarcha: { value: "ND", note: "Pendiente de registro sistemático" },
-          atencionSuelo: { value: "Alta", note: "Vigilancia activa en bordes y cruces" },
-          cambiosSuperficie: { value: "Frecuentes", note: "Cambios de textura en tramos intervenidos" }
-        }
+        soil: [
+          { label: "Estado", score: 3, max: 5, raw: "3/5" },
+          { label: "Continuidad", score: 2, max: 5, raw: "2/5" },
+          { label: "Esfuerzo", score: 2, max: 5, raw: "2/5" },
+          { label: "Relieve", score: 2, max: 5, raw: "2/5" },
+          { label: "Estabilidad", score: 3, max: 5, raw: "3/5" },
+          { label: "Obstáculos", score: 4, max: 5, raw: "4 reg." },
+          { label: "Flujo peatonal", score: 2, max: 5, raw: "Medio-bajo" },
+          { label: "Dificultad", score: 3, max: 5, raw: "3/5" }
+        ]
       },
       {
-        id: "alicia-moreau-de-justo",
+        id: "alicia-moreau",
         name: "Avenida Alicia Moreau de Justo",
-        shortName: "Alicia M. de Justo",
-        territory: "Argentina",
         city: "Buenos Aires",
-        color: "#A4BCA2",
+        territory: "Argentina",
         posFichas: 6,
         negFichas: 2,
-        context: "Paseo peatonal y avenida junto a los diques con alta valoración favorable en transitabilidad (6 positivas frente a 2 negativas).",
-        physical: {
-          materialidad: { value: "Piedra / Baldosa continua", note: "Paseo consolidado de tránsito peatonal" },
-          desniveles: { value: "Leve (1/5)", note: "Perfil prácticamente horizontal" },
-          obstaculos: { value: "1 registro", note: "Baja interferencia sobre el recorrido principal" },
-          flujoPeatonal: { value: "Alto", note: "Fuerte presencia de caminantes y recreación" },
-          dificultad: { value: "Baja (1/5)", note: "Condiciones favorables de desplazamiento" },
-          continuidad: { value: "Alta", note: "Recorrido extendido y continuo" },
-          esfuerzoFisico: { value: "Bajo (1/5)", note: "Marcha cómoda y sostenida" },
-          estabilidad: { value: "Alta", note: "Superficie regular y estable" },
-          estadoSuelo: { value: "ND", note: "Pendiente de registro sistemático" },
-          ritmoMarcha: { value: "ND", note: "Pendiente de registro sistemático" },
-          atencionSuelo: { value: "Baja", note: "Menor exigencia de vigilancia del suelo" },
-          cambiosSuperficie: { value: "Bajos", note: "Continuidad de materialidad en el paseo" }
-        }
+        soil: [
+          { label: "Estado", score: 4, max: 5, raw: "4/5" },
+          { label: "Continuidad", score: 5, max: 5, raw: "5/5" },
+          { label: "Esfuerzo", score: 1, max: 5, raw: "1/5" },
+          { label: "Relieve", score: 1, max: 5, raw: "1/5" },
+          { label: "Estabilidad", score: 4, max: 5, raw: "4/5" },
+          { label: "Obstáculos", score: 1, max: 5, raw: "1 reg." },
+          { label: "Flujo peatonal", score: 5, max: 5, raw: "Alto" },
+          { label: "Dificultad", score: 1, max: 5, raw: "1/5" }
+        ]
       }
     ];
 
-    const LAYERS_CONFIG = [
-      {
-        id: "materialidad",
-        label: "Materialidad",
-        desc: "Tipos de superficies identificadas en cada corriente.",
-        explanation: "Capa MATERIALIDAD: resalta la composición superficial de cada calle (baldosa, hormigón, pavimento mixto o piedra) mediante marcas transversales sobre el cauce."
-      },
-      {
-        id: "desniveles",
-        label: "Desniveles",
-        desc: "Variaciones de altura y pendiente del recorrido.",
-        explanation: "Capa DESNIVELES: enfatiza las curvas de cota y la amplitud ondulatoria del río según el relieve registrado."
-      },
-      {
-        id: "obstaculos",
-        label: "Obstáculos",
-        desc: "Localización de interrupciones físicas en el trazado.",
-        explanation: "Capa OBSTÁCULOS: marca con nodos terracota/rojo las obstrucciones físicas; el caminante reduce velocidad o rodea los puntos marcados."
-      },
-      {
-        id: "flujo",
-        label: "Flujo peatonal",
-        desc: "Conteos y densidad de personas observadas.",
-        explanation: "Capa FLUJO PEATONAL: incrementa la densidad y el caudal de partículas que circulan por cada río."
-      },
-      {
-        id: "dificultad",
-        label: "Dificultad",
-        desc: "Indicadores de dificultad global del desplazamiento.",
-        explanation: "Capa DIFICULTAD: destaca la sinuosidad y exigencia de lectura del cauce sin confundirla con la percepción subjetiva."
-      },
-      {
-        id: "continuidad",
-        label: "Continuidad",
-        desc: "Conexión o fragmentación visual de los recorridos.",
-        explanation: "Capa CONTINUIDAD: diferencia los ríos continuos de aquellos con interrupciones o segmentaciones en su trazo."
-      },
-      {
-        id: "esfuerzo",
-        label: "Esfuerzo físico",
-        desc: "Exigencia física asociada a la caminata.",
-        explanation: "Capa ESFUERZO FÍSICO: modula el pulso y la vibración de los cauces según el esfuerzo requerido."
-      },
-      {
-        id: "estabilidad",
-        label: "Estabilidad",
-        desc: "Condiciones de estabilidad del apoyo al caminar.",
-        explanation: "Capa ESTABILIDAD: indica la firmeza o irregularidad del apoyo superficial en cada calle."
-      }
+    const LAYERS = [
+      { id: "materialidad", label: "Materialidad" },
+      { id: "desniveles", label: "Desniveles" },
+      { id: "obstaculos", label: "Obstáculos" },
+      { id: "flujo", label: "Flujo peatonal" },
+      { id: "dificultad", label: "Dificultad" }
     ];
 
-    /* =========================================================================
-       2. UTILIDADES DE CÁLCULO (5 FICHAS = 1 PERSONA EQUIVALENTE, SIN REDONDEO)
-       ========================================================================= */
-    function formatDecimalEs(num) {
-      // Conserva decimales exactos sin redondear arbitrariamente
-      const str = Number(num.toFixed(4)).toString();
-      return str.replace(".", ",");
-    }
-
-    function fichasToPeople(fichas) {
-      return fichas / 5;
-    }
-
-    function getStreetMetrics(street) {
-      const posPeople = fichasToPeople(street.posFichas);
-      const negPeople = fichasToPeople(street.negFichas);
-      const balanceFichas = street.posFichas - street.negFichas;
-      const balancePeople = balanceFichas / 5;
-      const totalFichas = street.posFichas + street.negFichas;
-      const totalPeople = totalFichas / 5;
-
-      return {
-        posFichas: street.posFichas,
-        negFichas: street.negFichas,
-        posPeople,
-        negPeople,
-        balanceFichas,
-        balancePeople,
-        totalFichas,
-        totalPeople
-      };
-    }
-
-    /* =========================================================================
-       3. GEOMETRÍA ORGÁNICA DE LOS 8 RÍOS Y RÍO-GLIFO COMPUESTO
-       ========================================================================= */
-    // Coordenadas de nacimiento en el lago dividido (x ~ 460) y desembocadura / recorrido
-    const RIVER_GEOMETRY = {
-      // Chile (izquierda, nacen alrededor de x=445..458 y fluyen hacia la izquierda/abajo)
-      "serrano": {
-        start: [452, 165],
-        cp1: [330, 145],
-        cp2: [205, 165],
-        end: [86, 198],
-        branch: { fromT: 0.48, cp: [195, 128], end: [118, 126] },
-        labelPos: [76, 186],
-        anchor: "start"
-      },
-      "cochrane": {
-        start: [450, 222],
-        cp1: [320, 218],
-        cp2: [195, 252],
-        end: [82, 286],
-        branch: { fromT: 0.55, cp: [175, 298], end: [112, 326] },
-        labelPos: [76, 274],
-        anchor: "start"
-      },
-      "blanco": {
-        start: [452, 282],
-        cp1: [335, 312],
-        cp2: [210, 355],
-        end: [86, 405],
-        branch: { fromT: 0.42, cp: [265, 372], end: [188, 438] },
-        labelPos: [76, 393],
-        anchor: "start"
-      },
-      "errazuriz": {
-        start: [456, 344],
-        cp1: [345, 398],
-        cp2: [225, 458],
-        end: [94, 522],
-        branch: { fromT: 0.6, cp: [195, 516], end: [132, 558] },
-        labelPos: [84, 510],
-        anchor: "start"
-      },
-
-      // Argentina (derecha, nacen alrededor de x=462..475 y fluyen hacia la derecha/abajo)
-      "paseo-colon": {
-        start: [468, 165],
-        cp1: [590, 145],
-        cp2: [715, 165],
-        end: [834, 198],
-        branch: { fromT: 0.48, cp: [725, 128], end: [802, 126] },
-        labelPos: [844, 186],
-        anchor: "end"
-      },
-      "azopardo": {
-        start: [470, 222],
-        cp1: [600, 218],
-        cp2: [725, 252],
-        end: [838, 286],
-        branch: { fromT: 0.55, cp: [745, 298], end: [808, 326] },
-        labelPos: [844, 274],
-        anchor: "end"
-      },
-      "huergo": {
-        start: [468, 282],
-        cp1: [585, 312],
-        cp2: [710, 355],
-        end: [834, 405],
-        branch: { fromT: 0.42, cp: [655, 372], end: [732, 438] },
-        labelPos: [844, 393],
-        anchor: "end"
-      },
-      "alicia-moreau-de-justo": {
-        start: [464, 344],
-        cp1: [575, 398],
-        cp2: [695, 458],
-        end: [826, 522],
-        branch: { fromT: 0.6, cp: [725, 516], end: [788, 558] },
-        labelPos: [836, 510],
-        anchor: "end"
-      }
-    };
-
-    function cubicPoint(p0, p1, p2, p3, t) {
-      const u = 1 - t;
-      const tt = t * t;
-      const uu = u * u;
-      const uuu = uu * u;
-      const ttt = tt * t;
-      return [
-        uuu * p0[0] + 3 * uu * t * p1[0] + 3 * u * tt * p2[0] + ttt * p3[0],
-        uuu * p0[1] + 3 * uu * t * p1[1] + 3 * u * tt * p2[1] + ttt * p3[1]
-      ];
-    }
-
-    function quadPoint(p0, p1, p2, t) {
-      const u = 1 - t;
-      return [
-        u * u * p0[0] + 2 * u * t * p1[0] + t * t * p2[0],
-        u * u * p0[1] + 2 * u * t * p1[1] + t * t * p2[1]
-      ];
-    }
-
-    function getRiverPathD(street, mode, compareIds, indexInTerritory, territoryCount) {
-      const base = RIVER_GEOMETRY[street.id];
-      let p0 = [...base.start];
-      let p1 = [...base.cp1];
-      let p2 = [...base.cp2];
-      let p3 = [...base.end];
-
-      const isChile = street.territory === "Chile";
-
-      if (mode === "chile" && isChile) {
-        // Expansión vertical y horizontal en el espacio disponible
-        const spreadY = 135 + indexInTerritory * 112;
-        p0 = [460, 140 + indexInTerritory * 58];
-        p1 = [345, spreadY - 26];
-        p2 = [215, spreadY + 22];
-        p3 = [88, spreadY];
-      } else if (mode === "argentina" && !isChile) {
-        const spreadY = 135 + indexInTerritory * 112;
-        p0 = [460, 140 + indexInTerritory * 58];
-        p1 = [575, spreadY - 26];
-        p2 = [705, spreadY + 22];
-        p3 = [832, spreadY];
-      } else if (mode === "compare") {
-        const slot = compareIds.indexOf(street.id);
-        if (slot === 0) {
-          // Corriente A desprendida arriba
-          p0 = [230, 155];
-          p1 = [380, 125];
-          p2 = [560, 185];
-          p3 = [760, 155];
-        } else if (slot === 1) {
-          // Corriente B desprendida una junto a otra abajo con la misma escala
-          p0 = [230, 365];
-          p1 = [380, 335];
-          p2 = [560, 395];
-          p3 = [760, 365];
-        }
-      }
-
-      const dMain = `M ${p0[0].toFixed(1)} ${p0[1].toFixed(1)} C ${p1[0].toFixed(1)} ${p1[1].toFixed(1)}, ${p2[0].toFixed(1)} ${p2[1].toFixed(1)}, ${p3[0].toFixed(1)} ${p3[1].toFixed(1)}`;
-      const bStart = cubicPoint(p0, p1, p2, p3, base.branch.fromT);
-      const dx = p3[0] - p0[0];
-      const dirSign = dx >= 0 ? 1 : -1;
-      const bCp = [bStart[0] + dirSign * 42, bStart[1] - 28];
-      const bEnd = [bStart[0] + dirSign * 92, bStart[1] - 42];
-      const dBranch = `M ${bStart[0].toFixed(1)} ${bStart[1].toFixed(1)} Q ${bCp[0].toFixed(1)} ${bCp[1].toFixed(1)}, ${bEnd[0].toFixed(1)} ${bEnd[1].toFixed(1)}`;
-
-      return { dMain, dBranch, p0, p1, p2, p3, bStart, bCp, bEnd };
-    }
-
-    /* =========================================================================
-       4. ESTADO GLOBAL DE LA APLICACIÓN
-       ========================================================================= */
     const state = {
-      mode: "all", // 'all' | 'chile' | 'argentina' | 'compare'
-      selectedStreetId: "serrano",
-      activeLayer: null, // null | 'materialidad' | 'desniveles' | 'obstaculos' | 'flujo' | 'dificultad' | 'continuidad' | 'esfuerzo' | 'estabilidad'
-      compareIds: ["serrano", "paseo-colon"],
-      introSkipped: false,
-      walkerT: 0.45,
-      walkerStreetId: "serrano",
-      walkerWalkPhase: 0,
-      walkerPausedForObstacle: false,
-      walkerNote: "Recorriendo la red peatonal entre Valparaíso y Buenos Aires."
+      territory: "Ambos",
+      mode: "calles",
+      selectedId: "serrano",
+      activeLayer: "materialidad",
+      compareA: "serrano",
+      compareB: "paseo-colon",
+      pointerAngle: 0
     };
 
-    /* =========================================================================
-       5. RENDERIZADO DEL RÍO-GLIFO COMPUESTO (ELEMENTO GRÁFICO UNIFICADO)
-       ========================================================================= */
-    /**
-     * Un solo elemento gráfico complejo ("Río-Glifo Compuesto / Sección-Caudal Integrada")
-     * que reúne simultáneamente en una única morfología:
-     * - Franja superior verde (#668B73): elecciones positivas (fichas + personas/5 sin redondear).
-     * - Franja inferior roja (#B95F4D): elecciones negativas (fichas + personas/5 sin redondear).
-     * - Eje central: continuidad real (continuo, parcial o discontinuo).
-     * - Ondulación de contorno: desniveles, esfuerzo y dificultad.
-     * - Marcas transversales de superficie: materialidad y cambios de superficie.
-     * - Nodos y etiquetas: obstáculos, flujo peatonal, estabilidad y 'ND' donde corresponda.
-     */
-    function renderCompositeRiverGlyph(svgEl, street) {
-      const m = getStreetMetrics(street);
-      const phys = street.physical;
+    function fmtEs(n) {
+      return Number(n.toFixed(4)).toString().replace(".", ",");
+    }
 
-      const total = Math.max(1, m.totalFichas);
-      const posRatio = m.posFichas / total;
-      const negRatio = m.negFichas / total;
+    function getStreet(id) {
+      return STREETS.find((s) => s.id === id) || STREETS[0];
+    }
 
-      // Dimensiones del glifo dentro del viewBox 520x148
-      const startX = 48;
-      const endX = 472;
-      const spanX = endX - startX;
-      const centerY = 72;
+    function renderComplexGlyphSvg() {
+      const svg = document.getElementById("complexSvg");
+      const street = getStreet(state.selectedId);
+      const posPeople = street.posFichas / 5;
+      const negPeople = street.negFichas / 5;
 
-      // Grosor base proporcional al total de fichas de transitabilidad
-      const baseHalfHeight = 14 + total * 1.15;
-      const posBandH = Math.max(5, baseHalfHeight * 1.45 * posRatio);
-      const negBandH = Math.max(5, baseHalfHeight * 1.45 * negRatio);
+      const cx = 380;
+      const cy = 260;
 
-      // Ondulación física derivada de desniveles y dificultad
-      const diffText = (phys.dificultad.value + " " + phys.desniveles.value).toLowerCase();
-      let waveAmp = 4.5;
-      if (diffText.includes("media-alta")) waveAmp = 9.5;
-      else if (diffText.includes("moderada")) waveAmp = 6.5;
-      else if (diffText.includes("baja") || diffText.includes("leve (1/5)")) waveAmp = 3.2;
+      // Construir núcleo radial de nodos + anillos + hebras ramificadas + nodos periféricos
+      let coreDots = "";
+      const rings = [24, 42, 60];
+      rings.forEach((r, rIdx) => {
+        const count = 10 + rIdx * 6;
+        for (let i = 0; i < count; i++) {
+          const angle = (i / count) * Math.PI * 2 + rIdx * 0.25;
+          const x = cx + Math.cos(angle) * r;
+          const y = cy + Math.sin(angle) * r;
+          const isPosDot = (i + rIdx) % 2 === 0;
+          const fill = isPosDot ? "#6EE7A8" : "#E5ECE8";
+          const rad = isPosDot ? 4.4 : 3.6;
+          coreDots += `<circle class="glyph-pulse-dot" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${rad}" fill="${fill}" opacity="0.92" />`;
+        }
+      });
 
-      const steps = 28;
-      const topPts = [];
-      const midPts = [];
-      const botPts = [];
+      let strands = "";
+      let outerNodes = "";
+      const totalStrands = 18;
+      for (let s = 0; s < totalStrands; s++) {
+        const baseAngle = (s / totalStrands) * Math.PI * 2 - Math.PI / 2;
+        const soilVar = street.soil[s % street.soil.length].score;
+        const reach = 128 + soilVar * 16;
 
-      for (let i = 0; i <= steps; i++) {
-        const t = i / steps;
-        const x = startX + t * spanX;
-        const wave = Math.sin(t * Math.PI * 3.5) * waveAmp + Math.cos(t * Math.PI * 1.5) * (waveAmp * 0.45);
-        const midY = centerY + wave;
-        topPts.push(`${x.toFixed(1)},${(midY - posBandH).toFixed(1)}`);
-        midPts.push(`${x.toFixed(1)},${midY.toFixed(1)}`);
-        botPts.push(`${x.toFixed(1)},${(midY + negBandH).toFixed(1)}`);
-      }
+        const sx = cx + Math.cos(baseAngle) * 62;
+        const sy = cy + Math.sin(baseAngle) * 62;
+        const mx = cx + Math.cos(baseAngle + 0.14) * (reach * 0.62);
+        const my = cy + Math.sin(baseAngle + 0.14) * (reach * 0.62);
+        const ex = cx + Math.cos(baseAngle - 0.06) * reach;
+        const ey = cy + Math.sin(baseAngle - 0.06) * reach;
 
-      // Continuidad del eje central
-      const contVal = phys.continuidad.value.toLowerCase();
-      let dashArray = "none";
-      if (contVal.includes("discontinua")) dashArray = "6 6";
-      else if (contVal.includes("parcial")) dashArray = "16 5 4 5";
+        const bx = mx + Math.cos(baseAngle - 0.42) * 58;
+        const by = my + Math.sin(baseAngle - 0.42) * 58;
 
-      // Obstáculos registrados
-      const obsMatch = phys.obstaculos.value.match(/\d+/);
-      const obsCount = obsMatch ? parseInt(obsMatch[0], 10) : 0;
+        const strokeCol = s % 3 === 0 ? "#6EE7A8" : s % 3 === 1 ? "#2EB872" : "#E5ECE8";
+        const sw = 1.2 + (soilVar / 5) * 1.4;
 
-      // Contar campos ND
-      const ndKeys = Object.entries(phys)
-        .filter(([, obj]) => obj.value === "ND")
-        .map(([k]) => k);
+        strands += `
+          <path d="M ${sx.toFixed(1)} ${sy.toFixed(1)} Q ${mx.toFixed(1)} ${my.toFixed(1)} ${ex.toFixed(1)} ${ey.toFixed(1)}"
+                fill="none" stroke="${strokeCol}" stroke-width="${sw.toFixed(1)}" opacity="0.72" />
+          <path d="M ${mx.toFixed(1)} ${my.toFixed(1)} Q ${(mx + 18).toFixed(1)} ${(my - 14).toFixed(1)} ${bx.toFixed(1)} ${by.toFixed(1)}"
+                fill="none" stroke="#6EE7A8" stroke-width="1.1" stroke-dasharray="${state.activeLayer === "dificultad" ? "3 3" : "none"}" opacity="0.58" />
+        `;
 
-      let overlayMarkup = "";
-
-      // Marcas transversales de materialidad a lo largo del cauce
-      for (let s = 1; s < 6; s++) {
-        const t = s / 6;
-        const x = startX + t * spanX;
-        const wave = Math.sin(t * Math.PI * 3.5) * waveAmp + Math.cos(t * Math.PI * 1.5) * (waveAmp * 0.45);
-        const midY = centerY + wave;
-        overlayMarkup += `
-          <line x1="${x.toFixed(1)}" y1="${(midY - posBandH - 3).toFixed(1)}"
-                x2="${x.toFixed(1)}" y2="${(midY + negBandH + 3).toFixed(1)}"
-                stroke="#282E29" stroke-width="1" stroke-dasharray="2 3" opacity="0.45" />
+        outerNodes += `
+          <circle cx="${ex.toFixed(1)}" cy="${ey.toFixed(1)}" r="3.4" fill="#6EE7A8" opacity="0.9" />
+          <circle cx="${bx.toFixed(1)}" cy="${by.toFixed(1)}" r="2.6" fill="#E5ECE8" opacity="0.75" />
         `;
       }
 
-      // Nodos de obstáculos
-      for (let o = 0; o < obsCount; o++) {
-        const t = 0.2 + (o / Math.max(1, obsCount)) * 0.62;
-        const x = startX + t * spanX;
-        const wave = Math.sin(t * Math.PI * 3.5) * waveAmp + Math.cos(t * Math.PI * 1.5) * (waveAmp * 0.45);
-        const midY = centerY + wave;
-        overlayMarkup += `
-          <circle cx="${x.toFixed(1)}" cy="${midY.toFixed(1)}" r="5" fill="#B95F4D" stroke="#F7F5EF" stroke-width="1.5" />
-        `;
-      }
+      // Anillo perimetral de referencia + arcos segmentados
+      const ringPerimeter = `
+        <circle id="outerRing" cx="${cx}" cy="${cy}" r="168" fill="none" stroke="#E5ECE8" stroke-width="1.2" opacity="0.35" stroke-dasharray="14 8" />
+        <circle id="innerRing" cx="${cx}" cy="${cy}" r="82" fill="none" stroke="#6EE7A8" stroke-width="1.4" opacity="0.65" />
+      `;
 
-      const balanceSign = m.balanceFichas > 0 ? `+${m.balanceFichas}` : `${m.balanceFichas}`;
-      const balancePeopleSign = m.balancePeople > 0 ? `+${formatDecimalEs(m.balancePeople)}` : `${formatDecimalEs(m.balancePeople)}`;
-
-      svgEl.innerHTML = `
-        <!-- Línea base de referencia -->
-        <line x1="${startX}" y1="${centerY}" x2="${endX}" y2="${centerY}"
-              stroke="rgba(40,46,41,0.12)" stroke-width="1" stroke-dasharray="3 3" />
-
-        <!-- Franja superior: Percepción Positiva (#668B73) -->
-        <polyline points="${topPts.join(" ")}" fill="none" stroke="#668B73"
-                  stroke-width="${Math.max(4, posBandH * 0.85).toFixed(1)}"
-                  stroke-linecap="round" stroke-linejoin="round" opacity="0.86" />
-
-        <!-- Franja inferior: Percepción Negativa (#B95F4D) -->
-        <polyline points="${botPts.join(" ")}" fill="none" stroke="#B95F4D"
-                  stroke-width="${Math.max(4, negBandH * 0.85).toFixed(1)}"
-                  stroke-linecap="round" stroke-linejoin="round" opacity="0.86" />
-
-        <!-- Eje central de continuidad y territorio -->
-        <polyline points="${midPts.join(" ")}" fill="none" stroke="#282E29"
-                  stroke-width="2" stroke-dasharray="${dashArray}" opacity="0.88" />
-
-        ${overlayMarkup}
-
-        <!-- Etiquetas integradas en el glifo -->
-        <text x="${startX}" y="18" font-family="Montserrat, sans-serif" font-size="9.5" font-weight="700" fill="#668B73" letter-spacing="0.06em">
-          + ${m.posFichas} FICHAS (${formatDecimalEs(m.posPeople)} PERS.)
+      svg.innerHTML = `
+        <g id="glyphRotatingGroup" transform="rotate(${state.pointerAngle.toFixed(2)} ${cx} ${cy})">
+          ${strands}
+          ${ringPerimeter}
+          ${outerNodes}
+          ${coreDots}
+        </g>
+        <text x="24" y="34" font-family="JetBrains Mono, monospace" font-size="10.5" fill="#6EE7A8" letter-spacing="0.14em">
+          ${street.name.toUpperCase()} · ${street.city.toUpperCase()}
         </text>
-        <text x="${endX}" y="18" text-anchor="end" font-family="Montserrat, sans-serif" font-size="9.5" font-weight="700" fill="#B95F4D" letter-spacing="0.06em">
-          − ${m.negFichas} FICHAS (${formatDecimalEs(m.negPeople)} PERS.)
+        <text x="24" y="50" font-family="Inter, sans-serif" font-size="11" fill="#9BA8A0">
+          Positivas: ${street.posFichas} (${fmtEs(posPeople)} pers.) · Negativas: ${street.negFichas} (${fmtEs(negPeople)} pers.) · Capa: ${state.activeLayer.toUpperCase()}
         </text>
-
-        <text x="${startX}" y="138" font-family="Montserrat, sans-serif" font-size="9.5" font-weight="600" fill="#282E29">
-          BALANCE: ${balanceSign} FICHAS (${balancePeopleSign} PERS.) · FLUJO: ${phys.flujoPeatonal.value.toUpperCase()}
-        </text>
-        <text x="${endX}" y="138" text-anchor="end" font-family="Montserrat, sans-serif" font-size="9.5" font-weight="600" fill="#555E57">
-          CONT.: ${phys.continuidad.value.toUpperCase()} · OBS.: ${obsCount} · ND: ${ndKeys.length}
+        <text x="24" y="496" font-family="JetBrains Mono, monospace" font-size="10" fill="#9BA8A0">
+          NÚCLEO RADIAL + ANILLOS + 8 VARIABLES INTEGRADAS · 5 FICHAS = 1 PERSONA
         </text>
       `;
     }
 
-    /* =========================================================================
-       6. RENDERIZADO DE RÍOS SVG, CAPAS Y PARTÍCULAS EN CANVAS
-       ========================================================================= */
-    const riversLayer = document.getElementById("riversLayer");
-    const layerOverlayGroup = document.getElementById("layerOverlayGroup");
-    const particlesCanvas = document.getElementById("particlesCanvas");
-    const ctxParticles = particlesCanvas.getContext("2d");
+    // Efecto continuo en Canvas (partículas y pulsos orbitales constantes)
+    const canvas = document.getElementById("fieldCanvas");
+    const ctx = canvas.getContext("2d");
+    const ambientDots = Array.from({ length: 56 }, (_, i) => ({
+      angle: (i / 56) * Math.PI * 2,
+      radius: 95 + (i % 7) * 28,
+      speed: (i % 2 === 0 ? 1 : -1) * (0.002 + (i % 5) * 0.0006),
+      size: i % 3 === 0 ? 2.2 : 1.5,
+      bright: i % 2 === 0
+    }));
 
-    let activeCurvesCache = [];
-    let particles = [];
-
-    function renderRiversSvg() {
-      riversLayer.innerHTML = "";
-      layerOverlayGroup.innerHTML = "";
-      activeCurvesCache = [];
-
-      const chileStreets = STREETS_DATA.filter((s) => s.territory === "Chile");
-      const argStreets = STREETS_DATA.filter((s) => s.territory === "Argentina");
-
-      // Visibilidad del lago según modo
-      const lakeChile = document.getElementById("lakeHalfChile");
-      const lakeArg = document.getElementById("lakeHalfArg");
-      const lakeDiv = document.getElementById("lakeDividerPath");
-      const lblChile = document.getElementById("lakeLabelChile");
-      const lblChileSub = document.getElementById("lakeLabelChileSub");
-      const lblArg = document.getElementById("lakeLabelArg");
-      const lblArgSub = document.getElementById("lakeLabelArgSub");
-
-      if (state.mode === "all") {
-        lakeChile.style.opacity = "1";
-        lakeArg.style.opacity = "1";
-        lakeDiv.style.opacity = "0.55";
-        lblChile.style.opacity = "0.82";
-        lblChileSub.style.opacity = "1";
-        lblArg.style.opacity = "0.82";
-        lblArgSub.style.opacity = "1";
-      } else if (state.mode === "chile") {
-        lakeChile.style.opacity = "1";
-        lakeArg.style.opacity = "0.14";
-        lakeDiv.style.opacity = "0.15";
-        lblChile.style.opacity = "0.85";
-        lblChileSub.style.opacity = "1";
-        lblArg.style.opacity = "0.15";
-        lblArgSub.style.opacity = "0.15";
-      } else if (state.mode === "argentina") {
-        lakeChile.style.opacity = "0.14";
-        lakeArg.style.opacity = "1";
-        lakeDiv.style.opacity = "0.15";
-        lblChile.style.opacity = "0.15";
-        lblChileSub.style.opacity = "0.15";
-        lblArg.style.opacity = "0.85";
-        lblArgSub.style.opacity = "1";
-      } else if (state.mode === "compare") {
-        lakeChile.style.opacity = "0.24";
-        lakeArg.style.opacity = "0.24";
-        lakeDiv.style.opacity = "0.2";
-        lblChile.style.opacity = "0.35";
-        lblChileSub.style.opacity = "0.35";
-        lblArg.style.opacity = "0.35";
-        lblArgSub.style.opacity = "0.35";
-      }
-
-      STREETS_DATA.forEach((street) => {
-        const isChile = street.territory === "Chile";
-        const idx = isChile
-          ? chileStreets.findIndex((s) => s.id === street.id)
-          : argStreets.findIndex((s) => s.id === street.id);
-        const count = isChile ? chileStreets.length : argStreets.length;
-
-        const geom = getRiverPathD(street, state.mode, state.compareIds, idx, count);
-        const metrics = getStreetMetrics(street);
-
-        // Grosor proporcional a la cantidad de registros de transitabilidad
-        const strokeWidth = Math.max(3.5, metrics.totalFichas * 0.72);
-        const isSelected = street.id === state.selectedStreetId;
-        const isCompared = state.mode === "compare" && state.compareIds.includes(street.id);
-
-        let extraClass = "";
-        if (state.mode === "chile" && !isChile) extraClass = "is-dimmed";
-        if (state.mode === "argentina" && isChile) extraClass = "is-dimmed";
-        if (state.mode === "compare" && !isCompared) extraClass = "is-compare-dimmed";
-        if (isSelected) extraClass += " is-selected";
-        if (isCompared) extraClass += " is-compared";
-
-        // Continuidad visual según capa o condición física
-        const contVal = street.physical.continuidad.value.toLowerCase();
-        let dash = "none";
-        if (state.activeLayer === "continuidad" || contVal.includes("discontinua")) {
-          if (contVal.includes("discontinua")) dash = "8 6";
-          else if (contVal.includes("parcial")) dash = "18 6 5 6";
-        }
-
-        // Color de trazo: si hay predominio claro o capa activa, mantener identidad territorial con matiz de valoración
-        let strokeColor = street.color;
-        if (metrics.balanceFichas > 0) {
-          strokeColor = isChile ? "#668B73" : "#7A9478";
-        } else if (metrics.balanceFichas < 0) {
-          strokeColor = "#B95F4D";
-        }
-        if (isSelected || isCompared) {
-          strokeColor = street.color;
-        }
-
-        const g = document.createElementNS("http://www.w3.org/2000/svg", "g");
-        g.setAttribute("class", `river-group ${extraClass.trim()}`);
-        g.setAttribute("data-street-id", street.id);
-
-        // Ramificación secundaria
-        const branchPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
-        branchPath.setAttribute("d", geom.dBranch);
-        branchPath.setAttribute("class", "river-branch-stroke");
-        branchPath.setAttribute("stroke", strokeColor);
-        branchPath.setAttribute("stroke-width", Math.max(1.6, strokeWidth * 0.42).toFixed(1));
-        branchPath.setAttribute("opacity", "0.55");
-        g.appendChild(branchPath);
-
-        // Cauce principal
-        const mainPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
-        mainPath.setAttribute("d", geom.dMain);
-        mainPath.setAttribute("class", "river-main-stroke");
-        mainPath.setAttribute("stroke", strokeColor);
-        mainPath.setAttribute("stroke-width", (isSelected ? strokeWidth + 2.5 : strokeWidth).toFixed(1));
-        if (dash !== "none") {
-          mainPath.setAttribute("stroke-dasharray", dash);
-        }
-        g.appendChild(mainPath);
-
-        // Nodo de nacimiento en el lago
-        const originNode = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-        originNode.setAttribute("cx", geom.p0[0].toFixed(1));
-        originNode.setAttribute("cy", geom.p0[1].toFixed(1));
-        originNode.setAttribute("r", isSelected ? "5.2" : "3.6");
-        originNode.setAttribute("fill", "#F7F5EF");
-        originNode.setAttribute("stroke", "#282E29");
-        originNode.setAttribute("stroke-width", "1.5");
-        g.appendChild(originNode);
-
-        // Capa de OBSTÁCULOS o MATERIALIDAD sobre el cauce
-        const obsMatch = street.physical.obstaculos.value.match(/\d+/);
-        const obsCount = obsMatch ? parseInt(obsMatch[0], 10) : 0;
-
-        if (state.activeLayer === "obstaculos" && obsCount > 0) {
-          for (let k = 0; k < obsCount; k++) {
-            const pt = cubicPoint(geom.p0, geom.p1, geom.p2, geom.p3, 0.25 + k * 0.18);
-            const obsCircle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-            obsCircle.setAttribute("cx", pt[0].toFixed(1));
-            obsCircle.setAttribute("cy", pt[1].toFixed(1));
-            obsCircle.setAttribute("r", "6.5");
-            obsCircle.setAttribute("fill", "#B95F4D");
-            obsCircle.setAttribute("stroke", "#F7F5EF");
-            obsCircle.setAttribute("stroke-width", "1.8");
-            g.appendChild(obsCircle);
-          }
-        }
-
-        if (state.activeLayer === "materialidad") {
-          for (let mIdx = 1; mIdx <= 4; mIdx++) {
-            const pt = cubicPoint(geom.p0, geom.p1, geom.p2, geom.p3, mIdx * 0.2);
-            const tick = document.createElementNS("http://www.w3.org/2000/svg", "line");
-            tick.setAttribute("x1", (pt[0] - 5).toFixed(1));
-            tick.setAttribute("y1", (pt[1] - 5).toFixed(1));
-            tick.setAttribute("x2", (pt[0] + 5).toFixed(1));
-            tick.setAttribute("y2", (pt[1] + 5).toFixed(1));
-            tick.setAttribute("stroke", "#282E29");
-            tick.setAttribute("stroke-width", "2");
-            g.appendChild(tick);
-          }
-        }
-
-        // Etiqueta de calle
-        let lx = geom.p3[0] + (isChile ? 0 : 0);
-        let ly = geom.p3[1] - 10;
-        let anchor = isChile ? "start" : "end";
-
-        if (state.mode === "compare") {
-          lx = geom.p0[0];
-          ly = geom.p0[1] - 14;
-          anchor = "start";
-        }
-
-        const label = document.createElementNS("http://www.w3.org/2000/svg", "text");
-        label.setAttribute("x", lx.toFixed(1));
-        label.setAttribute("y", ly.toFixed(1));
-        label.setAttribute("text-anchor", anchor);
-        label.setAttribute("class", "river-label");
-        label.textContent = street.shortName;
-        g.appendChild(label);
-
-        const sub = document.createElementNS("http://www.w3.org/2000/svg", "text");
-        sub.setAttribute("x", lx.toFixed(1));
-        sub.setAttribute("y", (ly + 13).toFixed(1));
-        sub.setAttribute("text-anchor", anchor);
-        sub.setAttribute("class", "river-sublabel");
-        sub.textContent = `+${metrics.posFichas} / −${metrics.negFichas} · ${formatDecimalEs(metrics.totalPeople)}p`;
-        g.appendChild(sub);
-
-        g.addEventListener("click", (ev) => {
-          ev.stopPropagation();
-          selectStreet(street.id, true);
-        });
-
-        riversLayer.appendChild(g);
-
-        activeCurvesCache.push({
-          street,
-          geom,
-          strokeColor,
-          dimmed: extraClass.includes("is-dimmed") || extraClass.includes("is-compare-dimmed")
-        });
-      });
-
-      // Líneas de cota cuando se activa la capa DESNIVELES
-      if (state.activeLayer === "desniveles") {
-        [160, 260, 360, 460].forEach((yCota) => {
-          const contour = document.createElementNS("http://www.w3.org/2000/svg", "line");
-          contour.setAttribute("x1", "60");
-          contour.setAttribute("y1", yCota);
-          contour.setAttribute("x2", "860");
-          contour.setAttribute("y2", yCota);
-          contour.setAttribute("stroke", "#759CAA");
-          contour.setAttribute("stroke-width", "1");
-          contour.setAttribute("stroke-dasharray", "4 6");
-          contour.setAttribute("opacity", "0.55");
-          layerOverlayGroup.appendChild(contour);
-        });
-      }
-
-      // Asegurar que la mascota caminante quede por encima de los cauces
-      const walkerEl = document.getElementById("walkerGroup");
-      if (walkerEl && walkerEl.parentNode === document.getElementById("riverSvg")) {
-        document.getElementById("riverSvg").appendChild(walkerEl);
-      }
-
-      initParticles();
-    }
-
-    function initParticles() {
-      particles = [];
-      const flowBoost = state.activeLayer === "flujo" ? 2.2 : 1;
-
-      activeCurvesCache.forEach((item) => {
-        if (item.dimmed) return;
-        const metrics = getStreetMetrics(item.street);
-        const count = Math.max(4, Math.round((metrics.totalFichas * 0.9) * flowBoost));
-        const speedBase =
-          state.activeLayer === "esfuerzo" ? 0.0045 :
-          state.activeLayer === "flujo" ? 0.0036 : 0.0024;
-
-        for (let i = 0; i < count; i++) {
-          particles.push({
-            curve: item.geom,
-            color: item.strokeColor,
-            t: Math.random(),
-            speed: speedBase * (0.75 + Math.random() * 0.6),
-            radius: item.street.id === state.selectedStreetId ? 3.2 : 2.3,
-            offsetPerp: (Math.random() - 0.5) * 6
-          });
-        }
-      });
-    }
-
-    function resizeParticlesCanvas() {
-      const stage = document.getElementById("canvasStage");
-      const rect = stage.getBoundingClientRect();
+    function resizeCanvas() {
+      const box = canvas.parentElement.getBoundingClientRect();
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      particlesCanvas.width = Math.max(1, Math.floor(rect.width * dpr));
-      particlesCanvas.height = Math.max(1, Math.floor(rect.height * dpr));
-      ctxParticles.setTransform(dpr, 0, 0, dpr, 0, 0);
+      canvas.width = Math.max(1, Math.floor(box.width * dpr));
+      canvas.height = Math.max(1, Math.floor(box.height * dpr));
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     }
 
-    function stepParticlesAndWalker() {
-      const stage = document.getElementById("canvasStage");
-      const rect = stage.getBoundingClientRect();
-      const scaleX = rect.width / 920;
-      const scaleY = rect.height / 630;
+    function animateLoop() {
+      const box = canvas.parentElement.getBoundingClientRect();
+      ctx.clearRect(0, 0, box.width, box.height);
 
-      ctxParticles.clearRect(0, 0, rect.width, rect.height);
+      const scale = Math.min(box.width / 760, box.height / 520);
+      const cx = box.width / 2;
+      const cy = box.height / 2;
 
-      for (let i = 0; i < particles.length; i++) {
-        const p = particles[i];
-        p.t += p.speed;
-        if (p.t > 1) p.t -= 1;
-
-        const pt = cubicPoint(p.curve.p0, p.curve.p1, p.curve.p2, p.curve.p3, p.t);
-        const px = (pt[0] + p.offsetPerp) * scaleX;
-        const py = (pt[1] + p.offsetPerp * 0.6) * scaleY;
-
-        ctxParticles.beginPath();
-        ctxParticles.arc(px, py, p.radius, 0, Math.PI * 2);
-        ctxParticles.fillStyle = p.color;
-        ctxParticles.globalAlpha = 0.78;
-        ctxParticles.fill();
-      }
-      ctxParticles.globalAlpha = 1;
-
-      // Animación fluida y discreta de la figura caminante articulada
-      const targetCurveObj =
-        activeCurvesCache.find((c) => c.street.id === state.walkerStreetId && !c.dimmed) ||
-        activeCurvesCache.find((c) => !c.dimmed);
-
-      if (targetCurveObj) {
-        const obsMatch = targetCurveObj.street.physical.obstaculos.value.match(/\d+/);
-        const obsCount = obsMatch ? parseInt(obsMatch[0], 10) : 0;
-        const nearObstacle =
-          state.activeLayer === "obstaculos" &&
-          obsCount > 0 &&
-          Math.abs(state.walkerT - 0.5) < 0.06;
-
-        state.walkerPausedForObstacle = nearObstacle;
-
-        if (!nearObstacle) {
-          state.walkerT += 0.0018;
-          if (state.walkerT > 0.92) state.walkerT = 0.08;
-          state.walkerWalkPhase += 0.14;
-        }
-
-        const pos = cubicPoint(
-          targetCurveObj.geom.p0,
-          targetCurveObj.geom.p1,
-          targetCurveObj.geom.p2,
-          targetCurveObj.geom.p3,
-          state.walkerT
-        );
-
-        const swing = Math.sin(state.walkerWalkPhase) * 6.5;
-        const dirX = targetCurveObj.geom.p3[0] >= targetCurveObj.geom.p0[0] ? 1 : -1;
-
-        const legFront = document.getElementById("walkerLegFront");
-        const legBack = document.getElementById("walkerLegBack");
-        const armFront = document.getElementById("walkerArmFront");
-        const armBack = document.getElementById("walkerArmBack");
-        const walkerGroup = document.getElementById("walkerGroup");
-
-        if (legFront && legBack && armFront && armBack && walkerGroup) {
-          legFront.setAttribute("x2", (dirX * swing).toFixed(1));
-          legBack.setAttribute("x2", (-dirX * swing).toFixed(1));
-          armFront.setAttribute("x2", (-dirX * swing * 0.85).toFixed(1));
-          armBack.setAttribute("x2", (dirX * swing * 0.85).toFixed(1));
-
-          walkerGroup.setAttribute(
-            "transform",
-            `translate(${pos[0].toFixed(1)}, ${(pos[1] - 4).toFixed(1)})`
-          );
-        }
+      for (const d of ambientDots) {
+        d.angle += d.speed;
+        const x = cx + Math.cos(d.angle) * d.radius * scale;
+        const y = cy + Math.sin(d.angle) * d.radius * scale;
+        ctx.beginPath();
+        ctx.arc(x, y, d.size, 0, Math.PI * 2);
+        ctx.fillStyle = d.bright ? "rgba(110, 231, 168, 0.55)" : "rgba(229, 236, 232, 0.35)";
+        ctx.fill();
       }
 
-      requestAnimationFrame(stepParticlesAndWalker);
+      // Rotación suave continua del glifo
+      state.pointerAngle = (state.pointerAngle + 0.08) % 360;
+      const rotG = document.getElementById("glyphRotatingGroup");
+      if (rotG) {
+        rotG.setAttribute("transform", `rotate(${state.pointerAngle.toFixed(2)} 380 260)`);
+      }
+
+      requestAnimationFrame(animateLoop);
     }
 
-    /* =========================================================================
-       7. PANEL DE INFORMACIÓN, CAPAS, COMPARACIÓN Y CATÁLOGO
-       ========================================================================= */
-    function selectStreet(streetId, updateWalkerNote = false) {
-      const street = STREETS_DATA.find((s) => s.id === streetId);
-      if (!street) return;
+    function renderInspector() {
+      const s = getStreet(state.selectedId);
+      const posP = s.posFichas / 5;
+      const negP = s.negFichas / 5;
 
-      state.selectedStreetId = street.id;
-      state.walkerStreetId = street.id;
-      state.walkerT = 0.32;
+      document.getElementById("inspName").textContent = s.name;
+      document.getElementById("inspCity").textContent = `${s.city} · ${s.territory}`;
 
-      if (updateWalkerNote) {
-        const m = getStreetMetrics(street);
-        state.walkerNote = `${street.name} (${street.city}): ${m.posFichas} positivas (${formatDecimalEs(m.posPeople)} pers.) y ${m.negFichas} negativas (${formatDecimalEs(m.negPeople)} pers.) en transitabilidad.`;
-        updateWalkerCallout("Corriente seleccionada", state.walkerNote, street.city);
-      }
+      document.getElementById("inspPosNum").textContent = fmtEs(posP);
+      document.getElementById("inspPosMeta").textContent = `Positiva · ${s.posFichas} fichas / 5`;
 
-      renderInspector(street);
-      renderRiversSvg();
-      renderCatalog();
-    }
+      document.getElementById("inspNegNum").textContent = fmtEs(negP);
+      document.getElementById("inspNegMeta").textContent = `Negativa · ${s.negFichas} fichas / 5`;
 
-    function renderInspector(street) {
-      const m = getStreetMetrics(street);
-      const phys = street.physical;
-
-      document.getElementById("inspTerritoryBadge").textContent = `${street.city} · ${street.territory}`;
-      document.getElementById("inspStreetName").textContent = street.name;
-      document.getElementById("inspContextCopy").textContent = street.context;
-
-      // Río-Glifo Compuesto
-      renderCompositeRiverGlyph(document.getElementById("compositeGlyphSvg"), street);
-
-      // Elecciones peatonales (5 fichas = 1 persona equivalente, sin redondear)
-      document.getElementById("inspPosFichas").textContent = `${m.posFichas} fichas`;
-      document.getElementById("inspPosPersonas").textContent = `${formatDecimalEs(m.posPeople)} personas equivalentes`;
-
-      document.getElementById("inspNegFichas").textContent = `${m.negFichas} fichas`;
-      document.getElementById("inspNegPersonas").textContent = `${formatDecimalEs(m.negPeople)} personas equivalentes`;
-
-      const balSign = m.balanceFichas > 0 ? `+${m.balanceFichas}` : `${m.balanceFichas}`;
-      const balPeopleSign = m.balancePeople > 0 ? `+${formatDecimalEs(m.balancePeople)}` : `${formatDecimalEs(m.balancePeople)}`;
-      const balEl = document.getElementById("inspBalance");
-      balEl.textContent = `${balSign} fichas`;
-      balEl.className = `metric-value ${m.balanceFichas > 0 ? "val-pos" : m.balanceFichas < 0 ? "val-neg" : ""}`;
-      document.getElementById("inspBalancePersonas").textContent = `Equivalencia neta: ${balPeopleSign} personas`;
-
-      document.getElementById("inspTotalFichas").textContent = `${m.totalFichas} fichas`;
-      document.getElementById("inspTotalPersonas").textContent = `${formatDecimalEs(m.totalPeople)} personas equivalentes`;
-
-      // Condiciones físicas en escala original o 'ND'
-      const itemsOrder = [
-        { key: "materialidad", label: "Materialidad", layerId: "materialidad" },
-        { key: "desniveles", label: "Desniveles", layerId: "desniveles" },
-        { key: "obstaculos", label: "Obstáculos", layerId: "obstaculos" },
-        { key: "flujoPeatonal", label: "Flujo peatonal", layerId: "flujo" },
-        { key: "dificultad", label: "Dificultad", layerId: "dificultad" },
-        { key: "continuidad", label: "Continuidad", layerId: "continuidad" },
-        { key: "esfuerzoFisico", label: "Esfuerzo físico", layerId: "esfuerzo" },
-        { key: "estabilidad", label: "Estabilidad", layerId: "estabilidad" },
-        { key: "estadoSuelo", label: "Estado del suelo", layerId: null },
-        { key: "ritmoMarcha", label: "Ritmo de marcha", layerId: null },
-        { key: "atencionSuelo", label: "Atención al suelo", layerId: null },
-        { key: "cambiosSuperficie", label: "Cambios de superficie", layerId: "materialidad" }
-      ];
-
-      const gridEl = document.getElementById("physicalConditionsGrid");
-      gridEl.innerHTML = itemsOrder
-        .map((it) => {
-          const entry = phys[it.key];
-          const isND = entry.value === "ND";
-          const isFocused = state.activeLayer && it.layerId === state.activeLayer;
+      document.getElementById("soilBars").innerHTML = s.soil
+        .map((row) => {
+          const pct = (row.score / row.max) * 100;
           return `
-            <div class="phys-item ${isFocused ? "is-layer-focus" : ""}">
-              <span class="phys-key">${it.label}</span>
-              <span class="phys-val">${isND ? `<span class="nd-tag">ND</span>` : entry.value}</span>
-              <span class="phys-interp">${entry.note}</span>
+            <div class="soil-row">
+              <div class="soil-row-top">
+                <span class="soil-name">${row.label}</span>
+                <span class="soil-val">${row.raw}</span>
+              </div>
+              <div class="soil-track">
+                <div class="soil-fill" style="width: ${pct}%"></div>
+              </div>
             </div>
           `;
         })
         .join("");
     }
 
-    function renderLayers() {
-      const grid = document.getElementById("layersGrid");
-      grid.innerHTML = LAYERS_CONFIG.map((layer) => {
-        const active = state.activeLayer === layer.id;
-        return `
-          <button type="button" class="layer-btn ${active ? "is-active" : ""}" data-layer-id="${layer.id}">
-            <div class="layer-btn-top">
-              <span>${layer.label}</span>
-              <span class="layer-indicator"></span>
-            </div>
-            <span class="layer-btn-desc">${layer.desc}</span>
+    function renderChips() {
+      const filtered =
+        state.territory === "Ambos"
+          ? STREETS
+          : STREETS.filter((s) => s.territory === state.territory);
+
+      if (!filtered.some((s) => s.id === state.selectedId)) {
+        state.selectedId = filtered[0].id;
+      }
+
+      const strip = document.getElementById("streetChips");
+      strip.innerHTML = filtered
+        .map(
+          (s) => `
+          <button type="button" class="street-chip ${s.id === state.selectedId ? "is-selected" : ""}" data-id="${s.id}">
+            ${s.name}
           </button>
-        `;
-      }).join("");
+        `
+        )
+        .join("");
 
-      grid.querySelectorAll(".layer-btn").forEach((btn) => {
+      strip.querySelectorAll(".street-chip").forEach((btn) => {
         btn.addEventListener("click", () => {
-          const id = btn.getAttribute("data-layer-id");
-          state.activeLayer = state.activeLayer === id ? null : id;
-          renderLayers();
-          renderRiversSvg();
-          renderInspector(STREETS_DATA.find((s) => s.id === state.selectedStreetId));
+          state.selectedId = btn.getAttribute("data-id");
+          renderChips();
+          renderInspector();
+          renderComplexGlyphSvg();
+          renderComparison();
+        });
+      });
+    }
 
-          const activeObj = LAYERS_CONFIG.find((l) => l.id === state.activeLayer);
-          const banner = document.getElementById("layerActiveBanner");
-          if (activeObj) {
-            banner.innerHTML = `<strong>${activeObj.explanation}</strong>`;
-            updateWalkerCallout(`Capa ${activeObj.label}`, activeObj.explanation, "Capa activa");
-          } else {
-            banner.innerHTML = `<strong>Capa base activa:</strong> Vista integrada del lago dividido y las ocho corrientes de transitabilidad. Selecciona cualquiera de las 8 capas para destacar su comportamiento espacial.`;
-          }
+    function renderLayers() {
+      const bar = document.getElementById("layersBar");
+      bar.innerHTML = LAYERS.map(
+        (l) => `
+        <button type="button" class="layer-pill ${l.id === state.activeLayer ? "is-active" : ""}" data-layer="${l.id}">
+          ${l.label}
+        </button>
+      `
+      ).join("");
+
+      bar.querySelectorAll(".layer-pill").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          state.activeLayer = btn.getAttribute("data-layer");
+          document.getElementById("activeLayerCaption").textContent = `Capa activa: ${state.activeLayer.toUpperCase()}`;
+          renderLayers();
+          renderComplexGlyphSvg();
         });
       });
     }
 
     function renderComparison() {
-      const selA = document.getElementById("sectionCompareA");
-      const selB = document.getElementById("sectionCompareB");
-      const topA = document.getElementById("compareSelectA");
-      const topB = document.getElementById("compareSelectB");
+      const sA = getStreet(state.compareA);
+      const sB = getStreet(state.compareB);
+      const maxTotal = Math.max(1, sA.posFichas + sA.negFichas, sB.posFichas + sB.negFichas);
 
-      const optionsHtml = STREETS_DATA.map(
-        (s) => `<option value="${s.id}">${s.shortName} (${s.city})</option>`
-      ).join("");
+      const opts = STREETS.map((s) => `<option value="${s.id}">${s.name} (${s.city})</option>`).join("");
 
-      if (!selA.innerHTML) {
-        selA.innerHTML = optionsHtml;
-        selB.innerHTML = optionsHtml;
-        topA.innerHTML = optionsHtml;
-        topB.innerHTML = optionsHtml;
-      }
-
-      selA.value = state.compareIds[0];
-      selB.value = state.compareIds[1];
-      topA.value = state.compareIds[0];
-      topB.value = state.compareIds[1];
-
-      const streetA = STREETS_DATA.find((s) => s.id === state.compareIds[0]);
-      const streetB = STREETS_DATA.find((s) => s.id === state.compareIds[1]);
-
-      // Escala compartida máxima entre ambas calles seleccionadas
-      const maxTotal = Math.max(
-        1,
-        streetA.posFichas + streetA.negFichas,
-        streetB.posFichas + streetB.negFichas
-      );
-
-      const container = document.getElementById("compareColumns");
-      container.innerHTML = [streetA, streetB]
-        .map((st) => {
-          const m = getStreetMetrics(st);
-          const posPct = (m.posFichas / maxTotal) * 100;
-          const negPct = (m.negFichas / maxTotal) * 100;
-          const balStr = m.balanceFichas > 0 ? `+${m.balanceFichas}` : `${m.balanceFichas}`;
-          const balPStr = m.balancePeople > 0 ? `+${formatDecimalEs(m.balancePeople)}` : `${formatDecimalEs(m.balancePeople)}`;
-
+      document.getElementById("compareGrid").innerHTML = [
+        { s: sA, key: "compareA", label: "Calle A" },
+        { s: sB, key: "compareB", label: "Calle B" }
+      ]
+        .map(({ s, key, label }) => {
+          const pPos = (s.posFichas / maxTotal) * 100;
+          const pNeg = (s.negFichas / maxTotal) * 100;
           return `
-            <div class="compare-card">
-              <div class="compare-card-head">
-                <span class="compare-card-title">${st.name}</span>
-                <span class="territory-badge">${st.city}</span>
+            <div class="compare-box">
+              <div style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
+                <span class="panel-label">${label}</span>
+                <select data-cmp-key="${key}">${opts}</select>
               </div>
-
-              <div class="shared-scale-bar">
-                <div class="shared-scale-labels">
-                  <span>Positivas: ${m.posFichas} (${formatDecimalEs(m.posPeople)}p)</span>
-                  <span>Negativas: ${m.negFichas} (${formatDecimalEs(m.negPeople)}p)</span>
-                </div>
-                <div class="shared-track">
-                  <div class="shared-seg-pos" style="width: ${posPct.toFixed(1)}%"></div>
-                  <div class="shared-seg-neg" style="width: ${negPct.toFixed(1)}%"></div>
-                </div>
+              <div class="panel-hint">
+                +${s.posFichas} (${fmtEs(s.posFichas / 5)} pers.) · −${s.negFichas} (${fmtEs(s.negFichas / 5)} pers.)
               </div>
-
-              <div class="compare-kv-grid">
-                <div class="compare-kv"><span>Balance</span>${balStr} fichas (${balPStr} pers.)</div>
-                <div class="compare-kv"><span>Materialidad</span>${st.physical.materialidad.value}</div>
-                <div class="compare-kv"><span>Continuidad</span>${st.physical.continuidad.value}</div>
-                <div class="compare-kv"><span>Obstáculos</span>${st.physical.obstaculos.value}</div>
+              <div class="shared-meter">
+                <div class="shared-meter-pos" style="width:${pPos}%"></div>
+                <div class="shared-meter-neg" style="width:${pNeg}%"></div>
               </div>
             </div>
           `;
         })
         .join("");
-    }
 
-    function renderCatalog() {
-      const grid = document.getElementById("catalogGrid");
-      grid.innerHTML = STREETS_DATA.map((st) => {
-        const m = getStreetMetrics(st);
-        const isSel = st.id === state.selectedStreetId;
-        return `
-          <button type="button" class="catalog-item ${isSel ? "is-selected" : ""}" data-catalog-id="${st.id}">
-            <span class="catalog-city" style="color: ${st.territory === "Chile" ? "#547A88" : "#B95F4D"}">
-              ${st.city} · ${st.territory}
-            </span>
-            <span class="catalog-name">${st.name}</span>
-            <div class="catalog-stats">
-              <span class="val-pos">+${m.posFichas} (${formatDecimalEs(m.posPeople)}p)</span>
-              <span class="val-neg">−${m.negFichas} (${formatDecimalEs(m.negPeople)}p)</span>
-            </div>
-          </button>
-        `;
-      }).join("");
+      const selA = document.querySelector('select[data-cmp-key="compareA"]');
+      const selB = document.querySelector('select[data-cmp-key="compareB"]');
+      selA.value = state.compareA;
+      selB.value = state.compareB;
 
-      grid.querySelectorAll(".catalog-item").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          const id = btn.getAttribute("data-catalog-id");
-          selectStreet(id, true);
-          document.querySelector(".primary-stage").scrollIntoView({ behavior: "smooth", block: "start" });
-        });
+      selA.addEventListener("change", (e) => {
+        state.compareA = e.target.value;
+        renderComparison();
+      });
+      selB.addEventListener("change", (e) => {
+        state.compareB = e.target.value;
+        renderComparison();
       });
     }
 
-    function updateWalkerCallout(title, text, badge) {
-      document.getElementById("walkerCalloutTitle").textContent = title + " ";
-      document.getElementById("walkerCalloutText").textContent = text;
-      document.getElementById("walkerCalloutBadge").textContent = badge;
-    }
-
-    /* =========================================================================
-       8. NAVEGACIÓN ENTRE MODOS (01 TODAS, 02 CHILE, 03 ARGENTINA, 04 COMPARAR)
-       ========================================================================= */
-    function setMode(newMode) {
-      state.mode = newMode;
-
-      document.querySelectorAll(".mode-btn").forEach((btn) => {
-        btn.classList.toggle("is-active", btn.getAttribute("data-mode") === newMode);
-      });
-
-      const captionEl = document.getElementById("vizModeCaption");
-      const compareBar = document.getElementById("comparePickerBar");
-
-      if (newMode === "all") {
-        captionEl.textContent = "Modo 01 · Sistema fluvial completo · Lago dividido y 8 corrientes";
-        compareBar.classList.remove("is-visible");
-        updateWalkerCallout("Modo 01 · Todas las calles", "Observa las ocho corrientes en simultáneo desde el lago dividido entre Valparaíso y Buenos Aires.", "Vista general");
-      } else if (newMode === "chile") {
-        captionEl.textContent = "Modo 02 · Solo Chile · Valparaíso expandido (Serrano, Cochrane, Blanco, Errázuriz)";
-        compareBar.classList.remove("is-visible");
-        const firstChile = STREETS_DATA.find((s) => s.territory === "Chile");
-        if (STREETS_DATA.find((s) => s.id === state.selectedStreetId)?.territory !== "Chile") {
-          selectStreet(firstChile.id, false);
-        }
-        updateWalkerCallout("Modo 02 · Solo Chile", "La mitad argentina se atenúa y los cuatro ríos de Valparaíso se despliegan en el espacio disponible.", "Valparaíso");
-      } else if (newMode === "argentina") {
-        captionEl.textContent = "Modo 03 · Solo Argentina · Buenos Aires expandido (Paseo Colón, Azopardo, Huergo, Alicia M. de Justo)";
-        compareBar.classList.remove("is-visible");
-        const firstArg = STREETS_DATA.find((s) => s.territory === "Argentina");
-        if (STREETS_DATA.find((s) => s.id === state.selectedStreetId)?.territory !== "Argentina") {
-          selectStreet(firstArg.id, false);
-        }
-        updateWalkerCallout("Modo 03 · Solo Argentina", "La mitad chilena se atenúa y los cuatro ríos de Buenos Aires se expanden con sus datos de transitabilidad.", "Buenos Aires");
-      } else if (newMode === "compare") {
-        captionEl.textContent = "Modo 04 · Comparar · Dos corrientes desprendidas con escalas compartidas";
-        compareBar.classList.add("is-visible");
-        updateWalkerCallout("Modo 04 · Comparación", "Dos calles se desprenden en paralelo manteniendo las mismas escalas y convenciones visuales.", "Comparativa");
-      }
-
-      renderRiversSvg();
-      renderComparison();
-    }
-
-    /* =========================================================================
-       9. ANIMACIÓN DE INICIO CINEMATOGRÁFICA Y BOTÓN SALTAR
-       ========================================================================= */
-    function runIntroSequence() {
-      const overlay = document.getElementById("introOverlay");
-      const skipBtn = document.getElementById("skipIntroBtn");
-      const titleBlock = document.getElementById("introTitleBlock");
-      const c = document.getElementById("introCanvas");
-      const ctx = c.getContext("2d");
-
-      function resizeIntro() {
-        c.width = window.innerWidth;
-        c.height = window.innerHeight;
-      }
-      resizeIntro();
-      window.addEventListener("resize", resizeIntro);
-
-      const startTime = performance.now();
-      const duration = 2600;
-      let finished = false;
-
-      function finishIntro() {
-        if (finished) return;
-        finished = true;
-        overlay.classList.add("is-hidden");
-        skipBtn.classList.add("is-hidden");
-        window.removeEventListener("resize", resizeIntro);
-      }
-
-      skipBtn.addEventListener("click", finishIntro);
-
-      setTimeout(() => {
-        if (!finished) titleBlock.classList.add("is-visible");
-      }, 950);
-
-      setTimeout(() => {
-        finishIntro();
-      }, duration);
-
-      function frameIntro(now) {
-        if (finished) return;
-        const p = Math.min(1, (now - startTime) / duration);
-        ctx.clearRect(0, 0, c.width, c.height);
-
-        const cx = c.width / 2;
-        const cy = c.height / 2;
-
-        // 1-2. Acumulación inicial de partículas y formación del lago
-        const count = 48;
-        for (let i = 0; i < count; i++) {
-          const angle = (i / count) * Math.PI * 2 + p * 1.4;
-          const spread = (1 - Math.min(1, p * 1.4)) * 180 + 75;
-          const px = cx + Math.cos(angle) * spread * (i % 2 === 0 ? 1.25 : 0.85);
-          const py = cy + Math.sin(angle) * spread * 0.65;
-          ctx.beginPath();
-          ctx.arc(px, py, 2.5, 0, Math.PI * 2);
-          ctx.fillStyle = i < count / 2 ? "#759CAA" : "#CE8058";
-          ctx.globalAlpha = 0.7;
-          ctx.fill();
-        }
-
-        // 3-4. Contorno del lago y división central
-        if (p > 0.25) {
-          const lakeAlpha = Math.min(1, (p - 0.25) / 0.35);
-          ctx.save();
-          ctx.globalAlpha = lakeAlpha * 0.45;
-          ctx.strokeStyle = "#282E29";
-          ctx.lineWidth = 1.5;
-          ctx.beginPath();
-          ctx.ellipse(cx, cy, 130, 74, 0, 0, Math.PI * 2);
-          ctx.stroke();
-
-          ctx.beginPath();
-          ctx.moveTo(cx, cy - 74);
-          ctx.lineTo(cx, cy + 74);
-          ctx.setLineDash([4, 4]);
-          ctx.stroke();
-          ctx.restore();
-        }
-
-        requestAnimationFrame(frameIntro);
-      }
-
-      requestAnimationFrame(frameIntro);
-    }
-
-    /* =========================================================================
-       10. INICIALIZACIÓN DE EVENTOS Y ARRANQUE
-       ========================================================================= */
-    document.querySelectorAll(".mode-btn").forEach((btn) => {
+    // Territorio botones
+    document.querySelectorAll(".territory-btn").forEach((btn) => {
       btn.addEventListener("click", () => {
-        setMode(btn.getAttribute("data-mode"));
+        state.territory = btn.getAttribute("data-territory");
+        document.querySelectorAll(".territory-btn").forEach((b) => b.classList.remove("is-active"));
+        btn.classList.add("is-active");
+        renderChips();
+        renderInspector();
+        renderComplexGlyphSvg();
       });
     });
 
-    function bindCompareSelects() {
-      const pairs = [
-        ["compareSelectA", "sectionCompareA", 0],
-        ["compareSelectB", "sectionCompareB", 1]
-      ];
-      pairs.forEach(([idA, idB, slot]) => {
-        const elA = document.getElementById(idA);
-        const elB = document.getElementById(idB);
-        const handler = (ev) => {
-          state.compareIds[slot] = ev.target.value;
-          renderComparison();
-          if (state.mode === "compare") {
-            renderRiversSvg();
-          }
-        };
-        elA.addEventListener("change", handler);
-        elB.addEventListener("change", handler);
+    // Modos
+    document.querySelectorAll(".mode-pill").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        state.mode = btn.getAttribute("data-mode");
+        document.querySelectorAll(".mode-pill").forEach((b) => b.classList.remove("is-active"));
+        btn.classList.add("is-active");
       });
-    }
-
-    document.getElementById("walkerGroup").addEventListener("click", () => {
-      const current = STREETS_DATA.find((s) => s.id === state.walkerStreetId) || STREETS_DATA[0];
-      const m = getStreetMetrics(current);
-      const msg = state.walkerPausedForObstacle
-        ? `Detenido ante un obstáculo registrado en ${current.name} (${current.physical.obstaculos.value}).`
-        : `${current.name} registra ${m.posFichas} positivas (${formatDecimalEs(m.posPeople)} pers.) y ${m.negFichas} negativas (${formatDecimalEs(m.negPeople)} pers.) en transitabilidad.`;
-      updateWalkerCallout("Señalética caminante", msg, current.city);
     });
 
-    document.getElementById("walkerExplainBtn").addEventListener("click", () => {
-      const current = STREETS_DATA.find((s) => s.id === state.selectedStreetId) || STREETS_DATA[0];
-      const m = getStreetMetrics(current);
-      updateWalkerCallout(
-        `Lectura en ${current.name}:`,
-        `Equivalencia de transitabilidad: ${formatDecimalEs(m.posPeople)} personas positivas frente a ${formatDecimalEs(m.negPeople)} personas negativas (5 fichas = 1 persona). Continuidad: ${current.physical.continuidad.value}.`,
-        "Explicación"
-      );
+    // Investigación gate
+    const gate = document.getElementById("researchGate");
+    const reopenTop = document.getElementById("openResearchTopBtn");
+    document.getElementById("enterVizBtn").addEventListener("click", () => {
+      gate.classList.add("is-dismissed");
+    });
+    reopenTop.addEventListener("click", () => {
+      gate.classList.remove("is-dismissed");
     });
 
-    window.addEventListener("resize", () => {
-      resizeParticlesCanvas();
+    // Interacción al mover el cursor sobre el glifo
+    document.getElementById("complexSvg").addEventListener("mousemove", (e) => {
+      const rect = e.currentTarget.getBoundingClientRect();
+      const nx = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
+      state.pointerAngle = (state.pointerAngle + nx * 0.8) % 360;
     });
 
-    // Arranque inicial
-    resizeParticlesCanvas();
+    window.addEventListener("resize", resizeCanvas);
+
+    resizeCanvas();
+    renderChips();
+    renderInspector();
     renderLayers();
-    bindCompareSelects();
+    renderComplexGlyphSvg();
     renderComparison();
-    selectStreet(state.selectedStreetId, false);
-    renderCatalog();
-    runIntroSequence();
-    requestAnimationFrame(stepParticlesAndWalker);
+    requestAnimationFrame(animateLoop);
   </script>
 </body>
 </html>
