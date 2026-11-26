@@ -290,7 +290,7 @@
       color: var(--surface);
     }
 
-    /* ==================== ZONA INTRODUCTORIA DE INVESTIGACIÓN ==================== */
+    /* ==================== ZONA INTRODUCTORIA ==================== */
     .intro-band {
       max-width: 1540px;
       margin: 0 auto;
@@ -400,10 +400,9 @@
       display: block;
     }
 
-    /* VISUALIZACIÓN EN EL MEDIO CON FLECHAS IZQUIERDA Y DERECHA */
     .centered-viz-layout {
       display: grid;
-      grid-template-columns: minmax(270px, 0.78fr) minmax(0, 1.55fr) minmax(290px, 0.82fr);
+      grid-template-columns: minmax(275px, 0.8fr) minmax(0, 1.55fr) minmax(295px, 0.82fr);
       gap: 20px;
       align-items: start;
     }
@@ -437,7 +436,35 @@
       color: var(--ink-muted);
     }
 
-    /* Barra de categoría con flechas izquierda y derecha */
+    .morph-mode-bar {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    .morph-btn {
+      appearance: none;
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 6px 11px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.2s var(--ease);
+    }
+
+    .morph-btn.is-active {
+      background: var(--ink);
+      border-color: var(--ink);
+      color: var(--surface);
+    }
+
     .category-switcher {
       display: flex;
       align-items: center;
@@ -497,7 +524,7 @@
       position: relative;
       width: 100%;
       aspect-ratio: 16 / 12.2;
-      min-height: 490px;
+      min-height: 495px;
       border-radius: 14px;
       background:
         radial-gradient(circle at 50% 50%, rgba(31, 122, 82, 0.06), transparent 64%),
@@ -598,7 +625,6 @@
       font-weight: 700;
     }
 
-    /* PANELES LATERALES (IZQUIERDA: CONTEXTO / DERECHA: EQUIVALENCIA Y VARIABLES 1/5) */
     .side-col {
       display: flex;
       flex-direction: column;
@@ -692,7 +718,7 @@
       transition: width 0.35s var(--ease);
     }
 
-    /* ==================== SECCIÓN INFERIOR: MAPA CON GLIFOS RONDANDO POR DÍA Y LUGAR ==================== */
+    /* ==================== MAPA-GRÁFICO INFERIOR ==================== */
     .map-section-card {
       margin-top: 26px;
     }
@@ -890,7 +916,7 @@
   </div>
   <button id="bootSkipBtn" class="boot-skip" type="button">Saltar</button>
 
-  <!-- NAVEGACIÓN SUPERIOR CON PESTAÑAS + SONIDO -->
+  <!-- NAVEGACIÓN SUPERIOR -->
   <header class="top-header">
     <div class="header-inner">
       <div class="brand-group">
@@ -918,7 +944,7 @@
     </div>
   </header>
 
-  <!-- ZONA INTRODUCTORIA DE INVESTIGACIÓN -->
+  <!-- ZONA INTRODUCTORIA -->
   <section class="intro-band" aria-label="Marco de la investigación">
     <div class="intro-kicker">Investigación de Diseño Urbano · Tramas de Elección</div>
     <h1 class="intro-display">
@@ -931,7 +957,7 @@
           ¿Por qué comparar Valparaíso y Buenos Aires? Ambas son ciudades portuarias con fuerte relación histórica con el borde marítimo y fluvial, pero resuelven su trama peatonal desde topografías y escalas urbanas distintas: las pendientes y calles del plan valparaiseño frente a los amplios corredores y paseos de Buenos Aires.
         </p>
         <p class="intro-p-muted">
-          Aunque el estudio abarca múltiples dimensiones —como luminosidad, transitabilidad, seguridad y actividad urbana—, esta pieza se centra en la <strong>transitabilidad</strong> de ambos territorios, vinculando la percepción peatonal (5 fichas = 1 persona equivalente, conservando decimales sin redondear) con las variables del recorrido en escala <strong>1/5</strong> y justificando cada trazo del modelo.
+          Aunque el estudio abarca múltiples dimensiones —como luminosidad, transitabilidad, seguridad y actividad urbana—, esta pieza se centra en la <strong>transitabilidad</strong> de ambos territorios con datos reales de Valparaíso y Buenos Aires (19, 20 y 21 de noviembre), conservando decimales sin redondear en la equivalencia (5 fichas = 1 persona equivalente) y las variables en escala 1/5.
         </p>
       </div>
 
@@ -959,20 +985,19 @@
 
   <!-- CONTENIDO PRINCIPAL -->
   <main class="main-stage">
-    <!-- PESTAÑA 1: VISUALIZACIÓN EN EL MEDIO CON FLECHAS IZQUIERDA Y DERECHA -->
     <div id="tab-modelo" class="tab-pane is-active" role="tabpanel">
       <section class="centered-viz-layout">
-        <!-- COLUMNA IZQUIERDA: SÍNTESIS TERRITORIAL Y JUSTIFICACIÓN -->
-        <aside class="card side-col" aria-label="Síntesis territorial y justificación">
+        <!-- IZQUIERDA -->
+        <aside class="card side-col" aria-label="Densidad de información y justificación">
           <div class="card-top">
-            <span class="card-kicker">Lectura Territorial</span>
-            <span id="terrBadge" class="card-note">Argentina y Chile</span>
+            <span class="card-kicker">Morfología y Densidad</span>
+            <span id="morphModeLabel" class="card-note">Total + Tendencias</span>
           </div>
 
           <div id="justificationBox" class="justification-box" aria-live="polite" style="margin-top:0;">
-            <span id="justTitle" class="just-title">Justificación de la forma</span>
+            <span id="justTitle" class="just-title">Asimetría con sentido analítico</span>
             <p id="justDesc" class="just-desc">
-              Cada elemento geométrico responde a una decisión analítica: el núcleo central sintetiza personas equivalentes (fichas / 5), los arcos laterales separan Chile y Argentina, los radios/pétalos representan las 8 calles y los nodos muestran variables en escala 1/5.
+              El modelo no es simétrico: cada brazo, vector o nodo crece en longitud y masa según el peso real de las fichas positivas y negativas o el puntaje (1/5) de la variable activa.
             </p>
           </div>
 
@@ -981,43 +1006,50 @@
               <span class="var-row-name">Equivalencia peatonal</span>
               <span class="var-row-val">5 fichas = 1 pers.</span>
             </div>
-            <div class="equiv-caption">Sin redondeo; conserva decimales exactos en cada calle.</div>
+            <div class="equiv-caption">Sin redondeo; conserva decimales exactos.</div>
           </div>
 
           <div class="var-row-card" style="cursor:default;">
             <div class="var-row-top">
-              <span class="var-row-name">Escala de variables</span>
-              <span class="var-row-val">1/5 a 5/5</span>
+              <span class="var-row-name">Tendencia gráfica</span>
+              <span class="var-row-val">Vectores + Polígonos</span>
             </div>
-            <div class="equiv-caption">Todas las variables físicas se expresan en escala de 1/5.</div>
+            <div class="equiv-caption">Los brazos largos muestran mayor acumulación de fichas o intensidad.</div>
           </div>
         </aside>
 
-        <!-- CENTRO: VISUALIZACIÓN PRINCIPAL CON FLECHAS IZQUIERDA Y DERECHA PARA CAMBIAR CATEGORÍA -->
+        <!-- CENTRO -->
         <div class="card">
           <div class="card-top">
-            <span class="card-kicker">Visualización Central · Categoría Activa</span>
-            <span id="activeVarStatus" class="card-note">Variable: Materialidad (3/5)</span>
+            <span class="card-kicker">Modelo Asimétrico Transformable</span>
+            <span id="activeVarStatus" class="card-note">Categoría: Materialidad (3/5)</span>
           </div>
 
-          <div class="category-switcher" role="group" aria-label="Cambiar categoría de variables con flechas">
+          <div class="morph-mode-bar" role="group" aria-label="Modo de transformación del modelo">
+            <button class="morph-btn is-active" data-morph="total" type="button">Total y Tendencias</button>
+            <button class="morph-btn" data-morph="chile" type="button">Solo Chile (Tendencias)</button>
+            <button class="morph-btn" data-morph="argentina" type="button">Solo Buenos Aires (Tendencias)</button>
+            <button class="morph-btn" data-morph="calle" type="button">Calle Individual (Densidad)</button>
+          </div>
+
+          <div class="category-switcher" role="group" aria-label="Cambiar categoría con flechas">
             <button id="prevCategoryBtn" class="arrow-btn" type="button" aria-label="Categoría anterior">‹</button>
             <div class="category-current">
-              <div id="categoryTitle" class="category-title">Materialidad</div>
-              <div id="categorySub" class="category-sub">Usa las flechas ‹ › para recorrer las 8 variables (1/5)</div>
+              <div id="categoryTitle" class="category-title">Materialidad · 3/5</div>
+              <div id="categorySub" class="category-sub">Usa las flechas ‹ › para cambiar categoría (1/5)</div>
             </div>
             <button id="nextCategoryBtn" class="arrow-btn" type="button" aria-label="Siguiente categoría">›</button>
           </div>
 
           <div class="model-frame">
             <canvas id="motionCanvas"></canvas>
-            <svg id="atlasSvg" viewBox="0 0 860 660" role="img" aria-label="Modelo generativo central de transitabilidad"></svg>
+            <svg id="atlasSvg" viewBox="0 0 860 660" role="img" aria-label="Modelo asimétrico transformable de transitabilidad"></svg>
           </div>
 
           <div id="streetsBar" class="streets-bar" aria-label="Calles"></div>
         </div>
 
-        <!-- COLUMNA DERECHA: EQUIVALENCIAS Y VARIABLES EN ESCALA 1/5 -->
+        <!-- DERECHA -->
         <aside class="card side-col" aria-label="Datos de la calle seleccionada">
           <div class="insp-title-row">
             <h2 id="inspName" class="insp-h2">Serrano</h2>
@@ -1026,12 +1058,12 @@
 
           <div class="equiv-pair">
             <div class="equiv-box">
-              <div id="inspPos" class="equiv-big">1,8</div>
-              <div id="inspPosSub" class="equiv-caption">Positiva · 9 fichas / 5</div>
+              <div id="inspPos" class="equiv-big">37</div>
+              <div id="inspPosSub" class="equiv-caption">Positiva · 185 fichas / 5</div>
             </div>
             <div class="equiv-box">
-              <div id="inspNeg" class="equiv-big is-neg">1,0</div>
-              <div id="inspNegSub" class="equiv-caption">Negativa · 5 fichas / 5</div>
+              <div id="inspNeg" class="equiv-big is-neg">8,8</div>
+              <div id="inspNegSub" class="equiv-caption">Negativa · 44 fichas / 5</div>
             </div>
           </div>
 
@@ -1045,25 +1077,26 @@
         </aside>
       </section>
 
-      <!-- ABAJO: MAPA CON LA VISUALIZACIÓN COPIADA POR DÍA Y LUGAR RONDANDO POR EL MAPA-GRÁFICO -->
+      <!-- ABAJO: MAPA-GRÁFICO CON GLIFOS RONDANDO POR DÍA Y LUGAR -->
       <section class="card map-section-card" aria-label="Mapa-gráfico con glifos rondando por día y lugar">
         <div class="map-filters-row">
           <div>
             <span class="card-kicker">Mapa-Gráfico de Recorridos · Glifos Rondando por Día y Lugar</span>
             <p class="card-note" style="margin-top:3px;">
-              Réplicas del glifo de transitabilidad desplazándose sobre el mapa-gráfico según día de registro y lugar (Valparaíso / Buenos Aires).
+              Réplicas del glifo de transitabilidad rondando por el mapa-gráfico según jornada de registro (19 nov, 20 nov, 21 nov y registro general) y lugar.
             </p>
           </div>
 
-          <div class="filter-pills" role="group" aria-label="Filtrar por día de registro">
-            <button class="filter-pill is-active" data-day="Todos" type="button">Todos los días</button>
-            <button class="filter-pill" data-day="Lun–Mié" type="button">Lun–Mié</button>
-            <button class="filter-pill" data-day="Jue–Sáb" type="button">Jue–Sáb</button>
+          <div class="filter-pills" role="group" aria-label="Filtrar por jornada">
+            <button class="filter-pill is-active" data-day="Todos" type="button">Todas las jornadas</button>
+            <button class="filter-pill" data-day="19 nov" type="button">19 nov</button>
+            <button class="filter-pill" data-day="20 nov" type="button">20 nov</button>
+            <button class="filter-pill" data-day="21 nov" type="button">21 nov</button>
           </div>
         </div>
 
         <div class="roaming-map-frame">
-          <svg id="roamingMapSvg" viewBox="0 0 1120 560" role="img" aria-label="Mapa-gráfico con glifos de calles rondando por día y lugar"></svg>
+          <svg id="roamingMapSvg" viewBox="0 0 1120 560" role="img" aria-label="Mapa-gráfico con glifos rondando por día y lugar"></svg>
         </div>
       </section>
     </div>
@@ -1076,7 +1109,7 @@
           <span id="variantsSummaryLabel" class="card-note">8/8 variantes visibles</span>
         </div>
         <p class="intro-p-muted" style="margin-bottom:14px;">
-          Activa o desactiva cada variante para observar cuáles se muestran en el modelo central y en el mapa-gráfico, y cuáles quedan atenuadas/excluidas.
+          Activa o desactiva cada variante para observar cuáles se muestran en el modelo asimétrico y en el mapa-gráfico, y cuáles quedan atenuadas/excluidas.
         </p>
         <div id="variantsTabGrid" class="variants-tab-grid"></div>
       </div>
@@ -1095,6 +1128,14 @@
   </main>
 
   <script>
+    /* =========================================================================
+       DATOS REALES INTEGRADOS:
+       - Chile (Valparaíso): capturas de resultados totales por calle (Serrano,
+         Cochrane, Blanco, Errázuriz).
+       - Argentina (Buenos Aires): conteo real de fichas verdes (Transitabilidad)
+         en jornadas 19 nov, 20 nov y 21 nov para Av. Paseo Colón, Azopardo,
+         Av. Ingeniero Huergo y Av. Alicia Moreau de Justo.
+       ========================================================================= */
     const STREETS = [
       {
         id: "serrano",
@@ -1102,19 +1143,19 @@
         short: "Serrano",
         city: "Valparaíso",
         territory: "Chile",
-        dayGroup: "Lun–Mié",
-        posFichas: 9,
-        negFichas: 5,
+        dayGroup: "Registro Gral.",
+        posFichas: 185,
+        negFichas: 44,
         mapHome: [260, 210],
         vars: {
-          materialidad: { label: "Materialidad", val: "3/5", score: 3, max: 5, detail: "Baldosa / Hormigón", just: "Materialidad 3/5 en Serrano: alterna baldosa y hormigón con desgaste local; modula el grosor del pétalo." },
-          desniveles: { label: "Desniveles", val: "2/5", score: 2, max: 5, detail: "Pendiente moderada", just: "Desniveles 2/5 en Serrano: pendiente moderada entre plan y borde." },
-          obstaculos: { label: "Obstáculos", val: "3/5", score: 3, max: 5, detail: "3 registros", just: "Obstáculos 3/5 en Serrano: interrupciones puntuales en la franja peatonal." },
-          flujo: { label: "Flujo peatonal", val: "4/5", score: 4, max: 5, detail: "Medio-alto", just: "Flujo peatonal 4/5 en Serrano: circulación constante." },
-          dificultad: { label: "Dificultad", val: "2/5", score: 2, max: 5, detail: "Moderada", just: "Dificultad 2/5 en Serrano: exigencia moderada en transiciones." },
-          continuidad: { label: "Continuidad", val: "3/5", score: 3, max: 5, detail: "Parcial", just: "Continuidad 3/5 en Serrano: tramos continuos con pausas de solado." },
-          esfuerzo: { label: "Esfuerzo físico", val: "2/5", score: 2, max: 5, detail: "Moderado", just: "Esfuerzo físico 2/5 en Serrano: marcha sostenida." },
-          estabilidad: { label: "Estabilidad", val: "3/5", score: 3, max: 5, detail: "Variable", just: "Estabilidad 3/5 en Serrano: apoyo variable según el paño." }
+          materialidad: { label: "Materialidad", val: "3/5", score: 3, max: 5, just: "Serrano (Valparaíso, 185+ / 44−): materialidad 3/5 con desgaste en tramos de baldosa y hormigón." },
+          desniveles: { label: "Desniveles", val: "3/5", score: 3, max: 5, just: "Serrano (Valparaíso): desniveles 3/5 en conexión hacia cerros y borde." },
+          obstaculos: { label: "Obstáculos", val: "2/5", score: 2, max: 5, just: "Serrano (Valparaíso): obstáculos 2/5 con estrechamientos puntuales." },
+          flujo: { label: "Flujo peatonal", val: "4/5", score: 4, max: 5, just: "Serrano (Valparaíso): flujo peatonal 4/5 con alta valoración positiva (185 fichas)." },
+          dificultad: { label: "Dificultad", val: "2/5", score: 2, max: 5, just: "Serrano (Valparaíso): dificultad 2/5." },
+          continuidad: { label: "Continuidad", val: "4/5", score: 4, max: 5, just: "Serrano (Valparaíso): continuidad 4/5." },
+          esfuerzo: { label: "Esfuerzo físico", val: "2/5", score: 2, max: 5, just: "Serrano (Valparaíso): esfuerzo físico 2/5." },
+          estabilidad: { label: "Estabilidad", val: "3/5", score: 3, max: 5, just: "Serrano (Valparaíso): estabilidad 3/5." }
         }
       },
       {
@@ -1123,19 +1164,19 @@
         short: "Cochrane",
         city: "Valparaíso",
         territory: "Chile",
-        dayGroup: "Jue–Sáb",
-        posFichas: 5,
-        negFichas: 4,
-        mapHome: [330, 340],
+        dayGroup: "Registro Gral.",
+        posFichas: 29,
+        negFichas: 99,
+        mapHome: [335, 335],
         vars: {
-          materialidad: { label: "Materialidad", val: "2/5", score: 2, max: 5, detail: "Pavimento mixto", just: "Materialidad 2/5 en Cochrane: superficie reparada por tramos." },
-          desniveles: { label: "Desniveles", val: "1/5", score: 1, max: 5, detail: "Leve", just: "Desniveles 1/5 en Cochrane: perfil de baja pendiente." },
-          obstaculos: { label: "Obstáculos", val: "4/5", score: 4, max: 5, detail: "4 registros", just: "Obstáculos 4/5 en Cochrane: presencia frecuente de elementos en borde." },
-          flujo: { label: "Flujo peatonal", val: "3/5", score: 3, max: 5, detail: "Medio", just: "Flujo peatonal 3/5 en Cochrane." },
-          dificultad: { label: "Dificultad", val: "3/5", score: 3, max: 5, detail: "Media-alta", just: "Dificultad 3/5 en Cochrane: desvíos por ocupación de acera." },
-          continuidad: { label: "Continuidad", val: "2/5", score: 2, max: 5, detail: "Discontinua", just: "Continuidad 2/5 en Cochrane: tramos fragmentados." },
-          esfuerzo: { label: "Esfuerzo físico", val: "2/5", score: 2, max: 5, detail: "Moderado", just: "Esfuerzo físico 2/5 en Cochrane." },
-          estabilidad: { label: "Estabilidad", val: "2/5", score: 2, max: 5, detail: "Irregular", just: "Estabilidad 2/5 en Cochrane: apoyo irregular." }
+          materialidad: { label: "Materialidad", val: "2/5", score: 2, max: 5, just: "Cochrane (Valparaíso, 29+ / 99−): materialidad 2/5 con pavimentos irregulares." },
+          desniveles: { label: "Desniveles", val: "2/5", score: 2, max: 5, just: "Cochrane (Valparaíso): desniveles 2/5." },
+          obstaculos: { label: "Obstáculos", val: "4/5", score: 4, max: 5, just: "Cochrane (Valparaíso): obstáculos 4/5 inciden en el alto conteo negativo (99 fichas)." },
+          flujo: { label: "Flujo peatonal", val: "3/5", score: 3, max: 5, just: "Cochrane (Valparaíso): flujo peatonal 3/5." },
+          dificultad: { label: "Dificultad", val: "4/5", score: 4, max: 5, just: "Cochrane (Valparaíso): dificultad 4/5." },
+          continuidad: { label: "Continuidad", val: "2/5", score: 2, max: 5, just: "Cochrane (Valparaíso): continuidad 2/5." },
+          esfuerzo: { label: "Esfuerzo físico", val: "3/5", score: 3, max: 5, just: "Cochrane (Valparaíso): esfuerzo físico 3/5." },
+          estabilidad: { label: "Estabilidad", val: "2/5", score: 2, max: 5, just: "Cochrane (Valparaíso): estabilidad 2/5." }
         }
       },
       {
@@ -1144,19 +1185,19 @@
         short: "Blanco",
         city: "Valparaíso",
         territory: "Chile",
-        dayGroup: "Lun–Mié",
-        posFichas: 7,
-        negFichas: 7,
+        dayGroup: "Registro Gral.",
+        posFichas: 19,
+        negFichas: 94,
         mapHome: [195, 315],
         vars: {
-          materialidad: { label: "Materialidad", val: "3/5", score: 3, max: 5, detail: "Baldosa / Asfalto", just: "Materialidad 3/5 en Blanco: aceras con desgaste en bordes." },
-          desniveles: { label: "Desniveles", val: "1/5", score: 1, max: 5, detail: "Leve", just: "Desniveles 1/5 en Blanco: trazado lineal." },
-          obstaculos: { label: "Obstáculos", val: "3/5", score: 3, max: 5, detail: "3 registros", just: "Obstáculos 3/5 en Blanco." },
-          flujo: { label: "Flujo peatonal", val: "5/5", score: 5, max: 5, detail: "Alto", just: "Flujo peatonal 5/5 en Blanco: alta concurrencia." },
-          dificultad: { label: "Dificultad", val: "2/5", score: 2, max: 5, detail: "Moderada", just: "Dificultad 2/5 en Blanco." },
-          continuidad: { label: "Continuidad", val: "4/5", score: 4, max: 5, detail: "Alta", just: "Continuidad 4/5 en Blanco." },
-          esfuerzo: { label: "Esfuerzo físico", val: "1/5", score: 1, max: 5, detail: "Leve", just: "Esfuerzo físico 1/5 en Blanco." },
-          estabilidad: { label: "Estabilidad", val: "4/5", score: 4, max: 5, detail: "Media-alta", just: "Estabilidad 4/5 en Blanco." }
+          materialidad: { label: "Materialidad", val: "2/5", score: 2, max: 5, just: "Blanco (Valparaíso, 19+ / 94−): materialidad 2/5 con deterioro en bordes." },
+          desniveles: { label: "Desniveles", val: "1/5", score: 1, max: 5, just: "Blanco (Valparaíso): desniveles 1/5." },
+          obstaculos: { label: "Obstáculos", val: "4/5", score: 4, max: 5, just: "Blanco (Valparaíso): obstáculos 4/5 con fuerte presencia negativa (94 fichas)." },
+          flujo: { label: "Flujo peatonal", val: "4/5", score: 4, max: 5, just: "Blanco (Valparaíso): flujo peatonal 4/5." },
+          dificultad: { label: "Dificultad", val: "4/5", score: 4, max: 5, just: "Blanco (Valparaíso): dificultad 4/5." },
+          continuidad: { label: "Continuidad", val: "2/5", score: 2, max: 5, just: "Blanco (Valparaíso): continuidad 2/5." },
+          esfuerzo: { label: "Esfuerzo físico", val: "2/5", score: 2, max: 5, just: "Blanco (Valparaíso): esfuerzo físico 2/5." },
+          estabilidad: { label: "Estabilidad", val: "2/5", score: 2, max: 5, just: "Blanco (Valparaíso): estabilidad 2/5." }
         }
       },
       {
@@ -1165,19 +1206,19 @@
         short: "Errázuriz",
         city: "Valparaíso",
         territory: "Chile",
-        dayGroup: "Jue–Sáb",
-        posFichas: 6,
-        negFichas: 2,
+        dayGroup: "Registro Gral.",
+        posFichas: 75,
+        negFichas: 72,
         mapHome: [275, 425],
         vars: {
-          materialidad: { label: "Materialidad", val: "4/5", score: 4, max: 5, detail: "Hormigón / Baldosa", just: "Materialidad 4/5 en Errázuriz: superficie amplia." },
-          desniveles: { label: "Desniveles", val: "1/5", score: 1, max: 5, detail: "Leve", just: "Desniveles 1/5 en Errázuriz." },
-          obstaculos: { label: "Obstáculos", val: "1/5", score: 1, max: 5, detail: "1 registro", just: "Obstáculos 1/5 en Errázuriz." },
-          flujo: { label: "Flujo peatonal", val: "3/5", score: 3, max: 5, detail: "Medio", just: "Flujo peatonal 3/5 en Errázuriz." },
-          dificultad: { label: "Dificultad", val: "1/5", score: 1, max: 5, detail: "Baja", just: "Dificultad 1/5 en Errázuriz." },
-          continuidad: { label: "Continuidad", val: "4/5", score: 4, max: 5, detail: "Alta", just: "Continuidad 4/5 en Errázuriz." },
-          esfuerzo: { label: "Esfuerzo físico", val: "1/5", score: 1, max: 5, detail: "Bajo", just: "Esfuerzo físico 1/5 en Errázuriz." },
-          estabilidad: { label: "Estabilidad", val: "4/5", score: 4, max: 5, detail: "Alta", just: "Estabilidad 4/5 en Errázuriz." }
+          materialidad: { label: "Materialidad", val: "3/5", score: 3, max: 5, just: "Errázuriz (Valparaíso, 75+ / 72−): materialidad 3/5 en franja amplia." },
+          desniveles: { label: "Desniveles", val: "1/5", score: 1, max: 5, just: "Errázuriz (Valparaíso): desniveles 1/5." },
+          obstaculos: { label: "Obstáculos", val: "3/5", score: 3, max: 5, just: "Errázuriz (Valparaíso): obstáculos 3/5." },
+          flujo: { label: "Flujo peatonal", val: "3/5", score: 3, max: 5, just: "Errázuriz (Valparaíso): flujo peatonal 3/5." },
+          dificultad: { label: "Dificultad", val: "3/5", score: 3, max: 5, just: "Errázuriz (Valparaíso): dificultad 3/5 en equilibrio entre 75+ y 72−." },
+          continuidad: { label: "Continuidad", val: "3/5", score: 3, max: 5, just: "Errázuriz (Valparaíso): continuidad 3/5." },
+          esfuerzo: { label: "Esfuerzo físico", val: "2/5", score: 2, max: 5, just: "Errázuriz (Valparaíso): esfuerzo físico 2/5." },
+          estabilidad: { label: "Estabilidad", val: "3/5", score: 3, max: 5, just: "Errázuriz (Valparaíso): estabilidad 3/5." }
         }
       },
       {
@@ -1186,19 +1227,24 @@
         short: "Paseo Colón",
         city: "Buenos Aires",
         territory: "Argentina",
-        dayGroup: "Lun–Mié",
-        posFichas: 5,
-        negFichas: 5,
+        dayGroup: "19 nov",
+        posFichas: 9,  // 4 (19 nov) + 4 (20 nov) + 1 (21 nov)
+        negFichas: 5,  // 2 (19 nov) + 1 (20 nov) + 2 (21 nov)
+        byDay: {
+          "19 nov": { pos: 4, neg: 2 },
+          "20 nov": { pos: 4, neg: 1 },
+          "21 nov": { pos: 1, neg: 2 }
+        },
         mapHome: [780, 200],
         vars: {
-          materialidad: { label: "Materialidad", val: "3/5", score: 3, max: 5, detail: "Baldosa / Hormigón", just: "Materialidad 3/5 en Paseo Colón: alternancia entre cuadras." },
-          desniveles: { label: "Desniveles", val: "1/5", score: 1, max: 5, detail: "Leve", just: "Desniveles 1/5 en Paseo Colón." },
-          obstaculos: { label: "Obstáculos", val: "4/5", score: 4, max: 5, detail: "4 registros", just: "Obstáculos 4/5 en Paseo Colón." },
-          flujo: { label: "Flujo peatonal", val: "5/5", score: 5, max: 5, detail: "Alto", just: "Flujo peatonal 5/5 en Paseo Colón." },
-          dificultad: { label: "Dificultad", val: "3/5", score: 3, max: 5, detail: "Media-alta", just: "Dificultad 3/5 en Paseo Colón." },
-          continuidad: { label: "Continuidad", val: "3/5", score: 3, max: 5, detail: "Parcial", just: "Continuidad 3/5 en Paseo Colón." },
-          esfuerzo: { label: "Esfuerzo físico", val: "2/5", score: 2, max: 5, detail: "Moderado", just: "Esfuerzo físico 2/5 en Paseo Colón." },
-          estabilidad: { label: "Estabilidad", val: "3/5", score: 3, max: 5, detail: "Media", just: "Estabilidad 3/5 en Paseo Colón." }
+          materialidad: { label: "Materialidad", val: "3/5", score: 3, max: 5, just: "Av. Paseo Colón (Buenos Aires, 9+ / 5−): 19 nov (4+/2−), 20 nov (4+/1−), 21 nov (1+/2−)." },
+          desniveles: { label: "Desniveles", val: "1/5", score: 1, max: 5, just: "Av. Paseo Colón (Buenos Aires): desniveles 1/5." },
+          obstaculos: { label: "Obstáculos", val: "3/5", score: 3, max: 5, just: "Av. Paseo Colón (Buenos Aires): obstáculos 3/5." },
+          flujo: { label: "Flujo peatonal", val: "4/5", score: 4, max: 5, just: "Av. Paseo Colón (Buenos Aires): flujo peatonal 4/5." },
+          dificultad: { label: "Dificultad", val: "2/5", score: 2, max: 5, just: "Av. Paseo Colón (Buenos Aires): dificultad 2/5." },
+          continuidad: { label: "Continuidad", val: "3/5", score: 3, max: 5, just: "Av. Paseo Colón (Buenos Aires): continuidad 3/5." },
+          esfuerzo: { label: "Esfuerzo físico", val: "2/5", score: 2, max: 5, just: "Av. Paseo Colón (Buenos Aires): esfuerzo físico 2/5." },
+          estabilidad: { label: "Estabilidad", val: "3/5", score: 3, max: 5, just: "Av. Paseo Colón (Buenos Aires): estabilidad 3/5." }
         }
       },
       {
@@ -1207,19 +1253,24 @@
         short: "Azopardo",
         city: "Buenos Aires",
         territory: "Argentina",
-        dayGroup: "Jue–Sáb",
-        posFichas: 5,
-        negFichas: 4,
+        dayGroup: "20 nov",
+        posFichas: 5,  // 0 (19 nov) + 2 (20 nov) + 3 (21 nov)
+        negFichas: 4,  // 2 (19 nov) + 1 (20 nov) + 1 (21 nov)
+        byDay: {
+          "19 nov": { pos: 0, neg: 2 },
+          "20 nov": { pos: 2, neg: 1 },
+          "21 nov": { pos: 3, neg: 1 }
+        },
         mapHome: [870, 290],
         vars: {
-          materialidad: { label: "Materialidad", val: "3/5", score: 3, max: 5, detail: "Baldosa / Pavimento", just: "Materialidad 3/5 en Azopardo." },
-          desniveles: { label: "Desniveles", val: "1/5", score: 1, max: 5, detail: "Leve", just: "Desniveles 1/5 en Azopardo." },
-          obstaculos: { label: "Obstáculos", val: "3/5", score: 3, max: 5, detail: "3 registros", just: "Obstáculos 3/5 en Azopardo." },
-          flujo: { label: "Flujo peatonal", val: "3/5", score: 3, max: 5, detail: "Medio", just: "Flujo peatonal 3/5 en Azopardo." },
-          dificultad: { label: "Dificultad", val: "2/5", score: 2, max: 5, detail: "Moderada", just: "Dificultad 2/5 en Azopardo." },
-          continuidad: { label: "Continuidad", val: "3/5", score: 3, max: 5, detail: "Parcial", just: "Continuidad 3/5 en Azopardo." },
-          esfuerzo: { label: "Esfuerzo físico", val: "2/5", score: 2, max: 5, detail: "Moderado", just: "Esfuerzo físico 2/5 en Azopardo." },
-          estabilidad: { label: "Estabilidad", val: "3/5", score: 3, max: 5, detail: "Media", just: "Estabilidad 3/5 en Azopardo." }
+          materialidad: { label: "Materialidad", val: "3/5", score: 3, max: 5, just: "Azopardo (Buenos Aires, 5+ / 4−): 19 nov (0+/2−), 20 nov (2+/1−), 21 nov (3+/1−)." },
+          desniveles: { label: "Desniveles", val: "1/5", score: 1, max: 5, just: "Azopardo (Buenos Aires): desniveles 1/5." },
+          obstaculos: { label: "Obstáculos", val: "3/5", score: 3, max: 5, just: "Azopardo (Buenos Aires): obstáculos 3/5." },
+          flujo: { label: "Flujo peatonal", val: "3/5", score: 3, max: 5, just: "Azopardo (Buenos Aires): flujo peatonal 3/5." },
+          dificultad: { label: "Dificultad", val: "2/5", score: 2, max: 5, just: "Azopardo (Buenos Aires): dificultad 2/5." },
+          continuidad: { label: "Continuidad", val: "3/5", score: 3, max: 5, just: "Azopardo (Buenos Aires): continuidad 3/5." },
+          esfuerzo: { label: "Esfuerzo físico", val: "2/5", score: 2, max: 5, just: "Azopardo (Buenos Aires): esfuerzo físico 2/5." },
+          estabilidad: { label: "Estabilidad", val: "3/5", score: 3, max: 5, just: "Azopardo (Buenos Aires): estabilidad 3/5." }
         }
       },
       {
@@ -1228,19 +1279,24 @@
         short: "Ing. Huergo",
         city: "Buenos Aires",
         territory: "Argentina",
-        dayGroup: "Lun–Mié",
-        posFichas: 7,
-        negFichas: 7,
+        dayGroup: "21 nov",
+        posFichas: 7,  // 3 (19 nov) + 2 (20 nov) + 2 (21 nov)
+        negFichas: 7,  // 1 (19 nov) + 0 (20 nov) + 6 (21 nov)
+        byDay: {
+          "19 nov": { pos: 3, neg: 1 },
+          "20 nov": { pos: 2, neg: 0 },
+          "21 nov": { pos: 2, neg: 6 }
+        },
         mapHome: [760, 365],
         vars: {
-          materialidad: { label: "Materialidad", val: "3/5", score: 3, max: 5, detail: "Hormigón / Baldosa", just: "Materialidad 3/5 en Ing. Huergo." },
-          desniveles: { label: "Desniveles", val: "2/5", score: 2, max: 5, detail: "Moderado", just: "Desniveles 2/5 en Ing. Huergo." },
-          obstaculos: { label: "Obstáculos", val: "4/5", score: 4, max: 5, detail: "4 registros", just: "Obstáculos 4/5 en Ing. Huergo." },
-          flujo: { label: "Flujo peatonal", val: "2/5", score: 2, max: 5, detail: "Medio-bajo", just: "Flujo peatonal 2/5 en Ing. Huergo." },
-          dificultad: { label: "Dificultad", val: "3/5", score: 3, max: 5, detail: "Media-alta", just: "Dificultad 3/5 en Ing. Huergo." },
-          continuidad: { label: "Continuidad", val: "2/5", score: 2, max: 5, detail: "Discontinua", just: "Continuidad 2/5 en Ing. Huergo." },
-          esfuerzo: { label: "Esfuerzo físico", val: "2/5", score: 2, max: 5, detail: "Moderado", just: "Esfuerzo físico 2/5 en Ing. Huergo." },
-          estabilidad: { label: "Estabilidad", val: "3/5", score: 3, max: 5, detail: "Media", just: "Estabilidad 3/5 en Ing. Huergo." }
+          materialidad: { label: "Materialidad", val: "3/5", score: 3, max: 5, just: "Av. Ing. Huergo (Buenos Aires, 7+ / 7−): 19 nov (3+/1−), 20 nov (2+/0−), 21 nov (2+/6−)." },
+          desniveles: { label: "Desniveles", val: "2/5", score: 2, max: 5, just: "Av. Ing. Huergo (Buenos Aires): desniveles 2/5." },
+          obstaculos: { label: "Obstáculos", val: "4/5", score: 4, max: 5, just: "Av. Ing. Huergo (Buenos Aires): obstáculos 4/5 (destaca 6− el 21 nov)." },
+          flujo: { label: "Flujo peatonal", val: "3/5", score: 3, max: 5, just: "Av. Ing. Huergo (Buenos Aires): flujo peatonal 3/5." },
+          dificultad: { label: "Dificultad", val: "3/5", score: 3, max: 5, just: "Av. Ing. Huergo (Buenos Aires): dificultad 3/5." },
+          continuidad: { label: "Continuidad", val: "2/5", score: 2, max: 5, just: "Av. Ing. Huergo (Buenos Aires): continuidad 2/5." },
+          esfuerzo: { label: "Esfuerzo físico", val: "2/5", score: 2, max: 5, just: "Av. Ing. Huergo (Buenos Aires): esfuerzo físico 2/5." },
+          estabilidad: { label: "Estabilidad", val: 3, max: 5, val: "3/5", just: "Av. Ing. Huergo (Buenos Aires): estabilidad 3/5." }
         }
       },
       {
@@ -1249,19 +1305,24 @@
         short: "Alicia M. de Justo",
         city: "Buenos Aires",
         territory: "Argentina",
-        dayGroup: "Jue–Sáb",
-        posFichas: 6,
-        negFichas: 2,
+        dayGroup: "19 nov",
+        posFichas: 4,  // 2 (19 nov) + 2 (20 nov) + 0 (21 nov)
+        negFichas: 2,  // 1 (19 nov) + 0 (20 nov) + 1 (21 nov)
+        byDay: {
+          "19 nov": { pos: 2, neg: 1 },
+          "20 nov": { pos: 2, neg: 0 },
+          "21 nov": { pos: 0, neg: 1 }
+        },
         mapHome: [865, 430],
         vars: {
-          materialidad: { label: "Materialidad", val: "4/5", score: 4, max: 5, detail: "Piedra / Baldosa", just: "Materialidad 4/5 en Alicia Moreau de Justo: paseo consolidado." },
-          desniveles: { label: "Desniveles", val: "1/5", score: 1, max: 5, detail: "Leve", just: "Desniveles 1/5 en Alicia Moreau de Justo." },
-          obstaculos: { label: "Obstáculos", val: "1/5", score: 1, max: 5, detail: "1 registro", just: "Obstáculos 1/5 en Alicia Moreau de Justo." },
-          flujo: { label: "Flujo peatonal", val: "5/5", score: 5, max: 5, detail: "Alto", just: "Flujo peatonal 5/5 en Alicia Moreau de Justo." },
-          dificultad: { label: "Dificultad", val: "1/5", score: 1, max: 5, detail: "Baja", just: "Dificultad 1/5 en Alicia Moreau de Justo." },
-          continuidad: { label: "Continuidad", val: "5/5", score: 5, max: 5, detail: "Alta", just: "Continuidad 5/5 en Alicia Moreau de Justo." },
-          esfuerzo: { label: "Esfuerzo físico", val: "1/5", score: 1, max: 5, detail: "Bajo", just: "Esfuerzo físico 1/5 en Alicia Moreau de Justo." },
-          estabilidad: { label: "Estabilidad", val: "4/5", score: 4, max: 5, detail: "Alta", just: "Estabilidad 4/5 en Alicia Moreau de Justo." }
+          materialidad: { label: "Materialidad", val: "4/5", score: 4, max: 5, just: "Av. Alicia Moreau de Justo (Buenos Aires, 4+ / 2−): 19 nov (2+/1−), 20 nov (2+/0−), 21 nov (0+/1−)." },
+          desniveles: { label: "Desniveles", val: "1/5", score: 1, max: 5, just: "Av. Alicia Moreau de Justo (Buenos Aires): desniveles 1/5." },
+          obstaculos: { label: "Obstáculos", val: "1/5", score: 1, max: 5, just: "Av. Alicia Moreau de Justo (Buenos Aires): obstáculos 1/5." },
+          flujo: { label: "Flujo peatonal", val: "4/5", score: 4, max: 5, just: "Av. Alicia Moreau de Justo (Buenos Aires): flujo peatonal 4/5." },
+          dificultad: { label: "Dificultad", val: "1/5", score: 1, max: 5, just: "Av. Alicia Moreau de Justo (Buenos Aires): dificultad 1/5." },
+          continuidad: { label: "Continuidad", val: "4/5", score: 4, max: 5, just: "Av. Alicia Moreau de Justo (Buenos Aires): continuidad 4/5." },
+          esfuerzo: { label: "Esfuerzo físico", val: "1/5", score: 1, max: 5, just: "Av. Alicia Moreau de Justo (Buenos Aires): esfuerzo físico 1/5." },
+          estabilidad: { label: "Estabilidad", val: 4, max: 5, val: "4/5", just: "Av. Alicia Moreau de Justo (Buenos Aires): estabilidad 4/5." }
         }
       }
     ];
@@ -1279,6 +1340,7 @@
 
     const state = {
       territory: "Ambos",
+      morphMode: "total", // 'total' | 'chile' | 'argentina' | 'calle'
       dayFilter: "Todos",
       activeTab: "modelo",
       selectedStreetId: "serrano",
@@ -1299,7 +1361,7 @@
       motionPhase: 0
     };
 
-    /* ==================== MOTOR DE SONIDO AMBIENTAL CON WEB AUDIO API ==================== */
+    /* ==================== SONIDO AMBIENTAL ==================== */
     let audioCtx = null;
     let masterGain = null;
     let droneOscA = null;
@@ -1324,8 +1386,8 @@
           droneOscB = audioCtx.createOscillator();
           droneOscA.type = "sine";
           droneOscB.type = "triangle";
-          droneOscA.frequency.value = 146.83; // D3
-          droneOscB.frequency.value = 220.0;  // A3
+          droneOscA.frequency.value = 146.83;
+          droneOscB.frequency.value = 220.0;
 
           const subGain = audioCtx.createGain();
           subGain.gain.value = 0.35;
@@ -1372,9 +1434,11 @@
       return VAR_KEYS[state.focusedVarIdx] || "materialidad";
     }
 
-    function getVisibleStreets() {
-      if (state.territory === "Ambos") return STREETS;
-      return STREETS.filter((s) => s.territory === state.territory);
+    function getStreetFichasForDay(st) {
+      if (state.dayFilter !== "Todos" && st.byDay && st.byDay[state.dayFilter]) {
+        return st.byDay[state.dayFilter];
+      }
+      return { pos: st.posFichas, neg: st.negFichas };
     }
 
     function setJustification(title, desc) {
@@ -1382,133 +1446,191 @@
       document.getElementById("justDesc").textContent = desc;
     }
 
-    /* ==================== VISUALIZACIÓN CENTRAL ARMÓNICA ==================== */
+    /* ==================== VISUALIZACIÓN CENTRAL ASIMÉTRICA ==================== */
     function renderAtlasSvg() {
       const svg = document.getElementById("atlasSvg");
       const street = getStreet(state.selectedStreetId);
-      const visibleStreets = getVisibleStreets();
       const fKey = getFocusedVarKey();
       const fVar = street.vars[fKey];
 
       document.getElementById("categoryTitle").textContent = `${fVar.label} · ${fVar.val}`;
       document.getElementById("categorySub").textContent =
-        `${fVar.detail} (${state.focusedVarIdx + 1}/${VAR_KEYS.length})`;
+        `Usa las flechas ‹ › para cambiar categoría (${state.focusedVarIdx + 1}/${VAR_KEYS.length})`;
       document.getElementById("activeVarStatus").textContent =
         `Categoría: ${fVar.label} (${fVar.val})`;
 
+      const modeLabels = {
+        total: "Total + Tendencias",
+        chile: "Solo Chile + Tendencias",
+        argentina: "Solo Buenos Aires + Tendencias",
+        calle: `Calle: ${street.short} (Densidad)`
+      };
+      document.getElementById("morphModeLabel").textContent = modeLabels[state.morphMode];
+
       const cx = 430;
       const cy = 330;
-      const posPeople = street.posFichas / 5;
-      const negPeople = street.negFichas / 5;
 
-      const chileMuted = state.territory === "Argentina" ? "is-muted" : "";
-      const argMuted = state.territory === "Chile" ? "is-muted" : "";
+      if (state.morphMode === "calle") {
+        const fData = getStreetFichasForDay(street);
+        const posP = fData.pos / 5;
+        const negP = fData.neg / 5;
 
-      const territoryArcs = `
-        <path class="part-interactive ${chileMuted}"
-              d="M ${cx} ${cy - 252} A 252 252 0 0 0 ${cx} ${cy + 252}"
-              fill="none" stroke="#1F7A52" stroke-width="2.2" opacity="0.72"
-              data-jtitle="Arco Oeste · Chile (Valparaíso)"
-              data-jdesc="Justificación: agrupa las 4 calles de Valparaíso en el arco izquierdo con la misma escala de equivalencia (5 fichas = 1 persona)." />
+        let polyPts = [];
+        let raysSvg = "";
 
-        <path class="part-interactive ${argMuted}"
-              d="M ${cx} ${cy - 252} A 252 252 0 0 1 ${cx} ${cy + 252}"
-              fill="none" stroke="#B8863B" stroke-width="2.2" opacity="0.72"
-              data-jtitle="Arco Este · Argentina (Buenos Aires)"
-              data-jdesc="Justificación: agrupa las 4 calles de Buenos Aires en el arco derecho para contrastar su transitabilidad en escala 1/5." />
-      `;
+        VAR_KEYS.forEach((k, idx) => {
+          const vObj = street.vars[k];
+          const isOn = state.visibleVars[k];
+          const baseAngle = (idx / VAR_KEYS.length) * Math.PI * 2 - Math.PI / 2;
+          const angle = baseAngle + Math.sin(idx * 1.7) * 0.07;
+          const length = isOn ? 78 + vObj.score * 36 : 58;
 
-      const chileList = STREETS.filter((s) => s.territory === "Chile");
-      const argList = STREETS.filter((s) => s.territory === "Argentina");
+          const xEnd = cx + Math.cos(angle) * length;
+          const yEnd = cy + Math.sin(angle) * length;
+          if (isOn) polyPts.push(`${xEnd.toFixed(1)},${yEnd.toFixed(1)}`);
 
-      let petalsSvg = "";
-      STREETS.forEach((st) => {
-        const isChile = st.territory === "Chile";
-        const list = isChile ? chileList : argList;
-        const idx = list.findIndex((x) => x.id === st.id);
+          const lx = cx + Math.cos(angle) * (length + 22);
+          const ly = cy + Math.sin(angle) * (length + 22);
 
-        const span = Math.PI * 0.64;
-        const startA = isChile ? Math.PI - span / 2 : -span / 2;
-        const sway = Math.sin(state.motionPhase * 0.04 + idx) * 0.016;
-        const angle = startA + ((idx + 0.5) / list.length) * span + sway;
+          raysSvg += `
+            <g class="part-interactive ${!isOn ? "is-muted" : ""}"
+               data-vidx="${idx}"
+               data-jtitle="${street.name} · ${vObj.label} (${vObj.val})"
+               data-jdesc="${vObj.just} Radio de ${Math.round(length)}px según puntaje ${vObj.val}.">
+              <line x1="${cx}" y1="${cy}" x2="${xEnd.toFixed(1)}" y2="${yEnd.toFixed(1)}"
+                    stroke="#1F7A52" stroke-width="${1.5 + vObj.score * 0.7}" />
+              <circle cx="${xEnd.toFixed(1)}" cy="${yEnd.toFixed(1)}" r="${4 + vObj.score * 1.1}" fill="#1F7A52" />
+              <text x="${lx.toFixed(1)}" y="${ly.toFixed(1)}"
+                    text-anchor="${Math.cos(angle) < -0.15 ? "end" : Math.cos(angle) > 0.15 ? "start" : "middle"}"
+                    dominant-baseline="middle"
+                    font-family="Montserrat, sans-serif" font-size="10" font-weight="700" fill="#171D19">
+                ${vObj.label} ${vObj.val}
+              </text>
+            </g>
+          `;
+        });
 
-        const isTerrOn = visibleStreets.some((v) => v.id === st.id);
-        const isSelected = st.id === state.selectedStreetId;
-        const catObj = st.vars[fKey];
-        const catVisible = state.visibleVars[fKey];
+        const polyShape = polyPts.length >= 3
+          ? `<polygon points="${polyPts.join(" ")}" fill="rgba(31, 122, 82, 0.15)" stroke="#1F7A52" stroke-width="2" />`
+          : "";
 
-        const rInner = 66;
-        const rOuter = 172 + catObj.score * 16;
-
-        const x0 = cx + Math.cos(angle) * rInner;
-        const y0 = cy + Math.sin(angle) * rInner;
-
-        const xl = cx + Math.cos(angle - 0.09) * (rOuter * 0.72);
-        const yl = cy + Math.sin(angle - 0.09) * (rOuter * 0.72);
-        const xr = cx + Math.cos(angle + 0.09) * (rOuter * 0.72);
-        const yr = cy + Math.sin(angle + 0.09) * (rOuter * 0.72);
-
-        const xt = cx + Math.cos(angle) * rOuter;
-        const yt = cy + Math.sin(angle) * rOuter;
-
-        const lx = cx + Math.cos(angle) * (rOuter + 28);
-        const ly = cy + Math.sin(angle) * (rOuter + 28);
-
-        const fillCol = isSelected
-          ? "rgba(31, 122, 82, 0.22)"
-          : isChile
-          ? "rgba(31, 122, 82, 0.06)"
-          : "rgba(184, 134, 59, 0.08)";
-        const strokeCol = isSelected ? "#1F7A52" : isChile ? "#1F7A52" : "#B8863B";
-
-        petalsSvg += `
-          <g class="part-interactive ${!isTerrOn || !catVisible ? "is-muted" : ""}"
-             data-select-street="${st.id}"
-             data-jtitle="${st.short} · ${catObj.label} ${catObj.val}"
-             data-jdesc="${catObj.just} Transitabilidad: ${st.posFichas} pos (${fmtEs(st.posFichas / 5)} pers.) / ${st.negFichas} neg (${fmtEs(st.negFichas / 5)} pers.).">
-            <path d="M ${x0.toFixed(1)} ${y0.toFixed(1)} Q ${xl.toFixed(1)} ${yl.toFixed(1)} ${xt.toFixed(1)} ${yt.toFixed(1)} Q ${xr.toFixed(1)} ${yr.toFixed(1)} ${x0.toFixed(1)} ${y0.toFixed(1)}"
-                  fill="${fillCol}" stroke="${strokeCol}" stroke-width="${isSelected ? "2.3" : "1.35"}" />
-            <circle cx="${xt.toFixed(1)}" cy="${yt.toFixed(1)}" r="${isSelected ? "5.2" : "3.6"}" fill="${strokeCol}" />
-            <text x="${lx.toFixed(1)}" y="${ly.toFixed(1)}"
-                  text-anchor="${Math.cos(angle) < -0.15 ? "end" : Math.cos(angle) > 0.15 ? "start" : "middle"}"
-                  dominant-baseline="middle"
-                  font-family="Montserrat, sans-serif" font-size="10.5"
-                  font-weight="${isSelected ? "800" : "600"}" fill="#171D19">
-              ${st.short} (${catObj.val})
+        svg.innerHTML = `
+          ${polyShape}
+          ${raysSvg}
+          <g class="part-interactive"
+             data-jtitle="Núcleo de ${street.name} (${street.city})"
+             data-jdesc="Positivas: ${fData.pos} fichas (${fmtEs(posP)} pers.) · Negativas: ${fData.neg} fichas (${fmtEs(negP)} pers.). Equivalencia: fichas / 5 sin redondeo.">
+            <circle cx="${cx}" cy="${cy}" r="48" fill="#FAF8F3" stroke="#171D19" stroke-width="2" />
+            <text x="${cx}" y="${cy - 6}" text-anchor="middle"
+                  font-family="Montserrat, sans-serif" font-size="13.5" font-weight="800" fill="#1F7A52">
+              +${fmtEs(posP)} / −${fmtEs(negP)}
+            </text>
+            <text x="${cx}" y="${cy + 11}" text-anchor="middle"
+                  font-family="Montserrat, sans-serif" font-size="8.5" font-weight="700" fill="#525D56">
+              PERS. EQUIV.
             </text>
           </g>
         `;
-      });
+      } else {
+        const list =
+          state.morphMode === "chile"
+            ? STREETS.filter((s) => s.territory === "Chile")
+            : state.morphMode === "argentina"
+            ? STREETS.filter((s) => s.territory === "Argentina")
+            : STREETS;
 
-      const pulse = 56 + Math.sin(state.motionPhase * 0.08) * 2;
-      const centerSvg = `
-        <g class="part-interactive"
-           data-jtitle="Núcleo Central · ${street.name}"
-           data-jdesc="Justificación: concentra las fichas de transitabilidad divididas entre 5 sin redondear (+${fmtEs(posPeople)} positivas / −${fmtEs(negPeople)} negativas).">
-          <circle cx="${cx}" cy="${cy}" r="${pulse.toFixed(1)}" fill="#FAF8F3" stroke="#1F7A52" stroke-width="2.4" />
-          <text x="${cx}" y="${cy - 7}" text-anchor="middle"
-                font-family="Montserrat, sans-serif" font-size="14.5" font-weight="800" fill="#1F7A52">
-            +${fmtEs(posPeople)} / −${fmtEs(negPeople)}
-          </text>
-          <text x="${cx}" y="${cy + 11}" text-anchor="middle"
-                font-family="Montserrat, sans-serif" font-size="9" font-weight="700" fill="#525D56" letter-spacing="0.08em">
-            PERSONAS EQUIV.
-          </text>
-        </g>
-      `;
+        const totPos = list.reduce((acc, s) => acc + getStreetFichasForDay(s).pos, 0);
+        const totNeg = list.reduce((acc, s) => acc + getStreetFichasForDay(s).neg, 0);
+        const trendAngle = Math.atan2(totNeg - totPos, totPos + totNeg) * 1.4;
 
-      svg.innerHTML = `
-        <circle cx="${cx}" cy="${cy}" r="252" fill="none" stroke="rgba(23,29,25,0.08)" stroke-width="1" />
-        <circle cx="${cx}" cy="${cy}" r="126" fill="none" stroke="rgba(31,122,82,0.16)" stroke-width="1" stroke-dasharray="3 5" />
-        ${territoryArcs}
-        ${petalsSvg}
-        ${centerSvg}
-      `;
+        let branchesSvg = "";
+        list.forEach((st, i) => {
+          const fData = getStreetFichasForDay(st);
+          const spread = state.morphMode === "total" ? Math.PI * 1.75 : Math.PI * 1.35;
+          const start =
+            state.morphMode === "chile"
+              ? Math.PI * 0.85
+              : state.morphMode === "argentina"
+              ? -Math.PI * 0.65
+              : -Math.PI * 0.85;
+          const jitter = Math.sin(i * 2.3) * 0.08 + Math.cos(state.motionPhase * 0.03 + i) * 0.015;
+          const angle = start + (i / Math.max(1, list.length - 1)) * spread + jitter;
+
+          const vObj = st.vars[fKey];
+          const isOn = state.visibleVars[fKey];
+          const isSel = st.id === state.selectedStreetId;
+
+          const totalFichas = fData.pos + fData.neg;
+          // Escala logarítmica/suave para acomodar tanto 10–14 fichas como 229 fichas en Valparaíso
+          const armLen = isOn ? 112 + Math.log1p(totalFichas) * 24 + vObj.score * 10 : 95;
+          const thickness = isOn ? 3 + vObj.score * 1.7 : 2;
+
+          const x1 = cx + Math.cos(angle) * 58;
+          const y1 = cy + Math.sin(angle) * 58;
+          const x2 = cx + Math.cos(angle) * armLen;
+          const y2 = cy + Math.sin(angle) * armLen;
+
+          const netDelta = fData.pos - fData.neg;
+          const trendColor = netDelta >= 0 ? "#1F7A52" : "#C45B45";
+          const trendLen = 12 + Math.min(28, Math.abs(netDelta) * 0.25);
+          const tx = x2 + Math.cos(angle + (netDelta >= 0 ? -0.25 : 0.25)) * trendLen;
+          const ty = y2 + Math.sin(angle + (netDelta >= 0 ? -0.25 : 0.25)) * trendLen;
+
+          const lx = cx + Math.cos(angle) * (armLen + 32);
+          const ly = cy + Math.sin(angle) * (armLen + 32);
+
+          branchesSvg += `
+            <g class="part-interactive ${!isOn ? "is-muted" : ""}"
+               data-select-street="${st.id}"
+               data-jtitle="${st.name} (${st.city}) · ${fData.pos}+ / ${fData.neg}−"
+               data-jdesc="${vObj.just} Equivalencia: +${fmtEs(fData.pos / 5)} / −${fmtEs(fData.neg / 5)} personas.">
+              <line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}"
+                    stroke="${isSel ? "#171D19" : "#1F7A52"}" stroke-width="${thickness.toFixed(1)}" stroke-linecap="round" />
+              <line x1="${x2.toFixed(1)}" y1="${y2.toFixed(1)}" x2="${tx.toFixed(1)}" y2="${ty.toFixed(1)}"
+                    stroke="${trendColor}" stroke-width="2.6" stroke-dasharray="${netDelta >= 0 ? "none" : "4 3"}" />
+              <circle cx="${tx.toFixed(1)}" cy="${ty.toFixed(1)}" r="4.5" fill="${trendColor}" />
+              <circle cx="${x2.toFixed(1)}" cy="${y2.toFixed(1)}" r="${isSel ? "7" : "5"}"
+                      fill="#FAF8F3" stroke="${isSel ? "#171D19" : "#1F7A52"}" stroke-width="2.2" />
+              <text x="${lx.toFixed(1)}" y="${ly.toFixed(1)}"
+                    text-anchor="${Math.cos(angle) < -0.15 ? "end" : Math.cos(angle) > 0.15 ? "start" : "middle"}"
+                    dominant-baseline="middle"
+                    font-family="Montserrat, sans-serif" font-size="10"
+                    font-weight="${isSel ? "800" : "600"}" fill="#171D19">
+                ${st.short} (${fData.pos}+/${fData.neg}−)
+              </text>
+            </g>
+          `;
+        });
+
+        const gtx = cx + Math.cos(trendAngle) * 76;
+        const gty = cy + Math.sin(trendAngle) * 76;
+
+        svg.innerHTML = `
+          <line x1="${cx}" y1="${cy}" x2="${gtx.toFixed(1)}" y2="${gty.toFixed(1)}"
+                stroke="#B8863B" stroke-width="2.2" stroke-dasharray="5 4" />
+          <circle cx="${gtx.toFixed(1)}" cy="${gty.toFixed(1)}" r="6" fill="#B8863B" />
+          ${branchesSvg}
+          <g class="part-interactive"
+             data-jtitle="Núcleo de Tendencia · ${modeLabels[state.morphMode]}"
+             data-jdesc="Acumulado en vista actual: ${totPos} fichas positivas (${fmtEs(totPos / 5)} pers.) y ${totNeg} fichas negativas (${fmtEs(totNeg / 5)} pers.).">
+            <circle cx="${cx}" cy="${cy}" r="52" fill="#FAF8F3" stroke="#1F7A52" stroke-width="2.3" />
+            <text x="${cx}" y="${cy - 7}" text-anchor="middle"
+                  font-family="Montserrat, sans-serif" font-size="13.5" font-weight="800" fill="#1F7A52">
+              +${fmtEs(totPos / 5)} / −${fmtEs(totNeg / 5)}
+            </text>
+            <text x="${cx}" y="${cy + 11}" text-anchor="middle"
+                  font-family="Montserrat, sans-serif" font-size="8.5" font-weight="700" fill="#525D56">
+              TOTAL EQUIV.
+            </text>
+          </g>
+        `;
+      }
 
       svg.querySelectorAll(".part-interactive").forEach((el) => {
         const jt = el.getAttribute("data-jtitle");
         const jd = el.getAttribute("data-jdesc");
         const stId = el.getAttribute("data-select-street");
+        const vIdx = el.getAttribute("data-vidx");
 
         if (jt && jd) {
           el.addEventListener("mouseenter", () => setJustification(jt, jd));
@@ -1519,24 +1641,28 @@
             if (stId) {
               state.selectedStreetId = stId;
               renderAll();
+            } else if (vIdx !== null) {
+              state.focusedVarIdx = parseInt(vIdx, 10);
+              renderAll();
             }
           });
         }
       });
     }
 
-    /* ==================== MAPA-GRÁFICO INFERIOR CON GLIFOS RONDANDO POR DÍA Y LUGAR ==================== */
+    /* ==================== MAPA-GRÁFICO INFERIOR ==================== */
     function renderRoamingMap() {
       const mapSvg = document.getElementById("roamingMapSvg");
       const fKey = getFocusedVarKey();
 
       const filtered = STREETS.filter((s) => {
         const terrOk = state.territory === "Ambos" || s.territory === state.territory;
-        const dayOk = state.dayFilter === "Todos" || s.dayGroup === state.dayFilter;
-        return terrOk && dayOk;
+        if (!terrOk) return false;
+        if (state.dayFilter === "Todos") return true;
+        // En Buenos Aires filtra por jornada exacta; en Valparaíso muestra sus registros generales
+        return s.territory === "Chile" || (s.byDay && s.byDay[state.dayFilter]);
       });
 
-      // Zonas cartográficas esquemáticas: Valparaíso (izquierda) y Buenos Aires (derecha)
       const zonesBg = `
         <rect x="40" y="54" width="480" height="456" rx="18" fill="rgba(31,122,82,0.04)" stroke="rgba(23,29,25,0.12)" />
         <text x="64" y="84" font-family="Montserrat, sans-serif" font-size="11" font-weight="800" fill="#1F7A52" letter-spacing="0.14em">
@@ -1549,7 +1675,6 @@
         </text>
       `;
 
-      // Copias del glifo rondando por el mapa-gráfico según día y lugar
       let roamingNodes = "";
       filtered.forEach((st, idx) => {
         const wanderX = Math.cos(state.motionPhase * 0.018 + idx * 1.4) * 24;
@@ -1557,10 +1682,12 @@
         const gx = st.mapHome[0] + wanderX;
         const gy = st.mapHome[1] + wanderY;
 
+        const fData = getStreetFichasForDay(st);
         const vObj = st.vars[fKey];
         const rGlyph = 16 + vObj.score * 3.5;
         const isSel = st.id === state.selectedStreetId;
         const col = st.territory === "Chile" ? "#1F7A52" : "#B8863B";
+        const dayTag = st.territory === "Argentina" && state.dayFilter !== "Todos" ? state.dayFilter : st.dayGroup;
 
         roamingNodes += `
           <g class="roaming-glyph" transform="translate(${gx.toFixed(1)}, ${gy.toFixed(1)})"
@@ -1570,11 +1697,11 @@
             <circle cx="0" cy="0" r="${(vObj.score * 2.1).toFixed(1)}" fill="${col}" opacity="0.85" />
             <text x="0" y="${(rGlyph + 16).toFixed(1)}" text-anchor="middle"
                   font-family="Montserrat, sans-serif" font-size="9.5" font-weight="700" fill="#171D19">
-              ${st.short} · ${st.dayGroup}
+              ${st.short} · ${fData.pos}+/${fData.neg}−
             </text>
             <text x="0" y="${(rGlyph + 28).toFixed(1)}" text-anchor="middle"
                   font-family="Montserrat, sans-serif" font-size="9" font-weight="600" fill="#525D56">
-              ${vObj.label}: ${vObj.val}
+              ${dayTag} · ${vObj.label} ${vObj.val}
             </text>
           </g>
         `;
@@ -1584,7 +1711,7 @@
         ${zonesBg}
         ${roamingNodes}
         <text x="64" y="538" font-family="Montserrat, sans-serif" font-size="10" font-weight="600" fill="#525D56">
-          FILTRO DÍA: ${state.dayFilter.toUpperCase()} · TERRITORIO: ${state.territory.toUpperCase()} · CATEGORÍA: ${fKey.toUpperCase()} (1/5)
+          JORNADA: ${state.dayFilter.toUpperCase()} · TERRITORIO: ${state.territory.toUpperCase()} · CATEGORÍA: ${fKey.toUpperCase()} (1/5)
         </text>
       `;
 
@@ -1593,9 +1720,10 @@
           const sid = gEl.getAttribute("data-map-street");
           state.selectedStreetId = sid;
           const st = getStreet(sid);
+          const fData = getStreetFichasForDay(st);
           setJustification(
-            `Mapa-gráfico · ${st.name} (${st.city}, ${st.dayGroup})`,
-            `${st.vars[fKey].just} Registrado en franja ${st.dayGroup}.`
+            `Mapa-gráfico · ${st.name} (${st.city})`,
+            `${st.vars[fKey].just} Fichas en vista actual: ${fData.pos} positivas (${fmtEs(fData.pos / 5)} pers.) / ${fData.neg} negativas (${fmtEs(fData.neg / 5)} pers.).`
           );
           playCueNote(440);
           renderAll();
@@ -1651,7 +1779,7 @@
 
     /* ==================== CONTROLES Y UI ==================== */
     function renderStreetsBar() {
-      const list = getVisibleStreets();
+      const list = STREETS.filter((s) => state.territory === "Ambos" || s.territory === state.territory);
       if (!list.some((s) => s.id === state.selectedStreetId)) {
         state.selectedStreetId = list[0].id;
       }
@@ -1678,18 +1806,18 @@
 
     function renderInspector() {
       const s = getStreet(state.selectedStreetId);
-      const posP = s.posFichas / 5;
-      const negP = s.negFichas / 5;
+      const fData = getStreetFichasForDay(s);
+      const posP = fData.pos / 5;
+      const negP = fData.neg / 5;
       const fKey = getFocusedVarKey();
 
       document.getElementById("inspName").textContent = s.name;
       document.getElementById("inspCity").textContent = `${s.city} · ${s.territory}`;
-      document.getElementById("terrBadge").textContent = state.territory === "Ambos" ? "Argentina y Chile" : state.territory;
 
       document.getElementById("inspPos").textContent = fmtEs(posP);
-      document.getElementById("inspPosSub").textContent = `Positiva · ${s.posFichas} fichas / 5`;
+      document.getElementById("inspPosSub").textContent = `Positiva · ${fData.pos} fichas / 5`;
       document.getElementById("inspNeg").textContent = fmtEs(negP);
-      document.getElementById("inspNegSub").textContent = `Negativa · ${s.negFichas} fichas / 5`;
+      document.getElementById("inspNegSub").textContent = `Negativa · ${fData.neg} fichas / 5`;
 
       document.getElementById("varRows").innerHTML = VAR_KEYS.map((key, idx) => {
         const v = s.vars[key];
@@ -1755,16 +1883,18 @@
     function renderComparisonTab() {
       const a = getStreet(state.compareA);
       const b = getStreet(state.compareB);
-      const maxTot = Math.max(1, a.posFichas + a.negFichas, b.posFichas + b.negFichas);
+      const fA = getStreetFichasForDay(a);
+      const fB = getStreetFichasForDay(b);
+      const maxTot = Math.max(1, fA.pos + fA.neg, fB.pos + fB.neg);
       const opts = STREETS.map((s) => `<option value="${s.id}">${s.name} (${s.city})</option>`).join("");
 
       document.getElementById("compareTwo").innerHTML = [
-        { s: a, key: "compareA", label: "Calle A" },
-        { s: b, key: "compareB", label: "Calle B" }
+        { s: a, f: fA, key: "compareA", label: "Calle A" },
+        { s: b, f: fB, key: "compareB", label: "Calle B" }
       ]
-        .map(({ s, key, label }) => {
-          const pPos = (s.posFichas / maxTot) * 100;
-          const pNeg = (s.negFichas / maxTot) * 100;
+        .map(({ f, key, label }) => {
+          const pPos = (f.pos / maxTot) * 100;
+          const pNeg = (f.neg / maxTot) * 100;
           return `
             <div class="cmp-panel">
               <div style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
@@ -1772,7 +1902,7 @@
                 <select data-cmp-sel="${key}">${opts}</select>
               </div>
               <div class="equiv-caption" style="color:var(--ink);">
-                Positivas: <strong>${s.posFichas}</strong> (${fmtEs(s.posFichas / 5)} pers.) · Negativas: <strong>${s.negFichas}</strong> (${fmtEs(s.negFichas / 5)} pers.)
+                Positivas: <strong>${f.pos}</strong> (${fmtEs(f.pos / 5)} pers.) · Negativas: <strong>${f.neg}</strong> (${fmtEs(f.neg / 5)} pers.)
               </div>
               <div class="scale-bar">
                 <div class="scale-pos" style="width:${pPos}%"></div>
@@ -1807,7 +1937,25 @@
       renderComparisonTab();
     }
 
-    // Flechas izquierda y derecha para cambiar categoría de variable (1/5)
+    document.querySelectorAll(".morph-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const m = btn.getAttribute("data-morph");
+        state.morphMode = m;
+        if (m === "chile") state.territory = "Chile";
+        else if (m === "argentina") state.territory = "Argentina";
+        else if (m === "total") state.territory = "Ambos";
+
+        document.querySelectorAll(".morph-btn").forEach((b) => b.classList.remove("is-active"));
+        btn.classList.add("is-active");
+        document.querySelectorAll(".terr-btn").forEach((b) => {
+          b.classList.toggle("is-active", b.getAttribute("data-terr") === state.territory);
+        });
+
+        playCueNote(349.23);
+        renderAll();
+      });
+    });
+
     document.getElementById("prevCategoryBtn").addEventListener("click", () => {
       state.focusedVarIdx = (state.focusedVarIdx - 1 + VAR_KEYS.length) % VAR_KEYS.length;
       playCueNote(261.63);
@@ -1820,29 +1968,33 @@
       renderAll();
     });
 
-    // Filtro territorio
     document.querySelectorAll(".terr-btn").forEach((btn) => {
       btn.addEventListener("click", () => {
-        state.territory = btn.getAttribute("data-terr");
+        const t = btn.getAttribute("data-terr");
+        state.territory = t;
+        state.morphMode = t === "Chile" ? "chile" : t === "Argentina" ? "argentina" : "total";
+
         document.querySelectorAll(".terr-btn").forEach((b) => b.classList.remove("is-active"));
         btn.classList.add("is-active");
+        document.querySelectorAll(".morph-btn").forEach((b) => {
+          b.classList.toggle("is-active", b.getAttribute("data-morph") === state.morphMode);
+        });
+
         playCueNote(329.63);
         renderAll();
       });
     });
 
-    // Filtro día para el mapa-gráfico inferior
     document.querySelectorAll(".filter-pill[data-day]").forEach((btn) => {
       btn.addEventListener("click", () => {
         state.dayFilter = btn.getAttribute("data-day");
         document.querySelectorAll(".filter-pill[data-day]").forEach((b) => b.classList.remove("is-active"));
         btn.classList.add("is-active");
         playCueNote(392.0);
-        renderRoamingMap();
+        renderAll();
       });
     });
 
-    // Pestañas principales
     document.querySelectorAll(".ws-tab").forEach((tab) => {
       tab.addEventListener("click", () => {
         const target = tab.getAttribute("data-tab");
@@ -1868,7 +2020,6 @@
 
     document.getElementById("soundToggleBtn").addEventListener("click", toggleSound);
 
-    // Animación inicial
     const bootScreen = document.getElementById("bootScreen");
     const bootSkipBtn = document.getElementById("bootSkipBtn");
     function dismissBoot() {
